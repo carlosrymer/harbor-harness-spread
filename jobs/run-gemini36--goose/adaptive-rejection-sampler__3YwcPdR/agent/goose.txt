@@ -1,0 +1,9 @@
+Loading recipe: harbor-task
+Description: harbor task recipe
+
+
+    __( O)>  ● new session · openai bench-model
+   \____)    20260801_1 · /app
+     L L     goose is ready
+{"type":"message","message":{"id":"msg_4acbf06d-753c-4e62-9e87-eff91f47faf0","role":"assistant","created":1785604499,"content":[{"type":"systemNotification","notificationType":"creditsExhausted","msg":"Please check your account with your provider to add more credits, then resend your message to continue.","data":{"top_up_url":null}}],"metadata":{"userVisible":true,"agentVisible":false}}}
+{"type":"complete","total_tokens":0,"input_tokens":0,"output_tokens":0,"cache_read_input_tokens":0,"cache_write_input_tokens":0}

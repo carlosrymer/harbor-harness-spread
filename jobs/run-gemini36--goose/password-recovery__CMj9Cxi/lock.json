@@ -1,0 +1,71 @@
+{
+    "schema_version": 1,
+    "task": {
+        "name": "password-recovery",
+        "type": "local",
+        "digest": "sha256:df7675941ecea4dd4711af5533c1aa771e86dd4e669180b85d783387b8b8736b",
+        "source": "terminal-bench",
+        "path": "/home/user/builds/harbor-harness-spread/terminal-bench/password-recovery"
+    },
+    "install_only": false,
+    "timeout_multiplier": 1.0,
+    "agent_timeout_multiplier": 0.4,
+    "agent": {
+        "name": "goose",
+        "model_name": "openai/bench-model",
+        "skills": [],
+        "resume_trajectory": false,
+        "extra_allowed_hosts": [],
+        "kwargs": {},
+        "env": {
+            "SSL_CERT_FILE": "/ccr-ca.crt",
+            "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+            "CURL_CA_BUNDLE": "/ccr-ca.crt",
+            "NODE_EXTRA_CA_CERTS": "/ccr-ca.crt",
+            "GIT_SSL_CAINFO": "/ccr-ca.crt",
+            "PIP_CERT": "/ccr-ca.crt",
+            "CARGO_HTTP_CAINFO": "/ccr-ca.crt",
+            "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+            "OPENAI_BASE_URL": "http://172.17.0.1:4010/v1",
+            "OPENAI_API_BASE": "http://172.17.0.1:4010/v1",
+            "OPENAI_HOST": "http://172.17.0.1:4010",
+            "OPENAI_BASE_PATH": "v1/chat/completions"
+        },
+        "mcp_servers": []
+    },
+    "skills": [],
+    "environment": {
+        "type": "docker",
+        "force_build": false,
+        "delete": true,
+        "cpu_enforcement_policy": "auto",
+        "memory_enforcement_policy": "auto",
+        "mounts": [
+            {
+                "type": "bind",
+                "source": "/root/.ccr/ca-bundle.crt",
+                "target": "/ccr-ca.crt",
+                "read_only": true
+            },
+            {
+                "type": "bind",
+                "source": "/root/.local/bin/uv",
+                "target": "/usr/local/bin/uv",
+                "read_only": true
+            }
+        ],
+        "extra_docker_compose": [],
+        "kwargs": {},
+        "extra_allowed_hosts": []
+    },
+    "verifier": {
+        "env": {
+            "SSL_CERT_FILE": "/ccr-ca.crt",
+            "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+            "CURL_CA_BUNDLE": "/ccr-ca.crt",
+            "PIP_CERT": "/ccr-ca.crt",
+            "UV_NATIVE_TLS": "1"
+        },
+        "disable": false
+    }
+}
