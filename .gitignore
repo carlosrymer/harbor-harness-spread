@@ -1,0 +1,8 @@
+.venv/
+.gateway.pid
+.gateway.out
+__pycache__/
+*.pyc
+# Task definitions come from the Harbor registry (`harbor download terminal-bench@2.0`)
+# and carry the benchmark's canary strings; they are not redistributed here.
+terminal-bench/

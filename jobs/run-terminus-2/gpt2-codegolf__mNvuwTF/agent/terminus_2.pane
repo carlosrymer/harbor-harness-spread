@@ -1,0 +1,118 @@
+[?2004hroot@799767b6c56d:/app# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@799767b6c56d:/app# clear
+[?2004l[H[J[3J[?2004hroot@799767b6c56d:/app# ls -la
+[?2004ltotal 486556
+drwxr-xr-x 1 root root      4096 Oct 28  2025 [0m[01;34m.[0m
+drwxr-xr-x 1 root root      4096 Aug  1 15:56 [01;34m..[0m
+-rw-r--r-- 1 root root 497759232 Oct 28  2025 gpt2-124M.ckpt
+-rw-r--r-- 1 root root    456318 Oct 28  2025 vocab.bpe
+[?2004hroot@799767b6c56d:/app# find . -maxdepth 2 -type f | head -50
+[?2004l./gpt2-124M.ckpt
+./vocab.bpe
+[?2004hroot@799767b6c56d:/app# xxd gpt2-124M.ckpt | head -40
+[?2004lbash: xxd: command not found
+[?2004hroot@799767b6c56d:/app# python3 --version
+[?2004lPython 3.12.3
+[?2004hroot@799767b6c56d:/app# head -20 vocab.bpe
+[?2004l#version: 0.2
+Ġ t
+Ġ a
+h e
+i n
+r e
+o n
+Ġt he
+e r
+Ġ s
+a t
+Ġ w
+Ġ o
+e n
+Ġ c
+i t
+i s
+a n
+o r
+e s
+[?2004hroot@799767b6c56d:/app# python3 - <<'PY'
+[?2004l[?2004h> import struct
+[?2004l[?2004h> with open('gpt2-124M.ckpt','rb') as f:
+[?2004l[?2004h>     b=f.read(200)
+[?2004l[?2004h> print(b[:60])
+[?2004l[?2004h> print(' '.join(f'{x:02x}' for x in b[:80]))
+[?2004l[?2004h> PY
+[?2004lb'\x03\xef\xf5>\xc0\x82\x06\xbf\x90\xc8\xdb\xbe6\xe5R\xbe\xa6\xcc\x02\xbeko\xc3\xbd+\xaa\xb4\xbe\xba\x98\x9c\xbd\xef\x04<\xbd}\xb7\x19\xbds\x84a\xbc\xb67=\xbe\xf6p\xf5\xbdc\x124=\xf1\x9d-='
+03 ef f5 3e c0 82 06 bf 90 c8 db be 36 e5 52 be a6 cc 02 be 6b 6f c3 bd 2b aa b4 be ba 98 9c bd ef 04 3c bd 7d b7 19 bd 73 84 61 bc b6 37 3d be f6 70 f5 bd 63 12 34 3d f1 9d 2d 3d a9 44 a0 be 5c 1f 88 3c 26 bc b2 3e e8 db c7 be fa d8 f4 bc
+[?2004hroot@799767b6c56d:/app# python3 - <<'PY'
+[?2004l[?2004h> try:
+[?2004l[?2004h>  import torch
+[?2004l[?2004h>  ck=torch.load('gpt2-124M.ckpt',map_location='cpu')
+[?2004l[?2004h>  print(type(ck))
+[?2004l[?2004h>  if isinstance(ck,dict):
+[?2004l[?2004h>   for k,v in list(ck.items())[:10]: print(k, v.shape if hasattr(v,'shape') else type(v), v.dtype if hasattr(v,'dtype') else '')
+[?2004l[?2004h> except Exception as e: print('torch error',e)
+[?2004l[?2004h> PY
+[?2004ltorch error No module named 'torch'
+[?2004hroot@799767b6c56d:/app# python3 - <<'PY'
+[?2004l[?2004h> import struct
+[?2004l[?2004h> with open('gpt2-124M.ckpt','rb') as f:
+[?2004l[?2004h>     data=f.read()
+[?2004l[?2004h> print('len',len(data))
+[?2004l[?2004h> print('floats',len(data)//4)
+[?2004l[?2004h> # find ASCII strings
+[?2004l[?2004h> idx=0
+[?2004l[?2004h> found=[]
+[?2004l[?2004h> while True:
+[?2004l[?2004h>     i=data.find(b'model/', idx)
+[?2004l[?2004h>     if i==-1: break
+[?2004l[?2004h>     j=i
+[?2004l[?2004h>     while j<len(data) and data[j]>=32 and data[j]<127: j+=1
+[?2004l[?2004h>     found.append(data[i:j])
+[?2004l[?2004h>     idx=j
+[?2004l[?2004h> print('model/ strings', found[:50])
+[?2004l[?2004h> PY
+[?2004llen 497759232
+floats 124439808
+model/ strings []
+[?2004hroot@799767b6c56d:/app# python3 - <<'PY'
+[?2004l[?2004h> import os
+[?2004l[?2004h> print(os.path.getsize('gpt2-124M.ckpt'))
+[?2004l[?2004h> PY
+[?2004l497759232
+[?2004hroot@799767b6c56d:/app# python3 - <<'PY'
+[?2004l[?2004h> import struct
+[?2004l[?2004h> with open('gpt2-124M.ckpt','rb') as f:
+[?2004l[?2004h>     data=f.read(1024)
+[?2004l[?2004h> print('first 256 floats:')
+[?2004l[?2004h> vals=struct.unpack('<'+'f'*64, data[:256])
+[?2004l[?2004h> print(vals[:10])
+[?2004l[?2004h> PY
+[?2004lfirst 256 floats:
+(0.4803391396999359, -0.5254325866699219, -0.42926454544067383, -0.2059524953365326, -0.12773379683494568, -0.09542735666036606, -0.35286077857017517, -0.07646317780017853, -0.04590314254164696, -0.03752850368618965)
+[?2004hroot@799767b6c56d:/app# python3 - <<'PY'
+[?2004l[?2004h> import mmap, re
+[?2004l[?2004h> with open('gpt2-124M.ckpt','rb') as f:
+[?2004l[?2004h>     mm=mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ)
+[?2004l[?2004h> print('mmap len', len(mm))
+[?2004l[?2004h> # find printable runs
+[?2004l[?2004h> for m in re.finditer(b'[\x20-\x7e]{10,}', mm):
+[?2004l[?2004h>     s=m.group(0)
+[?2004l[?2004h>     if b'model' in s or b'wte' in s or b'wpe' in s or b'/h' in s:
+[?2004l[?2004h>         print(m.start(), s[:100])
+[?2004l[?2004h> PY
+[?2004lmmap len 497759232
+44990626 b')9/hH>ANF>'
+46508461 b'SJ>/ht=o\\i'
+92218150 b'-={/h=!bT>"'
+152458783 b'=M(T=Z/h=/'
+174642675 b'=F/h>%z{=%'
+206876037 b'/h=8mx= aA;'
+320196340 b'b/h;Mhv=t\\'
+326390291 b'>/h^<"*F>}'
+340558792 b'H/h;?\\"<Ne'
+414737028 b'//h<!a+=S$x'
+458266371 b'<my_>/hV>V^g='
+463450167 b'=0/h=~Lx>NW'
+[?2004hroot@799767b6c56d:/app# 

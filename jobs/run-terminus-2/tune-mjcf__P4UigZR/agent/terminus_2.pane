@@ -1,0 +1,572 @@
+[?2004hroot@ee00f8da1434:/app# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@ee00f8da1434:/app# clear
+[?2004l[H[J[3J[?2004hroot@ee00f8da1434:/app# ls -la /app
+[?2004ltotal 16
+drwxr-xr-x 1 root root 4096 Sep 13  2025 .
+drwxr-xr-x 1 root root 4096 Aug  1 15:46 ..
+-rw-r--r-- 1 root root 3112 Sep 13  2025 eval.py
+-rw-r--r-- 1 root root 1254 Sep 13  2025 model_ref.xml
+[?2004hroot@ee00f8da1434:/app# cat /app/eval.py
+[?2004limport time
+from pathlib import Path
+
+import mujoco
+import numpy as np
+
+total_sim_time = 2.0
+atol = 1e-5  # absolute tolerance for state comparison
+pctg = 0.6  # target percentage of reference model time
+n_runs = 20  # number of runs to average timing
+model_path = Path("model.xml")
+model_ref_path = Path("model_ref.xml")
+
+
+def test_correctness():
+    """Compare final states of models with potentially different timesteps"""
+    model = mujoco.MjModel.from_xml_path(str(model_path))
+    model_ref = mujoco.MjModel.from_xml_path(str(model_ref_path))
+
+    seed = np.random.randint(0, 10000)
+    final_state = simulate_model(model, seed)
+    final_state_ref = simulate_model(model_ref, seed)
+
+    # compare final states
+    state_diff = np.linalg.norm(final_state - final_state_ref)
+    print(f"Final state difference: {state_diff:.4f}")
+
+    assert np.allclose(final_state, final_state_ref, atol=atol), (
+        f"Final states differ by {state_diff}, exceeding tolerance {atol}"
+    )
+
+
+def simulate_model(model, seed):
+    """Simulate model with randomized initial qpos and return only the final state"""
+    data = mujoco.MjData(model)
+    nstep = int(total_sim_time / model.opt.timestep)
+    # jiggle initial qpos for robustness
+    rng = np.random.default_rng(seed)
+    data.qpos += rng.normal(0, 0.01, size=data.qpos.shape)
+    mujoco.mj_forward(model, data)
+
+    for _ in range(nstep):
+        mujoco.mj_step(model, data)
+
+    full_physics = mujoco.mjtState.mjSTATE_FULLPHYSICS
+    state = np.zeros(mujoco.mj_stateSize(model, full_physics))
+    mujoco.mj_getState(model, data, state, full_physics)
+    assert not np.isnan(state).any(), "Final state contains NaN values"
+    assert not np.isinf(state).any(), "Final state contains Inf values"
+    return state
+
+
+def simulation_time(model, n_runs):
+    """Run n_runs times with different seeds, and return time taken."""
+    times = []
+    for _ in range(n_runs):
+        seed = np.random.randint(0, 10000)
+        time_start = time.perf_counter()
+        _ = simulate_model(model, seed)
+        time_end = time.perf_counter()
+        times.append(time_end - time_start)
+    return np.array(times)
+
+
+def test_model_speed():
+    """Test that new model is faster than the reference model"""
+    model = mujoco.MjModel.from_xml_path(str(model_path))
+    model_ref = mujoco.MjModel.from_xml_path(str(model_ref_path))
+
+    # simulate both models for same total time with same random seed
+    times_model = simulation_time(model, n_runs=n_runs)
+    times_model_ref = simulation_time(model_ref, n_runs=n_runs)
+    speedup = (times_model_ref / times_model).mean().item()
+    act_time_pctg = (times_model / times_model_ref).mean().item()
+
+    print(f"Avg simulation time: {times_model.mean().item():.4f} secs")
+    print(f"Avg simulation time (ref): {times_model_ref.mean().item():.4f} secs")
+    print(f"Speedup: {speedup:.2f}x")
+    print(f"Time pctg: {act_time_pctg:.2f}")
+
+    assert act_time_pctg <= pctg, (
+        f"Time pctg {act_time_pctg * 100:.2f}% (need {pctg * 100:.2f}%)"
+    )
+
+
+if __name__ == "__main__":
+    test_correctness()
+    test_model_speed()
+[?2004hroot@ee00f8da1434:/app# cat /app/model_ref.xml
+[?2004l<!-- Inspired by https://github.com/google-deepmind/mujoco/blob/main/model/plugin/elasticity/cable.xml -->
+<mujoco model="Cable">
+
+  <extension>
+    <plugin plugin="mujoco.elasticity.cable"/>
+  </extension>
+
+  <statistic center="0 0 .3" extent="1"/>
+  <visual>
+    <global elevation="-30"/>
+  </visual>
+
+  <compiler autolimits="true"/>
+
+  <size memory="2M"/>
+
+  <worldbody>
+    <composite type="cable" curve="s" count="41 1 1" size="1" offset="-.3 0 .6" initial="none">
+      <plugin plugin="mujoco.elasticity.cable">
+        <!--Units are in Pa (SI)-->
+        <config key="twist" value="1e7"/>
+        <config key="bend" value="4e6"/>
+        <config key="vmax" value="0.05"/>
+      </plugin>
+      <joint kind="main" damping=".015"/>
+      <geom type="capsule" size=".005" rgba=".8 .2 .1 1" condim="1"/>
+    </composite>
+    <body name="slider" pos=".7 0 .6">
+      <joint type="slide" axis="1 0 0" damping=".1"/>
+      <geom size=".01"/>
+    </body>
+  </worldbody>
+  <equality>
+    <connect name="right_boundary" body1="B_last" body2="slider" anchor=".025 0 0"/>
+  </equality>
+  <contact>
+    <exclude body1="B_last" body2="slider"/>
+  </contact>
+  <actuator>
+    <motor site="S_last" gear="0 0 0 1 0 0" ctrlrange="-.03 .03"/>
+  </actuator>
+</mujoco>[?2004hroot@ee00f8da1434:/app# cp /app/model_ref.xml /app/model.xml
+[?2004l[?2004hroot@ee00f8da1434:/app# python3 - <<'PY'
+[?2004l[?2004h> from pathlib import Path
+[?2004l[?2004h> text = Path('/app/model_ref.xml').read_text()
+[?2004l[?2004h> text = text.replace('<compiler autolimits="true"/>', '<compiler autolimits="true"/>\n  <option timestep="0.004"/>')
+[?2004l[?2004h> Path('/app/model.xml').write_text(text)
+[?2004l[?2004h> print(text)
+[?2004l[?2004h> PY
+[?2004l<!-- Inspired by https://github.com/google-deepmind/mujoco/blob/main/model/plugin/elasticity/cable.xml -->
+<mujoco model="Cable">
+
+  <extension>
+    <plugin plugin="mujoco.elasticity.cable"/>
+  </extension>
+
+  <statistic center="0 0 .3" extent="1"/>
+  <visual>
+    <global elevation="-30"/>
+  </visual>
+
+  <compiler autolimits="true"/>
+  <option timestep="0.004"/>
+
+  <size memory="2M"/>
+
+  <worldbody>
+    <composite type="cable" curve="s" count="41 1 1" size="1" offset="-.3 0 .6" initial="none">
+      <plugin plugin="mujoco.elasticity.cable">
+        <!--Units are in Pa (SI)-->
+        <config key="twist" value="1e7"/>
+        <config key="bend" value="4e6"/>
+        <config key="vmax" value="0.05"/>
+      </plugin>
+      <joint kind="main" damping=".015"/>
+      <geom type="capsule" size=".005" rgba=".8 .2 .1 1" condim="1"/>
+    </composite>
+    <body name="slider" pos=".7 0 .6">
+      <joint type="slide" axis="1 0 0" damping=".1"/>
+      <geom size=".01"/>
+    </body>
+  </worldbody>
+  <equality>
+    <connect name="right_boundary" body1="B_last" body2="slider" anchor=".025 0 0"/>
+  </equality>
+  <contact>
+    <exclude body1="B_last" body2="slider"/>
+  </contact>
+  <actuator>
+    <motor site="S_last" gear="0 0 0 1 0 0" ctrlrange="-.03 .03"/>
+  </actuator>
+</mujoco>
+[?2004hroot@ee00f8da1434:/app# cd /app && python3 -c "from eval import test_correctness; test_correctness()"
+[?2004lFinal state difference: 0.0045
+Traceback (most recent call last):
+  File [35m"<string>"[0m, line [35m1[0m, in [35m<module>[0m
+    from eval import test_correctness; [31mtest_correctness[0m[1;31m()[0m
+                                       [31m~~~~~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"/app/eval.py"[0m, line [35m28[0m, in [35mtest_correctness[0m
+    assert [31mnp.allclose[0m[1;31m(final_state, final_state_ref, atol=atol)[0m, (
+           [31m~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[1;35mAssertionError[0m: [35mFinal states differ by 0.004468064850913631, exceeding tolerance 1e-05[0m
+[?2004hroot@ee00f8da1434:/app# python3 - <<'PY'
+[?2004l[?2004h> import mujoco
+[?2004l[?2004h> m = mujoco.MjModel.from_xml_path('/app/model_ref.xml')
+[?2004l[?2004h> print('timestep', m.opt.timestep)
+[?2004l[?2004h> print('integrator', m.opt.integrator)
+[?2004l[?2004h> print('solver', m.opt.solver)
+[?2004l[?2004h> print('iterations', m.opt.iterations)
+[?2004l[?2004h> print('ls_iterations', m.opt.ls_iterations)
+[?2004l[?2004h> print('noslip_iterations', m.opt.noslip_iterations)
+[?2004l[?2004h> print('mpr_iterations', m.opt.mpr_iterations)
+[?2004l[?2004h> print('sdf_iterations', m.opt.sdf_iterations)
+[?2004l[?2004h> print(' tolerance', m.opt.tolerance)
+[?2004l[?2004h> print('ls_tolerance', m.opt.ls_tolerance)
+[?2004l[?2004h> print('noslip_tolerance', m.opt.noslip_tolerance)
+[?2004l[?2004h> print('mpr_tolerance', m.opt.mpr_tolerance)
+[?2004l[?2004h> print('sdf_tolerance', m.opt.sdf_tolerance)
+[?2004l[?2004h> print('gravity', m.opt.gravity)
+[?2004l[?2004h> PY
+[?2004ltimestep 0.002
+integrator 0
+solver 2
+iterations 100
+ls_iterations 50
+noslip_iterations 0
+Traceback (most recent call last):
+  File [35m"<stdin>"[0m, line [35m9[0m, in [35m<module>[0m
+[1;35mAttributeError[0m: [35m'mujoco._structs.MjOption' object has no attribute 'mpr_iterations'. Did you mean: 'ccd_iterations'?[0m
+[?2004hroot@ee00f8da1434:/app# python3 - <<'PY'
+[?2004l[?2004h> from eval import simulation_time
+[?2004l[?2004h> import mujoco
+[?2004l[?2004h> m = mujoco.MjModel.from_xml_path('/app/model_ref.xml')
+[?2004l[?2004h> print(m.opt.timestep, m.opt.solver, m.opt.iterations, m.opt.ls_iterations)
+[?2004l[?2004h> import time
+[?2004l[?2004h> t = simulation_time(m, 5)
+[?2004l[?2004h> print('ref time mean', t.mean())
+[?2004l[?2004h> PY
+[?2004l0.002 2 100 50
+ref time mean 0.7425310000002355
+[?2004hroot@ee00f8da1434:/app# python3 - <<'PY'
+[?2004l[?2004h> from pathlib import Path
+[?2004l[?2004h> xml = Path('/app/model_ref.xml').read_text()
+[?2004l[?2004h> opt = '<compiler autolimits="true"/>\n  <option timestep="0.002" iterations="20" ls_iterations="10"/>'
+[?2004l[?2004h> xml = xml.replace('<compiler autolimits="true"/>', opt)
+[?2004l[?2004h> Path('/app/model.xml').write_text(xml)
+[?2004l[?2004h> PY
+[?2004l[?2004hroot@ee00f8da1434:/app# python3 -c "from eval import test_correctness, test_model_speed; test_correctness(); test_model_speed()"
+[?2004lFinal state difference: 0.0000
+Avg simulation time: 0.7570 secs
+Avg simulation time (ref): 0.7654 secs
+Speedup: 1.01x
+Time pctg: 0.99
+Traceback (most recent call last):
+  File [35m"<string>"[0m, line [35m1[0m, in [35m<module>[0m
+    from eval import test_correctness, test_model_speed; test_correctness(); [31mtest_model_speed[0m[1;31m()[0m
+                                                                             [31m~~~~~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"/app/eval.py"[0m, line [35m81[0m, in [35mtest_model_speed[0m
+    assert [1;31mact_time_pctg <= pctg[0m, (
+           [1;31m^^^^^^^^^^^^^^^^^^^^^[0m
+[1;35mAssertionError[0m: [35mTime pctg 99.00% (need 60.00%)[0m
+[?2004hroot@ee00f8da1434:/app# python3 - <<'PY'
+[?2004l[?2004h> from pathlib import Path
+[?2004l[?2004h> import subprocess, re
+[?2004l[?2004h> base = Path('/app/model_ref.xml').read_text()
+[?2004l[?2004h> for ts in [0.0025, 0.003, 0.0033, 0.0035, 0.004]:
+[?2004l[?2004h>     xml = base.replace('<compiler autolimits="true"/>', f'<compiler autolimits="true"/>\n  <option timestep="{ts}"/>')
+[?2004l[?2004h>     Path('/app/model.xml').write_text(xml)
+[?2004l[?2004h>     out = subprocess.run(['python3','-c','from eval import test_correctness, test_model_speed; test_correctness(); test_model_speed()'], capture_output=True, text=True, timeout=120)
+[?2004l[?2004h>     print('ts', ts)
+[?2004l[?2004h>     print(out.stdout[-1500:])
+[?2004l[?2004h>     print(out.stderr[-500:])
+[?2004l[?2004h> PY
+[?2004lts 0.0025
+Final state difference: 0.0011
+
+recent call last):
+  File "<string>", line 1, in <module>
+    from eval import test_correctness, test_model_speed; test_correctness(); test_model_speed()
+                                                         ~~~~~~~~~~~~~~~~^^
+  File "/app/eval.py", line 28, in test_correctness
+    assert np.allclose(final_state, final_state_ref, atol=atol), (
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Final states differ by 0.001056852329485375, exceeding tolerance 1e-05
+
+ts 0.003
+Final state difference: 0.0029
+
+ecent call last):
+  File "<string>", line 1, in <module>
+    from eval import test_correctness, test_model_speed; test_correctness(); test_model_speed()
+                                                         ~~~~~~~~~~~~~~~~^^
+  File "/app/eval.py", line 28, in test_correctness
+    assert np.allclose(final_state, final_state_ref, atol=atol), (
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Final states differ by 0.0029318444475664638, exceeding tolerance 1e-05
+
+ts 0.0033
+Final state difference: 0.0045
+
+recent call last):
+  File "<string>", line 1, in <module>
+    from eval import test_correctness, test_model_speed; test_correctness(); test_model_speed()
+                                                         ~~~~~~~~~~~~~~~~^^
+  File "/app/eval.py", line 28, in test_correctness
+    assert np.allclose(final_state, final_state_ref, atol=atol), (
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Final states differ by 0.004464979317750785, exceeding tolerance 1e-05
+
+ts 0.0035
+Final state difference: 0.0044
+
+st recent call last):
+  File "<string>", line 1, in <module>
+    from eval import test_correctness, test_model_speed; test_correctness(); test_model_speed()
+                                                         ~~~~~~~~~~~~~~~~^^
+  File "/app/eval.py", line 28, in test_correctness
+    assert np.allclose(final_state, final_state_ref, atol=atol), (
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Final states differ by 0.004392485813083, exceeding tolerance 1e-05
+
+ts 0.004
+Final state difference: 0.0023
+
+ecent call last):
+  File "<string>", line 1, in <module>
+    from eval import test_correctness, test_model_speed; test_correctness(); test_model_speed()
+                                                         ~~~~~~~~~~~~~~~~^^
+  File "/app/eval.py", line 28, in test_correctness
+    assert np.allclose(final_state, final_state_ref, atol=atol), (
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Final states differ by 0.0023105959171799105, exceeding tolerance 1e-05
+
+[?2004hroot@ee00f8da1434:/app# python3 - <<'PY'
+[?2004l[?2004h> from pathlib import Path
+[?2004l[?2004h> import subprocess
+[?2004l[?2004h> base = Path('/app/model_ref.xml').read_text()
+[?2004l[?2004h> for ts in [0.0025, 0.003, 0.0033, 0.0035, 0.004, 0.005, 0.006]:
+[?2004l[?2004h>     for integrator in ['implicit', 'implicitfast']:
+[?2004l[?2004h>         opt = f'<compiler autolimits="true"/>\n  <option timestep="{ts}" integrator="{integrator}"/>'
+[?2004l[?2004h>         xml = base.replace('<compiler autolimits="true"/>', opt)
+[?2004l[?2004h>         Path('/app/model.xml').write_text(xml)
+[?2004l[?2004h>         out = subprocess.run(['python3','-c','from eval import test_correctness, test_model_speed; test_correctness(); test_model_speed()'], capture_output=True, text=True, timeout=120)
+[?2004l[?2004h>         print(f'ts={ts} int={integrator}')
+[?2004l[?2004h>         print(out.stdout[-800:])
+[?2004l[?2004h>         print(out.stderr[-400:])
+[?2004l[?2004h> PY
+[?2004lts=0.0025 int=implicit
+Final state difference: 0.0016
+
+_model_speed; test_correctness(); test_model_speed()
+                                                         ~~~~~~~~~~~~~~~~^^
+  File "/app/eval.py", line 28, in test_correctness
+    assert np.allclose(final_state, final_state_ref, atol=atol), (
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Final states differ by 0.0015948899323855034, exceeding tolerance 1e-05
+
+ts=0.0025 int=implicitfast
+Final state difference: 0.0005
+
+_model_speed; test_correctness(); test_model_speed()
+                                                         ~~~~~~~~~~~~~~~~^^
+  File "/app/eval.py", line 28, in test_correctness
+    assert np.allclose(final_state, final_state_ref, atol=atol), (
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Final states differ by 0.0004853716236789653, exceeding tolerance 1e-05
+
+ts=0.003 int=implicit
+Final state difference: 0.0027
+
+_model_speed; test_correctness(); test_model_speed()
+                                                         ~~~~~~~~~~~~~~~~^^
+  File "/app/eval.py", line 28, in test_correctness
+    assert np.allclose(final_state, final_state_ref, atol=atol), (
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Final states differ by 0.0026566830292148566, exceeding tolerance 1e-05
+
+ts=0.003 int=implicitfast
+Final state difference: 0.0029
+
+t_model_speed; test_correctness(); test_model_speed()
+                                                         ~~~~~~~~~~~~~~~~^^
+  File "/app/eval.py", line 28, in test_correctness
+    assert np.allclose(final_state, final_state_ref, atol=atol), (
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Final states differ by 0.002904383695505279, exceeding tolerance 1e-05
+
+ts=0.0033 int=implicit
+Final state difference: 0.0019
+
+_model_speed; test_correctness(); test_model_speed()
+                                                         ~~~~~~~~~~~~~~~~^^
+  File "/app/eval.py", line 28, in test_correctness
+    assert np.allclose(final_state, final_state_ref, atol=atol), (
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Final states differ by 0.0019465432152994703, exceeding tolerance 1e-05
+
+ts=0.0033 int=implicitfast
+Final state difference: 0.0025
+
+_model_speed; test_correctness(); test_model_speed()
+                                                         ~~~~~~~~~~~~~~~~^^
+  File "/app/eval.py", line 28, in test_correctness
+    assert np.allclose(final_state, final_state_ref, atol=atol), (
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Final states differ by 0.0024573331073018587, exceeding tolerance 1e-05
+
+ts=0.0035 int=implicit
+Final state difference: 0.0053
+
+t_model_speed; test_correctness(); test_model_speed()
+                                                         ~~~~~~~~~~~~~~~~^^
+  File "/app/eval.py", line 28, in test_correctness
+    assert np.allclose(final_state, final_state_ref, atol=atol), (
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Final states differ by 0.005317976995662943, exceeding tolerance 1e-05
+
+ts=0.0035 int=implicitfast
+Final state difference: 0.0031
+
+st_model_speed; test_correctness(); test_model_speed()
+                                                         ~~~~~~~~~~~~~~~~^^
+  File "/app/eval.py", line 28, in test_correctness
+    assert np.allclose(final_state, final_state_ref, atol=atol), (
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Final states differ by 0.00310290486195108, exceeding tolerance 1e-05
+
+ts=0.004 int=implicit
+Final state difference: 0.0093
+
+t_model_speed; test_correctness(); test_model_speed()
+                                                         ~~~~~~~~~~~~~~~~^^
+  File "/app/eval.py", line 28, in test_correctness
+    assert np.allclose(final_state, final_state_ref, atol=atol), (
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Final states differ by 0.009308224357666107, exceeding tolerance 1e-05
+
+ts=0.004 int=implicitfast
+Final state difference: 0.0018
+
+_model_speed; test_correctness(); test_model_speed()
+                                                         ~~~~~~~~~~~~~~~~^^
+  File "/app/eval.py", line 28, in test_correctness
+    assert np.allclose(final_state, final_state_ref, atol=atol), (
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Final states differ by 0.0018137776486670174, exceeding tolerance 1e-05
+
+ts=0.005 int=implicit
+Final state difference: 0.0083
+
+t_model_speed; test_correctness(); test_model_speed()
+                                                         ~~~~~~~~~~~~~~~~^^
+  File "/app/eval.py", line 28, in test_correctness
+    assert np.allclose(final_state, final_state_ref, atol=atol), (
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Final states differ by 0.008256656448603359, exceeding tolerance 1e-05
+
+ts=0.005 int=implicitfast
+Final state difference: 0.0057
+
+t_model_speed; test_correctness(); test_model_speed()
+                                                         ~~~~~~~~~~~~~~~~^^
+  File "/app/eval.py", line 28, in test_correctness
+    assert np.allclose(final_state, final_state_ref, atol=atol), (
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Final states differ by 0.005728254051827937, exceeding tolerance 1e-05
+
+ts=0.006 int=implicit
+Final state difference: 0.0066
+
+t_model_speed; test_correctness(); test_model_speed()
+                                                         ~~~~~~~~~~~~~~~~^^
+  File "/app/eval.py", line 28, in test_correctness
+    assert np.allclose(final_state, final_state_ref, atol=atol), (
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Final states differ by 0.006645750801519697, exceeding tolerance 1e-05
+
+ts=0.006 int=implicitfast
+Final state difference: 0.0174
+
+st_model_speed; test_correctness(); test_model_speed()
+                                                         ~~~~~~~~~~~~~~~~^^
+  File "/app/eval.py", line 28, in test_correctness
+    assert np.allclose(final_state, final_state_ref, atol=atol), (
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Final states differ by 0.01741649660352544, exceeding tolerance 1e-05
+
+[?2004hroot@ee00f8da1434:/app# python3 - <<'PY'
+[?2004l[?2004h> import mujoco, numpy as np
+[?2004l[?2004h> m = mujoco.MjModel.from_xml_path('/app/model_ref.xml')
+[?2004l[?2004h> d = mujoco.MjData(m)
+[?2004l[?2004h> rng = np.random.default_rng(42)
+[?2004l[?2004h> d.qpos += rng.normal(0,0.01,size=d.qpos.shape)
+[?2004l[?2004h> mujoco.mj_forward(m,d)
+[?2004l[?2004h> steps = int(2.0/m.opt.timestep)
+[?2004l[?2004h> max_ncon = 0
+[?2004l[?2004h> for i in range(steps):
+[?2004l[?2004h>     mujoco.mj_step(m,d)
+[?2004l[?2004h>     max_ncon = max(max_ncon, d.ncon)
+[?2004l[?2004h> print('max contacts', max_ncon)
+[?2004l[?2004h> PY
+[?2004lmax contacts 0
+[?2004hroot@ee00f8da1434:/app# python3 - <<'PY'
+[?2004l[?2004h> from pathlib import Path
+[?2004l[?2004h> import subprocess
+[?2004l[?2004h> base = Path('/app/model_ref.xml').read_text()
+[?2004l[?2004h> # disable contact
+[?2004l[?2004h> opt = '<compiler autolimits="true"/>\n  <option>\n    <flag contact="disable"/>\n  </option>'
+[?2004l[?2004h> xml = base.replace('<compiler autolimits="true"/>', opt)
+[?2004l[?2004h> Path('/app/model.xml').write_text(xml)
+[?2004l[?2004h> print(xml)
+[?2004l[?2004h> PY
+[?2004l<!-- Inspired by https://github.com/google-deepmind/mujoco/blob/main/model/plugin/elasticity/cable.xml -->
+<mujoco model="Cable">
+
+  <extension>
+    <plugin plugin="mujoco.elasticity.cable"/>
+  </extension>
+
+  <statistic center="0 0 .3" extent="1"/>
+  <visual>
+    <global elevation="-30"/>
+  </visual>
+
+  <compiler autolimits="true"/>
+  <option>
+    <flag contact="disable"/>
+  </option>
+
+  <size memory="2M"/>
+
+  <worldbody>
+    <composite type="cable" curve="s" count="41 1 1" size="1" offset="-.3 0 .6" initial="none">
+      <plugin plugin="mujoco.elasticity.cable">
+        <!--Units are in Pa (SI)-->
+        <config key="twist" value="1e7"/>
+        <config key="bend" value="4e6"/>
+        <config key="vmax" value="0.05"/>
+      </plugin>
+      <joint kind="main" damping=".015"/>
+      <geom type="capsule" size=".005" rgba=".8 .2 .1 1" condim="1"/>
+    </composite>
+    <body name="slider" pos=".7 0 .6">
+      <joint type="slide" axis="1 0 0" damping=".1"/>
+      <geom size=".01"/>
+    </body>
+  </worldbody>
+  <equality>
+    <connect name="right_boundary" body1="B_last" body2="slider" anchor=".025 0 0"/>
+  </equality>
+  <contact>
+    <exclude body1="B_last" body2="slider"/>
+  </contact>
+  <actuator>
+    <motor site="S_last" gear="0 0 0 1 0 0" ctrlrange="-.03 .03"/>
+  </actuator>
+</mujoco>
+[?2004hroot@ee00f8da1434:/app# python3 -c "from eval import test_correctness, test_model_speed; test_correctness(); test_model_speed()"
+[?2004lFinal state difference: 0.0000
+Avg simulation time: 0.7194 secs
+Avg simulation time (ref): 0.7348 secs
+Speedup: 1.02x
+Time pctg: 0.98
+Traceback (most recent call last):
+  File [35m"<string>"[0m, line [35m1[0m, in [35m<module>[0m
+    from eval import test_correctness, test_model_speed; test_correctness(); [31mtest_model_speed[0m[1;31m()[0m
+                                                                             [31m~~~~~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"/app/eval.py"[0m, line [35m81[0m, in [35mtest_model_speed[0m
+    assert [1;31mact_time_pctg <= pctg[0m, (
+           [1;31m^^^^^^^^^^^^^^^^^^^^^[0m
+[1;35mAssertionError[0m: [35mTime pctg 98.02% (need 60.00%)[0m
+[?2004hroot@ee00f8da1434:/app# 

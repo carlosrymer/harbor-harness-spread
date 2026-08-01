@@ -1,0 +1,2 @@
+# Python 3.12+ required by Harbor.
+harbor==0.20.0

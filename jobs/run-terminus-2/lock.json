@@ -1,0 +1,540 @@
+{
+    "schema_version": 2,
+    "created_at": "2026-08-01T15:46:22.343295Z",
+    "harbor": {
+        "version": "0.20.0",
+        "is_editable": false
+    },
+    "n_concurrent_trials": 4,
+    "retry": {
+        "max_retries": 0,
+        "exclude_exceptions": [
+            "ApiUsageLimitError",
+            "AgentTimeoutError",
+            "ModelNotFoundError",
+            "RewardFileNotFoundError",
+            "RewardFileEmptyError",
+            "AgentAuthenticationError",
+            "AgentSafetyRefusalError",
+            "VerifierOutputParseError",
+            "VerifierTimeoutError"
+        ],
+        "wait_multiplier": 1.0,
+        "min_wait_sec": 1.0,
+        "max_wait_sec": 60.0
+    },
+    "trials": [
+        {
+            "schema_version": 1,
+            "task": {
+                "name": "log-summary-date-ranges",
+                "type": "local",
+                "digest": "sha256:f76f69f54e1ebe7572e51945c44190df577d7eed341139c817c853d065a18e23",
+                "source": "terminal-bench",
+                "path": "/home/user/builds/harbor-harness-spread/terminal-bench/log-summary-date-ranges"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent_timeout_multiplier": 0.6,
+            "agent": {
+                "name": "terminus-2",
+                "model_name": "openai/bench-model",
+                "skills": [],
+                "resume_trajectory": false,
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "env": {
+                    "SSL_CERT_FILE": "/ccr-ca.crt",
+                    "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                    "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                    "NODE_EXTRA_CA_CERTS": "/ccr-ca.crt",
+                    "GIT_SSL_CAINFO": "/ccr-ca.crt",
+                    "PIP_CERT": "/ccr-ca.crt",
+                    "CARGO_HTTP_CAINFO": "/ccr-ca.crt",
+                    "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+                    "OPENAI_BASE_URL": "http://172.17.0.1:4010/v1",
+                    "OPENAI_API_BASE": "http://172.17.0.1:4010/v1",
+                    "OPENAI_HOST": "http://172.17.0.1:4010",
+                    "OPENAI_BASE_PATH": "v1/chat/completions"
+                },
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "/root/.ccr/ca-bundle.crt",
+                        "target": "/ccr-ca.crt",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uv",
+                        "target": "/usr/local/bin/uv",
+                        "read_only": true
+                    }
+                ],
+                "extra_docker_compose": [],
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "disable": false
+            }
+        },
+        {
+            "schema_version": 1,
+            "task": {
+                "name": "pytorch-model-recovery",
+                "type": "local",
+                "digest": "sha256:22c73f0905c98f0da299db75dea42ede8994b197ba9dec7ff4aa6e4c7e9b3660",
+                "source": "terminal-bench",
+                "path": "/home/user/builds/harbor-harness-spread/terminal-bench/pytorch-model-recovery"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent_timeout_multiplier": 0.6,
+            "agent": {
+                "name": "terminus-2",
+                "model_name": "openai/bench-model",
+                "skills": [],
+                "resume_trajectory": false,
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "env": {
+                    "SSL_CERT_FILE": "/ccr-ca.crt",
+                    "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                    "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                    "NODE_EXTRA_CA_CERTS": "/ccr-ca.crt",
+                    "GIT_SSL_CAINFO": "/ccr-ca.crt",
+                    "PIP_CERT": "/ccr-ca.crt",
+                    "CARGO_HTTP_CAINFO": "/ccr-ca.crt",
+                    "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+                    "OPENAI_BASE_URL": "http://172.17.0.1:4010/v1",
+                    "OPENAI_API_BASE": "http://172.17.0.1:4010/v1",
+                    "OPENAI_HOST": "http://172.17.0.1:4010",
+                    "OPENAI_BASE_PATH": "v1/chat/completions"
+                },
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "/root/.ccr/ca-bundle.crt",
+                        "target": "/ccr-ca.crt",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uv",
+                        "target": "/usr/local/bin/uv",
+                        "read_only": true
+                    }
+                ],
+                "extra_docker_compose": [],
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "disable": false
+            }
+        },
+        {
+            "schema_version": 1,
+            "task": {
+                "name": "password-recovery",
+                "type": "local",
+                "digest": "sha256:df7675941ecea4dd4711af5533c1aa771e86dd4e669180b85d783387b8b8736b",
+                "source": "terminal-bench",
+                "path": "/home/user/builds/harbor-harness-spread/terminal-bench/password-recovery"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent_timeout_multiplier": 0.6,
+            "agent": {
+                "name": "terminus-2",
+                "model_name": "openai/bench-model",
+                "skills": [],
+                "resume_trajectory": false,
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "env": {
+                    "SSL_CERT_FILE": "/ccr-ca.crt",
+                    "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                    "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                    "NODE_EXTRA_CA_CERTS": "/ccr-ca.crt",
+                    "GIT_SSL_CAINFO": "/ccr-ca.crt",
+                    "PIP_CERT": "/ccr-ca.crt",
+                    "CARGO_HTTP_CAINFO": "/ccr-ca.crt",
+                    "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+                    "OPENAI_BASE_URL": "http://172.17.0.1:4010/v1",
+                    "OPENAI_API_BASE": "http://172.17.0.1:4010/v1",
+                    "OPENAI_HOST": "http://172.17.0.1:4010",
+                    "OPENAI_BASE_PATH": "v1/chat/completions"
+                },
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "/root/.ccr/ca-bundle.crt",
+                        "target": "/ccr-ca.crt",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uv",
+                        "target": "/usr/local/bin/uv",
+                        "read_only": true
+                    }
+                ],
+                "extra_docker_compose": [],
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "disable": false
+            }
+        },
+        {
+            "schema_version": 1,
+            "task": {
+                "name": "tune-mjcf",
+                "type": "local",
+                "digest": "sha256:28651755e24f42622c138498725408c7116ae40ca04e9cb56f39e40eb78d57ba",
+                "source": "terminal-bench",
+                "path": "/home/user/builds/harbor-harness-spread/terminal-bench/tune-mjcf"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent_timeout_multiplier": 0.6,
+            "agent": {
+                "name": "terminus-2",
+                "model_name": "openai/bench-model",
+                "skills": [],
+                "resume_trajectory": false,
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "env": {
+                    "SSL_CERT_FILE": "/ccr-ca.crt",
+                    "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                    "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                    "NODE_EXTRA_CA_CERTS": "/ccr-ca.crt",
+                    "GIT_SSL_CAINFO": "/ccr-ca.crt",
+                    "PIP_CERT": "/ccr-ca.crt",
+                    "CARGO_HTTP_CAINFO": "/ccr-ca.crt",
+                    "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+                    "OPENAI_BASE_URL": "http://172.17.0.1:4010/v1",
+                    "OPENAI_API_BASE": "http://172.17.0.1:4010/v1",
+                    "OPENAI_HOST": "http://172.17.0.1:4010",
+                    "OPENAI_BASE_PATH": "v1/chat/completions"
+                },
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "/root/.ccr/ca-bundle.crt",
+                        "target": "/ccr-ca.crt",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uv",
+                        "target": "/usr/local/bin/uv",
+                        "read_only": true
+                    }
+                ],
+                "extra_docker_compose": [],
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "disable": false
+            }
+        },
+        {
+            "schema_version": 1,
+            "task": {
+                "name": "gcode-to-text",
+                "type": "local",
+                "digest": "sha256:66230c96b38e259de5d52f27e7fdac8e8039017b2f689bcc242e6b3934c42ed0",
+                "source": "terminal-bench",
+                "path": "/home/user/builds/harbor-harness-spread/terminal-bench/gcode-to-text"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent_timeout_multiplier": 0.6,
+            "agent": {
+                "name": "terminus-2",
+                "model_name": "openai/bench-model",
+                "skills": [],
+                "resume_trajectory": false,
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "env": {
+                    "SSL_CERT_FILE": "/ccr-ca.crt",
+                    "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                    "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                    "NODE_EXTRA_CA_CERTS": "/ccr-ca.crt",
+                    "GIT_SSL_CAINFO": "/ccr-ca.crt",
+                    "PIP_CERT": "/ccr-ca.crt",
+                    "CARGO_HTTP_CAINFO": "/ccr-ca.crt",
+                    "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+                    "OPENAI_BASE_URL": "http://172.17.0.1:4010/v1",
+                    "OPENAI_API_BASE": "http://172.17.0.1:4010/v1",
+                    "OPENAI_HOST": "http://172.17.0.1:4010",
+                    "OPENAI_BASE_PATH": "v1/chat/completions"
+                },
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "/root/.ccr/ca-bundle.crt",
+                        "target": "/ccr-ca.crt",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uv",
+                        "target": "/usr/local/bin/uv",
+                        "read_only": true
+                    }
+                ],
+                "extra_docker_compose": [],
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "disable": false
+            }
+        },
+        {
+            "schema_version": 1,
+            "task": {
+                "name": "overfull-hbox",
+                "type": "local",
+                "digest": "sha256:45bdee2b2f454f45675b81fd53370c258c726720e26821c50ac871fd9ea3e1ee",
+                "source": "terminal-bench",
+                "path": "/home/user/builds/harbor-harness-spread/terminal-bench/overfull-hbox"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent_timeout_multiplier": 0.6,
+            "agent": {
+                "name": "terminus-2",
+                "model_name": "openai/bench-model",
+                "skills": [],
+                "resume_trajectory": false,
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "env": {
+                    "SSL_CERT_FILE": "/ccr-ca.crt",
+                    "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                    "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                    "NODE_EXTRA_CA_CERTS": "/ccr-ca.crt",
+                    "GIT_SSL_CAINFO": "/ccr-ca.crt",
+                    "PIP_CERT": "/ccr-ca.crt",
+                    "CARGO_HTTP_CAINFO": "/ccr-ca.crt",
+                    "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+                    "OPENAI_BASE_URL": "http://172.17.0.1:4010/v1",
+                    "OPENAI_API_BASE": "http://172.17.0.1:4010/v1",
+                    "OPENAI_HOST": "http://172.17.0.1:4010",
+                    "OPENAI_BASE_PATH": "v1/chat/completions"
+                },
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "/root/.ccr/ca-bundle.crt",
+                        "target": "/ccr-ca.crt",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uv",
+                        "target": "/usr/local/bin/uv",
+                        "read_only": true
+                    }
+                ],
+                "extra_docker_compose": [],
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "disable": false
+            }
+        },
+        {
+            "schema_version": 1,
+            "task": {
+                "name": "sqlite-with-gcov",
+                "type": "local",
+                "digest": "sha256:9db32fcda6aa554d8d16b0ba09e79d12292d5c8efe15390e3cea5be4f52e028f",
+                "source": "terminal-bench",
+                "path": "/home/user/builds/harbor-harness-spread/terminal-bench/sqlite-with-gcov"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent_timeout_multiplier": 0.6,
+            "agent": {
+                "name": "terminus-2",
+                "model_name": "openai/bench-model",
+                "skills": [],
+                "resume_trajectory": false,
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "env": {
+                    "SSL_CERT_FILE": "/ccr-ca.crt",
+                    "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                    "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                    "NODE_EXTRA_CA_CERTS": "/ccr-ca.crt",
+                    "GIT_SSL_CAINFO": "/ccr-ca.crt",
+                    "PIP_CERT": "/ccr-ca.crt",
+                    "CARGO_HTTP_CAINFO": "/ccr-ca.crt",
+                    "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+                    "OPENAI_BASE_URL": "http://172.17.0.1:4010/v1",
+                    "OPENAI_API_BASE": "http://172.17.0.1:4010/v1",
+                    "OPENAI_HOST": "http://172.17.0.1:4010",
+                    "OPENAI_BASE_PATH": "v1/chat/completions"
+                },
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "/root/.ccr/ca-bundle.crt",
+                        "target": "/ccr-ca.crt",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uv",
+                        "target": "/usr/local/bin/uv",
+                        "read_only": true
+                    }
+                ],
+                "extra_docker_compose": [],
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "disable": false
+            }
+        },
+        {
+            "schema_version": 1,
+            "task": {
+                "name": "gpt2-codegolf",
+                "type": "local",
+                "digest": "sha256:e2617991ffbe474e67ea4667c352e181982179e1be3229cce65e2c15248fc1df",
+                "source": "terminal-bench",
+                "path": "/home/user/builds/harbor-harness-spread/terminal-bench/gpt2-codegolf"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent_timeout_multiplier": 0.6,
+            "agent": {
+                "name": "terminus-2",
+                "model_name": "openai/bench-model",
+                "skills": [],
+                "resume_trajectory": false,
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "env": {
+                    "SSL_CERT_FILE": "/ccr-ca.crt",
+                    "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                    "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                    "NODE_EXTRA_CA_CERTS": "/ccr-ca.crt",
+                    "GIT_SSL_CAINFO": "/ccr-ca.crt",
+                    "PIP_CERT": "/ccr-ca.crt",
+                    "CARGO_HTTP_CAINFO": "/ccr-ca.crt",
+                    "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+                    "OPENAI_BASE_URL": "http://172.17.0.1:4010/v1",
+                    "OPENAI_API_BASE": "http://172.17.0.1:4010/v1",
+                    "OPENAI_HOST": "http://172.17.0.1:4010",
+                    "OPENAI_BASE_PATH": "v1/chat/completions"
+                },
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "/root/.ccr/ca-bundle.crt",
+                        "target": "/ccr-ca.crt",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uv",
+                        "target": "/usr/local/bin/uv",
+                        "read_only": true
+                    }
+                ],
+                "extra_docker_compose": [],
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "disable": false
+            }
+        }
+    ]
+}

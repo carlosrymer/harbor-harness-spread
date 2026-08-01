@@ -1,0 +1,151 @@
+{
+    "id": "917a698a-f45c-4723-b82a-5dcca4dd94ee",
+    "task_name": "log-summary-date-ranges",
+    "trial_name": "log-summary-date-ranges__KTv7tL4",
+    "trial_uri": "file:///home/user/builds/harbor-harness-spread/jobs/run-terminus-2/log-summary-date-ranges__KTv7tL4",
+    "task_id": {
+        "path": "/home/user/builds/harbor-harness-spread/terminal-bench/log-summary-date-ranges"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "fe600befce59ff43dd85cb1db864652d4e6fa4706c6dd8a1d82118c1a76561ae",
+    "config": {
+        "task": {
+            "path": "/home/user/builds/harbor-harness-spread/terminal-bench/log-summary-date-ranges",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "log-summary-date-ranges__KTv7tL4",
+        "trials_dir": "/home/user/builds/harbor-harness-spread/jobs/run-terminus-2",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": 0.6,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "terminus-2",
+            "import_path": null,
+            "model_name": "openai/bench-model",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "env": {
+                "SSL_CERT_FILE": "/ccr-ca.crt",
+                "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                "NODE_EXTRA_CA_CERTS": "/ccr-ca.crt",
+                "GIT_SSL_CAINFO": "/ccr-ca.crt",
+                "PIP_CERT": "/ccr-ca.crt",
+                "CARGO_HTTP_CAINFO": "/ccr-ca.crt",
+                "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+                "OPENAI_BASE_URL": "http://172.17.0.1:4010/v1",
+                "OPENAI_API_BASE": "http://172.17.0.1:4010/v1",
+                "OPENAI_HOST": "http://172.17.0.1:4010",
+                "OPENAI_BASE_PATH": "v1/chat/completions"
+            },
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/.ccr/ca-bundle.crt",
+                    "target": "/ccr-ca.crt",
+                    "read_only": true
+                },
+                {
+                    "type": "bind",
+                    "source": "/root/.local/bin/uv",
+                    "target": "/usr/local/bin/uv",
+                    "read_only": true
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "job_id": "996770de-e86e-444d-bdb3-0ec28f77b0fc"
+    },
+    "agent_info": {
+        "name": "terminus-2",
+        "version": "2.0.0",
+        "model_info": {
+            "name": "bench-model",
+            "provider": "openai"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 46441,
+        "n_cache_tokens": 34560,
+        "n_output_tokens": 1998,
+        "cost_usd": null,
+        "rollout_details": [],
+        "metadata": {
+            "n_episodes": 6,
+            "api_request_times_msec": [
+                12189.461469650269,
+                23753.965139389038,
+                9046.28300666809,
+                6907.094717025757,
+                2886.24906539917,
+                2772.8190422058105
+            ],
+            "summarization_count": 0
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-08-01T15:46:26.738280Z",
+    "finished_at": "2026-08-01T15:48:05.728811Z",
+    "environment_setup": {
+        "started_at": "2026-08-01T15:46:26.873886Z",
+        "finished_at": "2026-08-01T15:46:28.821561Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-08-01T15:46:28.821634Z",
+        "finished_at": "2026-08-01T15:46:43.532765Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-08-01T15:46:43.532985Z",
+        "finished_at": "2026-08-01T15:47:49.757921Z"
+    },
+    "verifier": {
+        "started_at": "2026-08-01T15:47:50.292313Z",
+        "finished_at": "2026-08-01T15:47:54.527261Z"
+    },
+    "step_results": null
+}

@@ -1,0 +1,1880 @@
+[?2004hroot@ffa1b4afc86a:/app# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@ffa1b4afc86a:/app# clear
+[?2004l[H[J[3J[?2004hroot@ffa1b4afc86a:/app# ls -la /app/logs
+[?2004ltotal 6132
+drwxr-xr-x 2 root root 12288 Sep 13  2025 .
+drwxr-xr-x 1 root root  4096 Sep 13  2025 ..
+-rw-r--r-- 1 root root 39171 Sep 13  2025 2025-07-03_api.log
+-rw-r--r-- 1 root root 19494 Sep 13  2025 2025-07-03_app.log
+-rw-r--r-- 1 root root 39495 Sep 13  2025 2025-07-03_auth.log
+-rw-r--r-- 1 root root 33616 Sep 13  2025 2025-07-03_db.log
+-rw-r--r-- 1 root root 37149 Sep 13  2025 2025-07-04_api.log
+-rw-r--r-- 1 root root 39495 Sep 13  2025 2025-07-04_app.log
+-rw-r--r-- 1 root root 39171 Sep 13  2025 2025-07-04_auth.log
+-rw-r--r-- 1 root root 19494 Sep 13  2025 2025-07-04_db.log
+-rw-r--r-- 1 root root 42580 Sep 13  2025 2025-07-05_api.log
+-rw-r--r-- 1 root root 39171 Sep 13  2025 2025-07-05_app.log
+-rw-r--r-- 1 root root 37149 Sep 13  2025 2025-07-05_auth.log
+-rw-r--r-- 1 root root 39495 Sep 13  2025 2025-07-05_db.log
+-rw-r--r-- 1 root root 38074 Sep 13  2025 2025-07-06_api.log
+-rw-r--r-- 1 root root 37149 Sep 13  2025 2025-07-06_app.log
+-rw-r--r-- 1 root root 42580 Sep 13  2025 2025-07-06_auth.log
+-rw-r--r-- 1 root root 39171 Sep 13  2025 2025-07-06_db.log
+-rw-r--r-- 1 root root 58725 Sep 13  2025 2025-07-07_api.log
+-rw-r--r-- 1 root root 42580 Sep 13  2025 2025-07-07_app.log
+-rw-r--r-- 1 root root 38074 Sep 13  2025 2025-07-07_auth.log
+-rw-r--r-- 1 root root 37149 Sep 13  2025 2025-07-07_db.log
+-rw-r--r-- 1 root root 58039 Sep 13  2025 2025-07-08_api.log
+-rw-r--r-- 1 root root 38074 Sep 13  2025 2025-07-08_app.log
+-rw-r--r-- 1 root root 58725 Sep 13  2025 2025-07-08_auth.log
+-rw-r--r-- 1 root root 42580 Sep 13  2025 2025-07-08_db.log
+-rw-r--r-- 1 root root 48372 Sep 13  2025 2025-07-09_api.log
+-rw-r--r-- 1 root root 58725 Sep 13  2025 2025-07-09_app.log
+-rw-r--r-- 1 root root 58039 Sep 13  2025 2025-07-09_auth.log
+-rw-r--r-- 1 root root 38074 Sep 13  2025 2025-07-09_db.log
+-rw-r--r-- 1 root root 58521 Sep 13  2025 2025-07-10_api.log
+-rw-r--r-- 1 root root 58039 Sep 13  2025 2025-07-10_app.log
+-rw-r--r-- 1 root root 48372 Sep 13  2025 2025-07-10_auth.log
+-rw-r--r-- 1 root root 58725 Sep 13  2025 2025-07-10_db.log
+-rw-r--r-- 1 root root 18235 Sep 13  2025 2025-07-11_api.log
+-rw-r--r-- 1 root root 48372 Sep 13  2025 2025-07-11_app.log
+-rw-r--r-- 1 root root 58521 Sep 13  2025 2025-07-11_auth.log
+-rw-r--r-- 1 root root 58039 Sep 13  2025 2025-07-11_db.log
+-rw-r--r-- 1 root root 44763 Sep 13  2025 2025-07-12_api.log
+-rw-r--r-- 1 root root 58521 Sep 13  2025 2025-07-12_app.log
+-rw-r--r-- 1 root root 18235 Sep 13  2025 2025-07-12_auth.log
+-rw-r--r-- 1 root root 48372 Sep 13  2025 2025-07-12_db.log
+-rw-r--r-- 1 root root 20592 Sep 13  2025 2025-07-13_api.log
+-rw-r--r-- 1 root root 18235 Sep 13  2025 2025-07-13_app.log
+-rw-r--r-- 1 root root 44763 Sep 13  2025 2025-07-13_auth.log
+-rw-r--r-- 1 root root 58521 Sep 13  2025 2025-07-13_db.log
+-rw-r--r-- 1 root root 19498 Sep 13  2025 2025-07-14_api.log
+-rw-r--r-- 1 root root 44763 Sep 13  2025 2025-07-14_app.log
+-rw-r--r-- 1 root root 20592 Sep 13  2025 2025-07-14_auth.log
+-rw-r--r-- 1 root root 18235 Sep 13  2025 2025-07-14_db.log
+-rw-r--r-- 1 root root 35684 Sep 13  2025 2025-07-15_api.log
+-rw-r--r-- 1 root root 20592 Sep 13  2025 2025-07-15_app.log
+-rw-r--r-- 1 root root 19498 Sep 13  2025 2025-07-15_auth.log
+-rw-r--r-- 1 root root 44763 Sep 13  2025 2025-07-15_db.log
+-rw-r--r-- 1 root root 14496 Sep 13  2025 2025-07-16_api.log
+-rw-r--r-- 1 root root 19498 Sep 13  2025 2025-07-16_app.log
+-rw-r--r-- 1 root root 35684 Sep 13  2025 2025-07-16_auth.log
+-rw-r--r-- 1 root root 20592 Sep 13  2025 2025-07-16_db.log
+-rw-r--r-- 1 root root 36980 Sep 13  2025 2025-07-17_api.log
+-rw-r--r-- 1 root root 35684 Sep 13  2025 2025-07-17_app.log
+-rw-r--r-- 1 root root 14496 Sep 13  2025 2025-07-17_auth.log
+-rw-r--r-- 1 root root 19498 Sep 13  2025 2025-07-17_db.log
+-rw-r--r-- 1 root root 47497 Sep 13  2025 2025-07-18_api.log
+-rw-r--r-- 1 root root 14496 Sep 13  2025 2025-07-18_app.log
+-rw-r--r-- 1 root root 36980 Sep 13  2025 2025-07-18_auth.log
+-rw-r--r-- 1 root root 35684 Sep 13  2025 2025-07-18_db.log
+-rw-r--r-- 1 root root 15682 Sep 13  2025 2025-07-19_api.log
+-rw-r--r-- 1 root root 36980 Sep 13  2025 2025-07-19_app.log
+-rw-r--r-- 1 root root 47497 Sep 13  2025 2025-07-19_auth.log
+-rw-r--r-- 1 root root 14496 Sep 13  2025 2025-07-19_db.log
+-rw-r--r-- 1 root root 16747 Sep 13  2025 2025-07-20_api.log
+-rw-r--r-- 1 root root 47497 Sep 13  2025 2025-07-20_app.log
+-rw-r--r-- 1 root root 15682 Sep 13  2025 2025-07-20_auth.log
+-rw-r--r-- 1 root root 36980 Sep 13  2025 2025-07-20_db.log
+-rw-r--r-- 1 root root 20343 Sep 13  2025 2025-07-21_api.log
+-rw-r--r-- 1 root root 15682 Sep 13  2025 2025-07-21_app.log
+-rw-r--r-- 1 root root 16747 Sep 13  2025 2025-07-21_auth.log
+-rw-r--r-- 1 root root 47497 Sep 13  2025 2025-07-21_db.log
+-rw-r--r-- 1 root root 54841 Sep 13  2025 2025-07-22_api.log
+-rw-r--r-- 1 root root 16747 Sep 13  2025 2025-07-22_app.log
+-rw-r--r-- 1 root root 20343 Sep 13  2025 2025-07-22_auth.log
+-rw-r--r-- 1 root root 15682 Sep 13  2025 2025-07-22_db.log
+-rw-r--r-- 1 root root 23674 Sep 13  2025 2025-07-23_api.log
+-rw-r--r-- 1 root root 20343 Sep 13  2025 2025-07-23_app.log
+-rw-r--r-- 1 root root 54841 Sep 13  2025 2025-07-23_auth.log
+-rw-r--r-- 1 root root 16747 Sep 13  2025 2025-07-23_db.log
+-rw-r--r-- 1 root root 19610 Sep 13  2025 2025-07-24_api.log
+-rw-r--r-- 1 root root 54841 Sep 13  2025 2025-07-24_app.log
+-rw-r--r-- 1 root root 23674 Sep 13  2025 2025-07-24_auth.log
+-rw-r--r-- 1 root root 20343 Sep 13  2025 2025-07-24_db.log
+-rw-r--r-- 1 root root 35388 Sep 13  2025 2025-07-25_api.log
+-rw-r--r-- 1 root root 23674 Sep 13  2025 2025-07-25_app.log
+-rw-r--r-- 1 root root 19610 Sep 13  2025 2025-07-25_auth.log
+-rw-r--r-- 1 root root 54841 Sep 13  2025 2025-07-25_db.log
+-rw-r--r-- 1 root root 40404 Sep 13  2025 2025-07-26_api.log
+-rw-r--r-- 1 root root 19610 Sep 13  2025 2025-07-26_app.log
+-rw-r--r-- 1 root root 35388 Sep 13  2025 2025-07-26_auth.log
+-rw-r--r-- 1 root root 23674 Sep 13  2025 2025-07-26_db.log
+-rw-r--r-- 1 root root 35195 Sep 13  2025 2025-07-27_api.log
+-rw-r--r-- 1 root root 35388 Sep 13  2025 2025-07-27_app.log
+-rw-r--r-- 1 root root 40404 Sep 13  2025 2025-07-27_auth.log
+-rw-r--r-- 1 root root 19610 Sep 13  2025 2025-07-27_db.log
+-rw-r--r-- 1 root root 14433 Sep 13  2025 2025-07-28_api.log
+-rw-r--r-- 1 root root 40404 Sep 13  2025 2025-07-28_app.log
+-rw-r--r-- 1 root root 35195 Sep 13  2025 2025-07-28_auth.log
+-rw-r--r-- 1 root root 35388 Sep 13  2025 2025-07-28_db.log
+-rw-r--r-- 1 root root 17715 Sep 13  2025 2025-07-29_api.log
+-rw-r--r-- 1 root root 35195 Sep 13  2025 2025-07-29_app.log
+-rw-r--r-- 1 root root 14433 Sep 13  2025 2025-07-29_auth.log
+-rw-r--r-- 1 root root 40404 Sep 13  2025 2025-07-29_db.log
+-rw-r--r-- 1 root root 13720 Sep 13  2025 2025-07-30_api.log
+-rw-r--r-- 1 root root 14433 Sep 13  2025 2025-07-30_app.log
+-rw-r--r-- 1 root root 17715 Sep 13  2025 2025-07-30_auth.log
+-rw-r--r-- 1 root root 35195 Sep 13  2025 2025-07-30_db.log
+-rw-r--r-- 1 root root 57568 Sep 13  2025 2025-07-31_api.log
+-rw-r--r-- 1 root root 17715 Sep 13  2025 2025-07-31_app.log
+-rw-r--r-- 1 root root 13720 Sep 13  2025 2025-07-31_auth.log
+-rw-r--r-- 1 root root 14433 Sep 13  2025 2025-07-31_db.log
+-rw-r--r-- 1 root root 22557 Sep 13  2025 2025-08-01_api.log
+-rw-r--r-- 1 root root 13555 Sep 13  2025 2025-08-01_app.log
+-rw-r--r-- 1 root root 55357 Sep 13  2025 2025-08-01_auth.log
+-rw-r--r-- 1 root root 53023 Sep 13  2025 2025-08-01_db.log
+-rw-r--r-- 1 root root 43173 Sep 13  2025 2025-08-02_api.log
+-rw-r--r-- 1 root root 55357 Sep 13  2025 2025-08-02_app.log
+-rw-r--r-- 1 root root 22557 Sep 13  2025 2025-08-02_auth.log
+-rw-r--r-- 1 root root 13555 Sep 13  2025 2025-08-02_db.log
+-rw-r--r-- 1 root root 33121 Sep 13  2025 2025-08-03_api.log
+-rw-r--r-- 1 root root 22557 Sep 13  2025 2025-08-03_app.log
+-rw-r--r-- 1 root root 43173 Sep 13  2025 2025-08-03_auth.log
+-rw-r--r-- 1 root root 55357 Sep 13  2025 2025-08-03_db.log
+-rw-r--r-- 1 root root 45524 Sep 13  2025 2025-08-04_api.log
+-rw-r--r-- 1 root root 43173 Sep 13  2025 2025-08-04_app.log
+-rw-r--r-- 1 root root 33121 Sep 13  2025 2025-08-04_auth.log
+-rw-r--r-- 1 root root 22557 Sep 13  2025 2025-08-04_db.log
+-rw-r--r-- 1 root root 40349 Sep 13  2025 2025-08-05_api.log
+-rw-r--r-- 1 root root 33121 Sep 13  2025 2025-08-05_app.log
+-rw-r--r-- 1 root root 45524 Sep 13  2025 2025-08-05_auth.log
+-rw-r--r-- 1 root root 43173 Sep 13  2025 2025-08-05_db.log
+-rw-r--r-- 1 root root 61638 Sep 13  2025 2025-08-06_api.log
+-rw-r--r-- 1 root root 45524 Sep 13  2025 2025-08-06_app.log
+-rw-r--r-- 1 root root 40349 Sep 13  2025 2025-08-06_auth.log
+-rw-r--r-- 1 root root 33121 Sep 13  2025 2025-08-06_db.log
+-rw-r--r-- 1 root root 61186 Sep 13  2025 2025-08-07_api.log
+-rw-r--r-- 1 root root 40349 Sep 13  2025 2025-08-07_app.log
+-rw-r--r-- 1 root root 61638 Sep 13  2025 2025-08-07_auth.log
+-rw-r--r-- 1 root root 45524 Sep 13  2025 2025-08-07_db.log
+-rw-r--r-- 1 root root 46577 Sep 13  2025 2025-08-08_api.log
+-rw-r--r-- 1 root root 61638 Sep 13  2025 2025-08-08_app.log
+-rw-r--r-- 1 root root 61186 Sep 13  2025 2025-08-08_auth.log
+-rw-r--r-- 1 root root 40349 Sep 13  2025 2025-08-08_db.log
+-rw-r--r-- 1 root root 33131 Sep 13  2025 2025-08-09_api.log
+-rw-r--r-- 1 root root 61186 Sep 13  2025 2025-08-09_app.log
+-rw-r--r-- 1 root root 46577 Sep 13  2025 2025-08-09_auth.log
+-rw-r--r-- 1 root root 61638 Sep 13  2025 2025-08-09_db.log
+-rw-r--r-- 1 root root 30313 Sep 13  2025 2025-08-10_api.log
+-rw-r--r-- 1 root root 46577 Sep 13  2025 2025-08-10_app.log
+-rw-r--r-- 1 root root 33131 Sep 13  2025 2025-08-10_auth.log
+-rw-r--r-- 1 root root 61186 Sep 13  2025 2025-08-10_db.log
+-rw-r--r-- 1 root root 34678 Sep 13  2025 2025-08-11_api.log
+-rw-r--r-- 1 root root 33131 Sep 13  2025 2025-08-11_app.log
+-rw-r--r-- 1 root root 30313 Sep 13  2025 2025-08-11_auth.log
+-rw-r--r-- 1 root root 46577 Sep 13  2025 2025-08-11_db.log
+-rw-r--r-- 1 root root 50268 Sep 13  2025 2025-08-12_api.log
+-rw-r--r-- 1 root root 30313 Sep 13  2025 2025-08-12_app.log
+-rw-r--r-- 1 root root 34678 Sep 13  2025 2025-08-12_auth.log
+-rw-r--r-- 1 root root 33131 Sep 13  2025 2025-08-12_db.log
+[?2004hroot@ffa1b4afc86a:/app# head -n 5 /app/logs/*.log
+[?2004l==> /app/logs/2025-07-03_api.log <==
+2025-07-03 09:24:57 [ERROR] Unhandled exception: FileNotFoundError
+2025-07-03 13:59:02 [INFO] Service auth started
+2025-07-03 05:34:40 [INFO] Service notification started
+2025-07-03 05:08:45 [INFO] Scheduled backup completed successfully
+2025-07-03 21:53:22 [INFO] File uploaded: config.yml
+
+==> /app/logs/2025-07-03_app.log <==
+2025-07-03 12:55:35 [INFO] Scheduled backup completed successfully
+2025-07-03 01:56:02 [WARNING] Disk space low: 1924 remaining
+2025-07-03 05:21:54 [INFO] Database connection established
+2025-07-03 17:59:08 [INFO] Scheduled backup completed successfully
+2025-07-03 23:30:48 [WARNING] Disk space low: 99 remaining
+
+==> /app/logs/2025-07-03_auth.log <==
+2025-07-03 06:13:03 [INFO] Scheduled backup completed successfully
+2025-07-03 03:10:36 [WARNING] Failed login attempt for user: eve. Retrying...
+2025-07-03 00:28:16 [INFO] User login successful for user: eve
+2025-07-03 22:05:28 [INFO] User login successful for user: bob
+2025-07-03 23:01:44 [WARNING] Configuration file deprecated: config.yml
+
+==> /app/logs/2025-07-03_db.log <==
+2025-07-03 17:21:33 [INFO] Service payment started
+2025-07-03 18:18:23 [INFO] User login successful for user: charlie
+2025-07-03 03:32:15 [WARNING] Slow query detected: execution time 1159ms
+2025-07-03 08:16:44 [ERROR] Email sending failed to recipient: user@gmail.com
+2025-07-03 09:36:22 [WARNING] Disk space low: 2049 remaining
+
+==> /app/logs/2025-07-04_api.log <==
+2025-07-04 21:16:59 [INFO] Service payment started
+2025-07-04 03:20:27 [ERROR] Database connection lost
+2025-07-04 16:59:47 [WARNING] Failed login attempt for user: charlie. Retrying...
+2025-07-04 14:14:42 [ERROR] Service payment crashed
+2025-07-04 23:58:45 [INFO] Service notification started
+
+==> /app/logs/2025-07-04_app.log <==
+2025-07-04 06:13:03 [INFO] Scheduled backup completed successfully
+2025-07-04 03:10:36 [WARNING] Failed login attempt for user: eve. Retrying...
+2025-07-04 00:28:16 [INFO] User login successful for user: eve
+2025-07-04 22:05:28 [INFO] User login successful for user: bob
+2025-07-04 23:01:44 [WARNING] Configuration file deprecated: config.yml
+
+==> /app/logs/2025-07-04_auth.log <==
+2025-07-04 09:24:57 [ERROR] Unhandled exception: FileNotFoundError
+2025-07-04 13:59:02 [INFO] Service auth started
+2025-07-04 05:34:40 [INFO] Service notification started
+2025-07-04 05:08:45 [INFO] Scheduled backup completed successfully
+2025-07-04 21:53:22 [INFO] File uploaded: config.yml
+
+==> /app/logs/2025-07-04_db.log <==
+2025-07-04 12:55:35 [INFO] Scheduled backup completed successfully
+2025-07-04 01:56:02 [WARNING] Disk space low: 1924 remaining
+2025-07-04 05:21:54 [INFO] Database connection established
+2025-07-04 17:59:08 [INFO] Scheduled backup completed successfully
+2025-07-04 23:30:48 [WARNING] Disk space low: 99 remaining
+
+==> /app/logs/2025-07-05_api.log <==
+2025-07-05 01:13:45 [INFO] Cache cleared successfully
+2025-07-05 22:50:49 [INFO] File uploaded: config.yml
+2025-07-05 20:27:32 [WARNING] Disk space low: 3567 remaining
+2025-07-05 02:42:53 [INFO] Cache cleared successfully
+2025-07-05 23:17:07 [DEBUG] Temporary file created at: config.yml
+
+==> /app/logs/2025-07-05_app.log <==
+2025-07-05 09:24:57 [ERROR] Unhandled exception: FileNotFoundError
+2025-07-05 13:59:02 [INFO] Service auth started
+2025-07-05 05:34:40 [INFO] Service notification started
+2025-07-05 05:08:45 [INFO] Scheduled backup completed successfully
+2025-07-05 21:53:22 [INFO] File uploaded: config.yml
+
+==> /app/logs/2025-07-05_auth.log <==
+2025-07-05 21:16:59 [INFO] Service payment started
+2025-07-05 03:20:27 [ERROR] Database connection lost
+2025-07-05 16:59:47 [WARNING] Failed login attempt for user: charlie. Retrying...
+2025-07-05 14:14:42 [ERROR] Service payment crashed
+2025-07-05 23:58:45 [INFO] Service notification started
+
+==> /app/logs/2025-07-05_db.log <==
+2025-07-05 06:13:03 [INFO] Scheduled backup completed successfully
+2025-07-05 03:10:36 [WARNING] Failed login attempt for user: eve. Retrying...
+2025-07-05 00:28:16 [INFO] User login successful for user: eve
+2025-07-05 22:05:28 [INFO] User login successful for user: bob
+2025-07-05 23:01:44 [WARNING] Configuration file deprecated: config.yml
+
+==> /app/logs/2025-07-06_api.log <==
+2025-07-06 14:49:15 [DEBUG] Variable x has value: 1861
+2025-07-06 16:10:46 [INFO] Cache cleared successfully
+2025-07-06 14:29:28 [WARNING] API response time exceeded threshold
+2025-07-06 10:00:36 [INFO] File uploaded: config.yml
+2025-07-06 07:16:50 [ERROR] File write failed: data.csv
+
+==> /app/logs/2025-07-06_app.log <==
+2025-07-06 21:16:59 [INFO] Service payment started
+2025-07-06 03:20:27 [ERROR] Database connection lost
+2025-07-06 16:59:47 [WARNING] Failed login attempt for user: charlie. Retrying...
+2025-07-06 14:14:42 [ERROR] Service payment crashed
+2025-07-06 23:58:45 [INFO] Service notification started
+
+==> /app/logs/2025-07-06_auth.log <==
+2025-07-06 01:13:45 [INFO] Cache cleared successfully
+2025-07-06 22:50:49 [INFO] File uploaded: config.yml
+2025-07-06 20:27:32 [WARNING] Disk space low: 3567 remaining
+2025-07-06 02:42:53 [INFO] Cache cleared successfully
+2025-07-06 23:17:07 [DEBUG] Temporary file created at: config.yml
+
+==> /app/logs/2025-07-06_db.log <==
+2025-07-06 09:24:57 [ERROR] Unhandled exception: FileNotFoundError
+2025-07-06 13:59:02 [INFO] Service auth started
+2025-07-06 05:34:40 [INFO] Service notification started
+2025-07-06 05:08:45 [INFO] Scheduled backup completed successfully
+2025-07-06 21:53:22 [INFO] File uploaded: config.yml
+
+==> /app/logs/2025-07-07_api.log <==
+2025-07-07 21:02:26 [INFO] Scheduled backup completed successfully
+2025-07-07 12:07:34 [ERROR] Unhandled exception: NullPointerException
+2025-07-07 23:25:50 [DEBUG] Entering function send_email with arguments: 10
+2025-07-07 21:52:26 [WARNING] Slow query detected: execution time 2695ms
+2025-07-07 06:51:12 [ERROR] Database connection lost
+
+==> /app/logs/2025-07-07_app.log <==
+2025-07-07 01:13:45 [INFO] Cache cleared successfully
+2025-07-07 22:50:49 [INFO] File uploaded: config.yml
+2025-07-07 20:27:32 [WARNING] Disk space low: 3567 remaining
+2025-07-07 02:42:53 [INFO] Cache cleared successfully
+2025-07-07 23:17:07 [DEBUG] Temporary file created at: config.yml
+
+==> /app/logs/2025-07-07_auth.log <==
+2025-07-07 14:49:15 [DEBUG] Variable x has value: 1861
+2025-07-07 16:10:46 [INFO] Cache cleared successfully
+2025-07-07 14:29:28 [WARNING] API response time exceeded threshold
+2025-07-07 10:00:36 [INFO] File uploaded: config.yml
+2025-07-07 07:16:50 [ERROR] File write failed: data.csv
+
+==> /app/logs/2025-07-07_db.log <==
+2025-07-07 21:16:59 [INFO] Service payment started
+2025-07-07 03:20:27 [ERROR] Database connection lost
+2025-07-07 16:59:47 [WARNING] Failed login attempt for user: charlie. Retrying...
+2025-07-07 14:14:42 [ERROR] Service payment crashed
+2025-07-07 23:58:45 [INFO] Service notification started
+
+==> /app/logs/2025-07-08_api.log <==
+2025-07-08 22:46:31 [INFO] File uploaded: data.csv
+2025-07-08 15:32:12 [ERROR] Email sending failed to recipient: support@amazon.com
+2025-07-08 23:46:14 [INFO] Service inventory started
+2025-07-08 13:38:19 [INFO] User login successful for user: alice
+2025-07-08 04:17:53 [ERROR] File write failed: config.yml
+
+==> /app/logs/2025-07-08_app.log <==
+2025-07-08 14:49:15 [DEBUG] Variable x has value: 1861
+2025-07-08 16:10:46 [INFO] Cache cleared successfully
+2025-07-08 14:29:28 [WARNING] API response time exceeded threshold
+2025-07-08 10:00:36 [INFO] File uploaded: config.yml
+2025-07-08 07:16:50 [ERROR] File write failed: data.csv
+
+==> /app/logs/2025-07-08_auth.log <==
+2025-07-08 21:02:26 [INFO] Scheduled backup completed successfully
+2025-07-08 12:07:34 [ERROR] Unhandled exception: NullPointerException
+2025-07-08 23:25:50 [DEBUG] Entering function send_email with arguments: 10
+2025-07-08 21:52:26 [WARNING] Slow query detected: execution time 2695ms
+2025-07-08 06:51:12 [ERROR] Database connection lost
+
+==> /app/logs/2025-07-08_db.log <==
+2025-07-08 01:13:45 [INFO] Cache cleared successfully
+2025-07-08 22:50:49 [INFO] File uploaded: config.yml
+2025-07-08 20:27:32 [WARNING] Disk space low: 3567 remaining
+2025-07-08 02:42:53 [INFO] Cache cleared successfully
+2025-07-08 23:17:07 [DEBUG] Temporary file created at: config.yml
+
+==> /app/logs/2025-07-09_api.log <==
+2025-07-09 06:11:14 [INFO] Service auth started
+2025-07-09 05:24:17 [ERROR] File write failed: data.csv
+2025-07-09 00:35:45 [INFO] Cache cleared successfully
+2025-07-09 18:32:19 [DEBUG] Entering function send_email with arguments: 7
+2025-07-09 08:59:26 [DEBUG] Query executed: UPDATE orders SET status='shipped' WHERE id=42
+
+==> /app/logs/2025-07-09_app.log <==
+2025-07-09 21:02:26 [INFO] Scheduled backup completed successfully
+2025-07-09 12:07:34 [ERROR] Unhandled exception: NullPointerException
+2025-07-09 23:25:50 [DEBUG] Entering function send_email with arguments: 10
+2025-07-09 21:52:26 [WARNING] Slow query detected: execution time 2695ms
+2025-07-09 06:51:12 [ERROR] Database connection lost
+
+==> /app/logs/2025-07-09_auth.log <==
+2025-07-09 22:46:31 [INFO] File uploaded: data.csv
+2025-07-09 15:32:12 [ERROR] Email sending failed to recipient: support@amazon.com
+2025-07-09 23:46:14 [INFO] Service inventory started
+2025-07-09 13:38:19 [INFO] User login successful for user: alice
+2025-07-09 04:17:53 [ERROR] File write failed: config.yml
+
+==> /app/logs/2025-07-09_db.log <==
+2025-07-09 14:49:15 [DEBUG] Variable x has value: 1861
+2025-07-09 16:10:46 [INFO] Cache cleared successfully
+2025-07-09 14:29:28 [WARNING] API response time exceeded threshold
+2025-07-09 10:00:36 [INFO] File uploaded: config.yml
+2025-07-09 07:16:50 [ERROR] File write failed: data.csv
+
+==> /app/logs/2025-07-10_api.log <==
+2025-07-10 07:56:45 [ERROR] Unhandled exception: NullPointerException
+2025-07-10 13:46:11 [DEBUG] Variable x has value: 3558
+2025-07-10 11:13:16 [INFO] User login successful for user: diana
+2025-07-10 13:42:19 [WARNING] Second failed login attempt for user: charlie. Next attempt will ERROR. Retrying...
+2025-07-10 15:26:51 [INFO] Database connection established
+
+==> /app/logs/2025-07-10_app.log <==
+2025-07-10 22:46:31 [INFO] File uploaded: data.csv
+2025-07-10 15:32:12 [ERROR] Email sending failed to recipient: support@amazon.com
+2025-07-10 23:46:14 [INFO] Service inventory started
+2025-07-10 13:38:19 [INFO] User login successful for user: alice
+2025-07-10 04:17:53 [ERROR] File write failed: config.yml
+
+==> /app/logs/2025-07-10_auth.log <==
+2025-07-10 06:11:14 [INFO] Service auth started
+2025-07-10 05:24:17 [ERROR] File write failed: data.csv
+2025-07-10 00:35:45 [INFO] Cache cleared successfully
+2025-07-10 18:32:19 [DEBUG] Entering function send_email with arguments: 7
+2025-07-10 08:59:26 [DEBUG] Query executed: UPDATE orders SET status='shipped' WHERE id=42
+
+==> /app/logs/2025-07-10_db.log <==
+2025-07-10 21:02:26 [INFO] Scheduled backup completed successfully
+2025-07-10 12:07:34 [ERROR] Unhandled exception: NullPointerException
+2025-07-10 23:25:50 [DEBUG] Entering function send_email with arguments: 10
+2025-07-10 21:52:26 [WARNING] Slow query detected: execution time 2695ms
+2025-07-10 06:51:12 [ERROR] Database connection lost
+
+==> /app/logs/2025-07-11_api.log <==
+2025-07-11 14:44:15 [INFO] Cache cleared successfully
+2025-07-11 01:51:27 [INFO] Database connection established
+2025-07-11 19:52:32 [INFO] File uploaded: data.csv
+2025-07-11 18:17:49 [ERROR] Database connection lost
+2025-07-11 03:44:11 [WARNING] Configuration file deprecated: data.csv
+
+==> /app/logs/2025-07-11_app.log <==
+2025-07-11 06:11:14 [INFO] Service auth started
+2025-07-11 05:24:17 [ERROR] File write failed: data.csv
+2025-07-11 00:35:45 [INFO] Cache cleared successfully
+2025-07-11 18:32:19 [DEBUG] Entering function send_email with arguments: 7
+2025-07-11 08:59:26 [DEBUG] Query executed: UPDATE orders SET status='shipped' WHERE id=42
+
+==> /app/logs/2025-07-11_auth.log <==
+2025-07-11 07:56:45 [ERROR] Unhandled exception: NullPointerException
+2025-07-11 13:46:11 [DEBUG] Variable x has value: 3558
+2025-07-11 11:13:16 [INFO] User login successful for user: diana
+2025-07-11 13:42:19 [WARNING] Second failed login attempt for user: charlie. Next attempt will ERROR. Retrying...
+2025-07-11 15:26:51 [INFO] Database connection established
+
+==> /app/logs/2025-07-11_db.log <==
+2025-07-11 22:46:31 [INFO] File uploaded: data.csv
+2025-07-11 15:32:12 [ERROR] Email sending failed to recipient: support@amazon.com
+2025-07-11 23:46:14 [INFO] Service inventory started
+2025-07-11 13:38:19 [INFO] User login successful for user: alice
+2025-07-11 04:17:53 [ERROR] File write failed: config.yml
+
+==> /app/logs/2025-07-12_api.log <==
+2025-07-12 18:23:53 [INFO] Scheduled backup completed successfully
+2025-07-12 07:28:21 [DEBUG] Variable x has value: 1538
+2025-07-12 23:10:35 [WARNING] API response time exceeded threshold
+2025-07-12 13:38:52 [INFO] Scheduled backup completed successfully
+2025-07-12 19:57:57 [INFO] Cache cleared successfully
+
+==> /app/logs/2025-07-12_app.log <==
+2025-07-12 07:56:45 [ERROR] Unhandled exception: NullPointerException
+2025-07-12 13:46:11 [DEBUG] Variable x has value: 3558
+2025-07-12 11:13:16 [INFO] User login successful for user: diana
+2025-07-12 13:42:19 [WARNING] Second failed login attempt for user: charlie. Next attempt will ERROR. Retrying...
+2025-07-12 15:26:51 [INFO] Database connection established
+
+==> /app/logs/2025-07-12_auth.log <==
+2025-07-12 14:44:15 [INFO] Cache cleared successfully
+2025-07-12 01:51:27 [INFO] Database connection established
+2025-07-12 19:52:32 [INFO] File uploaded: data.csv
+2025-07-12 18:17:49 [ERROR] Database connection lost
+2025-07-12 03:44:11 [WARNING] Configuration file deprecated: data.csv
+
+==> /app/logs/2025-07-12_db.log <==
+2025-07-12 06:11:14 [INFO] Service auth started
+2025-07-12 05:24:17 [ERROR] File write failed: data.csv
+2025-07-12 00:35:45 [INFO] Cache cleared successfully
+2025-07-12 18:32:19 [DEBUG] Entering function send_email with arguments: 7
+2025-07-12 08:59:26 [DEBUG] Query executed: UPDATE orders SET status='shipped' WHERE id=42
+
+==> /app/logs/2025-07-13_api.log <==
+2025-07-13 03:36:44 [INFO] Scheduled backup completed successfully
+2025-07-13 19:11:40 [WARNING] High memory usage detected
+2025-07-13 02:23:35 [DEBUG] Entering function process_payment with arguments: 8
+2025-07-13 19:32:07 [ERROR] Service notification crashed
+2025-07-13 01:05:06 [WARNING] API response time exceeded threshold
+
+==> /app/logs/2025-07-13_app.log <==
+2025-07-13 14:44:15 [INFO] Cache cleared successfully
+2025-07-13 01:51:27 [INFO] Database connection established
+2025-07-13 19:52:32 [INFO] File uploaded: data.csv
+2025-07-13 18:17:49 [ERROR] Database connection lost
+2025-07-13 03:44:11 [WARNING] Configuration file deprecated: data.csv
+
+==> /app/logs/2025-07-13_auth.log <==
+2025-07-13 18:23:53 [INFO] Scheduled backup completed successfully
+2025-07-13 07:28:21 [DEBUG] Variable x has value: 1538
+2025-07-13 23:10:35 [WARNING] API response time exceeded threshold
+2025-07-13 13:38:52 [INFO] Scheduled backup completed successfully
+2025-07-13 19:57:57 [INFO] Cache cleared successfully
+
+==> /app/logs/2025-07-13_db.log <==
+2025-07-13 07:56:45 [ERROR] Unhandled exception: NullPointerException
+2025-07-13 13:46:11 [DEBUG] Variable x has value: 3558
+2025-07-13 11:13:16 [INFO] User login successful for user: diana
+2025-07-13 13:42:19 [WARNING] Second failed login attempt for user: charlie. Next attempt will ERROR. Retrying...
+2025-07-13 15:26:51 [INFO] Database connection established
+
+==> /app/logs/2025-07-14_api.log <==
+2025-07-14 23:23:17 [INFO] Service payment started
+2025-07-14 23:58:29 [DEBUG] Variable x has value: 3701
+2025-07-14 14:38:13 [INFO] Scheduled backup completed successfully
+2025-07-14 10:06:56 [WARNING] High memory usage detected
+2025-07-14 23:43:44 [ERROR] Unhandled exception: NullPointerException
+
+==> /app/logs/2025-07-14_app.log <==
+2025-07-14 18:23:53 [INFO] Scheduled backup completed successfully
+2025-07-14 07:28:21 [DEBUG] Variable x has value: 1538
+2025-07-14 23:10:35 [WARNING] API response time exceeded threshold
+2025-07-14 13:38:52 [INFO] Scheduled backup completed successfully
+2025-07-14 19:57:57 [INFO] Cache cleared successfully
+
+==> /app/logs/2025-07-14_auth.log <==
+2025-07-14 03:36:44 [INFO] Scheduled backup completed successfully
+2025-07-14 19:11:40 [WARNING] High memory usage detected
+2025-07-14 02:23:35 [DEBUG] Entering function process_payment with arguments: 8
+2025-07-14 19:32:07 [ERROR] Service notification crashed
+2025-07-14 01:05:06 [WARNING] API response time exceeded threshold
+
+==> /app/logs/2025-07-14_db.log <==
+2025-07-14 14:44:15 [INFO] Cache cleared successfully
+2025-07-14 01:51:27 [INFO] Database connection established
+2025-07-14 19:52:32 [INFO] File uploaded: data.csv
+2025-07-14 18:17:49 [ERROR] Database connection lost
+2025-07-14 03:44:11 [WARNING] Configuration file deprecated: data.csv
+
+==> /app/logs/2025-07-15_api.log <==
+2025-07-15 09:47:09 [ERROR] Email sending failed to recipient: admin@google.com
+2025-07-15 23:22:55 [WARNING] Configuration file deprecated: config.yml
+2025-07-15 12:32:22 [ERROR] Service payment crashed
+2025-07-15 06:20:33 [INFO] Cache cleared successfully
+2025-07-15 09:05:27 [INFO] User login successful for user: charlie
+
+==> /app/logs/2025-07-15_app.log <==
+2025-07-15 03:36:44 [INFO] Scheduled backup completed successfully
+2025-07-15 19:11:40 [WARNING] High memory usage detected
+2025-07-15 02:23:35 [DEBUG] Entering function process_payment with arguments: 8
+2025-07-15 19:32:07 [ERROR] Service notification crashed
+2025-07-15 01:05:06 [WARNING] API response time exceeded threshold
+
+==> /app/logs/2025-07-15_auth.log <==
+2025-07-15 23:23:17 [INFO] Service payment started
+2025-07-15 23:58:29 [DEBUG] Variable x has value: 3701
+2025-07-15 14:38:13 [INFO] Scheduled backup completed successfully
+2025-07-15 10:06:56 [WARNING] High memory usage detected
+2025-07-15 23:43:44 [ERROR] Unhandled exception: NullPointerException
+
+==> /app/logs/2025-07-15_db.log <==
+2025-07-15 18:23:53 [INFO] Scheduled backup completed successfully
+2025-07-15 07:28:21 [DEBUG] Variable x has value: 1538
+2025-07-15 23:10:35 [WARNING] API response time exceeded threshold
+2025-07-15 13:38:52 [INFO] Scheduled backup completed successfully
+2025-07-15 19:57:57 [INFO] Cache cleared successfully
+
+==> /app/logs/2025-07-16_api.log <==
+2025-07-16 20:40:31 [INFO] Database connection established
+2025-07-16 21:46:08 [WARNING] High memory usage detected
+2025-07-16 15:06:30 [INFO] Cache cleared successfully
+2025-07-16 21:01:36 [INFO] Scheduled backup completed successfully
+2025-07-16 11:55:11 [INFO] Cache cleared successfully
+
+==> /app/logs/2025-07-16_app.log <==
+2025-07-16 23:23:17 [INFO] Service payment started
+2025-07-16 23:58:29 [DEBUG] Variable x has value: 3701
+2025-07-16 14:38:13 [INFO] Scheduled backup completed successfully
+2025-07-16 10:06:56 [WARNING] High memory usage detected
+2025-07-16 23:43:44 [ERROR] Unhandled exception: NullPointerException
+
+==> /app/logs/2025-07-16_auth.log <==
+2025-07-16 09:47:09 [ERROR] Email sending failed to recipient: admin@google.com
+2025-07-16 23:22:55 [WARNING] Configuration file deprecated: config.yml
+2025-07-16 12:32:22 [ERROR] Service payment crashed
+2025-07-16 06:20:33 [INFO] Cache cleared successfully
+2025-07-16 09:05:27 [INFO] User login successful for user: charlie
+
+==> /app/logs/2025-07-16_db.log <==
+2025-07-16 03:36:44 [INFO] Scheduled backup completed successfully
+2025-07-16 19:11:40 [WARNING] High memory usage detected
+2025-07-16 02:23:35 [DEBUG] Entering function process_payment with arguments: 8
+2025-07-16 19:32:07 [ERROR] Service notification crashed
+2025-07-16 01:05:06 [WARNING] API response time exceeded threshold
+
+==> /app/logs/2025-07-17_api.log <==
+2025-07-17 03:58:40 [WARNING] High memory usage detected
+2025-07-17 21:09:17 [ERROR] Database connection lost
+2025-07-17 14:31:49 [INFO] Database connection established
+2025-07-17 15:37:44 [INFO] User login successful for user: eve
+2025-07-17 14:58:02 [ERROR] Unhandled exception: NullPointerException
+
+==> /app/logs/2025-07-17_app.log <==
+2025-07-17 09:47:09 [ERROR] Email sending failed to recipient: admin@google.com
+2025-07-17 23:22:55 [WARNING] Configuration file deprecated: config.yml
+2025-07-17 12:32:22 [ERROR] Service payment crashed
+2025-07-17 06:20:33 [INFO] Cache cleared successfully
+2025-07-17 09:05:27 [INFO] User login successful for user: charlie
+
+==> /app/logs/2025-07-17_auth.log <==
+2025-07-17 20:40:31 [INFO] Database connection established
+2025-07-17 21:46:08 [WARNING] High memory usage detected
+2025-07-17 15:06:30 [INFO] Cache cleared successfully
+2025-07-17 21:01:36 [INFO] Scheduled backup completed successfully
+2025-07-17 11:55:11 [INFO] Cache cleared successfully
+
+==> /app/logs/2025-07-17_db.log <==
+2025-07-17 23:23:17 [INFO] Service payment started
+2025-07-17 23:58:29 [DEBUG] Variable x has value: 3701
+2025-07-17 14:38:13 [INFO] Scheduled backup completed successfully
+2025-07-17 10:06:56 [WARNING] High memory usage detected
+2025-07-17 23:43:44 [ERROR] Unhandled exception: NullPointerException
+
+==> /app/logs/2025-07-18_api.log <==
+2025-07-18 08:09:19 [INFO] User login successful for user: charlie
+2025-07-18 11:40:22 [DEBUG] Query executed: SELECT * FROM users
+2025-07-18 00:37:34 [WARNING] Disk space low: 1231 remaining
+2025-07-18 07:38:17 [INFO] File uploaded: data.csv
+2025-07-18 06:47:52 [INFO] Cache cleared successfully
+
+==> /app/logs/2025-07-18_app.log <==
+2025-07-18 20:40:31 [INFO] Database connection established
+2025-07-18 21:46:08 [WARNING] High memory usage detected
+2025-07-18 15:06:30 [INFO] Cache cleared successfully
+2025-07-18 21:01:36 [INFO] Scheduled backup completed successfully
+2025-07-18 11:55:11 [INFO] Cache cleared successfully
+
+==> /app/logs/2025-07-18_auth.log <==
+2025-07-18 03:58:40 [WARNING] High memory usage detected
+2025-07-18 21:09:17 [ERROR] Database connection lost
+2025-07-18 14:31:49 [INFO] Database connection established
+2025-07-18 15:37:44 [INFO] User login successful for user: eve
+2025-07-18 14:58:02 [ERROR] Unhandled exception: NullPointerException
+
+==> /app/logs/2025-07-18_db.log <==
+2025-07-18 09:47:09 [ERROR] Email sending failed to recipient: admin@google.com
+2025-07-18 23:22:55 [WARNING] Configuration file deprecated: config.yml
+2025-07-18 12:32:22 [ERROR] Service payment crashed
+2025-07-18 06:20:33 [INFO] Cache cleared successfully
+2025-07-18 09:05:27 [INFO] User login successful for user: charlie
+
+==> /app/logs/2025-07-19_api.log <==
+2025-07-19 05:56:17 [INFO] Scheduled backup completed successfully
+2025-07-19 22:46:17 [INFO] User login successful for user: charlie
+2025-07-19 17:51:02 [INFO] File uploaded: config.yml
+2025-07-19 16:37:53 [INFO] Scheduled backup completed successfully
+2025-07-19 20:18:19 [INFO] Service payment started
+
+==> /app/logs/2025-07-19_app.log <==
+2025-07-19 03:58:40 [WARNING] High memory usage detected
+2025-07-19 21:09:17 [ERROR] Database connection lost
+2025-07-19 14:31:49 [INFO] Database connection established
+2025-07-19 15:37:44 [INFO] User login successful for user: eve
+2025-07-19 14:58:02 [ERROR] Unhandled exception: NullPointerException
+
+==> /app/logs/2025-07-19_auth.log <==
+2025-07-19 08:09:19 [INFO] User login successful for user: charlie
+2025-07-19 11:40:22 [DEBUG] Query executed: SELECT * FROM users
+2025-07-19 00:37:34 [WARNING] Disk space low: 1231 remaining
+2025-07-19 07:38:17 [INFO] File uploaded: data.csv
+2025-07-19 06:47:52 [INFO] Cache cleared successfully
+
+==> /app/logs/2025-07-19_db.log <==
+2025-07-19 20:40:31 [INFO] Database connection established
+2025-07-19 21:46:08 [WARNING] High memory usage detected
+2025-07-19 15:06:30 [INFO] Cache cleared successfully
+2025-07-19 21:01:36 [INFO] Scheduled backup completed successfully
+2025-07-19 11:55:11 [INFO] Cache cleared successfully
+
+==> /app/logs/2025-07-20_api.log <==
+2025-07-20 19:32:50 [INFO] Cache cleared successfully
+2025-07-20 09:22:13 [INFO] Cache cleared successfully
+2025-07-20 00:09:15 [INFO] File uploaded: backup.zip
+2025-07-20 17:28:07 [INFO] User login successful for user: alice
+2025-07-20 14:12:02 [ERROR] Email sending failed to recipient: support@amazon.com
+
+==> /app/logs/2025-07-20_app.log <==
+2025-07-20 08:09:19 [INFO] User login successful for user: charlie
+2025-07-20 11:40:22 [DEBUG] Query executed: SELECT * FROM users
+2025-07-20 00:37:34 [WARNING] Disk space low: 1231 remaining
+2025-07-20 07:38:17 [INFO] File uploaded: data.csv
+2025-07-20 06:47:52 [INFO] Cache cleared successfully
+
+==> /app/logs/2025-07-20_auth.log <==
+2025-07-20 05:56:17 [INFO] Scheduled backup completed successfully
+2025-07-20 22:46:17 [INFO] User login successful for user: charlie
+2025-07-20 17:51:02 [INFO] File uploaded: config.yml
+2025-07-20 16:37:53 [INFO] Scheduled backup completed successfully
+2025-07-20 20:18:19 [INFO] Service payment started
+
+==> /app/logs/2025-07-20_db.log <==
+2025-07-20 03:58:40 [WARNING] High memory usage detected
+2025-07-20 21:09:17 [ERROR] Database connection lost
+2025-07-20 14:31:49 [INFO] Database connection established
+2025-07-20 15:37:44 [INFO] User login successful for user: eve
+2025-07-20 14:58:02 [ERROR] Unhandled exception: NullPointerException
+
+==> /app/logs/2025-07-21_api.log <==
+2025-07-21 02:43:10 [WARNING] High memory usage detected
+2025-07-21 14:22:39 [INFO] Service auth started
+2025-07-21 16:06:15 [ERROR] Database connection lost
+2025-07-21 16:18:04 [ERROR] Email sending failed to recipient: support@amazon.com
+2025-07-21 15:07:08 [ERROR] Unhandled exception: NullPointerException
+
+==> /app/logs/2025-07-21_app.log <==
+2025-07-21 05:56:17 [INFO] Scheduled backup completed successfully
+2025-07-21 22:46:17 [INFO] User login successful for user: charlie
+2025-07-21 17:51:02 [INFO] File uploaded: config.yml
+2025-07-21 16:37:53 [INFO] Scheduled backup completed successfully
+2025-07-21 20:18:19 [INFO] Service payment started
+
+==> /app/logs/2025-07-21_auth.log <==
+2025-07-21 19:32:50 [INFO] Cache cleared successfully
+2025-07-21 09:22:13 [INFO] Cache cleared successfully
+2025-07-21 00:09:15 [INFO] File uploaded: backup.zip
+2025-07-21 17:28:07 [INFO] User login successful for user: alice
+2025-07-21 14:12:02 [ERROR] Email sending failed to recipient: support@amazon.com
+
+==> /app/logs/2025-07-21_db.log <==
+2025-07-21 08:09:19 [INFO] User login successful for user: charlie
+2025-07-21 11:40:22 [DEBUG] Query executed: SELECT * FROM users
+2025-07-21 00:37:34 [WARNING] Disk space low: 1231 remaining
+2025-07-21 07:38:17 [INFO] File uploaded: data.csv
+2025-07-21 06:47:52 [INFO] Cache cleared successfully
+
+==> /app/logs/2025-07-22_api.log <==
+2025-07-22 19:18:30 [INFO] Service inventory started
+2025-07-22 09:06:10 [INFO] Cache cleared successfully
+2025-07-22 06:48:08 [INFO] File uploaded: data.csv
+2025-07-22 21:04:09 [ERROR] Unhandled exception: TimeoutError
+2025-07-22 09:14:41 [ERROR] Database connection lost
+
+==> /app/logs/2025-07-22_app.log <==
+2025-07-22 19:32:50 [INFO] Cache cleared successfully
+2025-07-22 09:22:13 [INFO] Cache cleared successfully
+2025-07-22 00:09:15 [INFO] File uploaded: backup.zip
+2025-07-22 17:28:07 [INFO] User login successful for user: alice
+2025-07-22 14:12:02 [ERROR] Email sending failed to recipient: support@amazon.com
+
+==> /app/logs/2025-07-22_auth.log <==
+2025-07-22 02:43:10 [WARNING] High memory usage detected
+2025-07-22 14:22:39 [INFO] Service auth started
+2025-07-22 16:06:15 [ERROR] Database connection lost
+2025-07-22 16:18:04 [ERROR] Email sending failed to recipient: support@amazon.com
+2025-07-22 15:07:08 [ERROR] Unhandled exception: NullPointerException
+
+==> /app/logs/2025-07-22_db.log <==
+2025-07-22 05:56:17 [INFO] Scheduled backup completed successfully
+2025-07-22 22:46:17 [INFO] User login successful for user: charlie
+2025-07-22 17:51:02 [INFO] File uploaded: config.yml
+2025-07-22 16:37:53 [INFO] Scheduled backup completed successfully
+2025-07-22 20:18:19 [INFO] Service payment started
+
+==> /app/logs/2025-07-23_api.log <==
+2025-07-23 13:04:54 [INFO] File uploaded: backup.zip
+2025-07-23 17:10:04 [ERROR] Database connection lost
+2025-07-23 01:53:26 [INFO] Cache cleared successfully
+2025-07-23 04:52:46 [INFO] Service notification started
+2025-07-23 22:17:55 [INFO] Service payment started
+
+==> /app/logs/2025-07-23_app.log <==
+2025-07-23 02:43:10 [WARNING] High memory usage detected
+2025-07-23 14:22:39 [INFO] Service auth started
+2025-07-23 16:06:15 [ERROR] Database connection lost
+2025-07-23 16:18:04 [ERROR] Email sending failed to recipient: support@amazon.com
+2025-07-23 15:07:08 [ERROR] Unhandled exception: NullPointerException
+
+==> /app/logs/2025-07-23_auth.log <==
+2025-07-23 19:18:30 [INFO] Service inventory started
+2025-07-23 09:06:10 [INFO] Cache cleared successfully
+2025-07-23 06:48:08 [INFO] File uploaded: data.csv
+2025-07-23 21:04:09 [ERROR] Unhandled exception: TimeoutError
+2025-07-23 09:14:41 [ERROR] Database connection lost
+
+==> /app/logs/2025-07-23_db.log <==
+2025-07-23 19:32:50 [INFO] Cache cleared successfully
+2025-07-23 09:22:13 [INFO] Cache cleared successfully
+2025-07-23 00:09:15 [INFO] File uploaded: backup.zip
+2025-07-23 17:28:07 [INFO] User login successful for user: alice
+2025-07-23 14:12:02 [ERROR] Email sending failed to recipient: support@amazon.com
+
+==> /app/logs/2025-07-24_api.log <==
+2025-07-24 07:57:00 [ERROR] Database connection lost
+2025-07-24 00:50:03 [INFO] Database connection established
+2025-07-24 01:46:26 [INFO] Scheduled backup completed successfully
+2025-07-24 12:15:29 [ERROR] Deadlock detected in transaction ID 4878
+2025-07-24 18:50:57 [INFO] Database connection established
+
+==> /app/logs/2025-07-24_app.log <==
+2025-07-24 19:18:30 [INFO] Service inventory started
+2025-07-24 09:06:10 [INFO] Cache cleared successfully
+2025-07-24 06:48:08 [INFO] File uploaded: data.csv
+2025-07-24 21:04:09 [ERROR] Unhandled exception: TimeoutError
+2025-07-24 09:14:41 [ERROR] Database connection lost
+
+==> /app/logs/2025-07-24_auth.log <==
+2025-07-24 13:04:54 [INFO] File uploaded: backup.zip
+2025-07-24 17:10:04 [ERROR] Database connection lost
+2025-07-24 01:53:26 [INFO] Cache cleared successfully
+2025-07-24 04:52:46 [INFO] Service notification started
+2025-07-24 22:17:55 [INFO] Service payment started
+
+==> /app/logs/2025-07-24_db.log <==
+2025-07-24 02:43:10 [WARNING] High memory usage detected
+2025-07-24 14:22:39 [INFO] Service auth started
+2025-07-24 16:06:15 [ERROR] Database connection lost
+2025-07-24 16:18:04 [ERROR] Email sending failed to recipient: support@amazon.com
+2025-07-24 15:07:08 [ERROR] Unhandled exception: NullPointerException
+
+==> /app/logs/2025-07-25_api.log <==
+2025-07-25 22:54:32 [INFO] User login successful for user: charlie
+2025-07-25 20:49:49 [INFO] Service auth started
+2025-07-25 02:04:46 [WARNING] Disk space low: 1742 remaining
+2025-07-25 15:44:33 [WARNING] Disk space low: 488 remaining
+2025-07-25 19:22:34 [INFO] Scheduled backup completed successfully
+
+==> /app/logs/2025-07-25_app.log <==
+2025-07-25 13:04:54 [INFO] File uploaded: backup.zip
+2025-07-25 17:10:04 [ERROR] Database connection lost
+2025-07-25 01:53:26 [INFO] Cache cleared successfully
+2025-07-25 04:52:46 [INFO] Service notification started
+2025-07-25 22:17:55 [INFO] Service payment started
+
+==> /app/logs/2025-07-25_auth.log <==
+2025-07-25 07:57:00 [ERROR] Database connection lost
+2025-07-25 00:50:03 [INFO] Database connection established
+2025-07-25 01:46:26 [INFO] Scheduled backup completed successfully
+2025-07-25 12:15:29 [ERROR] Deadlock detected in transaction ID 4878
+2025-07-25 18:50:57 [INFO] Database connection established
+
+==> /app/logs/2025-07-25_db.log <==
+2025-07-25 19:18:30 [INFO] Service inventory started
+2025-07-25 09:06:10 [INFO] Cache cleared successfully
+2025-07-25 06:48:08 [INFO] File uploaded: data.csv
+2025-07-25 21:04:09 [ERROR] Unhandled exception: TimeoutError
+2025-07-25 09:14:41 [ERROR] Database connection lost
+
+==> /app/logs/2025-07-26_api.log <==
+2025-07-26 16:43:44 [DEBUG] Variable x has value: 2304
+2025-07-26 14:22:38 [INFO] Database connection established
+2025-07-26 21:41:35 [ERROR] Unhandled exception: FileNotFoundError
+2025-07-26 23:39:10 [WARNING] Configuration file deprecated: report.pdf
+2025-07-26 18:41:37 [WARNING] Failed login attempt for user: bob. Retrying...
+
+==> /app/logs/2025-07-26_app.log <==
+2025-07-26 07:57:00 [ERROR] Database connection lost
+2025-07-26 00:50:03 [INFO] Database connection established
+2025-07-26 01:46:26 [INFO] Scheduled backup completed successfully
+2025-07-26 12:15:29 [ERROR] Deadlock detected in transaction ID 4878
+2025-07-26 18:50:57 [INFO] Database connection established
+
+==> /app/logs/2025-07-26_auth.log <==
+2025-07-26 22:54:32 [INFO] User login successful for user: charlie
+2025-07-26 20:49:49 [INFO] Service auth started
+2025-07-26 02:04:46 [WARNING] Disk space low: 1742 remaining
+2025-07-26 15:44:33 [WARNING] Disk space low: 488 remaining
+2025-07-26 19:22:34 [INFO] Scheduled backup completed successfully
+
+==> /app/logs/2025-07-26_db.log <==
+2025-07-26 13:04:54 [INFO] File uploaded: backup.zip
+2025-07-26 17:10:04 [ERROR] Database connection lost
+2025-07-26 01:53:26 [INFO] Cache cleared successfully
+2025-07-26 04:52:46 [INFO] Service notification started
+2025-07-26 22:17:55 [INFO] Service payment started
+
+==> /app/logs/2025-07-27_api.log <==
+2025-07-27 07:10:56 [ERROR] File write failed: backup.zip
+2025-07-27 06:29:14 [INFO] Scheduled backup completed successfully
+2025-07-27 00:44:33 [INFO] Scheduled backup completed successfully
+2025-07-27 02:09:29 [INFO] Database connection established
+2025-07-27 15:41:57 [WARNING] Disk space low: 3756 remaining
+
+==> /app/logs/2025-07-27_app.log <==
+2025-07-27 22:54:32 [INFO] User login successful for user: charlie
+2025-07-27 20:49:49 [INFO] Service auth started
+2025-07-27 02:04:46 [WARNING] Disk space low: 1742 remaining
+2025-07-27 15:44:33 [WARNING] Disk space low: 488 remaining
+2025-07-27 19:22:34 [INFO] Scheduled backup completed successfully
+
+==> /app/logs/2025-07-27_auth.log <==
+2025-07-27 16:43:44 [DEBUG] Variable x has value: 2304
+2025-07-27 14:22:38 [INFO] Database connection established
+2025-07-27 21:41:35 [ERROR] Unhandled exception: FileNotFoundError
+2025-07-27 23:39:10 [WARNING] Configuration file deprecated: report.pdf
+2025-07-27 18:41:37 [WARNING] Failed login attempt for user: bob. Retrying...
+
+==> /app/logs/2025-07-27_db.log <==
+2025-07-27 07:57:00 [ERROR] Database connection lost
+2025-07-27 00:50:03 [INFO] Database connection established
+2025-07-27 01:46:26 [INFO] Scheduled backup completed successfully
+2025-07-27 12:15:29 [ERROR] Deadlock detected in transaction ID 4878
+2025-07-27 18:50:57 [INFO] Database connection established
+
+==> /app/logs/2025-07-28_api.log <==
+2025-07-28 16:28:15 [WARNING] Slow query detected: execution time 865ms
+2025-07-28 08:06:38 [WARNING] Failed login attempt for user: bob. Retrying...
+2025-07-28 22:37:53 [WARNING] Failed login attempt for user: bob. Retrying...
+2025-07-28 06:33:00 [WARNING] Failed login attempt for user: eve. Retrying...
+2025-07-28 03:48:47 [INFO] Database connection established
+
+==> /app/logs/2025-07-28_app.log <==
+2025-07-28 16:43:44 [DEBUG] Variable x has value: 2304
+2025-07-28 14:22:38 [INFO] Database connection established
+2025-07-28 21:41:35 [ERROR] Unhandled exception: FileNotFoundError
+2025-07-28 23:39:10 [WARNING] Configuration file deprecated: report.pdf
+2025-07-28 18:41:37 [WARNING] Failed login attempt for user: bob. Retrying...
+
+==> /app/logs/2025-07-28_auth.log <==
+2025-07-28 07:10:56 [ERROR] File write failed: backup.zip
+2025-07-28 06:29:14 [INFO] Scheduled backup completed successfully
+2025-07-28 00:44:33 [INFO] Scheduled backup completed successfully
+2025-07-28 02:09:29 [INFO] Database connection established
+2025-07-28 15:41:57 [WARNING] Disk space low: 3756 remaining
+
+==> /app/logs/2025-07-28_db.log <==
+2025-07-28 22:54:32 [INFO] User login successful for user: charlie
+2025-07-28 20:49:49 [INFO] Service auth started
+2025-07-28 02:04:46 [WARNING] Disk space low: 1742 remaining
+2025-07-28 15:44:33 [WARNING] Disk space low: 488 remaining
+2025-07-28 19:22:34 [INFO] Scheduled backup completed successfully
+
+==> /app/logs/2025-07-29_api.log <==
+2025-07-29 11:42:04 [INFO] User login successful for user: alice
+2025-07-29 09:42:51 [ERROR] File write failed: report.pdf
+2025-07-29 02:18:46 [INFO] Scheduled backup completed successfully
+2025-07-29 16:08:18 [ERROR] Deadlock detected in transaction ID 2591
+2025-07-29 17:10:45 [INFO] File uploaded: data.csv
+
+==> /app/logs/2025-07-29_app.log <==
+2025-07-29 07:10:56 [ERROR] File write failed: backup.zip
+2025-07-29 06:29:14 [INFO] Scheduled backup completed successfully
+2025-07-29 00:44:33 [INFO] Scheduled backup completed successfully
+2025-07-29 02:09:29 [INFO] Database connection established
+2025-07-29 15:41:57 [WARNING] Disk space low: 3756 remaining
+
+==> /app/logs/2025-07-29_auth.log <==
+2025-07-29 16:28:15 [WARNING] Slow query detected: execution time 865ms
+2025-07-29 08:06:38 [WARNING] Failed login attempt for user: bob. Retrying...
+2025-07-29 22:37:53 [WARNING] Failed login attempt for user: bob. Retrying...
+2025-07-29 06:33:00 [WARNING] Failed login attempt for user: eve. Retrying...
+2025-07-29 03:48:47 [INFO] Database connection established
+
+==> /app/logs/2025-07-29_db.log <==
+2025-07-29 16:43:44 [DEBUG] Variable x has value: 2304
+2025-07-29 14:22:38 [INFO] Database connection established
+2025-07-29 21:41:35 [ERROR] Unhandled exception: FileNotFoundError
+2025-07-29 23:39:10 [WARNING] Configuration file deprecated: report.pdf
+2025-07-29 18:41:37 [WARNING] Failed login attempt for user: bob. Retrying...
+
+==> /app/logs/2025-07-30_api.log <==
+2025-07-30 08:46:36 [INFO] Cache cleared successfully
+2025-07-30 17:29:53 [INFO] User login successful for user: charlie
+2025-07-30 00:15:30 [INFO] User login successful for user: alice
+2025-07-30 19:02:22 [DEBUG] Temporary file created at: config.yml
+2025-07-30 12:51:35 [INFO] File uploaded: config.yml
+
+==> /app/logs/2025-07-30_app.log <==
+2025-07-30 16:28:15 [WARNING] Slow query detected: execution time 865ms
+2025-07-30 08:06:38 [WARNING] Failed login attempt for user: bob. Retrying...
+2025-07-30 22:37:53 [WARNING] Failed login attempt for user: bob. Retrying...
+2025-07-30 06:33:00 [WARNING] Failed login attempt for user: eve. Retrying...
+2025-07-30 03:48:47 [INFO] Database connection established
+
+==> /app/logs/2025-07-30_auth.log <==
+2025-07-30 11:42:04 [INFO] User login successful for user: alice
+2025-07-30 09:42:51 [ERROR] File write failed: report.pdf
+2025-07-30 02:18:46 [INFO] Scheduled backup completed successfully
+2025-07-30 16:08:18 [ERROR] Deadlock detected in transaction ID 2591
+2025-07-30 17:10:45 [INFO] File uploaded: data.csv
+
+==> /app/logs/2025-07-30_db.log <==
+2025-07-30 07:10:56 [ERROR] File write failed: backup.zip
+2025-07-30 06:29:14 [INFO] Scheduled backup completed successfully
+2025-07-30 00:44:33 [INFO] Scheduled backup completed successfully
+2025-07-30 02:09:29 [INFO] Database connection established
+2025-07-30 15:41:57 [WARNING] Disk space low: 3756 remaining
+
+==> /app/logs/2025-07-31_api.log <==
+2025-07-31 23:02:00 [INFO] Database connection established
+2025-07-31 02:25:02 [ERROR] Service notification crashed
+2025-07-31 01:58:59 [WARNING] Failed login attempt for user: bob. Retrying...
+2025-07-31 22:45:43 [INFO] Cache cleared successfully
+2025-07-31 02:31:34 [ERROR] File write failed: report.pdf
+
+==> /app/logs/2025-07-31_app.log <==
+2025-07-31 11:42:04 [INFO] User login successful for user: alice
+2025-07-31 09:42:51 [ERROR] File write failed: report.pdf
+2025-07-31 02:18:46 [INFO] Scheduled backup completed successfully
+2025-07-31 16:08:18 [ERROR] Deadlock detected in transaction ID 2591
+2025-07-31 17:10:45 [INFO] File uploaded: data.csv
+
+==> /app/logs/2025-07-31_auth.log <==
+2025-07-31 08:46:36 [INFO] Cache cleared successfully
+2025-07-31 17:29:53 [INFO] User login successful for user: charlie
+2025-07-31 00:15:30 [INFO] User login successful for user: alice
+2025-07-31 19:02:22 [DEBUG] Temporary file created at: config.yml
+2025-07-31 12:51:35 [INFO] File uploaded: config.yml
+
+==> /app/logs/2025-07-31_db.log <==
+2025-07-31 16:28:15 [WARNING] Slow query detected: execution time 865ms
+2025-07-31 08:06:38 [WARNING] Failed login attempt for user: bob. Retrying...
+2025-07-31 22:37:53 [WARNING] Failed login attempt for user: bob. Retrying...
+2025-07-31 06:33:00 [WARNING] Failed login attempt for user: eve. Retrying...
+2025-07-31 03:48:47 [INFO] Database connection established
+
+==> /app/logs/2025-08-01_api.log <==
+2025-08-01 15:12:36 [INFO] Scheduled backup completed successfully
+2025-08-01 16:22:20 [INFO] Cache cleared successfully
+2025-08-01 07:14:01 [INFO] Service inventory started
+2025-08-01 04:30:55 [INFO] Database connection established
+2025-08-01 00:43:52 [INFO] Service payment started
+
+==> /app/logs/2025-08-01_app.log <==
+2025-08-01 04:18:26 [INFO] Cache cleared successfully
+2025-08-01 13:20:19 [ERROR] Service notification crashed
+2025-08-01 03:58:38 [WARNING] Failed login attempt for user: charlie. Retrying...
+2025-08-01 04:38:47 [WARNING] High memory usage detected
+2025-08-01 15:45:34 [WARNING] Slow query detected: execution time 3507ms
+
+==> /app/logs/2025-08-01_auth.log <==
+2025-08-01 11:55:53 [INFO] Database connection established
+2025-08-01 22:16:37 [WARNING] Slow query detected: execution time 4776ms
+2025-08-01 00:28:36 [WARNING] Failed login attempt for user: eve. Retrying...
+2025-08-01 14:12:02 [WARNING] High memory usage detected
+2025-08-01 15:34:26 [WARNING] Failed login attempt for user: diana. Retrying...
+
+==> /app/logs/2025-08-01_db.log <==
+2025-08-01 12:50:44 [ERROR] Deadlock detected in transaction ID 2029
+2025-08-01 08:04:33 [INFO] Cache cleared successfully
+2025-08-01 06:19:09 [ERROR] Email sending failed to recipient: user@gmail.com
+2025-08-01 05:12:08 [WARNING] Slow query detected: execution time 3358ms
+2025-08-01 07:50:01 [INFO] User login successful for user: eve
+
+==> /app/logs/2025-08-02_api.log <==
+2025-08-02 18:54:11 [WARNING] API response time exceeded threshold
+2025-08-02 13:48:56 [INFO] Service auth started
+2025-08-02 23:17:25 [WARNING] Second failed login attempt for user: charlie. Next attempt will ERROR. Retrying...
+2025-08-02 16:36:16 [INFO] Scheduled backup completed successfully
+2025-08-02 07:05:18 [INFO] Scheduled backup completed successfully
+
+==> /app/logs/2025-08-02_app.log <==
+2025-08-02 11:55:53 [INFO] Database connection established
+2025-08-02 22:16:37 [WARNING] Slow query detected: execution time 4776ms
+2025-08-02 00:28:36 [WARNING] Failed login attempt for user: eve. Retrying...
+2025-08-02 14:12:02 [WARNING] High memory usage detected
+2025-08-02 15:34:26 [WARNING] Failed login attempt for user: diana. Retrying...
+
+==> /app/logs/2025-08-02_auth.log <==
+2025-08-02 15:12:36 [INFO] Scheduled backup completed successfully
+2025-08-02 16:22:20 [INFO] Cache cleared successfully
+2025-08-02 07:14:01 [INFO] Service inventory started
+2025-08-02 04:30:55 [INFO] Database connection established
+2025-08-02 00:43:52 [INFO] Service payment started
+
+==> /app/logs/2025-08-02_db.log <==
+2025-08-02 04:18:26 [INFO] Cache cleared successfully
+2025-08-02 13:20:19 [ERROR] Service notification crashed
+2025-08-02 03:58:38 [WARNING] Failed login attempt for user: charlie. Retrying...
+2025-08-02 04:38:47 [WARNING] High memory usage detected
+2025-08-02 15:45:34 [WARNING] Slow query detected: execution time 3507ms
+
+==> /app/logs/2025-08-03_api.log <==
+2025-08-03 13:58:11 [INFO] Scheduled backup completed successfully
+2025-08-03 10:48:14 [INFO] Database connection established
+2025-08-03 09:59:53 [ERROR] Deadlock detected in transaction ID 4036
+2025-08-03 10:39:54 [INFO] User login successful for user: alice
+2025-08-03 01:53:55 [INFO] Scheduled backup completed successfully
+
+==> /app/logs/2025-08-03_app.log <==
+2025-08-03 15:12:36 [INFO] Scheduled backup completed successfully
+2025-08-03 16:22:20 [INFO] Cache cleared successfully
+2025-08-03 07:14:01 [INFO] Service inventory started
+2025-08-03 04:30:55 [INFO] Database connection established
+2025-08-03 00:43:52 [INFO] Service payment started
+
+==> /app/logs/2025-08-03_auth.log <==
+2025-08-03 18:54:11 [WARNING] API response time exceeded threshold
+2025-08-03 13:48:56 [INFO] Service auth started
+2025-08-03 23:17:25 [WARNING] Second failed login attempt for user: charlie. Next attempt will ERROR. Retrying...
+2025-08-03 16:36:16 [INFO] Scheduled backup completed successfully
+2025-08-03 07:05:18 [INFO] Scheduled backup completed successfully
+
+==> /app/logs/2025-08-03_db.log <==
+2025-08-03 11:55:53 [INFO] Database connection established
+2025-08-03 22:16:37 [WARNING] Slow query detected: execution time 4776ms
+2025-08-03 00:28:36 [WARNING] Failed login attempt for user: eve. Retrying...
+2025-08-03 14:12:02 [WARNING] High memory usage detected
+2025-08-03 15:34:26 [WARNING] Failed login attempt for user: diana. Retrying...
+
+==> /app/logs/2025-08-04_api.log <==
+2025-08-04 04:08:50 [ERROR] Deadlock detected in transaction ID 1853
+2025-08-04 09:36:39 [WARNING] High memory usage detected
+2025-08-04 21:48:27 [INFO] File uploaded: data.csv
+2025-08-04 00:48:37 [INFO] Cache cleared successfully
+2025-08-04 10:18:17 [WARNING] Disk space low: 901 remaining
+
+==> /app/logs/2025-08-04_app.log <==
+2025-08-04 18:54:11 [WARNING] API response time exceeded threshold
+2025-08-04 13:48:56 [INFO] Service auth started
+2025-08-04 23:17:25 [WARNING] Second failed login attempt for user: charlie. Next attempt will ERROR. Retrying...
+2025-08-04 16:36:16 [INFO] Scheduled backup completed successfully
+2025-08-04 07:05:18 [INFO] Scheduled backup completed successfully
+
+==> /app/logs/2025-08-04_auth.log <==
+2025-08-04 13:58:11 [INFO] Scheduled backup completed successfully
+2025-08-04 10:48:14 [INFO] Database connection established
+2025-08-04 09:59:53 [ERROR] Deadlock detected in transaction ID 4036
+2025-08-04 10:39:54 [INFO] User login successful for user: alice
+2025-08-04 01:53:55 [INFO] Scheduled backup completed successfully
+
+==> /app/logs/2025-08-04_db.log <==
+2025-08-04 15:12:36 [INFO] Scheduled backup completed successfully
+2025-08-04 16:22:20 [INFO] Cache cleared successfully
+2025-08-04 07:14:01 [INFO] Service inventory started
+2025-08-04 04:30:55 [INFO] Database connection established
+2025-08-04 00:43:52 [INFO] Service payment started
+
+==> /app/logs/2025-08-05_api.log <==
+2025-08-05 23:38:20 [INFO] Database connection established
+2025-08-05 18:17:35 [INFO] Service payment started
+2025-08-05 09:58:46 [INFO] Database connection established
+2025-08-05 13:59:27 [WARNING] Second failed login attempt for user: alice. Next attempt will ERROR. Retrying...
+2025-08-05 18:25:14 [INFO] Database connection established
+
+==> /app/logs/2025-08-05_app.log <==
+2025-08-05 13:58:11 [INFO] Scheduled backup completed successfully
+2025-08-05 10:48:14 [INFO] Database connection established
+2025-08-05 09:59:53 [ERROR] Deadlock detected in transaction ID 4036
+2025-08-05 10:39:54 [INFO] User login successful for user: alice
+2025-08-05 01:53:55 [INFO] Scheduled backup completed successfully
+
+==> /app/logs/2025-08-05_auth.log <==
+2025-08-05 04:08:50 [ERROR] Deadlock detected in transaction ID 1853
+2025-08-05 09:36:39 [WARNING] High memory usage detected
+2025-08-05 21:48:27 [INFO] File uploaded: data.csv
+2025-08-05 00:48:37 [INFO] Cache cleared successfully
+2025-08-05 10:18:17 [WARNING] Disk space low: 901 remaining
+
+==> /app/logs/2025-08-05_db.log <==
+2025-08-05 18:54:11 [WARNING] API response time exceeded threshold
+2025-08-05 13:48:56 [INFO] Service auth started
+2025-08-05 23:17:25 [WARNING] Second failed login attempt for user: charlie. Next attempt will ERROR. Retrying...
+2025-08-05 16:36:16 [INFO] Scheduled backup completed successfully
+2025-08-05 07:05:18 [INFO] Scheduled backup completed successfully
+
+==> /app/logs/2025-08-06_api.log <==
+2025-08-06 14:06:34 [INFO] Service inventory started
+2025-08-06 06:29:29 [INFO] Scheduled backup completed successfully
+2025-08-06 09:06:32 [ERROR] Service payment crashed
+2025-08-06 07:52:03 [INFO] Cache cleared successfully
+2025-08-06 17:55:58 [INFO] Database connection established
+
+==> /app/logs/2025-08-06_app.log <==
+2025-08-06 04:08:50 [ERROR] Deadlock detected in transaction ID 1853
+2025-08-06 09:36:39 [WARNING] High memory usage detected
+2025-08-06 21:48:27 [INFO] File uploaded: data.csv
+2025-08-06 00:48:37 [INFO] Cache cleared successfully
+2025-08-06 10:18:17 [WARNING] Disk space low: 901 remaining
+
+==> /app/logs/2025-08-06_auth.log <==
+2025-08-06 23:38:20 [INFO] Database connection established
+2025-08-06 18:17:35 [INFO] Service payment started
+2025-08-06 09:58:46 [INFO] Database connection established
+2025-08-06 13:59:27 [WARNING] Second failed login attempt for user: alice. Next attempt will ERROR. Retrying...
+2025-08-06 18:25:14 [INFO] Database connection established
+
+==> /app/logs/2025-08-06_db.log <==
+2025-08-06 13:58:11 [INFO] Scheduled backup completed successfully
+2025-08-06 10:48:14 [INFO] Database connection established
+2025-08-06 09:59:53 [ERROR] Deadlock detected in transaction ID 4036
+2025-08-06 10:39:54 [INFO] User login successful for user: alice
+2025-08-06 01:53:55 [INFO] Scheduled backup completed successfully
+
+==> /app/logs/2025-08-07_api.log <==
+2025-08-07 11:06:57 [INFO] User login successful for user: charlie
+2025-08-07 19:15:16 [INFO] Database connection established
+2025-08-07 03:08:04 [INFO] Scheduled backup completed successfully
+2025-08-07 07:16:41 [INFO] Cache cleared successfully
+2025-08-07 14:14:42 [WARNING] Failed login attempt for user: eve. Retrying...
+
+==> /app/logs/2025-08-07_app.log <==
+2025-08-07 23:38:20 [INFO] Database connection established
+2025-08-07 18:17:35 [INFO] Service payment started
+2025-08-07 09:58:46 [INFO] Database connection established
+2025-08-07 13:59:27 [WARNING] Second failed login attempt for user: alice. Next attempt will ERROR. Retrying...
+2025-08-07 18:25:14 [INFO] Database connection established
+
+==> /app/logs/2025-08-07_auth.log <==
+2025-08-07 14:06:34 [INFO] Service inventory started
+2025-08-07 06:29:29 [INFO] Scheduled backup completed successfully
+2025-08-07 09:06:32 [ERROR] Service payment crashed
+2025-08-07 07:52:03 [INFO] Cache cleared successfully
+2025-08-07 17:55:58 [INFO] Database connection established
+
+==> /app/logs/2025-08-07_db.log <==
+2025-08-07 04:08:50 [ERROR] Deadlock detected in transaction ID 1853
+2025-08-07 09:36:39 [WARNING] High memory usage detected
+2025-08-07 21:48:27 [INFO] File uploaded: data.csv
+2025-08-07 00:48:37 [INFO] Cache cleared successfully
+2025-08-07 10:18:17 [WARNING] Disk space low: 901 remaining
+
+==> /app/logs/2025-08-08_api.log <==
+2025-08-08 05:26:47 [WARNING] API response time exceeded threshold
+2025-08-08 02:45:27 [INFO] Scheduled backup completed successfully
+2025-08-08 09:12:48 [INFO] Service inventory started
+2025-08-08 03:21:02 [WARNING] High memory usage detected
+2025-08-08 02:53:00 [INFO] Database connection established
+
+==> /app/logs/2025-08-08_app.log <==
+2025-08-08 14:06:34 [INFO] Service inventory started
+2025-08-08 06:29:29 [INFO] Scheduled backup completed successfully
+2025-08-08 09:06:32 [ERROR] Service payment crashed
+2025-08-08 07:52:03 [INFO] Cache cleared successfully
+2025-08-08 17:55:58 [INFO] Database connection established
+
+==> /app/logs/2025-08-08_auth.log <==
+2025-08-08 11:06:57 [INFO] User login successful for user: charlie
+2025-08-08 19:15:16 [INFO] Database connection established
+2025-08-08 03:08:04 [INFO] Scheduled backup completed successfully
+2025-08-08 07:16:41 [INFO] Cache cleared successfully
+2025-08-08 14:14:42 [WARNING] Failed login attempt for user: eve. Retrying...
+
+==> /app/logs/2025-08-08_db.log <==
+2025-08-08 23:38:20 [INFO] Database connection established
+2025-08-08 18:17:35 [INFO] Service payment started
+2025-08-08 09:58:46 [INFO] Database connection established
+2025-08-08 13:59:27 [WARNING] Second failed login attempt for user: alice. Next attempt will ERROR. Retrying...
+2025-08-08 18:25:14 [INFO] Database connection established
+
+==> /app/logs/2025-08-09_api.log <==
+2025-08-09 05:46:38 [INFO] Cache cleared successfully
+2025-08-09 10:45:18 [INFO] Scheduled backup completed successfully
+2025-08-09 09:07:16 [DEBUG] Query executed: SELECT * FROM users
+2025-08-09 06:44:31 [INFO] User login successful for user: eve
+2025-08-09 14:13:16 [INFO] Cache cleared successfully
+
+==> /app/logs/2025-08-09_app.log <==
+2025-08-09 11:06:57 [INFO] User login successful for user: charlie
+2025-08-09 19:15:16 [INFO] Database connection established
+2025-08-09 03:08:04 [INFO] Scheduled backup completed successfully
+2025-08-09 07:16:41 [INFO] Cache cleared successfully
+2025-08-09 14:14:42 [WARNING] Failed login attempt for user: eve. Retrying...
+
+==> /app/logs/2025-08-09_auth.log <==
+2025-08-09 05:26:47 [WARNING] API response time exceeded threshold
+2025-08-09 02:45:27 [INFO] Scheduled backup completed successfully
+2025-08-09 09:12:48 [INFO] Service inventory started
+2025-08-09 03:21:02 [WARNING] High memory usage detected
+2025-08-09 02:53:00 [INFO] Database connection established
+
+==> /app/logs/2025-08-09_db.log <==
+2025-08-09 14:06:34 [INFO] Service inventory started
+2025-08-09 06:29:29 [INFO] Scheduled backup completed successfully
+2025-08-09 09:06:32 [ERROR] Service payment crashed
+2025-08-09 07:52:03 [INFO] Cache cleared successfully
+2025-08-09 17:55:58 [INFO] Database connection established
+
+==> /app/logs/2025-08-10_api.log <==
+2025-08-10 22:23:45 [ERROR] Database connection lost
+2025-08-10 08:30:53 [WARNING] Second failed login attempt for user: bob. Next attempt will ERROR. Retrying...
+2025-08-10 20:15:37 [INFO] Cache cleared successfully
+2025-08-10 15:54:29 [INFO] File uploaded: backup.zip
+2025-08-10 05:19:25 [WARNING] Slow query detected: execution time 351ms
+
+==> /app/logs/2025-08-10_app.log <==
+2025-08-10 05:26:47 [WARNING] API response time exceeded threshold
+2025-08-10 02:45:27 [INFO] Scheduled backup completed successfully
+2025-08-10 09:12:48 [INFO] Service inventory started
+2025-08-10 03:21:02 [WARNING] High memory usage detected
+2025-08-10 02:53:00 [INFO] Database connection established
+
+==> /app/logs/2025-08-10_auth.log <==
+2025-08-10 05:46:38 [INFO] Cache cleared successfully
+2025-08-10 10:45:18 [INFO] Scheduled backup completed successfully
+2025-08-10 09:07:16 [DEBUG] Query executed: SELECT * FROM users
+2025-08-10 06:44:31 [INFO] User login successful for user: eve
+2025-08-10 14:13:16 [INFO] Cache cleared successfully
+
+==> /app/logs/2025-08-10_db.log <==
+2025-08-10 11:06:57 [INFO] User login successful for user: charlie
+2025-08-10 19:15:16 [INFO] Database connection established
+2025-08-10 03:08:04 [INFO] Scheduled backup completed successfully
+2025-08-10 07:16:41 [INFO] Cache cleared successfully
+2025-08-10 14:14:42 [WARNING] Failed login attempt for user: eve. Retrying...
+
+==> /app/logs/2025-08-11_api.log <==
+2025-08-11 12:21:15 [INFO] Database connection established
+2025-08-11 17:03:36 [WARNING] Second failed login attempt for user: alice. Next attempt will ERROR. Retrying...
+2025-08-11 17:26:30 [INFO] Database connection established
+2025-08-11 14:12:49 [WARNING] API response time exceeded threshold
+2025-08-11 18:28:26 [WARNING] Disk space low: 2536 remaining
+
+==> /app/logs/2025-08-11_app.log <==
+2025-08-11 05:46:38 [INFO] Cache cleared successfully
+2025-08-11 10:45:18 [INFO] Scheduled backup completed successfully
+2025-08-11 09:07:16 [DEBUG] Query executed: SELECT * FROM users
+2025-08-11 06:44:31 [INFO] User login successful for user: eve
+2025-08-11 14:13:16 [INFO] Cache cleared successfully
+
+==> /app/logs/2025-08-11_auth.log <==
+2025-08-11 22:23:45 [ERROR] Database connection lost
+2025-08-11 08:30:53 [WARNING] Second failed login attempt for user: bob. Next attempt will ERROR. Retrying...
+2025-08-11 20:15:37 [INFO] Cache cleared successfully
+2025-08-11 15:54:29 [INFO] File uploaded: backup.zip
+2025-08-11 05:19:25 [WARNING] Slow query detected: execution time 351ms
+
+==> /app/logs/2025-08-11_db.log <==
+2025-08-11 05:26:47 [WARNING] API response time exceeded threshold
+2025-08-11 02:45:27 [INFO] Scheduled backup completed successfully
+2025-08-11 09:12:48 [INFO] Service inventory started
+2025-08-11 03:21:02 [WARNING] High memory usage detected
+2025-08-11 02:53:00 [INFO] Database connection established
+
+==> /app/logs/2025-08-12_api.log <==
+2025-08-12 14:19:56 [WARNING] Disk space low: 2740 remaining
+2025-08-12 10:47:49 [INFO] Scheduled backup completed successfully
+2025-08-12 08:56:53 [INFO] Database connection established
+2025-08-12 06:31:19 [INFO] Scheduled backup completed successfully
+2025-08-12 04:26:16 [ERROR] Deadlock detected in transaction ID 4839
+
+==> /app/logs/2025-08-12_app.log <==
+2025-08-12 22:23:45 [ERROR] Database connection lost
+2025-08-12 08:30:53 [WARNING] Second failed login attempt for user: bob. Next attempt will ERROR. Retrying...
+2025-08-12 20:15:37 [INFO] Cache cleared successfully
+2025-08-12 15:54:29 [INFO] File uploaded: backup.zip
+2025-08-12 05:19:25 [WARNING] Slow query detected: execution time 351ms
+
+==> /app/logs/2025-08-12_auth.log <==
+2025-08-12 12:21:15 [INFO] Database connection established
+2025-08-12 17:03:36 [WARNING] Second failed login attempt for user: alice. Next attempt will ERROR. Retrying...
+2025-08-12 17:26:30 [INFO] Database connection established
+2025-08-12 14:12:49 [WARNING] API response time exceeded threshold
+2025-08-12 18:28:26 [WARNING] Disk space low: 2536 remaining
+
+==> /app/logs/2025-08-12_db.log <==
+2025-08-12 05:46:38 [INFO] Cache cleared successfully
+2025-08-12 10:45:18 [INFO] Scheduled backup completed successfully
+2025-08-12 09:07:16 [DEBUG] Query executed: SELECT * FROM users
+2025-08-12 06:44:31 [INFO] User login successful for user: eve
+2025-08-12 14:13:16 [INFO] Cache cleared successfully
+[?2004hroot@ffa1b4afc86a:/app# cat > /app/summarize.py << 'PY'
+[?2004l[?2004h> import glob
+[?2004l[?2004h> import os
+[?2004l[?2004h> import re
+[?2004l[?2004h> import csv
+[?2004l[?2004h> from datetime import date, timedelta
+[?2004l[?2004h> 
+[?2004l[?2004h> ref = date(2025, 8, 12)
+[?2004l[?2004h> periods = {
+[?2004l[?2004h>     'today': (ref, ref),
+[?2004l[?2004h>     'last_7_days': (ref - timedelta(days=6), ref),
+[?2004l[?2004h>     'last_30_days': (ref - timedelta(days=29), ref),
+[?2004l[?2004h>     'month_to_date': (date(ref.year, ref.month, 1), ref),
+[?2004l[?2004h> }
+[?2004l[?2004h> severities = ['ERROR', 'WARNING', 'INFO']
+[?2004l[?2004h> counts = {p: {s: 0 for s in severities} for p in periods}
+[?2004l[?2004h> counts['total'] = {s: 0 for s in severities}
+[?2004l[?2004h> 
+[?2004l[?2004h> sev_re = re.compile(r'\[(ERROR|WARNING|INFO)\]')
+[?2004l[?2004h> 
+[?2004l[?2004h> for path in glob.glob('/app/logs/*.log'):
+[?2004l[?2004h>     fname = os.path.basename(path)
+[?2004l[?2004h>     try:
+[?2004l[?2004h>         file_date = date.fromisoformat(fname.split('_')[0])
+[?2004l[?2004h>     except Exception:
+[?2004l[?2004h>         continue
+[?2004l[?2004h>     with open(path, 'r', encoding='utf-8', errors='ignore') as f:
+[?2004l[?2004h>         for line in f:
+[?2004l[?2004h>             m = sev_re.search(line)
+[?2004l[?2004h>             if not m:
+[?2004l[?2004h>                 continue
+[?2004l[?2004h>             sev = m.group(1)
+[?2004l[?2004h>             counts['total'][sev] += 1
+[?2004l[?2004h>             for p, (start, end) in periods.items():
+[?2004l[?2004h>                 if start <= file_date <= end:
+[?2004l[?2004h>                     counts[p][sev] += 1
+[?2004l[?2004h> 
+[?2004l[?2004h> with open('/app/summary.csv', 'w', newline='') as out:
+[?2004l[?2004h>     writer = csv.writer(out)
+[?2004l[?2004h>     writer.writerow(['period', 'severity', 'count'])
+[?2004l[?2004h>     for p in ['today', 'last_7_days', 'last_30_days', 'month_to_date', 'total']:
+[?2004l[?2004h>         for s in severities:
+[?2004l[?2004h>             writer.writerow([p, s, counts[p][s]])
+[?2004l[?2004h> PY
+[?2004l[?2004hroot@ffa1b4afc86a:/app# python3 /app/summarize.py
+[?2004l[?2004hroot@ffa1b4afc86a:/app# cat /app/summary.csv
+[?2004lperiod,severity,count
+today,ERROR,370
+today,WARNING,463
+today,INFO,1433
+last_7_days,ERROR,2969
+last_7_days,WARNING,4020
+last_7_days,INFO,12203
+last_30_days,ERROR,9594
+last_30_days,WARNING,12847
+last_30_days,INFO,38702
+month_to_date,ERROR,4682
+month_to_date,WARNING,6327
+month_to_date,INFO,19420
+total,ERROR,14160
+total,WARNING,18772
+total,INFO,56621
+[?2004hroot@ffa1b4afc86a:/app# grep -oE '\[(ERROR|WARNING|INFO)\]' /app/logs/*.log | sort | uniq -c
+[?2004l     91 /app/logs/2025-07-03_api.log:[ERROR]
+    378 /app/logs/2025-07-03_api.log:[INFO]
+    115 /app/logs/2025-07-03_api.log:[WARNING]
+     42 /app/logs/2025-07-03_app.log:[ERROR]
+    166 /app/logs/2025-07-03_app.log:[INFO]
+     70 /app/logs/2025-07-03_app.log:[WARNING]
+    103 /app/logs/2025-07-03_auth.log:[ERROR]
+    374 /app/logs/2025-07-03_auth.log:[INFO]
+    127 /app/logs/2025-07-03_auth.log:[WARNING]
+     69 /app/logs/2025-07-03_db.log:[ERROR]
+    335 /app/logs/2025-07-03_db.log:[INFO]
+    116 /app/logs/2025-07-03_db.log:[WARNING]
+     81 /app/logs/2025-07-04_api.log:[ERROR]
+    368 /app/logs/2025-07-04_api.log:[INFO]
+    126 /app/logs/2025-07-04_api.log:[WARNING]
+    103 /app/logs/2025-07-04_app.log:[ERROR]
+    374 /app/logs/2025-07-04_app.log:[INFO]
+    127 /app/logs/2025-07-04_app.log:[WARNING]
+     91 /app/logs/2025-07-04_auth.log:[ERROR]
+    378 /app/logs/2025-07-04_auth.log:[INFO]
+    115 /app/logs/2025-07-04_auth.log:[WARNING]
+     42 /app/logs/2025-07-04_db.log:[ERROR]
+    166 /app/logs/2025-07-04_db.log:[INFO]
+     70 /app/logs/2025-07-04_db.log:[WARNING]
+     98 /app/logs/2025-07-05_api.log:[ERROR]
+    399 /app/logs/2025-07-05_api.log:[INFO]
+    138 /app/logs/2025-07-05_api.log:[WARNING]
+     91 /app/logs/2025-07-05_app.log:[ERROR]
+    378 /app/logs/2025-07-05_app.log:[INFO]
+    115 /app/logs/2025-07-05_app.log:[WARNING]
+     81 /app/logs/2025-07-05_auth.log:[ERROR]
+    368 /app/logs/2025-07-05_auth.log:[INFO]
+    126 /app/logs/2025-07-05_auth.log:[WARNING]
+    103 /app/logs/2025-07-05_db.log:[ERROR]
+    374 /app/logs/2025-07-05_db.log:[INFO]
+    127 /app/logs/2025-07-05_db.log:[WARNING]
+     90 /app/logs/2025-07-06_api.log:[ERROR]
+    375 /app/logs/2025-07-06_api.log:[INFO]
+    124 /app/logs/2025-07-06_api.log:[WARNING]
+     81 /app/logs/2025-07-06_app.log:[ERROR]
+    368 /app/logs/2025-07-06_app.log:[INFO]
+    126 /app/logs/2025-07-06_app.log:[WARNING]
+     98 /app/logs/2025-07-06_auth.log:[ERROR]
+    399 /app/logs/2025-07-06_auth.log:[INFO]
+    138 /app/logs/2025-07-06_auth.log:[WARNING]
+     91 /app/logs/2025-07-06_db.log:[ERROR]
+    378 /app/logs/2025-07-06_db.log:[INFO]
+    115 /app/logs/2025-07-06_db.log:[WARNING]
+    139 /app/logs/2025-07-07_api.log:[ERROR]
+    566 /app/logs/2025-07-07_api.log:[INFO]
+    188 /app/logs/2025-07-07_api.log:[WARNING]
+     98 /app/logs/2025-07-07_app.log:[ERROR]
+    399 /app/logs/2025-07-07_app.log:[INFO]
+    138 /app/logs/2025-07-07_app.log:[WARNING]
+     90 /app/logs/2025-07-07_auth.log:[ERROR]
+    375 /app/logs/2025-07-07_auth.log:[INFO]
+    124 /app/logs/2025-07-07_auth.log:[WARNING]
+     81 /app/logs/2025-07-07_db.log:[ERROR]
+    368 /app/logs/2025-07-07_db.log:[INFO]
+    126 /app/logs/2025-07-07_db.log:[WARNING]
+    143 /app/logs/2025-07-08_api.log:[ERROR]
+    567 /app/logs/2025-07-08_api.log:[INFO]
+    171 /app/logs/2025-07-08_api.log:[WARNING]
+     90 /app/logs/2025-07-08_app.log:[ERROR]
+    375 /app/logs/2025-07-08_app.log:[INFO]
+    124 /app/logs/2025-07-08_app.log:[WARNING]
+    139 /app/logs/2025-07-08_auth.log:[ERROR]
+    566 /app/logs/2025-07-08_auth.log:[INFO]
+    188 /app/logs/2025-07-08_auth.log:[WARNING]
+     98 /app/logs/2025-07-08_db.log:[ERROR]
+    399 /app/logs/2025-07-08_db.log:[INFO]
+    138 /app/logs/2025-07-08_db.log:[WARNING]
+    130 /app/logs/2025-07-09_api.log:[ERROR]
+    443 /app/logs/2025-07-09_api.log:[INFO]
+    151 /app/logs/2025-07-09_api.log:[WARNING]
+    139 /app/logs/2025-07-09_app.log:[ERROR]
+    566 /app/logs/2025-07-09_app.log:[INFO]
+    188 /app/logs/2025-07-09_app.log:[WARNING]
+    143 /app/logs/2025-07-09_auth.log:[ERROR]
+    567 /app/logs/2025-07-09_auth.log:[INFO]
+    171 /app/logs/2025-07-09_auth.log:[WARNING]
+     90 /app/logs/2025-07-09_db.log:[ERROR]
+    375 /app/logs/2025-07-09_db.log:[INFO]
+    124 /app/logs/2025-07-09_db.log:[WARNING]
+    159 /app/logs/2025-07-10_api.log:[ERROR]
+    550 /app/logs/2025-07-10_api.log:[INFO]
+    175 /app/logs/2025-07-10_api.log:[WARNING]
+    143 /app/logs/2025-07-10_app.log:[ERROR]
+    567 /app/logs/2025-07-10_app.log:[INFO]
+    171 /app/logs/2025-07-10_app.log:[WARNING]
+    130 /app/logs/2025-07-10_auth.log:[ERROR]
+    443 /app/logs/2025-07-10_auth.log:[INFO]
+    151 /app/logs/2025-07-10_auth.log:[WARNING]
+    139 /app/logs/2025-07-10_db.log:[ERROR]
+    566 /app/logs/2025-07-10_db.log:[INFO]
+    188 /app/logs/2025-07-10_db.log:[WARNING]
+     45 /app/logs/2025-07-11_api.log:[ERROR]
+    169 /app/logs/2025-07-11_api.log:[INFO]
+     55 /app/logs/2025-07-11_api.log:[WARNING]
+    130 /app/logs/2025-07-11_app.log:[ERROR]
+    443 /app/logs/2025-07-11_app.log:[INFO]
+    151 /app/logs/2025-07-11_app.log:[WARNING]
+    159 /app/logs/2025-07-11_auth.log:[ERROR]
+    550 /app/logs/2025-07-11_auth.log:[INFO]
+    175 /app/logs/2025-07-11_auth.log:[WARNING]
+    143 /app/logs/2025-07-11_db.log:[ERROR]
+    567 /app/logs/2025-07-11_db.log:[INFO]
+    171 /app/logs/2025-07-11_db.log:[WARNING]
+     94 /app/logs/2025-07-12_api.log:[ERROR]
+    423 /app/logs/2025-07-12_api.log:[INFO]
+    154 /app/logs/2025-07-12_api.log:[WARNING]
+    159 /app/logs/2025-07-12_app.log:[ERROR]
+    550 /app/logs/2025-07-12_app.log:[INFO]
+    175 /app/logs/2025-07-12_app.log:[WARNING]
+     45 /app/logs/2025-07-12_auth.log:[ERROR]
+    169 /app/logs/2025-07-12_auth.log:[INFO]
+     55 /app/logs/2025-07-12_auth.log:[WARNING]
+    130 /app/logs/2025-07-12_db.log:[ERROR]
+    443 /app/logs/2025-07-12_db.log:[INFO]
+    151 /app/logs/2025-07-12_db.log:[WARNING]
+     57 /app/logs/2025-07-13_api.log:[ERROR]
+    193 /app/logs/2025-07-13_api.log:[INFO]
+     63 /app/logs/2025-07-13_api.log:[WARNING]
+     45 /app/logs/2025-07-13_app.log:[ERROR]
+    169 /app/logs/2025-07-13_app.log:[INFO]
+     55 /app/logs/2025-07-13_app.log:[WARNING]
+     94 /app/logs/2025-07-13_auth.log:[ERROR]
+    423 /app/logs/2025-07-13_auth.log:[INFO]
+    154 /app/logs/2025-07-13_auth.log:[WARNING]
+    159 /app/logs/2025-07-13_db.log:[ERROR]
+    550 /app/logs/2025-07-13_db.log:[INFO]
+    175 /app/logs/2025-07-13_db.log:[WARNING]
+     47 /app/logs/2025-07-14_api.log:[ERROR]
+    189 /app/logs/2025-07-14_api.log:[INFO]
+     63 /app/logs/2025-07-14_api.log:[WARNING]
+     94 /app/logs/2025-07-14_app.log:[ERROR]
+    423 /app/logs/2025-07-14_app.log:[INFO]
+    154 /app/logs/2025-07-14_app.log:[WARNING]
+     57 /app/logs/2025-07-14_auth.log:[ERROR]
+    193 /app/logs/2025-07-14_auth.log:[INFO]
+     63 /app/logs/2025-07-14_auth.log:[WARNING]
+     45 /app/logs/2025-07-14_db.log:[ERROR]
+    169 /app/logs/2025-07-14_db.log:[INFO]
+     55 /app/logs/2025-07-14_db.log:[WARNING]
+     81 /app/logs/2025-07-15_api.log:[ERROR]
+    341 /app/logs/2025-07-15_api.log:[INFO]
+    118 /app/logs/2025-07-15_api.log:[WARNING]
+     57 /app/logs/2025-07-15_app.log:[ERROR]
+    193 /app/logs/2025-07-15_app.log:[INFO]
+     63 /app/logs/2025-07-15_app.log:[WARNING]
+     47 /app/logs/2025-07-15_auth.log:[ERROR]
+    189 /app/logs/2025-07-15_auth.log:[INFO]
+     63 /app/logs/2025-07-15_auth.log:[WARNING]
+     94 /app/logs/2025-07-15_db.log:[ERROR]
+    423 /app/logs/2025-07-15_db.log:[INFO]
+    154 /app/logs/2025-07-15_db.log:[WARNING]
+     35 /app/logs/2025-07-16_api.log:[ERROR]
+    138 /app/logs/2025-07-16_api.log:[INFO]
+     46 /app/logs/2025-07-16_api.log:[WARNING]
+     47 /app/logs/2025-07-16_app.log:[ERROR]
+    189 /app/logs/2025-07-16_app.log:[INFO]
+     63 /app/logs/2025-07-16_app.log:[WARNING]
+     81 /app/logs/2025-07-16_auth.log:[ERROR]
+    341 /app/logs/2025-07-16_auth.log:[INFO]
+    118 /app/logs/2025-07-16_auth.log:[WARNING]
+     57 /app/logs/2025-07-16_db.log:[ERROR]
+    193 /app/logs/2025-07-16_db.log:[INFO]
+     63 /app/logs/2025-07-16_db.log:[WARNING]
+     87 /app/logs/2025-07-17_api.log:[ERROR]
+    353 /app/logs/2025-07-17_api.log:[INFO]
+    124 /app/logs/2025-07-17_api.log:[WARNING]
+     81 /app/logs/2025-07-17_app.log:[ERROR]
+    341 /app/logs/2025-07-17_app.log:[INFO]
+    118 /app/logs/2025-07-17_app.log:[WARNING]
+     35 /app/logs/2025-07-17_auth.log:[ERROR]
+    138 /app/logs/2025-07-17_auth.log:[INFO]
+     46 /app/logs/2025-07-17_auth.log:[WARNING]
+     47 /app/logs/2025-07-17_db.log:[ERROR]
+    189 /app/logs/2025-07-17_db.log:[INFO]
+     63 /app/logs/2025-07-17_db.log:[WARNING]
+    111 /app/logs/2025-07-18_api.log:[ERROR]
+    456 /app/logs/2025-07-18_api.log:[INFO]
+    150 /app/logs/2025-07-18_api.log:[WARNING]
+     35 /app/logs/2025-07-18_app.log:[ERROR]
+    138 /app/logs/2025-07-18_app.log:[INFO]
+     46 /app/logs/2025-07-18_app.log:[WARNING]
+     87 /app/logs/2025-07-18_auth.log:[ERROR]
+    353 /app/logs/2025-07-18_auth.log:[INFO]
+    124 /app/logs/2025-07-18_auth.log:[WARNING]
+     81 /app/logs/2025-07-18_db.log:[ERROR]
+    341 /app/logs/2025-07-18_db.log:[INFO]
+    118 /app/logs/2025-07-18_db.log:[WARNING]
+     50 /app/logs/2025-07-19_api.log:[ERROR]
+    141 /app/logs/2025-07-19_api.log:[INFO]
+     51 /app/logs/2025-07-19_api.log:[WARNING]
+     87 /app/logs/2025-07-19_app.log:[ERROR]
+    353 /app/logs/2025-07-19_app.log:[INFO]
+    124 /app/logs/2025-07-19_app.log:[WARNING]
+    111 /app/logs/2025-07-19_auth.log:[ERROR]
+    456 /app/logs/2025-07-19_auth.log:[INFO]
+    150 /app/logs/2025-07-19_auth.log:[WARNING]
+     35 /app/logs/2025-07-19_db.log:[ERROR]
+    138 /app/logs/2025-07-19_db.log:[INFO]
+     46 /app/logs/2025-07-19_db.log:[WARNING]
+     33 /app/logs/2025-07-20_api.log:[ERROR]
+    164 /app/logs/2025-07-20_api.log:[INFO]
+     52 /app/logs/2025-07-20_api.log:[WARNING]
+    111 /app/logs/2025-07-20_app.log:[ERROR]
+    456 /app/logs/2025-07-20_app.log:[INFO]
+    150 /app/logs/2025-07-20_app.log:[WARNING]
+     50 /app/logs/2025-07-20_auth.log:[ERROR]
+    141 /app/logs/2025-07-20_auth.log:[INFO]
+     51 /app/logs/2025-07-20_auth.log:[WARNING]
+     87 /app/logs/2025-07-20_db.log:[ERROR]
+    353 /app/logs/2025-07-20_db.log:[INFO]
+    124 /app/logs/2025-07-20_db.log:[WARNING]
+     45 /app/logs/2025-07-21_api.log:[ERROR]
+    192 /app/logs/2025-07-21_api.log:[INFO]
+     77 /app/logs/2025-07-21_api.log:[WARNING]
+     50 /app/logs/2025-07-21_app.log:[ERROR]
+    141 /app/logs/2025-07-21_app.log:[INFO]
+     51 /app/logs/2025-07-21_app.log:[WARNING]
+     33 /app/logs/2025-07-21_auth.log:[ERROR]
+    164 /app/logs/2025-07-21_auth.log:[INFO]
+     52 /app/logs/2025-07-21_auth.log:[WARNING]
+    111 /app/logs/2025-07-21_db.log:[ERROR]
+    456 /app/logs/2025-07-21_db.log:[INFO]
+    150 /app/logs/2025-07-21_db.log:[WARNING]
+    138 /app/logs/2025-07-22_api.log:[ERROR]
+    523 /app/logs/2025-07-22_api.log:[INFO]
+    168 /app/logs/2025-07-22_api.log:[WARNING]
+     33 /app/logs/2025-07-22_app.log:[ERROR]
+    164 /app/logs/2025-07-22_app.log:[INFO]
+     52 /app/logs/2025-07-22_app.log:[WARNING]
+     45 /app/logs/2025-07-22_auth.log:[ERROR]
+    192 /app/logs/2025-07-22_auth.log:[INFO]
+     77 /app/logs/2025-07-22_auth.log:[WARNING]
+     50 /app/logs/2025-07-22_db.log:[ERROR]
+    141 /app/logs/2025-07-22_db.log:[INFO]
+     51 /app/logs/2025-07-22_db.log:[WARNING]
+     60 /app/logs/2025-07-23_api.log:[ERROR]
+    226 /app/logs/2025-07-23_api.log:[INFO]
+     69 /app/logs/2025-07-23_api.log:[WARNING]
+     45 /app/logs/2025-07-23_app.log:[ERROR]
+    192 /app/logs/2025-07-23_app.log:[INFO]
+     77 /app/logs/2025-07-23_app.log:[WARNING]
+    138 /app/logs/2025-07-23_auth.log:[ERROR]
+    523 /app/logs/2025-07-23_auth.log:[INFO]
+    168 /app/logs/2025-07-23_auth.log:[WARNING]
+     33 /app/logs/2025-07-23_db.log:[ERROR]
+    164 /app/logs/2025-07-23_db.log:[INFO]
+     52 /app/logs/2025-07-23_db.log:[WARNING]
+     54 /app/logs/2025-07-24_api.log:[ERROR]
+    192 /app/logs/2025-07-24_api.log:[INFO]
+     58 /app/logs/2025-07-24_api.log:[WARNING]
+    138 /app/logs/2025-07-24_app.log:[ERROR]
+    523 /app/logs/2025-07-24_app.log:[INFO]
+    168 /app/logs/2025-07-24_app.log:[WARNING]
+     60 /app/logs/2025-07-24_auth.log:[ERROR]
+    226 /app/logs/2025-07-24_auth.log:[INFO]
+     69 /app/logs/2025-07-24_auth.log:[WARNING]
+     45 /app/logs/2025-07-24_db.log:[ERROR]
+    192 /app/logs/2025-07-24_db.log:[INFO]
+     77 /app/logs/2025-07-24_db.log:[WARNING]
+    102 /app/logs/2025-07-25_api.log:[ERROR]
+    316 /app/logs/2025-07-25_api.log:[INFO]
+    114 /app/logs/2025-07-25_api.log:[WARNING]
+     60 /app/logs/2025-07-25_app.log:[ERROR]
+    226 /app/logs/2025-07-25_app.log:[INFO]
+     69 /app/logs/2025-07-25_app.log:[WARNING]
+     54 /app/logs/2025-07-25_auth.log:[ERROR]
+    192 /app/logs/2025-07-25_auth.log:[INFO]
+     58 /app/logs/2025-07-25_auth.log:[WARNING]
+    138 /app/logs/2025-07-25_db.log:[ERROR]
+    523 /app/logs/2025-07-25_db.log:[INFO]
+    168 /app/logs/2025-07-25_db.log:[WARNING]
+     85 /app/logs/2025-07-26_api.log:[ERROR]
+    412 /app/logs/2025-07-26_api.log:[INFO]
+    115 /app/logs/2025-07-26_api.log:[WARNING]
+     54 /app/logs/2025-07-26_app.log:[ERROR]
+    192 /app/logs/2025-07-26_app.log:[INFO]
+     58 /app/logs/2025-07-26_app.log:[WARNING]
+    102 /app/logs/2025-07-26_auth.log:[ERROR]
+    316 /app/logs/2025-07-26_auth.log:[INFO]
+    114 /app/logs/2025-07-26_auth.log:[WARNING]
+     60 /app/logs/2025-07-26_db.log:[ERROR]
+    226 /app/logs/2025-07-26_db.log:[INFO]
+     69 /app/logs/2025-07-26_db.log:[WARNING]
+     83 /app/logs/2025-07-27_api.log:[ERROR]
+    325 /app/logs/2025-07-27_api.log:[INFO]
+    119 /app/logs/2025-07-27_api.log:[WARNING]
+    102 /app/logs/2025-07-27_app.log:[ERROR]
+    316 /app/logs/2025-07-27_app.log:[INFO]
+    114 /app/logs/2025-07-27_app.log:[WARNING]
+     85 /app/logs/2025-07-27_auth.log:[ERROR]
+    412 /app/logs/2025-07-27_auth.log:[INFO]
+    115 /app/logs/2025-07-27_auth.log:[WARNING]
+     54 /app/logs/2025-07-27_db.log:[ERROR]
+    192 /app/logs/2025-07-27_db.log:[INFO]
+     58 /app/logs/2025-07-27_db.log:[WARNING]
+     30 /app/logs/2025-07-28_api.log:[ERROR]
+    128 /app/logs/2025-07-28_api.log:[INFO]
+     53 /app/logs/2025-07-28_api.log:[WARNING]
+     85 /app/logs/2025-07-28_app.log:[ERROR]
+    412 /app/logs/2025-07-28_app.log:[INFO]
+    115 /app/logs/2025-07-28_app.log:[WARNING]
+     83 /app/logs/2025-07-28_auth.log:[ERROR]
+    325 /app/logs/2025-07-28_auth.log:[INFO]
+    119 /app/logs/2025-07-28_auth.log:[WARNING]
+    102 /app/logs/2025-07-28_db.log:[ERROR]
+    316 /app/logs/2025-07-28_db.log:[INFO]
+    114 /app/logs/2025-07-28_db.log:[WARNING]
+     54 /app/logs/2025-07-29_api.log:[ERROR]
+    151 /app/logs/2025-07-29_api.log:[INFO]
+     61 /app/logs/2025-07-29_api.log:[WARNING]
+     83 /app/logs/2025-07-29_app.log:[ERROR]
+    325 /app/logs/2025-07-29_app.log:[INFO]
+    119 /app/logs/2025-07-29_app.log:[WARNING]
+     30 /app/logs/2025-07-29_auth.log:[ERROR]
+    128 /app/logs/2025-07-29_auth.log:[INFO]
+     53 /app/logs/2025-07-29_auth.log:[WARNING]
+     85 /app/logs/2025-07-29_db.log:[ERROR]
+    412 /app/logs/2025-07-29_db.log:[INFO]
+    115 /app/logs/2025-07-29_db.log:[WARNING]
+     30 /app/logs/2025-07-30_api.log:[ERROR]
+    135 /app/logs/2025-07-30_api.log:[INFO]
+     50 /app/logs/2025-07-30_api.log:[WARNING]
+     30 /app/logs/2025-07-30_app.log:[ERROR]
+    128 /app/logs/2025-07-30_app.log:[INFO]
+     53 /app/logs/2025-07-30_app.log:[WARNING]
+     54 /app/logs/2025-07-30_auth.log:[ERROR]
+    151 /app/logs/2025-07-30_auth.log:[INFO]
+     61 /app/logs/2025-07-30_auth.log:[WARNING]
+     83 /app/logs/2025-07-30_db.log:[ERROR]
+    325 /app/logs/2025-07-30_db.log:[INFO]
+    119 /app/logs/2025-07-30_db.log:[WARNING]
+    122 /app/logs/2025-07-31_api.log:[ERROR]
+    581 /app/logs/2025-07-31_api.log:[INFO]
+    177 /app/logs/2025-07-31_api.log:[WARNING]
+     54 /app/logs/2025-07-31_app.log:[ERROR]
+    151 /app/logs/2025-07-31_app.log:[INFO]
+     61 /app/logs/2025-07-31_app.log:[WARNING]
+     30 /app/logs/2025-07-31_auth.log:[ERROR]
+    135 /app/logs/2025-07-31_auth.log:[INFO]
+     50 /app/logs/2025-07-31_auth.log:[WARNING]
+     30 /app/logs/2025-07-31_db.log:[ERROR]
+    128 /app/logs/2025-07-31_db.log:[INFO]
+     53 /app/logs/2025-07-31_db.log:[WARNING]
+     45 /app/logs/2025-08-01_api.log:[ERROR]
+    222 /app/logs/2025-08-01_api.log:[INFO]
+     71 /app/logs/2025-08-01_api.log:[WARNING]
+     38 /app/logs/2025-08-01_app.log:[ERROR]
+    125 /app/logs/2025-08-01_app.log:[INFO]
+     38 /app/logs/2025-08-01_app.log:[WARNING]
+    140 /app/logs/2025-08-01_auth.log:[ERROR]
+    537 /app/logs/2025-08-01_auth.log:[INFO]
+    167 /app/logs/2025-08-01_auth.log:[WARNING]
+    137 /app/logs/2025-08-01_db.log:[ERROR]
+    481 /app/logs/2025-08-01_db.log:[INFO]
+    184 /app/logs/2025-08-01_db.log:[WARNING]
+    100 /app/logs/2025-08-02_api.log:[ERROR]
+    437 /app/logs/2025-08-02_api.log:[INFO]
+    125 /app/logs/2025-08-02_api.log:[WARNING]
+    140 /app/logs/2025-08-02_app.log:[ERROR]
+    537 /app/logs/2025-08-02_app.log:[INFO]
+    167 /app/logs/2025-08-02_app.log:[WARNING]
+     45 /app/logs/2025-08-02_auth.log:[ERROR]
+    222 /app/logs/2025-08-02_auth.log:[INFO]
+     71 /app/logs/2025-08-02_auth.log:[WARNING]
+     38 /app/logs/2025-08-02_db.log:[ERROR]
+    125 /app/logs/2025-08-02_db.log:[INFO]
+     38 /app/logs/2025-08-02_db.log:[WARNING]
+     77 /app/logs/2025-08-03_api.log:[ERROR]
+    326 /app/logs/2025-08-03_api.log:[INFO]
+     97 /app/logs/2025-08-03_api.log:[WARNING]
+     45 /app/logs/2025-08-03_app.log:[ERROR]
+    222 /app/logs/2025-08-03_app.log:[INFO]
+     71 /app/logs/2025-08-03_app.log:[WARNING]
+    100 /app/logs/2025-08-03_auth.log:[ERROR]
+    437 /app/logs/2025-08-03_auth.log:[INFO]
+    125 /app/logs/2025-08-03_auth.log:[WARNING]
+    140 /app/logs/2025-08-03_db.log:[ERROR]
+    537 /app/logs/2025-08-03_db.log:[INFO]
+    167 /app/logs/2025-08-03_db.log:[WARNING]
+     93 /app/logs/2025-08-04_api.log:[ERROR]
+    427 /app/logs/2025-08-04_api.log:[INFO]
+    169 /app/logs/2025-08-04_api.log:[WARNING]
+    100 /app/logs/2025-08-04_app.log:[ERROR]
+    437 /app/logs/2025-08-04_app.log:[INFO]
+    125 /app/logs/2025-08-04_app.log:[WARNING]
+     77 /app/logs/2025-08-04_auth.log:[ERROR]
+    326 /app/logs/2025-08-04_auth.log:[INFO]
+     97 /app/logs/2025-08-04_auth.log:[WARNING]
+     45 /app/logs/2025-08-04_db.log:[ERROR]
+    222 /app/logs/2025-08-04_db.log:[INFO]
+     71 /app/logs/2025-08-04_db.log:[WARNING]
+     83 /app/logs/2025-08-05_api.log:[ERROR]
+    407 /app/logs/2025-08-05_api.log:[INFO]
+    133 /app/logs/2025-08-05_api.log:[WARNING]
+     77 /app/logs/2025-08-05_app.log:[ERROR]
+    326 /app/logs/2025-08-05_app.log:[INFO]
+     97 /app/logs/2025-08-05_app.log:[WARNING]
+     93 /app/logs/2025-08-05_auth.log:[ERROR]
+    427 /app/logs/2025-08-05_auth.log:[INFO]
+    169 /app/logs/2025-08-05_auth.log:[WARNING]
+    100 /app/logs/2025-08-05_db.log:[ERROR]
+    437 /app/logs/2025-08-05_db.log:[INFO]
+    125 /app/logs/2025-08-05_db.log:[WARNING]
+    145 /app/logs/2025-08-06_api.log:[ERROR]
+    570 /app/logs/2025-08-06_api.log:[INFO]
+    213 /app/logs/2025-08-06_api.log:[WARNING]
+     93 /app/logs/2025-08-06_app.log:[ERROR]
+    427 /app/logs/2025-08-06_app.log:[INFO]
+    169 /app/logs/2025-08-06_app.log:[WARNING]
+     83 /app/logs/2025-08-06_auth.log:[ERROR]
+    407 /app/logs/2025-08-06_auth.log:[INFO]
+    133 /app/logs/2025-08-06_auth.log:[WARNING]
+     77 /app/logs/2025-08-06_db.log:[ERROR]
+    326 /app/logs/2025-08-06_db.log:[INFO]
+     97 /app/logs/2025-08-06_db.log:[WARNING]
+    146 /app/logs/2025-08-07_api.log:[ERROR]
+    571 /app/logs/2025-08-07_api.log:[INFO]
+    189 /app/logs/2025-08-07_api.log:[WARNING]
+     83 /app/logs/2025-08-07_app.log:[ERROR]
+    407 /app/logs/2025-08-07_app.log:[INFO]
+    133 /app/logs/2025-08-07_app.log:[WARNING]
+    145 /app/logs/2025-08-07_auth.log:[ERROR]
+    570 /app/logs/2025-08-07_auth.log:[INFO]
+    213 /app/logs/2025-08-07_auth.log:[WARNING]
+     93 /app/logs/2025-08-07_db.log:[ERROR]
+    427 /app/logs/2025-08-07_db.log:[INFO]
+    169 /app/logs/2025-08-07_db.log:[WARNING]
+    118 /app/logs/2025-08-08_api.log:[ERROR]
+    469 /app/logs/2025-08-08_api.log:[INFO]
+    129 /app/logs/2025-08-08_api.log:[WARNING]
+    145 /app/logs/2025-08-08_app.log:[ERROR]
+    570 /app/logs/2025-08-08_app.log:[INFO]
+    213 /app/logs/2025-08-08_app.log:[WARNING]
+    146 /app/logs/2025-08-08_auth.log:[ERROR]
+    571 /app/logs/2025-08-08_auth.log:[INFO]
+    189 /app/logs/2025-08-08_auth.log:[WARNING]
+     83 /app/logs/2025-08-08_db.log:[ERROR]
+    407 /app/logs/2025-08-08_db.log:[INFO]
+    133 /app/logs/2025-08-08_db.log:[WARNING]
+     74 /app/logs/2025-08-09_api.log:[ERROR]
+    335 /app/logs/2025-08-09_api.log:[INFO]
+     99 /app/logs/2025-08-09_api.log:[WARNING]
+    146 /app/logs/2025-08-09_app.log:[ERROR]
+    571 /app/logs/2025-08-09_app.log:[INFO]
+    189 /app/logs/2025-08-09_app.log:[WARNING]
+    118 /app/logs/2025-08-09_auth.log:[ERROR]
+    469 /app/logs/2025-08-09_auth.log:[INFO]
+    129 /app/logs/2025-08-09_auth.log:[WARNING]
+    145 /app/logs/2025-08-09_db.log:[ERROR]
+    570 /app/logs/2025-08-09_db.log:[INFO]
+    213 /app/logs/2025-08-09_db.log:[WARNING]
+     68 /app/logs/2025-08-10_api.log:[ERROR]
+    303 /app/logs/2025-08-10_api.log:[INFO]
+     94 /app/logs/2025-08-10_api.log:[WARNING]
+    118 /app/logs/2025-08-10_app.log:[ERROR]
+    469 /app/logs/2025-08-10_app.log:[INFO]
+    129 /app/logs/2025-08-10_app.log:[WARNING]
+     74 /app/logs/2025-08-10_auth.log:[ERROR]
+    335 /app/logs/2025-08-10_auth.log:[INFO]
+     99 /app/logs/2025-08-10_auth.log:[WARNING]
+    146 /app/logs/2025-08-10_db.log:[ERROR]
+    571 /app/logs/2025-08-10_db.log:[INFO]
+    189 /app/logs/2025-08-10_db.log:[WARNING]
+     93 /app/logs/2025-08-11_api.log:[ERROR]
+    318 /app/logs/2025-08-11_api.log:[INFO]
+    114 /app/logs/2025-08-11_api.log:[WARNING]
+     74 /app/logs/2025-08-11_app.log:[ERROR]
+    335 /app/logs/2025-08-11_app.log:[INFO]
+     99 /app/logs/2025-08-11_app.log:[WARNING]
+     68 /app/logs/2025-08-11_auth.log:[ERROR]
+    303 /app/logs/2025-08-11_auth.log:[INFO]
+     94 /app/logs/2025-08-11_auth.log:[WARNING]
+    118 /app/logs/2025-08-11_db.log:[ERROR]
+    469 /app/logs/2025-08-11_db.log:[INFO]
+    129 /app/logs/2025-08-11_db.log:[WARNING]
+    135 /app/logs/2025-08-12_api.log:[ERROR]
+    477 /app/logs/2025-08-12_api.log:[INFO]
+    156 /app/logs/2025-08-12_api.log:[WARNING]
+     68 /app/logs/2025-08-12_app.log:[ERROR]
+    303 /app/logs/2025-08-12_app.log:[INFO]
+     94 /app/logs/2025-08-12_app.log:[WARNING]
+     93 /app/logs/2025-08-12_auth.log:[ERROR]
+    318 /app/logs/2025-08-12_auth.log:[INFO]
+    114 /app/logs/2025-08-12_auth.log:[WARNING]
+     74 /app/logs/2025-08-12_db.log:[ERROR]
+    335 /app/logs/2025-08-12_db.log:[INFO]
+     99 /app/logs/2025-08-12_db.log:[WARNING]
+[?2004hroot@ffa1b4afc86a:/app# grep -oE '\[(ERROR|WARNING|INFO)\]' /app/logs/*.log | awk -F: '{gsub(/[][]/,"",$2); c[$2]++} END{for(s in c) print s, c[s]}'
+[?2004lINFO 56621
+WARNING 18772
+ERROR 14160
+[?2004hroot@ffa1b4afc86a:/app# 
