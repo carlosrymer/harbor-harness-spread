@@ -1,0 +1,13 @@
+{
+ "harness": "goose",
+ "task": "fix-git",
+ "summary": "1 agent steps \u00b7 0 prompt / 0 completion tokens as reported by the harness itself",
+ "n_agent_steps": 1,
+ "steps": [
+  {
+   "source": "agent",
+   "n": 1,
+   "text": "Loading recipe: harbor-task\nDescription: harbor task recipe\n\n\n    __( O)>  \u25cf new session \u00b7 openai bench-model\n   \\____)    20260801_1 \u00b7 /app/personal-site\n     L L     goose is ready\n{\"type\":\"message\",\"message\":{\"id\":\"msg_0f6ecac2-e1f1-4158-a1e0-907b432e9ff7\",\"role\":\"assistant\",\"created\":1785604366,\"content\":[{\"type\":\"systemNotification\",\"notificationType\":\"creditsExhausted\",\"msg\":\"Please check your account with your provider to add more credits, then resend your message to continue.\",\"data\":{\"top_up_url\":null}}],\"metadata\":{\"userVisible\":true,\"agentVisible\":false}}}\n{\"type\":\"complete\",\"total_tokens\":0,\"input_tokens\":0,\"output_tokens\":0,\"cache_read_input_tokens\":0,\"cache_write_input_tokens\":\n\u2026 [2 more chars]"
+  }
+ ]
+}

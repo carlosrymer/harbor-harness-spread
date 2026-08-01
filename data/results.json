@@ -1,0 +1,1061 @@
+{
+  "all_in_spend": {
+    "Google AI Studio (Gemini)": {
+      "cost_usd": 10.42,
+      "calls": 474
+    },
+    "Moonshot (Kimi)": {
+      "cost_usd": 1.7,
+      "calls": 115
+    }
+  },
+  "meta": {
+    "dataset": "terminal-bench@2.0",
+    "n_tasks": 12,
+    "n_tasks_scored": 12,
+    "excluded_by_oracle": [],
+    "total_tasks_in_dataset": 89,
+    "candidate_pool_size": 50,
+    "selection_seed": 20260801,
+    "max_agent_timeout_sec": 900,
+    "agent_timeout_multiplier": 0.4,
+    "models": [
+      "gemini-3.6-flash (Google AI Studio)"
+    ],
+    "temperature": "1.0 (Kimi) / provider default (Gemini)",
+    "n_attempts_per_task": 1,
+    "price_note": "Gemini 3.6 Flash list price $1.50/M input, $0.375/M cached input, $7.50/M output, applied to gateway-metered tokens",
+    "n_candidates": 24,
+    "n_qualified": 13,
+    "disqualified_by_oracle": [
+      "chess-best-move",
+      "count-dataset-tokens",
+      "crack-7z-hash",
+      "gcode-to-text",
+      "largest-eigenval",
+      "pytorch-model-recovery"
+    ],
+    "unscreened": [
+      "hf-model-inference",
+      "multi-source-data-merger",
+      "openssl-selfsigned-cert",
+      "query-optimize",
+      "sqlite-db-truncate"
+    ]
+  },
+  "headline": {
+    "model": "gemini36",
+    "model_label": "gemini-3.6-flash (Google AI Studio)",
+    "basis": "common attempted subset",
+    "n_tasks": 9,
+    "pp_per_task": 11.1,
+    "best": "mini-swe-agent",
+    "worst": "aider",
+    "max_rate": 0.3333,
+    "min_rate": 0.0,
+    "spread_pp": 33.3,
+    "ranking": [
+      "mini-swe-agent",
+      "goose",
+      "aider"
+    ]
+  },
+  "models": [
+    "gemini36"
+  ],
+  "per_model": {
+    "gemini36": {
+      "model": "gemini36",
+      "model_label": "gemini-3.6-flash (Google AI Studio)",
+      "harnesses": [
+        {
+          "model": "gemini36",
+          "model_label": "gemini-3.6-flash (Google AI Studio)",
+          "harness": "mini-swe-agent",
+          "n_tasks": 9,
+          "n_cells": 12,
+          "n_resolved": 3,
+          "resolve_rate": 0.3333,
+          "n_infra_errors": 3,
+          "n_timeouts": 6,
+          "tokens_total": 4091441,
+          "prompt_tokens": 3898263,
+          "cached_tokens": 2305436,
+          "completion_tokens": 193178,
+          "llm_calls": 225,
+          "llm_errors": 0,
+          "llm_retries": 0,
+          "cost_usd": 4.7026,
+          "wall_s_total": 4137.2,
+          "steps_total": 225,
+          "parser_warnings": 0,
+          "resolved_per_mtok": 0.733,
+          "resolved_per_usd": 0.638,
+          "reps": 1
+        },
+        {
+          "model": "gemini36",
+          "model_label": "gemini-3.6-flash (Google AI Studio)",
+          "harness": "goose",
+          "n_tasks": 12,
+          "n_cells": 12,
+          "n_resolved": 2,
+          "resolve_rate": 0.1667,
+          "n_infra_errors": 0,
+          "n_timeouts": 2,
+          "tokens_total": 2101401,
+          "prompt_tokens": 2026738,
+          "cached_tokens": 793664,
+          "completion_tokens": 74663,
+          "llm_calls": 119,
+          "llm_errors": 0,
+          "llm_retries": 0,
+          "cost_usd": 2.7072,
+          "wall_s_total": 2017.3,
+          "steps_total": 126,
+          "parser_warnings": 0,
+          "resolved_per_mtok": 0.952,
+          "resolved_per_usd": 0.739,
+          "reps": 1
+        },
+        {
+          "model": "gemini36",
+          "model_label": "gemini-3.6-flash (Google AI Studio)",
+          "harness": "aider",
+          "n_tasks": 12,
+          "n_cells": 12,
+          "n_resolved": 0,
+          "resolve_rate": 0.0,
+          "n_infra_errors": 0,
+          "n_timeouts": 0,
+          "tokens_total": 242638,
+          "prompt_tokens": 63227,
+          "cached_tokens": 0,
+          "completion_tokens": 179411,
+          "llm_calls": 27,
+          "llm_errors": 0,
+          "llm_retries": 0,
+          "cost_usd": 1.4404,
+          "wall_s_total": 2402.4,
+          "steps_total": null,
+          "parser_warnings": 0,
+          "resolved_per_mtok": 0.0,
+          "resolved_per_usd": 0.0,
+          "reps": 1
+        }
+      ],
+      "best": "mini-swe-agent",
+      "worst": "aider",
+      "max_rate": 0.3333,
+      "min_rate": 0.0,
+      "spread_pp": 33.3,
+      "ranking": [
+        "mini-swe-agent",
+        "goose",
+        "aider"
+      ],
+      "cost_usd": 8.8502,
+      "tokens_total": 6435480
+    }
+  },
+  "common_subset": {
+    "gemini36": {
+      "model": "gemini36",
+      "n_common_tasks": 9,
+      "tasks": [
+        "adaptive-rejection-sampler",
+        "db-wal-recovery",
+        "fix-git",
+        "gpt2-codegolf",
+        "log-summary-date-ranges",
+        "model-extraction-relu-logits",
+        "overfull-hbox",
+        "sparql-university",
+        "torch-pipeline-parallelism"
+      ],
+      "harnesses": [
+        {
+          "harness": "mini-swe-agent",
+          "n": 9,
+          "resolved": 3,
+          "rate": 0.3333
+        },
+        {
+          "harness": "goose",
+          "n": 9,
+          "resolved": 2,
+          "rate": 0.2222
+        },
+        {
+          "harness": "aider",
+          "n": 9,
+          "resolved": 0,
+          "rate": 0.0
+        }
+      ],
+      "spread_pp": 33.3,
+      "best": "mini-swe-agent",
+      "worst": "aider",
+      "pp_per_task": 11.1
+    }
+  },
+  "cross_model": null,
+  "harnesses": [
+    {
+      "model": "gemini36",
+      "model_label": "gemini-3.6-flash (Google AI Studio)",
+      "harness": "aider",
+      "n_tasks": 12,
+      "n_cells": 12,
+      "n_resolved": 0,
+      "resolve_rate": 0.0,
+      "n_infra_errors": 0,
+      "n_timeouts": 0,
+      "tokens_total": 242638,
+      "prompt_tokens": 63227,
+      "cached_tokens": 0,
+      "completion_tokens": 179411,
+      "llm_calls": 27,
+      "llm_errors": 0,
+      "llm_retries": 0,
+      "cost_usd": 1.4404,
+      "wall_s_total": 2402.4,
+      "steps_total": null,
+      "parser_warnings": 0,
+      "resolved_per_mtok": 0.0,
+      "resolved_per_usd": 0.0,
+      "reps": 1
+    },
+    {
+      "model": "gemini36",
+      "model_label": "gemini-3.6-flash (Google AI Studio)",
+      "harness": "goose",
+      "n_tasks": 12,
+      "n_cells": 12,
+      "n_resolved": 2,
+      "resolve_rate": 0.1667,
+      "n_infra_errors": 0,
+      "n_timeouts": 2,
+      "tokens_total": 2101401,
+      "prompt_tokens": 2026738,
+      "cached_tokens": 793664,
+      "completion_tokens": 74663,
+      "llm_calls": 119,
+      "llm_errors": 0,
+      "llm_retries": 0,
+      "cost_usd": 2.7072,
+      "wall_s_total": 2017.3,
+      "steps_total": 126,
+      "parser_warnings": 0,
+      "resolved_per_mtok": 0.952,
+      "resolved_per_usd": 0.739,
+      "reps": 1
+    },
+    {
+      "model": "gemini36",
+      "model_label": "gemini-3.6-flash (Google AI Studio)",
+      "harness": "mini-swe-agent",
+      "n_tasks": 9,
+      "n_cells": 12,
+      "n_resolved": 3,
+      "resolve_rate": 0.3333,
+      "n_infra_errors": 3,
+      "n_timeouts": 6,
+      "tokens_total": 4091441,
+      "prompt_tokens": 3898263,
+      "cached_tokens": 2305436,
+      "completion_tokens": 193178,
+      "llm_calls": 225,
+      "llm_errors": 0,
+      "llm_retries": 0,
+      "cost_usd": 4.7026,
+      "wall_s_total": 4137.2,
+      "steps_total": 225,
+      "parser_warnings": 0,
+      "resolved_per_mtok": 0.733,
+      "resolved_per_usd": 0.638,
+      "reps": 1
+    }
+  ],
+  "not_driven": [],
+  "tasks": [
+    {
+      "task": "fix-git",
+      "difficulty": "easy",
+      "category": "software-engineering",
+      "agent_timeout_sec": 900.0,
+      "expert_time_estimate_min": 5.0,
+      "oracle_ok": true,
+      "cells": {
+        "gemini36__aider": {
+          "model": "gemini36",
+          "harness": "aider",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": null,
+          "wall_s": 86.0,
+          "parser_warnings": 0
+        },
+        "gemini36__goose": {
+          "model": "gemini36",
+          "harness": "goose",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 1,
+          "wall_s": 46.7,
+          "parser_warnings": 0
+        },
+        "gemini36__mini-swe-agent": {
+          "model": "gemini36",
+          "harness": "mini-swe-agent",
+          "resolved": true,
+          "reward": 1.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 13,
+          "wall_s": 106.5,
+          "parser_warnings": 0
+        }
+      },
+      "n_solved_by": 1,
+      "n_attempted_by": 3,
+      "solved_by": [
+        "gemini36__mini-swe-agent"
+      ],
+      "disputed": true
+    },
+    {
+      "task": "overfull-hbox",
+      "difficulty": "easy",
+      "category": "debugging",
+      "agent_timeout_sec": 750.0,
+      "expert_time_estimate_min": 60.0,
+      "oracle_ok": true,
+      "cells": {
+        "gemini36__aider": {
+          "model": "gemini36",
+          "harness": "aider",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": null,
+          "wall_s": 165.3,
+          "parser_warnings": 0
+        },
+        "gemini36__goose": {
+          "model": "gemini36",
+          "harness": "goose",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 1,
+          "wall_s": 100.7,
+          "parser_warnings": 0
+        },
+        "gemini36__mini-swe-agent": {
+          "model": "gemini36",
+          "harness": "mini-swe-agent",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": "harbor.trial.errors.AgentTimeoutError: Agent execution timed out after 300.0 seconds",
+          "timed_out": true,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 30,
+          "wall_s": 429.9,
+          "parser_warnings": 0
+        }
+      },
+      "n_solved_by": 0,
+      "n_attempted_by": 3,
+      "solved_by": [],
+      "disputed": false
+    },
+    {
+      "task": "configure-git-webserver",
+      "difficulty": "hard",
+      "category": "system-administration",
+      "agent_timeout_sec": 900.0,
+      "expert_time_estimate_min": 15.0,
+      "oracle_ok": true,
+      "cells": {
+        "gemini36__aider": {
+          "model": "gemini36",
+          "harness": "aider",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": null,
+          "wall_s": 212.9,
+          "parser_warnings": 0
+        },
+        "gemini36__goose": {
+          "model": "gemini36",
+          "harness": "goose",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 1,
+          "wall_s": 60.8,
+          "parser_warnings": 0
+        },
+        "gemini36__mini-swe-agent": {
+          "model": "gemini36",
+          "harness": "mini-swe-agent",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": "stderr: None",
+          "timed_out": false,
+          "infra_error": true,
+          "attempted": false,
+          "n_steps": 0,
+          "wall_s": 364.9,
+          "parser_warnings": 0
+        }
+      },
+      "n_solved_by": 0,
+      "n_attempted_by": 2,
+      "solved_by": [],
+      "disputed": false
+    },
+    {
+      "task": "gpt2-codegolf",
+      "difficulty": "hard",
+      "category": "software-engineering",
+      "agent_timeout_sec": 900.0,
+      "expert_time_estimate_min": 2400.0,
+      "oracle_ok": true,
+      "cells": {
+        "gemini36__aider": {
+          "model": "gemini36",
+          "harness": "aider",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": null,
+          "wall_s": 251.8,
+          "parser_warnings": 0
+        },
+        "gemini36__goose": {
+          "model": "gemini36",
+          "harness": "goose",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 1,
+          "wall_s": 58.6,
+          "parser_warnings": 0
+        },
+        "gemini36__mini-swe-agent": {
+          "model": "gemini36",
+          "harness": "mini-swe-agent",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": "harbor.trial.errors.AgentTimeoutError: Agent execution timed out after 360.0 seconds",
+          "timed_out": true,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 31,
+          "wall_s": 433.6,
+          "parser_warnings": 0
+        }
+      },
+      "n_solved_by": 0,
+      "n_attempted_by": 3,
+      "solved_by": [],
+      "disputed": false
+    },
+    {
+      "task": "model-extraction-relu-logits",
+      "difficulty": "hard",
+      "category": "mathematics",
+      "agent_timeout_sec": 900.0,
+      "expert_time_estimate_min": 480.0,
+      "oracle_ok": true,
+      "cells": {
+        "gemini36__aider": {
+          "model": "gemini36",
+          "harness": "aider",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": null,
+          "wall_s": 223.6,
+          "parser_warnings": 0
+        },
+        "gemini36__goose": {
+          "model": "gemini36",
+          "harness": "goose",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": "harbor.trial.errors.AgentTimeoutError: Agent execution timed out after 360.0 seconds",
+          "timed_out": true,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 15,
+          "wall_s": 421.5,
+          "parser_warnings": 0
+        },
+        "gemini36__mini-swe-agent": {
+          "model": "gemini36",
+          "harness": "mini-swe-agent",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": "harbor.trial.errors.AgentTimeoutError: Agent execution timed out after 360.0 seconds",
+          "timed_out": true,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 20,
+          "wall_s": 461.8,
+          "parser_warnings": 0
+        }
+      },
+      "n_solved_by": 0,
+      "n_attempted_by": 3,
+      "solved_by": [],
+      "disputed": false
+    },
+    {
+      "task": "password-recovery",
+      "difficulty": "hard",
+      "category": "security",
+      "agent_timeout_sec": 900.0,
+      "expert_time_estimate_min": 100.0,
+      "oracle_ok": true,
+      "cells": {
+        "gemini36__aider": {
+          "model": "gemini36",
+          "harness": "aider",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": null,
+          "wall_s": 148.4,
+          "parser_warnings": 0
+        },
+        "gemini36__goose": {
+          "model": "gemini36",
+          "harness": "goose",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 9,
+          "wall_s": 139.6,
+          "parser_warnings": 0
+        },
+        "gemini36__mini-swe-agent": {
+          "model": "gemini36",
+          "harness": "mini-swe-agent",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": "stderr: None",
+          "timed_out": false,
+          "infra_error": true,
+          "attempted": false,
+          "n_steps": 0,
+          "wall_s": 356.2,
+          "parser_warnings": 0
+        }
+      },
+      "n_solved_by": 0,
+      "n_attempted_by": 2,
+      "solved_by": [],
+      "disputed": false
+    },
+    {
+      "task": "sparql-university",
+      "difficulty": "hard",
+      "category": "data-querying",
+      "agent_timeout_sec": 900.0,
+      "expert_time_estimate_min": 800.0,
+      "oracle_ok": true,
+      "cells": {
+        "gemini36__aider": {
+          "model": "gemini36",
+          "harness": "aider",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": null,
+          "wall_s": 147.2,
+          "parser_warnings": 0
+        },
+        "gemini36__goose": {
+          "model": "gemini36",
+          "harness": "goose",
+          "resolved": true,
+          "reward": 1.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 28,
+          "wall_s": 286.9,
+          "parser_warnings": 0
+        },
+        "gemini36__mini-swe-agent": {
+          "model": "gemini36",
+          "harness": "mini-swe-agent",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": "harbor.trial.errors.AgentTimeoutError: Agent execution timed out after 360.0 seconds",
+          "timed_out": true,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 27,
+          "wall_s": 463.3,
+          "parser_warnings": 0
+        }
+      },
+      "n_solved_by": 1,
+      "n_attempted_by": 3,
+      "solved_by": [
+        "gemini36__goose"
+      ],
+      "disputed": true
+    },
+    {
+      "task": "torch-pipeline-parallelism",
+      "difficulty": "hard",
+      "category": "software-engineering",
+      "agent_timeout_sec": 900.0,
+      "expert_time_estimate_min": 240.0,
+      "oracle_ok": true,
+      "cells": {
+        "gemini36__aider": {
+          "model": "gemini36",
+          "harness": "aider",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": null,
+          "wall_s": 414.8,
+          "parser_warnings": 0
+        },
+        "gemini36__goose": {
+          "model": "gemini36",
+          "harness": "goose",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 1,
+          "wall_s": 200.9,
+          "parser_warnings": 0
+        },
+        "gemini36__mini-swe-agent": {
+          "model": "gemini36",
+          "harness": "mini-swe-agent",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": "harbor.trial.errors.AgentTimeoutError: Agent execution timed out after 360.0 seconds",
+          "timed_out": true,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 44,
+          "wall_s": 545.2,
+          "parser_warnings": 0
+        }
+      },
+      "n_solved_by": 0,
+      "n_attempted_by": 3,
+      "solved_by": [],
+      "disputed": false
+    },
+    {
+      "task": "adaptive-rejection-sampler",
+      "difficulty": "medium",
+      "category": "scientific-computing",
+      "agent_timeout_sec": 900.0,
+      "expert_time_estimate_min": 180.0,
+      "oracle_ok": true,
+      "cells": {
+        "gemini36__aider": {
+          "model": "gemini36",
+          "harness": "aider",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": null,
+          "wall_s": 246.2,
+          "parser_warnings": 0
+        },
+        "gemini36__goose": {
+          "model": "gemini36",
+          "harness": "goose",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 1,
+          "wall_s": 72.2,
+          "parser_warnings": 0
+        },
+        "gemini36__mini-swe-agent": {
+          "model": "gemini36",
+          "harness": "mini-swe-agent",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": "harbor.trial.errors.AgentTimeoutError: Agent execution timed out after 360.0 seconds",
+          "timed_out": true,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 18,
+          "wall_s": 460.4,
+          "parser_warnings": 0
+        }
+      },
+      "n_solved_by": 0,
+      "n_attempted_by": 3,
+      "solved_by": [],
+      "disputed": false
+    },
+    {
+      "task": "db-wal-recovery",
+      "difficulty": "medium",
+      "category": "file-operations",
+      "agent_timeout_sec": 900.0,
+      "expert_time_estimate_min": 45.0,
+      "oracle_ok": true,
+      "cells": {
+        "gemini36__aider": {
+          "model": "gemini36",
+          "harness": "aider",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": null,
+          "wall_s": 203.4,
+          "parser_warnings": 0
+        },
+        "gemini36__goose": {
+          "model": "gemini36",
+          "harness": "goose",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": "harbor.trial.errors.AgentTimeoutError: Agent execution timed out after 360.0 seconds",
+          "timed_out": true,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 45,
+          "wall_s": 423.9,
+          "parser_warnings": 0
+        },
+        "gemini36__mini-swe-agent": {
+          "model": "gemini36",
+          "harness": "mini-swe-agent",
+          "resolved": true,
+          "reward": 1.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 24,
+          "wall_s": 246.8,
+          "parser_warnings": 0
+        }
+      },
+      "n_solved_by": 1,
+      "n_attempted_by": 3,
+      "solved_by": [
+        "gemini36__mini-swe-agent"
+      ],
+      "disputed": true
+    },
+    {
+      "task": "log-summary-date-ranges",
+      "difficulty": "medium",
+      "category": "data-processing",
+      "agent_timeout_sec": 900.0,
+      "expert_time_estimate_min": 75.0,
+      "oracle_ok": true,
+      "cells": {
+        "gemini36__aider": {
+          "model": "gemini36",
+          "harness": "aider",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": null,
+          "wall_s": 164.7,
+          "parser_warnings": 0
+        },
+        "gemini36__goose": {
+          "model": "gemini36",
+          "harness": "goose",
+          "resolved": true,
+          "reward": 1.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 22,
+          "wall_s": 146.5,
+          "parser_warnings": 0
+        },
+        "gemini36__mini-swe-agent": {
+          "model": "gemini36",
+          "harness": "mini-swe-agent",
+          "resolved": true,
+          "reward": 1.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 18,
+          "wall_s": 249.0,
+          "parser_warnings": 0
+        }
+      },
+      "n_solved_by": 2,
+      "n_attempted_by": 3,
+      "solved_by": [
+        "gemini36__goose",
+        "gemini36__mini-swe-agent"
+      ],
+      "disputed": true
+    },
+    {
+      "task": "sqlite-with-gcov",
+      "difficulty": "medium",
+      "category": "system-administration",
+      "agent_timeout_sec": 900.0,
+      "expert_time_estimate_min": 30.0,
+      "oracle_ok": true,
+      "cells": {
+        "gemini36__aider": {
+          "model": "gemini36",
+          "harness": "aider",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": null,
+          "wall_s": 138.1,
+          "parser_warnings": 0
+        },
+        "gemini36__goose": {
+          "model": "gemini36",
+          "harness": "goose",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 1,
+          "wall_s": 59.0,
+          "parser_warnings": 0
+        },
+        "gemini36__mini-swe-agent": {
+          "model": "gemini36",
+          "harness": "mini-swe-agent",
+          "resolved": false,
+          "reward": null,
+          "exception": "asyncio.exceptions.CancelledError",
+          "timed_out": false,
+          "infra_error": true,
+          "attempted": false,
+          "n_steps": null,
+          "wall_s": 19.6,
+          "parser_warnings": 0
+        }
+      },
+      "n_solved_by": 0,
+      "n_attempted_by": 2,
+      "solved_by": [],
+      "disputed": false
+    }
+  ],
+  "variance": [],
+  "oracle": {
+    "gcode-to-text": false,
+    "gpt2-codegolf": true,
+    "log-summary-date-ranges": true,
+    "overfull-hbox": true,
+    "password-recovery": true,
+    "pytorch-model-recovery": false,
+    "sqlite-with-gcov": true,
+    "tune-mjcf": true,
+    "adaptive-rejection-sampler": true,
+    "chess-best-move": false,
+    "configure-git-webserver": true,
+    "count-dataset-tokens": false,
+    "crack-7z-hash": false,
+    "db-wal-recovery": true,
+    "fix-git": true,
+    "largest-eigenval": false,
+    "model-extraction-relu-logits": true,
+    "query-optimize": false,
+    "sparql-university": true,
+    "torch-pipeline-parallelism": true
+  },
+  "task_meta": {
+    "fix-git": {
+      "id": "fix-git",
+      "difficulty": "easy",
+      "category": "software-engineering",
+      "docker_image": "alexgshaw/fix-git:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 5.0
+    },
+    "overfull-hbox": {
+      "id": "overfull-hbox",
+      "difficulty": "easy",
+      "category": "debugging",
+      "docker_image": "alexgshaw/overfull-hbox:20251031",
+      "agent_timeout_sec": 750.0,
+      "verifier_timeout_sec": 360.0,
+      "expert_time_estimate_min": 60.0
+    },
+    "configure-git-webserver": {
+      "id": "configure-git-webserver",
+      "difficulty": "hard",
+      "category": "system-administration",
+      "docker_image": "alexgshaw/configure-git-webserver:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 15.0
+    },
+    "gpt2-codegolf": {
+      "id": "gpt2-codegolf",
+      "difficulty": "hard",
+      "category": "software-engineering",
+      "docker_image": "alexgshaw/gpt2-codegolf:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 2400.0
+    },
+    "model-extraction-relu-logits": {
+      "id": "model-extraction-relu-logits",
+      "difficulty": "hard",
+      "category": "mathematics",
+      "docker_image": "alexgshaw/model-extraction-relu-logits:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 480.0
+    },
+    "password-recovery": {
+      "id": "password-recovery",
+      "difficulty": "hard",
+      "category": "security",
+      "docker_image": "alexgshaw/password-recovery:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 100.0
+    },
+    "sparql-university": {
+      "id": "sparql-university",
+      "difficulty": "hard",
+      "category": "data-querying",
+      "docker_image": "alexgshaw/sparql-university:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 800.0
+    },
+    "torch-pipeline-parallelism": {
+      "id": "torch-pipeline-parallelism",
+      "difficulty": "hard",
+      "category": "software-engineering",
+      "docker_image": "alexgshaw/torch-pipeline-parallelism:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 240.0
+    },
+    "adaptive-rejection-sampler": {
+      "id": "adaptive-rejection-sampler",
+      "difficulty": "medium",
+      "category": "scientific-computing",
+      "docker_image": "alexgshaw/adaptive-rejection-sampler:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 180.0
+    },
+    "db-wal-recovery": {
+      "id": "db-wal-recovery",
+      "difficulty": "medium",
+      "category": "file-operations",
+      "docker_image": "alexgshaw/db-wal-recovery:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 45.0
+    },
+    "log-summary-date-ranges": {
+      "id": "log-summary-date-ranges",
+      "difficulty": "medium",
+      "category": "data-processing",
+      "docker_image": "alexgshaw/log-summary-date-ranges:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 75.0
+    },
+    "sqlite-with-gcov": {
+      "id": "sqlite-with-gcov",
+      "difficulty": "medium",
+      "category": "system-administration",
+      "docker_image": "alexgshaw/sqlite-with-gcov:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 30.0
+    }
+  }
+}
