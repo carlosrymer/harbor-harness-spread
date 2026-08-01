@@ -136,3 +136,93 @@ if __name__ == "__main__":
 </mujoco>[?2004hroot@0a5d9c94c7cf:/app# cp /app/model_ref.xml /app/model.xml
 [?2004l[?2004hroot@0a5d9c94c7cf:/app# python3 /app/eval.py
 [?2004lFinal state difference: 0.0000
+Avg simulation time: 0.8879 secs
+Avg simulation time (ref): 0.8535 secs
+Speedup: 0.97x
+Time pctg: 1.04
+Traceback (most recent call last):
+  File [35m"/app/eval.py"[0m, line [35m88[0m, in [35m<module>[0m
+    [31mtest_model_speed[0m[1;31m()[0m
+    [31m~~~~~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"/app/eval.py"[0m, line [35m81[0m, in [35mtest_model_speed[0m
+    assert [1;31mact_time_pctg <= pctg[0m, (
+           [1;31m^^^^^^^^^^^^^^^^^^^^^[0m
+[1;35mAssertionError[0m: [35mTime pctg 104.39% (need 60.00%)[0m
+[?2004hroot@0a5d9c94c7cf:/app# python3 -c "import mujoco; m = mujoco.MjModel.from_xml_path('model_ref.xml'); print('timestep:', m.opt.timestep); print('integrator:', m.opt.integrator); print('solver:', m.opt.solver); print('iterations:', m.opt.iterations); print('ls_iterations:', m.opt.ls_iterations); print('tolerance:', m.opt.tolerance); print('nbody:', m.nbody); print('ngeom:', m.ngeom); print('njoint:', m.njoint); print('nv:', m.nv)"
+[?2004ltimestep: 0.002
+integrator: 0
+solver: 2
+iterations: 100
+ls_iterations: 50
+tolerance: 1e-08
+nbody: 42
+ngeom: 41
+Traceback (most recent call last):
+  File [35m"<string>"[0m, line [35m1[0m, in [35m<module>[0m
+    import mujoco; m = mujoco.MjModel.from_xml_path('model_ref.xml'); print('timestep:', m.opt.timestep); print('integrator:', m.opt.integrator); print('solver:', m.opt.solver); print('iterations:', m.opt.iterations); print('ls_iterations:', m.opt.ls_iterations); print('tolerance:', m.opt.tolerance); print('nbody:', m.nbody); print('ngeom:', m.ngeom); print('njoint:', [1;31mm.njoint[0m); print('nv:', m.nv)
+                                                                                                                                                                                                                                                                                                                                                                                   [1;31m^^^^^^^^[0m
+[1;35mAttributeError[0m: [35m'mujoco._structs.MjModel' object has no attribute 'njoint'. Did you mean: 'joint'?[0m
+[?2004hroot@0a5d9c94c7cf:/app# cat << 'EOF' > /app/test_opt.py
+[?2004l[?2004h> import time
+[?2004l[?2004h> import mujoco
+[?2004l[?2004h> import numpy as np
+[?2004l[?2004h> from pathlib import Path
+[?2004l[?2004h> 
+[?2004l[?2004h> def eval_xml(xml_str, seed=42):
+[?2004l[?2004h>     m_ref = mujoco.MjModel.from_xml_path('model_ref.xml')
+[?2004l[?2004h>     m_test = mujoco.MjModel.from_xml_string(xml_str)
+[?2004l[?2004h>     
+[?2004l[?2004h>     diffs = []
+[?2004l[?2004h>     for s in [seed, seed+1, seed+2, seed+3, seed+4]:
+[?2004l[?2004h>         d_ref = mujoco.MjData(m_ref)
+[?2004l[?2004h>         d_test = mujoco.MjData(m_test)
+[?2004l[?2004h>         
+[?2004l[?2004h>         rng = np.random.default_rng(s)
+[?2004l[?2004h>         jiggle = rng.normal(0, 0.01, size=d_ref.qpos.shape)
+[?2004l[?2004h>         d_ref.qpos += jiggle
+[?2004l[?2004h>         d_test.qpos += jiggle
+[?2004l[?2004h>         
+[?2004l[?2004h>         mujoco.mj_forward(m_ref, d_ref)
+[?2004l[?2004h>         mujoco.mj_forward(m_test, d_test)
+[?2004l[?2004h>         
+[?2004l[?2004h>         nstep_ref = int(2.0 / m_ref.opt.timestep)
+[?2004l[?2004h>         nstep_test = int(2.0 / m_test.opt.timestep)
+[?2004l[?2004h>         
+[?2004l[?2004h>         for _ in range(nstep_ref):
+[?2004l[?2004h>             mujoco.mj_step(m_ref, d_ref)
+[?2004l[?2004h>         for _ in range(nstep_test):
+[?2004l[?2004h>             mujoco.mj_step(m_test, d_test)
+[?2004l[?2004h>             
+[?2004l[?2004h>         full_physics = mujoco.mjtState.mjSTATE_FULLPHYSICS
+[?2004l[?2004h>         st_ref = np.zeros(mujoco.mj_stateSize(m_ref, full_physics))
+[?2004l[?2004h>         st_test = np.zeros(mujoco.mj_stateSize(m_test, full_physics))
+[?2004l[?2004h>         mujoco.mj_getState(m_ref, d_ref, st_ref, full_physics)
+[?2004l[?2004h>         mujoco.mj_getState(m_test, d_test, st_test, full_physics)
+[?2004l[?2004h>         
+[?2004l[?2004h>         if np.isnan(st_test).any() or np.isinf(st_test).any():
+[?2004l[?2004h>             return 999.0, 999.0
+[?2004l[?2004h>         
+[?2004l[?2004h>         diffs.append(np.linalg.norm(st_ref - st_test))
+[?2004l[?2004h>     
+[?2004l[?2004h>     max_diff = np.max(diffs)
+[?2004l[?2004h>     
+[?2004l[?2004h>     t0 = time.perf_counter()
+[?2004l[?2004h>     for _ in range(5):
+[?2004l[?2004h>         d_test = mujoco.MjData(m_test)
+[?2004l[?2004h>         d_test.qpos += jiggle
+[?2004l[?2004h>         mujoco.mj_forward(m_test, d_test)
+[?2004l[?2004h>         for _ in range(nstep_test):
+[?2004l[?2004h>             mujoco.mj_step(m_test, d_test)
+[?2004l[?2004h>     t1 = time.perf_counter()
+[?2004l[?2004h>     avg_time = (t1 - t0) / 5.0
+[?2004l[?2004h>     return max_diff, avg_time
+[?2004l[?2004h> 
+[?2004l[?2004h> base_xml = Path('model_ref.xml').read_text()
+[?2004l[?2004h> print("Baseline:")
+[?2004l[?2004h> diff, t = eval_xml(base_xml)
+[?2004l[?2004h> print(f"Diff: {diff:.8f}, Time: {t:.4f}s")
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@0a5d9c94c7cf:/app# python3 /app/test_opt.py
+[?2004lBaseline:
+Diff: 0.00000000, Time: 0.7894s
+[?2004hroot@0a5d9c94c7cf:/app# 

@@ -29,6 +29,24 @@ those adapters faithfully would have been the whole project.
 
 ### What surprised me
 
+**The benchmark scored every task 0 for hours, and the agents were never the reason.**
+This is the finding I'd most want another person running Harbor to know. Every
+Terminal-Bench 2.0 task ships a `tests/test.sh` that begins by `curl`-installing `uv` from
+`astral.sh` and then runs the task's pytest suite through `uvx`. In this build environment
+`astral.sh` is unreachable, so that install failed, `uvx` was missing, the suite never ran —
+and the script's closing `if [ $? -eq 0 ]` branch wrote a hardcoded `0` into `reward.txt`.
+Harbor faithfully reported a completed trial with reward 0.0 and no exception. Those zeros
+are **indistinguishable from real agent failures** in the job output, and I very nearly
+published them as a result.
+
+What caught it was reading a verifier log rather than trusting a reward. The fix was to
+bind-mount `uvx` into the container and pass the proxy CA to the *verifier* phase
+(`--ve`, which is separate from the agent phase's `--ae`). The safeguard I added afterwards
+matters more than the fix: I now run Harbor's `oracle` agent — which executes each task's own
+reference solution — through the identical pipeline first. Any task where the reference
+solution can't pass is not measuring agent ability, so it's excluded from every rate instead
+of being scored as a zero. Two of my eight tasks were excluded that way.
+
 **The harnesses are not interchangeable clients of a model.** I assumed "hold the model
 constant" meant passing the same `--model` string four times. It doesn't. Harbor's Aider
 adapter hard-codes `openai`/`anthropic` as the only providers; Goose maps a provider name and
@@ -96,32 +114,34 @@ harness. This measures "harness as shipped", not "scaffold shape with all else e
 
 ## Honest limitations
 
-**Single run per cell cannot separate spread from variance.** This is the most important
-caveat and I want it stated plainly rather than buried: with one attempt per harness × task
-and a subset this small, I cannot prove the gap above exceeds run-to-run noise. Kimi K2.7 Code
-only accepts `temperature=1`, so decoding is stochastic by force — some flipping between
-identical runs is expected. Any measured spread should be read as *indicative of an effect
-worth controlling for*, not as a settled ranking of these harnesses.
+**A single run per cell cannot fully separate spread from variance.** I want this stated
+plainly rather than buried. With one attempt per harness × task on a 6-task scored subset,
+one flipped task moves a harness by 16.7 percentage points — so a spread smaller than that is
+within touching distance of noise. Decoding is stochastic (Kimi K2.7 Code accepts only
+`temperature=1`; Gemini is left at its provider default), so some flipping between identical
+runs is expected. Where repeat runs were affordable they are reported in the variance section
+below and on the site; where they were not, the ranking should be read as *indicative of an
+effect worth controlling for*, not as a settled ordering of these harnesses.
 
 **The sample is small.** Each solved task moves a harness's rate by a large fraction, so
-confidence intervals are wide. The subset is stratified for coverage, not sized for power. I
-cut it from 12 tasks to 8 when the shared model budget for this build was reduced to $2.50 —
-before any recorded run, and by changing only the task count in the selection script, never
-the rule. Shrinking tasks rather than harnesses was deliberate: the harness spread *is* the
-experiment.
+confidence intervals are wide. The subset is stratified for coverage, not sized for power. It
+was cut from 12 tasks to 8 when the shared model budget for this build was reduced — before any
+recorded run, and by changing only the task count in the selection script, never the rule — and
+2 of those 8 were then excluded by the oracle baseline, leaving 6 scored. Shrinking tasks rather
+than harnesses was deliberate: the harness spread *is* the experiment.
 
-**One model, one provider.** Everything here is for Kimi K2.7 Code on Moonshot. A different
-model could reorder these harnesses entirely, and this experiment cannot say whether it would.
-I originally planned to run Gemini 3.x as a second axis; that key's prepaid credits were
-exhausted partway through setup (HTTP 429, "prepayment credits are depleted"), so the second
-axis was dropped rather than faked.
+**Cost is list price**, computed from each provider's published rates applied to
+gateway-metered tokens, not read off an invoice.
+
+**Absolute rates are low and the time budget is part of why.** Each task ran with 0.6× its own
+wall-clock allowance, a cost-control decision applied identically to every harness. Running out
+of the clock is counted as a failure, not as "not run", because burning the budget without
+converging is a real and harness-attributable outcome. But it does depress every rate, and it
+is one reason these numbers are not comparable to any published Terminal-Bench leaderboard.
 
 **Absolute rates are not comparable to published Terminal-Bench numbers.** Different subset,
 different model, and a reduced per-task time budget. Only the *spread between harnesses within
 this run* is the result.
-
-**Cost is list price**, computed from Moonshot's published rates applied to gateway-metered
-tokens, not read off an invoice.
 
 ## Harnesses I could not run, and why
 

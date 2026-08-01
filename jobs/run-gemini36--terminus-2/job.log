@@ -67,3 +67,135 @@ Failed to retrieve model info for 'openai/bench-model': This model isn't mapped 
 Parser warnings: - Extra text detected before JSON object
 - Extra text detected after JSON object
 Sending keys: ['cat << \'EOF\' > /tmp/process.py\nimport glob, os, re, datetime\n\nref_date = datetime.date(2025, 8, 12)\n\ntoday_date = ref_date\nlast_7_start = ref_date - datetime.timedelta(days=6)\nlast_30_start = ref_date - datetime.timedelta(days=29)\nmonth_to_date_start = datetime.date(ref_date.year, ref_date.month, 1)\n\nprint("Today:", today_date)\nprint("Last 7 days:", last_7_start, "to", ref_date)\nprint("Last 30 days:", last_30_start, "to", ref_date)\nprint("Month to date:", month_to_date_start, "to", ref_date)\n\nperiods = [\'today\', \'last_7_days\', \'last_30_days\', \'month_to_date\', \'total\']\nseverities = [\'ERROR\', \'WARNING\', \'INFO\']\n\ncounts = {p: {s: 0 for s in severities} for p in periods}\n\nlog_files = glob.glob(\'/app/logs/*.log\')\n\nfor f in log_files:\n    fname = os.path.basename(f)\n    fdate_str = fname.split(\'_\')[0]\n    try:\n        fdate = datetime.datetime.strptime(fdate_str, \'%Y-%m-%d\').date()\n    except ValueError:\n        continue\n    \n    with open(f, \'r\', encoding=\'utf-8\', errors=\'ignore\') as fp:\n        for line in fp:\n            m = re.search(r\'\\[(ERROR|WARNING|INFO)\\]\', line)\n            if not m:\n                continue\n            sev = m.group(1)\n            \n            counts[\'total\'][sev] += 1\n            \n            if fdate == today_date:\n                counts[\'today\'][sev] += 1\n            if last_7_start <= fdate <= ref_date:\n                counts[\'last_7_days\'][sev] += 1\n            if last_30_start <= fdate <= ref_date:\n                counts[\'last_30_days\'][sev] += 1\n            if month_to_date_start <= fdate <= ref_date:\n                counts[\'month_to_date\'][sev] += 1\n\noutput_lines = [\'period,severity,count\']\nfor p in periods:\n    for s in severities:\n        output_lines.append(f"{p},{s},{counts[p][s]}")\n\ncsv_content = \'\\n\'.join(output_lines) + \'\\n\'\nprint(\'\\nGenerated CSV:\')\nprint(csv_content)\n\nwith open(\'/app/summary.csv\', \'w\') as f:\n    f.write(csv_content)\n\nprint("Saved to /app/summary.csv")\nEOF\npython3 /tmp/process.py\n'] min_timeout_sec: 2.0 max_timeout_sec: 180.0
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/log-summary-date-ranges__iXKt5EF/agent/trajectory.json
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Sending keys: ['cat /app/summary.csv\n'] min_timeout_sec: 0.1 max_timeout_sec: 180.0
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/log-summary-date-ranges__iXKt5EF/agent/trajectory.json
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/tune-mjcf__kzNQ3yQ/agent/trajectory.json
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Sending keys: [''] min_timeout_sec: 10.0 max_timeout_sec: 180.0
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/log-summary-date-ranges__iXKt5EF/agent/trajectory.json
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/log-summary-date-ranges__iXKt5EF/agent/trajectory.json
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/log-summary-date-ranges__iXKt5EF/agent/trajectory.json
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Collecting main service artifacts
+Sending keys: ['find /app -type f\n'] min_timeout_sec: 0.5 max_timeout_sec: 180.0
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/tune-mjcf__kzNQ3yQ/agent/trajectory.json
+Sending keys: ["grep -rn '8XD' /app /tmp /var /root 2>/dev/null || true\n"] min_timeout_sec: 2.0 max_timeout_sec: 180.0
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Sending keys: ["grep -rn 'PASSWORD=' /app /tmp /var /root 2>/dev/null || true\n"] min_timeout_sec: 2.0 max_timeout_sec: 180.0
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Sending keys: [''] min_timeout_sec: 15.0 max_timeout_sec: 180.0
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/password-recovery__Sfc8aEi/agent/trajectory.json
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Installing: tmux, asciinema
+Detected system: {'os': 'debian-based', 'package_manager': 'apt-get', 'update_command': None}
+Installing tools using apt-get: DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y tmux asciinema
+Sending keys: ['file $(find /app -type f)\n'] min_timeout_sec: 0.5 max_timeout_sec: 180.0
+Sending keys: ["strings /app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat | grep -E '8XD|launchcode|PASSWORD' || true\n"] min_timeout_sec: 1.0 max_timeout_sec: 180.0
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/tune-mjcf__kzNQ3yQ/agent/trajectory.json
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/password-recovery__Sfc8aEi/agent/trajectory.json
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Sending keys: ['python3 -c "import mujoco; m = mujoco.MjModel.from_xml_path(\'model_ref.xml\'); print(\'timestep:\', m.opt.timestep); print(\'integrator:\', m.opt.integrator); print(\'solver:\', m.opt.solver); print(\'iterations:\', m.opt.iterations); print(\'ls_iterations:\', m.opt.ls_iterations); print(\'tolerance:\', m.opt.tolerance); print(\'nbody:\', m.nbody); print(\'ngeom:\', m.ngeom); print(\'njoint:\', m.njoint); print(\'nv:\', m.nv)"\n'] min_timeout_sec: 1.0 max_timeout_sec: 180.0
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/tune-mjcf__kzNQ3yQ/agent/trajectory.json
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Sending keys: ['for f in $(find /app -type f); do echo "=== $f ==="; strings -a $f | grep -E \'8XD\' || true; done\n'] min_timeout_sec: 1.0 max_timeout_sec: 180.0
+Sending keys: ["grep -a -o -E 'PASSWORD=8XD[A-Z0-9]{11}W54' $(find /app -type f) || true\n"] min_timeout_sec: 1.0 max_timeout_sec: 180.0
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/password-recovery__Sfc8aEi/agent/trajectory.json
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Starting recording.
+Sending keys: ['asciinema rec --stdin /logs/agent/recording.cast', 'Enter'] min_timeout_sec: 1.0 max_timeout_sec: 180.0
+Sending keys: ['clear', 'Enter'] min_timeout_sec: 0.0 max_timeout_sec: 180.0
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Sending keys: ['cat << \'EOF\' > /app/test_opt.py\nimport time\nimport mujoco\nimport numpy as np\nfrom pathlib import Path\n\ndef eval_xml(xml_str, seed=42):\n    m_ref = mujoco.MjModel.from_xml_path(\'model_ref.xml\')\n    m_test = mujoco.MjModel.from_xml_string(xml_str)\n    \n    diffs = []\n    for s in [seed, seed+1, seed+2, seed+3, seed+4]:\n        d_ref = mujoco.MjData(m_ref)\n        d_test = mujoco.MjData(m_test)\n        \n        rng = np.random.default_rng(s)\n        jiggle = rng.normal(0, 0.01, size=d_ref.qpos.shape)\n        d_ref.qpos += jiggle\n        d_test.qpos += jiggle\n        \n        mujoco.mj_forward(m_ref, d_ref)\n        mujoco.mj_forward(m_test, d_test)\n        \n        nstep_ref = int(2.0 / m_ref.opt.timestep)\n        nstep_test = int(2.0 / m_test.opt.timestep)\n        \n        for _ in range(nstep_ref):\n            mujoco.mj_step(m_ref, d_ref)\n        for _ in range(nstep_test):\n            mujoco.mj_step(m_test, d_test)\n            \n        full_physics = mujoco.mjtState.mjSTATE_FULLPHYSICS\n        st_ref = np.zeros(mujoco.mj_stateSize(m_ref, full_physics))\n        st_test = np.zeros(mujoco.mj_stateSize(m_test, full_physics))\n        mujoco.mj_getState(m_ref, d_ref, st_ref, full_physics)\n        mujoco.mj_getState(m_test, d_test, st_test, full_physics)\n        \n        if np.isnan(st_test).any() or np.isinf(st_test).any():\n            return 999.0, 999.0\n        \n        diffs.append(np.linalg.norm(st_ref - st_test))\n    \n    max_diff = np.max(diffs)\n    \n    t0 = time.perf_counter()\n    for _ in range(5):\n        d_test = mujoco.MjData(m_test)\n        d_test.qpos += jiggle\n        mujoco.mj_forward(m_test, d_test)\n        for _ in range(nstep_test):\n            mujoco.mj_step(m_test, d_test)\n    t1 = time.perf_counter()\n    avg_time = (t1 - t0) / 5.0\n    return max_diff, avg_time\n\nbase_xml = Path(\'model_ref.xml\').read_text()\nprint("Baseline:")\ndiff, t = eval_xml(base_xml)\nprint(f"Diff: {diff:.8f}, Time: {t:.4f}s")\nEOF\npython3 /app/test_opt.py\n'] min_timeout_sec: 5.0 max_timeout_sec: 180.0
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Sending keys: ['ls -la\n'] min_timeout_sec: 0.1 max_timeout_sec: 180.0
+Sending keys: ['cat synonyms.txt\n'] min_timeout_sec: 0.1 max_timeout_sec: 180.0
+Sending keys: ['cat input.tex\n'] min_timeout_sec: 0.1 max_timeout_sec: 180.0
+Sending keys: ['cat main.tex\n'] min_timeout_sec: 0.1 max_timeout_sec: 180.0
+Sending keys: ['pdflatex -interaction=nonstopmode main.tex\n'] min_timeout_sec: 1.0 max_timeout_sec: 180.0
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/tune-mjcf__kzNQ3yQ/agent/trajectory.json
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/overfull-hbox__5q25WDe/agent/trajectory.json
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Sending keys: [''] min_timeout_sec: 5.0 max_timeout_sec: 180.0
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Sending keys: ['python3 -c "with open(\'synonyms.txt\') as f: print(f.read())"\n'] min_timeout_sec: 0.2 max_timeout_sec: 180.0
+Sending keys: ['cat input.tex\n'] min_timeout_sec: 0.2 max_timeout_sec: 180.0
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/overfull-hbox__5q25WDe/agent/trajectory.json
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Sending keys: ["grep -a -b -o 'PASSWORD=' /app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat\n"] min_timeout_sec: 0.5 max_timeout_sec: 180.0
+Sending keys: ["grep -a -b -o '8XD' /app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat\n"] min_timeout_sec: 0.5 max_timeout_sec: 180.0
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/password-recovery__Sfc8aEi/agent/trajectory.json
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/tune-mjcf__kzNQ3yQ/agent/trajectory.json
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Sending keys: ['cat << \'EOF\' > solve.py\nimport subprocess\nimport re\nimport os\nimport copy\n\n# Read synonyms\nwith open(\'synonyms.txt\') as f:\n    syn_lines = [line.strip() for line in f if line.strip()]\n\nsyn_map = {} # map lowercase word -> list of synonyms\nall_families = []\nfor line in syn_lines:\n    words = [w.strip() for w in line.split(\',\')]\n    all_families.append(words)\n    for w in words:\n        syn_map[w.lower()] = words\n\ndef run_pdflatex():\n    res = subprocess.run([\'pdflatex\', \'-interaction=nonstopmode\', \'main.tex\'], capture_output=True, text=True)\n    overfulls = re.findall(r\'Overfull \\\\hbox \\(([^)]+)\\) in paragraph at lines (\\d+)--(\\d+)\', res.stdout)\n    return res.stdout, overfulls\n\nlog, overfulls = run_pdflatex()\nprint(f"Initial overfulls count: {len(overfulls)}")\nfor o in overfulls:\n    print(o)\nEOF\npython3 solve.py\n'] min_timeout_sec: 2.0 max_timeout_sec: 180.0
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Sending keys: [''] min_timeout_sec: 5.0 max_timeout_sec: 180.0
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/overfull-hbox__5q25WDe/agent/trajectory.json
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/tune-mjcf__kzNQ3yQ/agent/trajectory.json
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Sending keys: ['python3 -c \'with open("/app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat", "rb") as f: f.seek(1048640); print(f.read(128))\'\n'] min_timeout_sec: 0.5 max_timeout_sec: 180.0
+Sending keys: ['python3 -c \'with open("/app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat", "rb") as f: f.seek(4150370); print(f.read(128))\'\n'] min_timeout_sec: 0.5 max_timeout_sec: 180.0
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/password-recovery__Sfc8aEi/agent/trajectory.json
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Sending keys: ['python3 -c "import subprocess, re; res = subprocess.run([\'pdflatex\', \'-interaction=nonstopmode\', \'main.tex\'], capture_output=True, text=True); print(\'\\n\'.join(re.findall(r\'Overfull \\\\hbox .*\', res.stdout)))"\n'] min_timeout_sec: 1.0 max_timeout_sec: 180.0
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/overfull-hbox__5q25WDe/agent/trajectory.json
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000

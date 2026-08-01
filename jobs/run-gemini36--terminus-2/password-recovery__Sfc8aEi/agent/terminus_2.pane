@@ -66,4 +66,59 @@ bash: git: command not found
 bash: git: command not found
 bash: git: command not found
 [?2004hroot@d931f65aae01:/app# grep -rnE "8XD[A-Z0-9]{17}W54" /var/lib/docker/ 2>/dev/null || true
-[?2004l[?2004hroot@d931f65aae01:/app# 
+[?2004l[?2004hroot@d931f65aae01:/app# find /app -type f
+[?2004l/app/varsea/data-815023d4/20251022-044237.log
+/app/varsea/data-815023d4/1761108157243430303.bin
+/app/varsea/logs-6d85a702/20251022-044237.log
+/app/varsea/logs-6d85a702/1761108157287341389.bin
+/app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat
+/app/varsea/cfg-9c5059a5/1761108157343064955.bin
+/app/varsea/cfg-9c5059a5/20251022-044237.log
+/app/varsea/backup-5bbc53a0/1761108157319017506.bin
+/app/varsea/backup-5bbc53a0/20251022-044237.log
+/app/varsea/tmp-96a1686e/1761108157187440736.bin
+/app/varsea/tmp-96a1686e/20251022-044237.log
+[?2004hroot@d931f65aae01:/app# grep -rn '8XD' /app /tmp /var /root 2>/dev/null || true
+[?2004l[?2004hroot@d931f65aae01:/app# grep -rn 'PASSWORD=' /app /tmp /var /root 2>/dev/null || true
+[?2004l[?2004hroot@d931f65aae01:/app# file $(find /app -type f)
+[?2004l/app/varsea/data-815023d4/20251022-044237.log:       ASCII text
+/app/varsea/data-815023d4/1761108157243430303.bin:   data
+/app/varsea/logs-6d85a702/20251022-044237.log:       ASCII text
+/app/varsea/logs-6d85a702/1761108157287341389.bin:   data
+/app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat:     data
+/app/varsea/cfg-9c5059a5/1761108157343064955.bin:    data
+/app/varsea/cfg-9c5059a5/20251022-044237.log:        ASCII text
+/app/varsea/backup-5bbc53a0/1761108157319017506.bin: data
+/app/varsea/backup-5bbc53a0/20251022-044237.log:     ASCII text
+/app/varsea/tmp-96a1686e/1761108157187440736.bin:    data
+/app/varsea/tmp-96a1686e/20251022-044237.log:        ASCII text
+[?2004hroot@d931f65aae01:/app# strings /app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat | grep -E '8XD|launchcode|PASSWORD' || true
+[?2004lapp/[01;31m[Klaunchcode[m[K.txtUT	
+[01;31m[KPASSWORD[m[K=[01;31m[K8XD[m[KP5Q2RT9Z
+app/[01;31m[Klaunchcode[m[K.txtUT
+[01;31m[K8XD[m[K]
+[?2004hroot@d931f65aae01:/app# for f in $(find /app -type f); do echo "=== $f ==="; strings -a $f | grep -E '8XD' || true; done
+[?2004l=== /app/varsea/data-815023d4/20251022-044237.log ===
+=== /app/varsea/data-815023d4/1761108157243430303.bin ===
+=== /app/varsea/logs-6d85a702/20251022-044237.log ===
+=== /app/varsea/logs-6d85a702/1761108157287341389.bin ===
+=== /app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat ===
+PASSWORD=[01;31m[K8XD[m[KP5Q2RT9Z
+[01;31m[K8XD[m[K]
+=== /app/varsea/cfg-9c5059a5/1761108157343064955.bin ===
+=== /app/varsea/cfg-9c5059a5/20251022-044237.log ===
+=== /app/varsea/backup-5bbc53a0/1761108157319017506.bin ===
+=== /app/varsea/backup-5bbc53a0/20251022-044237.log ===
+=== /app/varsea/tmp-96a1686e/1761108157187440736.bin ===
+=== /app/varsea/tmp-96a1686e/20251022-044237.log ===
+[?2004hroot@d931f65aae01:/app# grep -a -o -E 'PASSWORD=8XD[A-Z0-9]{11}W54' $(find /app -type f) || true
+[?2004l[?2004hroot@d931f65aae01:/app# grep -a -b -o 'PASSWORD=' /app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat
+[?2004l[32m[K1048652[m[K[36m[K:[m[K[01;31m[KPASSWORD=[m[K
+[?2004hroot@d931f65aae01:/app# grep -a -b -o '8XD' /app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat
+[?2004l[32m[K1048661[m[K[36m[K:[m[K[01;31m[K8XD[m[K
+[32m[K4150390[m[K[36m[K:[m[K[01;31m[K8XD[m[K
+[?2004hroot@d931f65aae01:/app# python3 -c 'with open("/app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat", "rb") as f: f.seek(1048640); print(f.read(128))'
+[?2004lb'\x00\x01\x04\x00\x00\x00\x00\x04\x00\x00\x00\x00PASSWORD=8XDP5Q2RT9Z\x17*\xab\x9e/\xae\xed\xeb)\xa1.\x0f\x9d\x80\x8dA)\x99\x0f\x89\x8eF^G\xa4\xc2\xf8q\xbe\x17@\xaaZ$\xcc\x10b\x8c\xe5\xac\xec\xe8\xbf\xc0!^s\x11\xe0jAA7v\xd1\xb1I\xb9\x07bH\x02\x8d\xb2\x15\x02}\xfez\x8cJ\xce\x05\xcc\xc0\xc9\xda\xa7L\x84\x7f>(\xb0\x80\\!\r\xd2\x86\x17+U\xca\xbd5'
+[?2004hroot@d931f65aae01:/app# python3 -c 'with open("/app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat", "rb") as f: f.seek(4150370); print(f.read(128))'
+[?2004lb'\x9f\xbc\xab\x15\x02\x91\xe6\x8a\x957\xc2\xd6\x03\x81\x11\xdb\xa1\xd1\x9a\xd68XD]\xff\xb5\xef&\x07z\xd7\xa8\xba\x0fF\xc7k\xb5V\x0b\x8b\t\r15s\xc6\x03\x9d\xcf\x15*\xdd\x83\x15\xe0\x14t\xe1\xe7\xd6\x16C~@\xec9\x1f\xfdf\xaf\x86P\xd5\xb1@\xf9\xb3\x87|\xcf\xaap\x8f\xe9>\xd4\x86\x06\x8f<0\xbe\xec\xd1\xdb\xf2u\xc9Fg\xef\x1e\xfe\xf5\x97*j\x06o\xb8H\xd4)Wl\x05ur\x15\xe6\xdd\x9ec\xd6L\xa5^'
+[?2004hroot@d931f65aae01:/app# 

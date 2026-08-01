@@ -26,108 +26,141 @@ def block(name: str, body: str, text: str) -> str:
 
 def main() -> None:
     text = README.read_text()
-    H, meta, head = RES["harnesses"], RES["meta"], RES["headline"]
+    meta, head = RES["meta"], RES["headline"]
+    models, pm = RES.get("models", []), RES.get("per_model", {})
 
-    # ---- leaderboard table
-    rows = ["| Harness | Resolved | Resolve rate | Tokens (in / cached / out) | Cost | Solved per $ |",
-            "|---|---|---|---|---|---|"]
-    for h in H:
-        rows.append(
-            f"| `{h['harness']}` | {h['n_resolved']}/{h['n_tasks']} | "
-            f"**{h['resolve_rate']*100:.1f}%** | "
-            f"{h['prompt_tokens']:,} / {h['cached_tokens']:,} / {h['completion_tokens']:,} | "
-            f"${h['cost_usd']:.3f} | "
-            f"{h['resolved_per_usd'] if h['resolved_per_usd'] is not None else '—'} |"
-        )
-    text = block("leaderboard", "\n".join(rows), text)
-
-    # ---- headline sentence
-    spread = head["spread_pp"]
+    # ---- headline
     hl = (
-        f"Across {meta['n_tasks']} Terminal-Bench 2.0 tasks with the model, the tasks, and the "
-        f"time budget held constant, the best harness (`{head['best']}`) resolved "
-        f"**{head['max_rate']*100:.1f}%** and the worst (`{head['worst']}`) resolved "
-        f"**{head['min_rate']*100:.1f}%** — a spread of **{spread} percentage points** "
-        f"attributable to nothing but the scaffold around the model."
+        f"On **{meta['models'][0] if meta.get('models') else head.get('model_label','')}**, "
+        f"across {meta.get('n_tasks_scored', meta['n_tasks'])} Terminal-Bench 2.0 tasks with "
+        f"the model, the tasks, and the time budget held constant, the best harness "
+        f"(`{head['best']}`) resolved **{head['max_rate']*100:.1f}%** and the worst "
+        f"(`{head['worst']}`) resolved **{head['min_rate']*100:.1f}%** — a spread of "
+        f"**{head['spread_pp']} percentage points** attributable to nothing but the scaffold "
+        f"around the model."
     )
+    if len(models) > 1:
+        hl += (f" Under a second model ({pm[models[1]]['model_label']}) the spread is "
+               f"**{pm[models[1]]['spread_pp']}pp**.")
     text = block("headline", hl, text)
 
-    # ---- task x harness grid
-    names = [h["harness"] for h in H]
-    g = ["| Task | Difficulty | Category | " + " | ".join(f"`{n}`" for n in names) + " | Agreement |",
-         "|---|---|---|" + "---|" * (len(names) + 1)]
+    # ---- leaderboard, one table per model
+    out = []
+    for m in models:
+        p_ = pm[m]
+        out.append(f"**{p_['model_label']}** — spread **{p_['spread_pp']}pp**\n")
+        out.append("| Harness | Resolved | Resolve rate | Tokens (in / cached / out) | Cost | Solved per $ | Timed out |")
+        out.append("|---|---|---|---|---|---|---|")
+        for h in p_["harnesses"]:
+            out.append(
+                f"| `{h['harness']}` | {h['n_resolved']}/{h['n_tasks']} | "
+                f"**{h['resolve_rate']*100:.1f}%** | "
+                f"{h['prompt_tokens']:,} / {h['cached_tokens']:,} / {h['completion_tokens']:,} | "
+                f"${h['cost_usd']:.3f} | "
+                f"{h['resolved_per_usd'] if h['resolved_per_usd'] is not None else '—'} | "
+                f"{h['n_timeouts']} |")
+        out.append("")
+    c = RES.get("cross_model")
+    if c:
+        out.append("**Does the ranking survive changing the model?** "
+                   + ("The ordering is **identical** under both models."
+                      if c["identical_ranking"] else
+                      "The ordering **changes** between models.")
+                   + f" {c['pairs_agree']} of {c['pairs_total']} harness pairs keep their "
+                     f"relative order. Best harness: `{c['best_a']}` "
+                     f"({c['model_a']}) vs `{c['best_b']}` ({c['model_b']}).")
+    text = block("leaderboard", "\n".join(out), text)
+
+    # ---- grid
+    cols = [f"{m}__{h['harness']}" for m in models for h in pm[m]["harnesses"]]
+    g = ["| Task | Difficulty | Category | " + " | ".join(f"`{c.split('__')[1]}`<br><sub>{c.split('__')[0]}</sub>" for c in cols) + " | Agreement |",
+         "|---|---|---|" + "---|" * (len(cols) + 1)]
     for t in RES["tasks"]:
         cells = []
-        for n in names:
-            c = t["cells"].get(n)
-            cells.append("–" if not c else "✅" if c["resolved"] else ("⚠️" if c["exception"] else "❌"))
-        agree = f"{t['n_solved_by']}/{len([c for c in t['cells'].values() if c])}"
+        for k in cols:
+            cc = t["cells"].get(k)
+            cells.append("–" if not cc else "✅" if cc["resolved"]
+                         else "–" if cc["infra_error"] else "⏱" if cc["timed_out"] else "❌")
+        agree = f"{t['n_solved_by']}/{t['n_attempted_by']}"
         if t["disputed"]:
             agree = f"**split {agree}**"
         g.append(f"| `{t['task']}` | {t['difficulty']} | {t['category']} | " + " | ".join(cells) + f" | {agree} |")
-    g.append("")
-    g.append("✅ solved · ❌ attempted, not solved · ⚠️ infrastructure error, not counted as a "
-             "model failure · – not run")
+    g += ["", "✅ solved · ❌ attempted, not solved · ⏱ ran out of its time budget (counted as a "
+              "failure) · – not run or excluded (never counted as a zero)"]
     text = block("grid", "\n".join(g), text)
 
-    # ---- disagreement summary
+    # ---- disagreement
     disputed = [t for t in RES["tasks"] if t["disputed"]]
     if disputed:
-        lines = [f"{len(disputed)} of {meta['n_tasks']} tasks split the harnesses:", ""]
+        lines = [f"{len(disputed)} of {meta.get('n_tasks_scored', meta['n_tasks'])} scored tasks "
+                 f"split the harnesses:", ""]
         for t in disputed:
-            solved = ", ".join(f"`{s}`" for s in t["solved_by"])
-            missed = ", ".join(
-                f"`{n}`" for n in names
-                if t["cells"].get(n) and not t["cells"][n]["resolved"] and not t["cells"][n]["exception"]
-            )
-            lines.append(f"- **`{t['task']}`** ({t['difficulty']}, {t['category']}) — solved by {solved}"
-                         + (f"; missed by {missed}" if missed else ""))
+            solved = ", ".join(f"`{s.split('__')[1]}` ({s.split('__')[0]})" for s in t["solved_by"])
+            missed = ", ".join(f"`{k.split('__')[1]}` ({k.split('__')[0]})"
+                               for k, cc in t["cells"].items()
+                               if cc and cc["attempted"] and not cc["resolved"])
+            lines.append(f"- **`{t['task']}`** ({t['difficulty']}, {t['category']}) — solved by "
+                         f"{solved}" + (f"; missed by {missed}" if missed else ""))
         body = "\n".join(lines)
     else:
-        body = ("No task split the harnesses: every task was either solved by all of them or by "
-                "none. On this subset the spread comes from overall counts rather than from "
-                "identifiable per-task disagreement, which is a weaker result and is reported as such.")
+        body = ("No task split the harnesses on this subset: every scored task was either solved "
+                "by all of them or by none. That is a weaker result than a visible disagreement "
+                "and is reported as such — with 6 scored tasks there is simply not much room for "
+                "the harnesses to differ.")
     text = block("disagreement", body, text)
 
     # ---- run config
     cfg = [
-        f"- **Benchmark:** `{meta['dataset']}` — {meta['n_tasks']} of "
-        f"{meta['total_tasks_in_dataset']} tasks",
+        f"- **Benchmark:** `{meta['dataset']}` — {meta['n_tasks']} tasks selected from "
+        f"{meta['total_tasks_in_dataset']}, of which "
+        f"**{meta.get('n_tasks_scored', meta['n_tasks'])} are scored**",
         f"- **Selection:** seeded (`{meta['selection_seed']}`) stratified pick from the "
-        f"{meta['candidate_pool_size']} tasks with an agent budget ≤ {meta['max_agent_timeout_sec']}s, "
-        f"frozen before any run — see `scripts/select_tasks.py`",
-        f"- **Model:** {meta['model']}",
-        f"- **Temperature:** {meta['temperature']} (Kimi K2.7 Code rejects any other value)",
+        f"{meta['candidate_pool_size']} tasks with an agent budget ≤ "
+        f"{meta['max_agent_timeout_sec']}s, frozen before any run — `scripts/select_tasks.py`",
+        f"- **Models:** {' · '.join(meta.get('models', []))}",
+        f"- **Agent time budget:** {meta.get('agent_timeout_multiplier')}× each task's own limit, "
+        f"identical for every harness",
         f"- **Attempts per task:** {meta['n_attempts_per_task']}",
+        f"- **Verification:** each task's own test suite, after an `oracle` reference-solution "
+        f"baseline confirmed the graders work in this environment",
         f"- **Pricing:** {meta['price_note']}",
     ]
+    if meta.get("excluded_by_oracle"):
+        cfg.append("- **Excluded by the oracle baseline** (reference solution cannot pass here, so "
+                   "never scored): " + ", ".join(f"`{t}`" for t in meta["excluded_by_oracle"]))
     text = block("runconfig", "\n".join(cfg), text)
 
     # ---- spend
-    total = sum(h["cost_usd"] for h in H)
-    tok = sum(h["tokens_total"] for h in H)
-    calls = sum(h["llm_calls"] for h in H)
-    spend = (
-        f"The whole experiment cost **${total:.2f}** of Moonshot credit — {tok:,} tokens "
-        f"across {calls:,} model calls, metered at the gateway rather than estimated. "
-        f"Per-harness spend was capped at an equal slice so that whichever harness ran first "
-        f"could not starve the ones that ran last."
-    )
-    text = block("spend", spend, text)
+    lines = []
+    total = 0.0
+    for m in models:
+        p_ = pm[m]
+        total += p_["cost_usd"]
+        lines.append(f"- **{p_['model_label']}**: ${p_['cost_usd']:.2f} across "
+                     f"{p_['tokens_total']:,} metered tokens")
+    calls = sum(h["llm_calls"] for h in RES["harnesses"])
+    lines.append("")
+    lines.append(f"Total metered spend: **${total:.2f}** over {calls:,} model calls. Every figure "
+                 f"is billed at the gateway as the call happens, not estimated afterwards, and "
+                 f"per-harness spend is capped at an equal slice so the harness that runs first "
+                 f"cannot starve the one that runs last.")
+    text = block("spend", "\n".join(lines), text)
 
     # ---- not driven
     nd = RES.get("not_driven") or []
     if nd:
         body = "\n".join(
-            f"- `{h['harness']}` completed {h['n_tasks']} trials but made **0 model calls** — "
-            f"reported as not driven, not as a score of 0." for h in nd)
+            f"- `{h['harness']}` ({h['model']}) completed {h['n_cells']} trials but made "
+            f"**0 model calls** — reported as not driven, never as a score of 0." for h in nd)
     else:
-        body = ("Every harness on the board made real, metered model calls; none were counted "
-                "as scoring 0 while silently failing to call the model.")
+        body = ("Every harness on the board made real, metered model calls. Nothing was scored 0 "
+                "while silently failing to call the model — the failure mode that cost me the "
+                "most time on this build.")
     text = block("notdriven", body, text)
 
     README.write_text(text)
-    print(f"README rendered: {len(H)} harnesses, spread {spread}pp, ${total:.2f}")
+    print(f"README rendered: {len(models)} model(s), headline spread {head['spread_pp']}pp, "
+          f"${total:.2f} total")
 
 
 if __name__ == "__main__":
