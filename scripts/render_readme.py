@@ -60,6 +60,20 @@ def main() -> None:
                 f"{h['resolved_per_usd'] if h['resolved_per_usd'] is not None else '—'} | "
                 f"{h['n_timeouts']} |")
         out.append("")
+    n_scored = meta.get("n_tasks_scored", meta["n_tasks"])
+    per_flip = 100.0 / n_scored if n_scored else 0.0
+    out.append("")
+    out.append(f"> **Read these rates as relative, not absolute.** Every harness ran with a "
+               f"**{meta.get('agent_timeout_multiplier')}× time budget** — 40% of each task's own "
+               f"wall-clock allowance — applied identically to all of them so the comparison "
+               f"stays fair. That deliberately depresses every number here, so **these rates are "
+               f"not comparable to published Terminal-Bench 2.0 figures** and should not be "
+               f"quoted as a result for this model. The only claim being made is the *gap "
+               f"between harnesses within this run*.")
+    out.append("")
+    out.append(f"> **How much weight the spread can carry:** on {n_scored} scored tasks, one "
+               f"task changing outcome moves a harness by **{per_flip:.1f} percentage points**. "
+               f"Any spread below that is indistinguishable from a single coin flip.")
     c = RES.get("cross_model")
     if c:
         out.append("**Does the ranking survive changing the model?** "

@@ -108,6 +108,12 @@ Cost-adjusted matters here: a harness that wins by burning several times the tok
 different result than one that wins for free, so the site ranks by solved-per-dollar as well
 as by raw rate.
 
+**Excluded tasks are grader failures, not agent failures.** Where a task appears as excluded
+below, it means that task's *own reference solution* could not pass in this environment — the
+oracle screen caught it. Scoring an agent 0 on such a task would invent a failure that never
+happened, so those tasks are removed from every rate and every denominator rather than counted
+against anyone.
+
 ### Where the harnesses disagreed
 
 <!-- BEGIN:grid -->
@@ -154,11 +160,14 @@ than harnesses was deliberate: the harness spread *is* the experiment.
 **Cost is list price**, computed from each provider's published rates applied to
 gateway-metered tokens, not read off an invoice.
 
-**Absolute rates are low and the time budget is part of why.** Each task ran with 0.6× its own
-wall-clock allowance, a cost-control decision applied identically to every harness. Running out
-of the clock is counted as a failure, not as "not run", because burning the budget without
-converging is a real and harness-attributable outcome. But it does depress every rate, and it
-is one reason these numbers are not comparable to any published Terminal-Bench leaderboard.
+**Absolute rates are low and the time budget is most of why.** Each task ran with a fraction of
+its own wall-clock allowance (see the run configuration for the exact multiplier) — a
+cost-control decision forced by a shared, fixed model budget and applied identically to every
+harness. Running out of the clock counts as a failure rather than "not run", because burning the
+budget without converging is a real outcome and a harness-attributable one. But it depresses
+every rate, and it is the main reason **these numbers must not be quoted as a result for this
+model or compared to any published Terminal-Bench 2.0 leaderboard**. The comparison that
+survives is the one between harnesses inside this run, where the budget was identical.
 
 **Absolute rates are not comparable to published Terminal-Bench numbers.** Different subset,
 different model, and a reduced per-task time budget. Only the *spread between harnesses within

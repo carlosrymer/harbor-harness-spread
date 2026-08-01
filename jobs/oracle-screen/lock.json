@@ -1,0 +1,772 @@
+{
+    "schema_version": 2,
+    "created_at": "2026-08-01T16:36:54.002127Z",
+    "harbor": {
+        "version": "0.20.0",
+        "is_editable": false
+    },
+    "n_concurrent_trials": 4,
+    "retry": {
+        "max_retries": 0,
+        "exclude_exceptions": [
+            "RewardFileNotFoundError",
+            "ModelNotFoundError",
+            "RewardFileEmptyError",
+            "VerifierTimeoutError",
+            "AgentTimeoutError",
+            "VerifierOutputParseError",
+            "ApiUsageLimitError",
+            "AgentAuthenticationError",
+            "AgentSafetyRefusalError"
+        ],
+        "wait_multiplier": 1.0,
+        "min_wait_sec": 1.0,
+        "max_wait_sec": 60.0
+    },
+    "trials": [
+        {
+            "schema_version": 1,
+            "task": {
+                "name": "crack-7z-hash",
+                "type": "local",
+                "digest": "sha256:317142160a33ebffd38c6d0b2697797cb0e109a6c9d1e3b9a83eb745f524d0c9",
+                "source": "terminal-bench",
+                "path": "/home/user/builds/harbor-harness-spread/terminal-bench/crack-7z-hash"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent_timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "skills": [],
+                "resume_trajectory": false,
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "/root/.ccr/ca-bundle.crt",
+                        "target": "/ccr-ca.crt",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uv",
+                        "target": "/usr/local/bin/uv",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uvx",
+                        "target": "/usr/local/bin/uvx",
+                        "read_only": true
+                    }
+                ],
+                "extra_docker_compose": [],
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "env": {
+                    "SSL_CERT_FILE": "/ccr-ca.crt",
+                    "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                    "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                    "PIP_CERT": "/ccr-ca.crt",
+                    "UV_NATIVE_TLS": "1"
+                },
+                "disable": false
+            }
+        },
+        {
+            "schema_version": 1,
+            "task": {
+                "name": "sparql-university",
+                "type": "local",
+                "digest": "sha256:c9030c1b06e857118aa79deff8828c22350022409e372fbedc609761b06a1826",
+                "source": "terminal-bench",
+                "path": "/home/user/builds/harbor-harness-spread/terminal-bench/sparql-university"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent_timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "skills": [],
+                "resume_trajectory": false,
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "/root/.ccr/ca-bundle.crt",
+                        "target": "/ccr-ca.crt",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uv",
+                        "target": "/usr/local/bin/uv",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uvx",
+                        "target": "/usr/local/bin/uvx",
+                        "read_only": true
+                    }
+                ],
+                "extra_docker_compose": [],
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "env": {
+                    "SSL_CERT_FILE": "/ccr-ca.crt",
+                    "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                    "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                    "PIP_CERT": "/ccr-ca.crt",
+                    "UV_NATIVE_TLS": "1"
+                },
+                "disable": false
+            }
+        },
+        {
+            "schema_version": 1,
+            "task": {
+                "name": "db-wal-recovery",
+                "type": "local",
+                "digest": "sha256:35aeff78e6f412bb15a449b854114061791b5e6d54923576db8ab7c80ab1bf94",
+                "source": "terminal-bench",
+                "path": "/home/user/builds/harbor-harness-spread/terminal-bench/db-wal-recovery"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent_timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "skills": [],
+                "resume_trajectory": false,
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "/root/.ccr/ca-bundle.crt",
+                        "target": "/ccr-ca.crt",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uv",
+                        "target": "/usr/local/bin/uv",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uvx",
+                        "target": "/usr/local/bin/uvx",
+                        "read_only": true
+                    }
+                ],
+                "extra_docker_compose": [],
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "env": {
+                    "SSL_CERT_FILE": "/ccr-ca.crt",
+                    "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                    "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                    "PIP_CERT": "/ccr-ca.crt",
+                    "UV_NATIVE_TLS": "1"
+                },
+                "disable": false
+            }
+        },
+        {
+            "schema_version": 1,
+            "task": {
+                "name": "model-extraction-relu-logits",
+                "type": "local",
+                "digest": "sha256:0dc5544f14a8f9eb70b9e4572a03cfa1a97c0448eb07a05441cc006303536b7d",
+                "source": "terminal-bench",
+                "path": "/home/user/builds/harbor-harness-spread/terminal-bench/model-extraction-relu-logits"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent_timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "skills": [],
+                "resume_trajectory": false,
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "/root/.ccr/ca-bundle.crt",
+                        "target": "/ccr-ca.crt",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uv",
+                        "target": "/usr/local/bin/uv",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uvx",
+                        "target": "/usr/local/bin/uvx",
+                        "read_only": true
+                    }
+                ],
+                "extra_docker_compose": [],
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "env": {
+                    "SSL_CERT_FILE": "/ccr-ca.crt",
+                    "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                    "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                    "PIP_CERT": "/ccr-ca.crt",
+                    "UV_NATIVE_TLS": "1"
+                },
+                "disable": false
+            }
+        },
+        {
+            "schema_version": 1,
+            "task": {
+                "name": "query-optimize",
+                "type": "local",
+                "digest": "sha256:47e0fba77bc2e62fc49aa6fb0e1fff5fe02be2bd0aa83276c753f219566e5a6b",
+                "source": "terminal-bench",
+                "path": "/home/user/builds/harbor-harness-spread/terminal-bench/query-optimize"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent_timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "skills": [],
+                "resume_trajectory": false,
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "/root/.ccr/ca-bundle.crt",
+                        "target": "/ccr-ca.crt",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uv",
+                        "target": "/usr/local/bin/uv",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uvx",
+                        "target": "/usr/local/bin/uvx",
+                        "read_only": true
+                    }
+                ],
+                "extra_docker_compose": [],
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "env": {
+                    "SSL_CERT_FILE": "/ccr-ca.crt",
+                    "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                    "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                    "PIP_CERT": "/ccr-ca.crt",
+                    "UV_NATIVE_TLS": "1"
+                },
+                "disable": false
+            }
+        },
+        {
+            "schema_version": 1,
+            "task": {
+                "name": "configure-git-webserver",
+                "type": "local",
+                "digest": "sha256:367c8c1983aabd745ac1bfd54b72877dcc1d3136f0f81603c6a6e8713f2580ab",
+                "source": "terminal-bench",
+                "path": "/home/user/builds/harbor-harness-spread/terminal-bench/configure-git-webserver"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent_timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "skills": [],
+                "resume_trajectory": false,
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "/root/.ccr/ca-bundle.crt",
+                        "target": "/ccr-ca.crt",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uv",
+                        "target": "/usr/local/bin/uv",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uvx",
+                        "target": "/usr/local/bin/uvx",
+                        "read_only": true
+                    }
+                ],
+                "extra_docker_compose": [],
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "env": {
+                    "SSL_CERT_FILE": "/ccr-ca.crt",
+                    "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                    "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                    "PIP_CERT": "/ccr-ca.crt",
+                    "UV_NATIVE_TLS": "1"
+                },
+                "disable": false
+            }
+        },
+        {
+            "schema_version": 1,
+            "task": {
+                "name": "fix-git",
+                "type": "local",
+                "digest": "sha256:31f6063693d71cdbb49d8ae17848ae54eed7a1953228164efbb3f4100251600d",
+                "source": "terminal-bench",
+                "path": "/home/user/builds/harbor-harness-spread/terminal-bench/fix-git"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent_timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "skills": [],
+                "resume_trajectory": false,
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "/root/.ccr/ca-bundle.crt",
+                        "target": "/ccr-ca.crt",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uv",
+                        "target": "/usr/local/bin/uv",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uvx",
+                        "target": "/usr/local/bin/uvx",
+                        "read_only": true
+                    }
+                ],
+                "extra_docker_compose": [],
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "env": {
+                    "SSL_CERT_FILE": "/ccr-ca.crt",
+                    "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                    "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                    "PIP_CERT": "/ccr-ca.crt",
+                    "UV_NATIVE_TLS": "1"
+                },
+                "disable": false
+            }
+        },
+        {
+            "schema_version": 1,
+            "task": {
+                "name": "adaptive-rejection-sampler",
+                "type": "local",
+                "digest": "sha256:b4c60177f24d0308859cde8da1ead1e668f5f0717d6d9fc6e5f4c32729bb7b40",
+                "source": "terminal-bench",
+                "path": "/home/user/builds/harbor-harness-spread/terminal-bench/adaptive-rejection-sampler"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent_timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "skills": [],
+                "resume_trajectory": false,
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "/root/.ccr/ca-bundle.crt",
+                        "target": "/ccr-ca.crt",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uv",
+                        "target": "/usr/local/bin/uv",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uvx",
+                        "target": "/usr/local/bin/uvx",
+                        "read_only": true
+                    }
+                ],
+                "extra_docker_compose": [],
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "env": {
+                    "SSL_CERT_FILE": "/ccr-ca.crt",
+                    "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                    "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                    "PIP_CERT": "/ccr-ca.crt",
+                    "UV_NATIVE_TLS": "1"
+                },
+                "disable": false
+            }
+        },
+        {
+            "schema_version": 1,
+            "task": {
+                "name": "torch-pipeline-parallelism",
+                "type": "local",
+                "digest": "sha256:caaae18a9f67750e9cfadc4a45a0ae3418ae908ed465188c0d476b9fbf96b75f",
+                "source": "terminal-bench",
+                "path": "/home/user/builds/harbor-harness-spread/terminal-bench/torch-pipeline-parallelism"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent_timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "skills": [],
+                "resume_trajectory": false,
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "/root/.ccr/ca-bundle.crt",
+                        "target": "/ccr-ca.crt",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uv",
+                        "target": "/usr/local/bin/uv",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uvx",
+                        "target": "/usr/local/bin/uvx",
+                        "read_only": true
+                    }
+                ],
+                "extra_docker_compose": [],
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "env": {
+                    "SSL_CERT_FILE": "/ccr-ca.crt",
+                    "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                    "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                    "PIP_CERT": "/ccr-ca.crt",
+                    "UV_NATIVE_TLS": "1"
+                },
+                "disable": false
+            }
+        },
+        {
+            "schema_version": 1,
+            "task": {
+                "name": "chess-best-move",
+                "type": "local",
+                "digest": "sha256:55db198810b8b6f1a88c33ee11ee5258a2ecc31bba50d7713f44d728361a170a",
+                "source": "terminal-bench",
+                "path": "/home/user/builds/harbor-harness-spread/terminal-bench/chess-best-move"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent_timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "skills": [],
+                "resume_trajectory": false,
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "/root/.ccr/ca-bundle.crt",
+                        "target": "/ccr-ca.crt",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uv",
+                        "target": "/usr/local/bin/uv",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uvx",
+                        "target": "/usr/local/bin/uvx",
+                        "read_only": true
+                    }
+                ],
+                "extra_docker_compose": [],
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "env": {
+                    "SSL_CERT_FILE": "/ccr-ca.crt",
+                    "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                    "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                    "PIP_CERT": "/ccr-ca.crt",
+                    "UV_NATIVE_TLS": "1"
+                },
+                "disable": false
+            }
+        },
+        {
+            "schema_version": 1,
+            "task": {
+                "name": "count-dataset-tokens",
+                "type": "local",
+                "digest": "sha256:0e23496d71272e3fda4a4ff9dbc1a8b03f02cf08bcc05f122a7d769a5f24cec8",
+                "source": "terminal-bench",
+                "path": "/home/user/builds/harbor-harness-spread/terminal-bench/count-dataset-tokens"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent_timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "skills": [],
+                "resume_trajectory": false,
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "/root/.ccr/ca-bundle.crt",
+                        "target": "/ccr-ca.crt",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uv",
+                        "target": "/usr/local/bin/uv",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uvx",
+                        "target": "/usr/local/bin/uvx",
+                        "read_only": true
+                    }
+                ],
+                "extra_docker_compose": [],
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "env": {
+                    "SSL_CERT_FILE": "/ccr-ca.crt",
+                    "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                    "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                    "PIP_CERT": "/ccr-ca.crt",
+                    "UV_NATIVE_TLS": "1"
+                },
+                "disable": false
+            }
+        },
+        {
+            "schema_version": 1,
+            "task": {
+                "name": "largest-eigenval",
+                "type": "local",
+                "digest": "sha256:2bfa63009e386065e419e09018ddf20ecaeceaeb864844ebcac67e87360a8304",
+                "source": "terminal-bench",
+                "path": "/home/user/builds/harbor-harness-spread/terminal-bench/largest-eigenval"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent_timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "skills": [],
+                "resume_trajectory": false,
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "/root/.ccr/ca-bundle.crt",
+                        "target": "/ccr-ca.crt",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uv",
+                        "target": "/usr/local/bin/uv",
+                        "read_only": true
+                    },
+                    {
+                        "type": "bind",
+                        "source": "/root/.local/bin/uvx",
+                        "target": "/usr/local/bin/uvx",
+                        "read_only": true
+                    }
+                ],
+                "extra_docker_compose": [],
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "env": {
+                    "SSL_CERT_FILE": "/ccr-ca.crt",
+                    "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                    "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                    "PIP_CERT": "/ccr-ca.crt",
+                    "UV_NATIVE_TLS": "1"
+                },
+                "disable": false
+            }
+        }
+    ]
+}

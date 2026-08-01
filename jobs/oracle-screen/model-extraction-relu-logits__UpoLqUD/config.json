@@ -1,0 +1,42 @@
+{
+    "task": {
+        "path": "/home/user/builds/harbor-harness-spread/terminal-bench/model-extraction-relu-logits",
+        "source": "terminal-bench"
+    },
+    "trial_name": "model-extraction-relu-logits__UpoLqUD",
+    "trials_dir": "/home/user/builds/harbor-harness-spread/jobs/oracle-screen",
+    "agent_timeout_multiplier": 1.0,
+    "environment": {
+        "type": "docker",
+        "mounts": [
+            {
+                "type": "bind",
+                "source": "/root/.ccr/ca-bundle.crt",
+                "target": "/ccr-ca.crt",
+                "read_only": true
+            },
+            {
+                "type": "bind",
+                "source": "/root/.local/bin/uv",
+                "target": "/usr/local/bin/uv",
+                "read_only": true
+            },
+            {
+                "type": "bind",
+                "source": "/root/.local/bin/uvx",
+                "target": "/usr/local/bin/uvx",
+                "read_only": true
+            }
+        ]
+    },
+    "verifier": {
+        "env": {
+            "SSL_CERT_FILE": "/ccr-ca.crt",
+            "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+            "CURL_CA_BUNDLE": "/ccr-ca.crt",
+            "PIP_CERT": "/ccr-ca.crt",
+            "UV_NATIVE_TLS": "1"
+        }
+    },
+    "job_id": "5de9a97a-befc-449d-b46c-f8326b0d014c"
+}

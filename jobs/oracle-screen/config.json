@@ -1,0 +1,57 @@
+{
+    "job_name": "oracle-screen",
+    "jobs_dir": "/home/user/builds/harbor-harness-spread/jobs",
+    "agent_timeout_multiplier": 1.0,
+    "quiet": true,
+    "environment": {
+        "type": "docker",
+        "mounts": [
+            {
+                "type": "bind",
+                "source": "/root/.ccr/ca-bundle.crt",
+                "target": "/ccr-ca.crt",
+                "read_only": true
+            },
+            {
+                "type": "bind",
+                "source": "/root/.local/bin/uv",
+                "target": "/usr/local/bin/uv",
+                "read_only": true
+            },
+            {
+                "type": "bind",
+                "source": "/root/.local/bin/uvx",
+                "target": "/usr/local/bin/uvx",
+                "read_only": true
+            }
+        ]
+    },
+    "verifier": {
+        "env": {
+            "SSL_CERT_FILE": "/ccr-ca.crt",
+            "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+            "CURL_CA_BUNDLE": "/ccr-ca.crt",
+            "PIP_CERT": "/ccr-ca.crt",
+            "UV_NATIVE_TLS": "1"
+        }
+    },
+    "datasets": [
+        {
+            "path": "/home/user/builds/harbor-harness-spread/terminal-bench",
+            "task_names": [
+                "fix-git",
+                "configure-git-webserver",
+                "model-extraction-relu-logits",
+                "sparql-university",
+                "torch-pipeline-parallelism",
+                "adaptive-rejection-sampler",
+                "chess-best-move",
+                "count-dataset-tokens",
+                "crack-7z-hash",
+                "db-wal-recovery",
+                "largest-eigenval",
+                "query-optimize"
+            ]
+        }
+    ]
+}
