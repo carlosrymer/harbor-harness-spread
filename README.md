@@ -63,9 +63,10 @@ unless you are metering the model calls. It is the single most important reason 
 put a gateway in the middle, and why the analysis now refuses to score any harness that made
 zero model calls.
 
-**Reasoning-token bursts, not context length, drive cost.** A single Kimi K3 call emitted
-10,537 completion tokens and took 309 seconds. One partial task cost $0.71. Cost here is
-dominated by a few enormous bursts, not by steady context growth.
+**Reasoning-token bursts, not context length, drive cost.** While sizing the budget I measured
+a single Kimi K3 call that emitted 10,537 completion tokens and took 309 seconds — one partial
+task cost $0.71. Agent-eval cost is dominated by a handful of enormous bursts, not by steady
+context growth, which is why the gateway meters and caps per call rather than per run.
 
 ## The use case
 
@@ -213,19 +214,24 @@ uv pip install --python .venv/bin/python -r requirements.txt
 .venv/bin/python scripts/select_tasks.py > artifacts/subset.json
 
 # 3. Start the metering gateway (pins the model, meters per harness, caps spend)
-export MOONSHOT_API_KEY=...
-BUDGET_USD=2.30 BUDGET_PER_HARNESS_USD=0.55 \
-  bash scripts/gw_ctl.sh start moonshot/kimi-k2.7-code
+export GEMINI_API_KEY=...
+BUDGET_USD=8.0 BUDGET_PER_HARNESS_USD=2.0 \
+  PRICE_IN=1.50 PRICE_CACHED=0.375 PRICE_OUT=7.50 TEMPERATURE=-1 \
+  bash scripts/gw_ctl.sh start gemini/gemini-3.6-flash
 
-# 4. Run the sweep, one harness at a time
-AGENT_TIMEOUT_MULT=0.6 HARNESSES="terminus-2 mini-swe-agent aider goose" NCONC=4 \
+# 4. Prove the graders work here before scoring anything (no model calls, no cost)
+.venv/bin/harbor run -p terminal-bench -a oracle -o jobs --job-name oracle-baseline ...
+
+# 5. Run the sweep, one harness at a time
+MODEL_SLUG=gemini36 AGENT_TIMEOUT_MULT=0.6 \
+  HARNESSES="terminus-2 mini-swe-agent aider goose" NCONC=3 \
   bash scripts/run_all.sh
 
-# 5. Rebuild results + the write-up's numbers from the artifacts
+# 6. Rebuild results + the write-up's numbers from the artifacts
 .venv/bin/python scripts/analyze.py
 .venv/bin/python scripts/render_readme.py
 
-# 6. Serve the site locally, or publish it
+# 7. Serve the site locally, or publish it
 cp artifacts/results.json site/data/ && cp -r artifacts/trajectories site/data/
 python3 -m http.server -d site 8000
 bash scripts/deploy_pages.sh   # publishes site/ to the gh-pages branch
@@ -239,8 +245,8 @@ container for that reason; on an unrestricted network those mounts are unnecessa
 
 - **Harbor 0.20.0** — benchmark distribution, container orchestration, agent adapters, verification
 - **Terminal-Bench 2.0** — tasks and verifiers, via the Harbor registry
-- **Kimi K2.7 Code** (Moonshot) — the fixed model under test
-- **FastAPI + uvicorn + litellm** — the model gateway (~250 lines)
+- **Gemini 3.6 Flash** (Google AI Studio) — the fixed model under test
+- **FastAPI + uvicorn + litellm** — the model gateway (~280 lines)
 - **Python 3.13** — selection and analysis
 - **Docker** — one container per trial
 - **Vanilla HTML/CSS/JS** — the site; no build step, no external requests

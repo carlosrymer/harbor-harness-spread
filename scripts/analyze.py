@@ -330,6 +330,11 @@ def main() -> None:
     runs = defaultdict(list)  # (model, harness) -> [{rep, job, trials}]
     if JOBS.exists():
         tdir = ART / "trajectories"
+        # Rebuild from scratch: stale files from an earlier naming scheme or a
+        # discarded run would otherwise be served by the site as if current.
+        if tdir.exists():
+            for old in tdir.glob("*.json"):
+                old.unlink()
         tdir.mkdir(parents=True, exist_ok=True)
         for job_dir in sorted(JOBS.iterdir()):
             if not job_dir.is_dir():

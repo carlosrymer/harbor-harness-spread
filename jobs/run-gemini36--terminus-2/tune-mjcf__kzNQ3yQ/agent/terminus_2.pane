@@ -225,4 +225,63 @@ Traceback (most recent call last):
 [?2004l[?2004hroot@0a5d9c94c7cf:/app# python3 /app/test_opt.py
 [?2004lBaseline:
 Diff: 0.00000000, Time: 0.7894s
-[?2004hroot@0a5d9c94c7cf:/app# 
+[?2004hroot@0a5d9c94c7cf:/app# echo 'aW1wb3J0IG11am9jbwppbXBvcnQgbnVtcHkgYXMgbnAKaW1wb3J0IHRpbWUKZnJvbSBwYXRobGliIGltcG9ydCBQYXRoCmZyb20gdGVzdF9vcHQgaW1wb3J0IGV2YWxfeG1sCgpiYXNlX3htbCA9IFBhdGgoJ21vZGVsX3JlZi54bWwnKS5yZWFkX3RleHQoKQoKZGVmIGFkZF9vcHRpb24oeG1sX3N0ciwgb3B0X3RhZyk6CiAgICBpZHggPSB4bWxfc3RyLmZpbmQoJzx3b3JsZGJvZHk+JykKICAgIHJldHVybiB4bWxfc3RyWzppZHhdICsgb3B0X3RhZyArICdcbicgKyB4bWxfc3RyW2lkeDpdCgp0ZXN0cyA9IFsKICAgICgiYmFzZWxpbmUiLCBiYXNlX3htbCksCiAgICAoInNvbHZlcj1DRyIsIGFkZF9vcHRpb24oYmFzZV94bWwsICc8b3B0aW9uIHNvbHZlcj0iQ0ciLz4nKSksCiAgICAoInNvbHZlcj1QR1MiLCBhZGRfb3B0aW9uKGJhc2VfeG1sLCAnPG9wdGlvbiBzb2x2ZXI9IlBHUyIvPicpKSwKICAgICgiaW50ZWdyYXRvcj1pbXBsaWNpdCIsIGFkZF9vcHRpb24oYmFzZV94bWwsICc8b3B0aW9uIGludGVncmF0b3I9ImltcGxpY2l0Ii8+JykpLAogICAgKCJpbnRlZ3JhdG9yPWltcGxpY2l0ZmFzdCIsIGFkZF9vcHRpb24oYmFzZV94bWwsICc8b3B0aW9uIGludGVncmF0b3I9ImltcGxpY2l0ZmFzdCIvPicpKSwKICAgICgiaXRlcmF0aW9ucz0xMCIsIGFkZF9vcHRpb24oYmFzZV94bWwsICc8b3B0aW9uIGl0ZXJhdGlvbnM9IjEwIi8+JykpLAogICAgKCJpdGVyYXRpb25zPTIwIiwgYWRkX29wdGlvbihiYXNlX3htbCwgJzxvcHRpb24gaXRlcmF0aW9ucz0iMjAiLz4nKSksCiAgICAoIml0ZXJhdGlvbnM9NTAiLCBhZGRfb3B0aW9uKGJhc2VfeG1sLCAnPG9wdGlvbiBpdGVyYXRpb25zPSI1MCIvPicpKSwKICAgICgidG9sZXJhbmNlPTFlLTQiLCBhZGRfb3B0aW9uKGJhc2VfeG1sLCAnPG9wdGlvbiB0b2xlcmFuY2U9IjFlLTQiLz4nKSksCiAgICAoInRvbGVyYW5jZT0xZS0zIiwgYWRkX29wdGlvbihiYXNlX3htbCwgJzxvcHRpb24gdG9sZXJhbmNlPSIxZS0zIi8+JykpLAogICAgKCJqYWNvYmlhbj1zcGFyc2UiLCBhZGRfb3B0aW9uKGJhc2VfeG1sLCAnPG9wdGlvbiBqYWNvYmlhbj0ic3BhcnNlIi8+JykpLAogICAgKCJqYWNvYmlhbj1kZW5zZSIsIGFkZF9vcHRpb24oYmFzZV94bWwsICc8b3B0aW9uIGphY29iaWFuPSJkZW5zZSIvPicpKSwKICAgICgiZmxhZyBjb2xsaXNpb249ZGlzYWJsZSIsIGFkZF9vcHRpb24oYmFzZV94bWwsICc8b3B0aW9uPjxmbGFnIGNvbGxpc2lvbj0iZGlzYWJsZSIvPjwvb3B0aW9uPicpKSwKICAgICgiZmxhZyBjb250YWN0PWRpc2FibGUiLCBhZGRfb3B0aW9uKGJhc2VfeG1sLCAnPG9wdGlvbiBjb250YWN0PWRpc2FibGUvPicpKSwKICAgICgiZmxhZyB3YXJtc3RhcnQ9ZW5hYmxlIiwgYWRkX29wdGlvbihiYXNlX3htbCwgJzxvcHRpb24+PGZsYWcgd2FybXN0YXJ0PSJlbmFibGUiLz48L29wdGlvbj4nKSksCiAgICAoImZsYWcgd2FybXN0YXJ0PWRpc2FibGUiLCBhZGRfb3B0aW9uKGJhc2VfeG1sLCAnPG9wdGlvbiI+PGZsYWcgd2FybXN0YXJ0PWRpc2FibGUiLz48L29wdGlvbj4nKSksCl0KCmZvciBuYW1lLCB4bWwgaW4gdGVzdHM6CiAgICB0cnk6CiAgICAgICAgZGlmZiwgdCA9IGV2YWxfeG1sKHhtbCkKICAgICAgICBwYXNzX3RvbCA9ICJQQVNTIiBpZiBkaWZmIDw9IDFlLTUgaWVsc2UgIkZBSUwiCiAgICAgICAgcHJpbnQoZiJ7bmFtZTozMHN9IHwgZGlmZjoge2RpZmY6LjhmfSAoe3Bhc3NfdG9sfSkgfCB0aW1lOiB7dDouNGZ9cyIpCiAgICBleGNlcHQgRXhjZXB0aW9uIGFzIGU6CiAgICAgICAgcHJpbnQoZiJ7bmFtZTozMHN9IHwgRVJST1I6IHtlfSIpCg==' | base64 -d > /app/test_all_opts.py
+[?2004l[?2004hroot@0a5d9c94c7cf:/app# python3 /app/test_all_opts.py
+[?2004l  File [35m"/app/test_all_opts.py"[0m, line [35m35[0m
+    pass_tol = [1;31m"PASS" if diff <= 1e-5[0m ielse "FAIL"
+               [1;31m^^^^^^^^^^^^^^^^^^^^^^[0m
+[1;35mSyntaxError[0m: [35mexpected 'else' after 'if' expression[0m
+[?2004hroot@0a5d9c94c7cf:/app# cat << 'EOF' > /app/make_script.py
+[?2004l[?2004h> import mujoco
+[?2004l[?2004h> import numpy as np
+[?2004l[?2004h> import time
+[?2004l[?2004h> from pathlib import Path
+[?2004l[?2004h> from test_opt import eval_xml
+[?2004l[?2004h> 
+[?2004l[?2004h> base_xml = Path('model_ref.xml').read_text()
+[?2004l[?2004h> 
+[?2004l[?2004h> def add_option(xml_str, opt_tag):
+[?2004l[?2004h>     idx = xml_str.find('<worldbody>')
+[?2004l[?2004h>     return xml_str[:idx] + opt_tag + '\n' + xml_str[idx:]
+[?2004l[?2004h> 
+[?2004l[?2004h> tests = [
+[?2004l[?2004h>     ('baseline', base_xml),
+[?2004l[?2004h>     ('solver=CG', add_option(base_xml, '<option solver="CG"/>')),
+[?2004l[?2004h>     ('solver=PGS', add_option(base_xml, '<option solver="PGS"/>')),
+[?2004l[?2004h>     ('integrator=implicit', add_option(base_xml, '<option integrator="implicit"/>')),
+[?2004l[?2004h>     ('integrator=implicitfast', add_option(base_xml, '<option integrator="implicitfast"/>')),
+[?2004l[?2004h>     ('iterations=10', add_option(base_xml, '<option iterations="10"/>')),
+[?2004l[?2004h>     ('iterations=20', add_option(base_xml, '<option iterations="20"/>')),
+[?2004l[?2004h>     ('iterations=50', add_option(base_xml, '<option iterations="50"/>')),
+[?2004l[?2004h>     ('tolerance=1e-4', add_option(base_xml, '<option tolerance="1e-4"/>')),
+[?2004l[?2004h>     ('tolerance=1e-3', add_option(base_xml, '<option tolerance="1e-3"/>')),
+[?2004l[?2004h>     ('jacobian=sparse', add_option(base_xml, '<option jacobian="sparse"/>')),
+[?2004l[?2004h>     ('jacobian=dense', add_option(base_xml, '<option jacobian="dense"/>')),
+[?2004l[?2004h>     ('flag collision=disable', add_option(base_xml, '<option><flag collision="disable"/></option>')),
+[?2004l[?2004h>     ('flag contact=disable', add_option(base_xml, '<option><flag contact="disable"/></option>')),
+[?2004l[?2004h>     ('flag warmstart=enable', add_option(base_xml, '<option><flag warmstart="enable"/></option>')),
+[?2004l[?2004h>     ('flag warmstart=disable', add_option(base_xml, '<option><flag warmstart="disable"/></option>')),
+[?2004l[?2004h> ]
+[?2004l[?2004h> 
+[?2004l[?2004h> for name, xml in tests:
+[?2004l[?2004h>     try:
+[?2004l[?2004h>         diff, t = eval_xml(xml)
+[?2004l[?2004h>         pass_tol = 'PASS' if diff <= 1e-5 else 'FAIL'
+[?2004l[?2004h>         print(f'{name:30s} | diff: {diff:.8f} ({pass_tol}) | time: {t:.4f}s')
+[?2004l[?2004h>     except Exception as e:
+[?2004l[?2004h>         print(f'{name:30s} | ERROR: {e}')
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@0a5d9c94c7cf:/app# python3 /app/make_script.py
+[?2004lBaseline:
+Diff: 0.00000000, Time: 0.8181s
+baseline                       | diff: 0.00000000 (PASS) | time: 0.7947s
+solver=CG                      | diff: 0.00001688 (FAIL) | time: 0.5104s
+solver=PGS                     | diff: 0.00000362 (PASS) | time: 0.4724s
+integrator=implicit            | diff: 0.00109678 (FAIL) | time: 2.2659s
+integrator=implicitfast        | diff: 0.00000000 (PASS) | time: 0.8307s
+iterations=10                  | diff: 0.00000000 (PASS) | time: 0.8242s
+iterations=20                  | diff: 0.00000000 (PASS) | time: 1.3320s
+iterations=50                  | diff: 0.00000000 (PASS) | time: 0.8912s
+tolerance=1e-4                 | diff: 0.00000000 (PASS) | time: 0.8414s
+tolerance=1e-3                 | diff: 0.00000000 (PASS) | time: 0.8405s
+jacobian=sparse                | diff: 0.00000000 (PASS) | time: 1.0170s

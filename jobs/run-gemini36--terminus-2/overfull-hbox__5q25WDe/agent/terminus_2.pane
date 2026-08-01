@@ -389,4 +389,368 @@ I told him. And as I walked on I was lonely no longer. I was a guide, a pathfind
   File "/usr/lib/python3.12/re/_parser.py", line 443, in _escape
     raise source.error("bad escape %s" % escape, len(escape))
 re.error: bad escape \h at position 9
-[?2004hroot@d8233b37447d:/app# 
+[?2004hroot@d8233b37447d:/app# cat << 'EOF' > solve.py
+[?2004l[?2004h> import subprocess, re, sys
+[?2004l[?2004h> 
+[?2004l[?2004h> with open('synonyms.txt') as f:
+[?2004l[?2004h>     syn_lines = [line.strip() for line in f if line.strip()]
+[?2004l[?2004h> 
+[?2004l[?2004h> syn_groups = []
+[?2004l[?2004h> word_to_group = {}
+[?2004l[?2004h> for line in syn_lines:
+[?2004l[?2004h>     words = [w.strip() for w in line.split(',')]
+[?2004l[?2004h>     syn_groups.append(words)
+[?2004l[?2004h>     for w in words:
+[?2004l[?2004h>         word_to_group[w.lower()] = words
+[?2004l[?2004h> 
+[?2004l[?2004h> def match_case(src_word, target_word):
+[?2004l[?2004h>     if src_word.isupper():
+[?2004l[?2004h>         return target_word.upper()
+[?2004l[?2004h>     elif src_word.istitle():
+[?2004l[?2004h>         return target_word.capitalize()
+[?2004l[?2004h>     else:
+[?2004l[?2004h>         return target_word.lower()
+[?2004l[?2004h> 
+[?2004l[?2004h> with open('input.tex') as f:
+[?2004l[?2004h>     text = f.read()
+[?2004l[?2004h> 
+[?2004l[?2004h> def get_overfulls(t):
+[?2004l[?2004h>     with open('input.tex', 'w') as f:
+[?2004l[?2004h>         f.write(t)
+[?2004l[?2004h>     res = subprocess.run(['pdflatex', '-interaction=nonstopmode', 'main.tex'], capture_output=True, text=True)
+[?2004l[?2004h>     lines = re.findall(r'Overfull \\hbox .*', res.stdout)
+[?2004l[?2004h>     return lines
+[?2004l[?2004h> 
+[?2004l[?2004h> overfulls = get_overfulls(text)
+[?2004l[?2004h> print(f'Count: {len(overfulls)}')
+[?2004l[?2004h> for o in overfulls:
+[?2004l[?2004h>     print(o)
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@d8233b37447d:/app# python3 solve.py
+[?2004lCount: 7
+Overfull \hbox (0.10312pt too wide) in paragraph at lines 5--6
+Overfull \hbox (18.03828pt too wide) in paragraph at lines 5--6
+Overfull \hbox (1.90868pt too wide) in paragraph at lines 7--8
+Overfull \hbox (3.242pt too wide) in paragraph at lines 7--8
+Overfull \hbox (54.68654pt too wide) in paragraph at lines 7--8
+Overfull \hbox (6.07536pt too wide) in paragraph at lines 13--14
+Overfull \hbox (8.4539pt too wide) in paragraph at lines 19--15
+[?2004hroot@d8233b37447d:/app# cat << 'EOF' > make_script.py
+[?2004l[?2004h> code = '''import subprocess, re, sys
+[?2004l[?2004h> 
+[?2004l[?2004h> with open('synonyms.txt') as f:
+[?2004l[?2004h>     syn_lines = [line.strip() for line in f if line.strip()]
+[?2004l[?2004h> 
+[?2004l[?2004h> word_to_group = {}
+[?2004l[?2004h> for line in syn_lines:
+[?2004l[?2004h>     words = [w.strip() for w in line.split(',')]
+[?2004l[?2004h>     for w in words:
+[?2004l[?2004h>         word_to_group[w.lower()] = words
+[?2004l[?2004h> 
+[?2004l[?2004h> def match_case(src_word, target_word):
+[?2004l[?2004h>     if src_word.isupper():
+[?2004l[?2004h>         return target_word.upper()
+[?2004l[?2004h>     elif src_word.istitle():
+[?2004l[?2004h>         return target_word.capitalize()
+[?2004l[?2004h>     else:
+[?2004l[?2004h>         return target_word.lower()
+[?2004l[?2004h> 
+[?2004l[?2004h> with open('input.tex') as f:
+[?2004l[?2004h>     original_text = f.read()
+[?2004l[?2004h> 
+[?2004l[?2004h> paras = original_text.split('\n\n')
+[?2004l[?2004h> 
+[?2004l[?2004h> def test_full_text(para_list):
+[?2004l[?2004h>     full = '\n\n'.join(para_list)
+[?2004l[?2004h>     with open('input.tex', 'w') as f:
+[?2004l[?2004h>         f.write(full)
+[?2004l[?2004h>     res = subprocess.run(['pdflatex', '-interaction=nonstopmode', 'main.tex'], capture_output=True, text=True)
+[?2004l[?2004h>     overfulls = re.findall(r'Overfull \\hbox .*', res.stdout)
+[?2004l[?2004h>     return overfulls
+[?2004l[?2004h> 
+[?2004l[?2004h> def tokenize(para):
+[?2004l[?2004h>     return re.split(r'([a-zA-Z]+)', para)
+[?2004l[?2004h> 
+[?2004l[?2004h> current_paras = list(paras)
+[?2004l[?2004h> 
+[?2004l[?2004h> for p_idx, para in enumerate(current_paras):
+[?2004l[?2004h>     base_overfulls = test_full_text(current_paras)
+[?2004l[?2004h>     print(f'=== Paragraph {p_idx} === (Total overfulls: {len(base_overfulls)})')
+[?2004l[?2004h>     if len(base_overfulls) == 0:
+[?2004l[?2004h>         break
+[?2004l[?2004h> 
+[?2004l[?2004h>     tokens = tokenize(para)
+[?2004l[?2004h>     replaceable = []
+[?2004l[?2004h>     for i, tok in enumerate(tokens):
+[?2004l[?2004h>         if tok.lower() in word_to_group:
+[?2004l[?2004h>             replaceable.append((i, tok, word_to_group[tok.lower()]))
+[?2004l[?2004h>     
+[?2004l[?2004h>     improved = True
+[?2004l[?2004h>     while improved:
+[?2004l[?2004h>         improved = False
+[?2004l[?2004h>         best_count = len(test_full_text(current_paras))
+[?2004l[?2004h>         if best_count == 0:
+[?2004l[?2004h>             break
+[?2004l[?2004h>         
+[?2004l[?2004h>         best_i = -1
+[?2004l[?2004h>         best_syn = None
+[?2004l[?2004h>         for i, original_tok, choices in replaceable:
+[?2004l[?2004h>             curr_tok = tokens[i]
+[?2004l[?2004h>             for choice in choices:
+[?2004l[?2004h>                 c_tok = match_case(original_tok, choice)
+[?2004l[?2004h>                 if c_tok == curr_tok:
+[?2004l[?2004h>                     continue
+[?2004l[?2004h>                 tokens[i] = c_tok
+[?2004l[?2004h>                 current_paras[p_idx] = ''.join(tokens)
+[?2004l[?2004h>                 ofs = test_full_text(current_paras)
+[?2004l[?2004h>                 if len(ofs) < best_count:
+[?2004l[?2004h>                     best_count = len(ofs)
+[?2004l[?2004h>                     best_i = i
+[?2004l[?2004h>                     best_syn = c_tok
+[?2004l[?2004h>                     print(f'  Improved! New overfull count: {best_count} ({original_tok} -> {c_tok})')
+[?2004l[?2004h>                 tokens[i] = curr_tok
+[?2004l[?2004h>                 current_paras[p_idx] = ''.join(tokens)
+[?2004l[?2004h>         
+[?2004l[?2004h>         if best_i != -1:
+[?2004l[?2004h>             tokens[best_i] = best_syn
+[?2004l[?2004h>             current_paras[p_idx] = ''.join(tokens)
+[?2004l[?2004h>             improved = True
+[?2004l[?2004h> 
+[?2004l[?2004h> final_ofs = test_full_text(current_paras)
+[?2004l[?2004h> print(f'FINAL OVERFULL COUNT: {len(final_ofs)}')
+[?2004l[?2004h> for o in final_ofs:
+[?2004l[?2004h>     print(o)
+[?2004l[?2004h> 
+[?2004l[?2004h> if len(final_ofs) == 0:
+[?2004l[?2004h>     print('SUCCESS!')
+[?2004l[?2004h> '''
+[?2004l[?2004h> with open('solve.py', 'w') as f:
+[?2004l[?2004h>     f.write(code)
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@d8233b37447d:/app# python3 make_script.py
+[?2004l[?2004hroot@d8233b37447d:/app# python3 solve.py
+[?2004l  File "/app/solve.py", line 23
+    paras = original_text.split('
+                                ^
+SyntaxError: unterminated string literal (detected at line 23)
+[?2004hroot@d8233b37447d:/app# cat << 'EOF' > solve.py
+[?2004l[?2004h> import subprocess, re, sys
+[?2004l[?2004h> 
+[?2004l[?2004h> with open('synonyms.txt') as f:
+[?2004l[?2004h>     syn_lines = [line.strip() for line in f if line.strip()]
+[?2004l[?2004h> 
+[?2004l[?2004h> word_to_group = {}
+[?2004l[?2004h> for line in syn_lines:
+[?2004l[?2004h>     words = [w.strip() for w in line.split(',')]
+[?2004l[?2004h>     for w in words:
+[?2004l[?2004h>         word_to_group[w.lower()] = words
+[?2004l[?2004h> 
+[?2004l[?2004h> def match_case(src_word, target_word):
+[?2004l[?2004h>     if src_word.isupper():
+[?2004l[?2004h>         return target_word.upper()
+[?2004l[?2004h>     elif src_word.istitle():
+[?2004l[?2004h>         return target_word.capitalize()
+[?2004l[?2004h>     else:
+[?2004l[?2004h>         return target_word.lower()
+[?2004l[?2004h> 
+[?2004l[?2004h> with open('input.tex') as f:
+[?2004l[?2004h>     original_text = f.read()
+[?2004l[?2004h> 
+[?2004l[?2004h> paras = original_text.split('\n\n')
+[?2004l[?2004h> 
+[?2004l[?2004h> def test_full_text(para_list):
+[?2004l[?2004h>     full = '\n\n'.join(para_list)
+[?2004l[?2004h>     with open('input.tex', 'w') as f:
+[?2004l[?2004h>         f.write(full)
+[?2004l[?2004h>     res = subprocess.run(['pdflatex', '-interaction=nonstopmode', 'main.tex'], capture_output=True, text=True)
+[?2004l[?2004h>     overfulls = re.findall(r'Overfull \\hbox .*', res.stdout)
+[?2004l[?2004h>     return overfulls
+[?2004l[?2004h> 
+[?2004l[?2004h> def tokenize(para):
+[?2004l[?2004h>     return re.split(r'([a-zA-Z]+)', para)
+[?2004l[?2004h> 
+[?2004l[?2004h> current_paras = list(paras)
+[?2004l[?2004h> 
+[?2004l[?2004h> for p_idx, para in enumerate(current_paras):
+[?2004l[?2004h>     base_overfulls = test_full_text(current_paras)
+[?2004l[?2004h>     print(f'=== Paragraph {p_idx} === (Total overfulls: {len(base_overfulls)})')
+[?2004l[?2004h>     if len(base_overfulls) == 0:
+[?2004l[?2004h>         break
+[?2004l[?2004h> 
+[?2004l[?2004h>     tokens = tokenize(para)
+[?2004l[?2004h>     replaceable = []
+[?2004l[?2004h>     for i, tok in enumerate(tokens):
+[?2004l[?2004h>         if tok.lower() in word_to_group:
+[?2004l[?2004h>             replaceable.append((i, tok, word_to_group[tok.lower()]))
+[?2004l[?2004h>     
+[?2004l[?2004h>     improved = True
+[?2004l[?2004h>     while improved:
+[?2004l[?2004h>         improved = False
+[?2004l[?2004h>         best_count = len(test_full_text(current_paras))
+[?2004l[?2004h>         if best_count == 0:
+[?2004l[?2004h>             break
+[?2004l[?2004h>         
+[?2004l[?2004h>         best_i = -1
+[?2004l[?2004h>         best_syn = None
+[?2004l[?2004h>         for i, original_tok, choices in replaceable:
+[?2004l[?2004h>             curr_tok = tokens[i]
+[?2004l[?2004h>             for choice in choices:
+[?2004l[?2004h>                 c_tok = match_case(original_tok, choice)
+[?2004l[?2004h>                 if c_tok == curr_tok:
+[?2004l[?2004h>                     continue
+[?2004l[?2004h>                 tokens[i] = c_tok
+[?2004l[?2004h>                 current_paras[p_idx] = ''.join(tokens)
+[?2004l[?2004h>                 ofs = test_full_text(current_paras)
+[?2004l[?2004h>                 if len(ofs) < best_count:
+[?2004l[?2004h>                     best_count = len(ofs)
+[?2004l[?2004h>                     best_i = i
+[?2004l[?2004h>                     best_syn = c_tok
+[?2004l[?2004h>                     print(f'  Improved! New overfull count: {best_count} ({original_tok} -> {c_tok})')
+[?2004l[?2004h>                 tokens[i] = curr_tok
+[?2004l[?2004h>                 current_paras[p_idx] = ''.join(tokens)
+[?2004l[?2004h>         
+[?2004l[?2004h>         if best_i != -1:
+[?2004l[?2004h>             tokens[best_i] = best_syn
+[?2004l[?2004h>             current_paras[p_idx] = ''.join(tokens)
+[?2004l[?2004h>             improved = True
+[?2004l[?2004h> 
+[?2004l[?2004h> final_ofs = test_full_text(current_paras)
+[?2004l[?2004h> print(f'FINAL OVERFULL COUNT: {len(final_ofs)}')
+[?2004l[?2004h> for o in final_ofs:
+[?2004l[?2004h>     print(o)
+[?2004l[?2004h> 
+[?2004l[?2004h> if len(final_ofs) == 0:
+[?2004l[?2004h>     print('SUCCESS!')
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@d8233b37447d:/app# python3 solve.py
+[?2004l=== Paragraph 0 === (Total overfulls: 7)
+=== Paragraph 1 === (Total overfulls: 7)
+=== Paragraph 2 === (Total overfulls: 7)
+  Improved! New overfull count: 6 (communicative -> expressive)
+  Improved! New overfull count: 5 (reserved -> quiet)
+python3 solve.py
+python3 solve.py
+^CTraceback (most recent call last):
+  File "/app/solve.py", line 67, in <module>
+    ofs = test_full_text(current_paras)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/solve.py", line 29, in test_full_text
+    res = subprocess.run(['pdflatex', '-interaction=nonstopmode', 'main.tex'], capture_output=True, text=True)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 550, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1209, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 2115, in _communicate
+    ready = selector.select(timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/selectors.py", line 415, in select
+    fd_event_list = self._selector.poll(timeout)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+
+[?2004hroot@d8233b37447d:/app# python3 solve.py
+[?2004l=== Paragraph 0 === (Total overfulls: 5)
+=== Paragraph 1 === (Total overfulls: 5)
+=== Paragraph 2 === (Total overfulls: 5)
+C-c
+cat << 'EOF' > solve_fast.py
+import subprocess, re, sys
+
+with open('synonyms.txt') as f:
+    syn_lines = [line.strip() for line in f if line.strip()]
+
+word_to_group = {}
+for line in syn_lines:
+    words = [w.strip() for w in line.split(',')]
+    for w in words:
+        word_to_group[w.lower()] = words
+
+def match_case(src_word, target_word):
+    if src_word.isupper():
+        return target_word.upper()
+    elif src_word.istitle():
+        return target_word.capitalize()
+    else:
+        return target_word.lower()
+
+with open('input.tex') as f:
+    text = f.read()
+
+def run_latex(t):
+    with open('input.tex', 'w') as f:
+        f.write(t)
+    res = subprocess.run(['pdflatex', '-interaction=nonstopmode', 'main.tex'], capture_output=True, text=True)
+    overfulls = re.findall(r'Overfull \\hbox .*', res.stdout)
+    return res.stdout, overfulls
+
+def tokenize(para):
+    return re.split(r'([a-zA-Z]+)', para)
+
+current_paras = text.split('\n\n')
+
+log, overfulls = run_latex('\n\n'.join(current_paras))
+print(f'Starting overfull count: {len(overfulls)}')
+for o in overfulls:
+    print(' ', o)
+
+for p_idx in range(len(current_paras)):
+    log, overfulls = run_latex('\n\n'.join(current_paras))
+    if len(overfulls) == 0:
+        break
+    
+    tokens = tokenize(current_paras[p_idx])
+    replaceable = []
+    for i, tok in enumerate(tokens):
+        if tok.lower() in word_to_group:
+            replaceable.append((i, tok, word_to_group[tok.lower()]))
+    
+    if not replaceable:
+        continue
+        
+    improved = True
+    while improved:
+        improved = False
+        _, base_of = run_latex('\n\n'.join(current_paras))
+        best_count = len(base_of)
+        if best_count == 0:
+            break
+            
+        best_i = -1
+        best_syn = None
+        for i, orig_tok, choices in replaceable:
+            curr_tok = tokens[i]
+            for choice in choices:
+                c_tok = match_case(orig_tok, choice)
+                if c_tok == curr_tok:
+                    continue
+                tokens[i] = c_tok
+                current_paras[p_idx] = ''.join(tokens)
+                _, new_of = run_latex('\n\n'.join(current_paras))
+                if len(new_of) < best_count:
+                    best_count = len(new_of)
+                    best_i = i
+                    best_syn = c_tok
+                    print(f'P{p_idx}: {orig_tok} -> {c_tok} (Overfulls: {best_count})')
+                tokens[i] = curr_tok
+                current_paras[p_idx] = ''.join(tokens)
+        
+        if best_i != -1:
+            tokens[best_i] = best_syn
+            current_paras[p_idx] = ''.join(tokens)
+            improved = True
+
+log, final_of = run_latex('\n\n'.join(current_paras))
+print(f'FINAL OVERFULL COUNT: {len(final_of)}')
+for o in final_of:
+    print(' ', o)
+EOF
+python3 solve_fast.py
+=== Paragraph 3 === (Total overfulls: 5)
+  Improved! New overfull count: 4 (marshes -> bogs)
+C-c
+python3 solve.py
+  Improved! New overfull count: 3 (scorn -> disdain)
+  Improved! New overfull count: 2 (responsiveness -> sensitivity)
