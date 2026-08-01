@@ -12,70 +12,25 @@
     "selection_seed": 20260801,
     "max_agent_timeout_sec": 900,
     "agent_timeout_multiplier": 0.6,
-    "models": [
-      "gemini-3.6-flash (Google AI Studio)"
-    ],
+    "models": [],
     "temperature": "1.0 (Kimi) / provider default (Gemini)",
     "n_attempts_per_task": 1,
     "price_note": "Moonshot Kimi K2.7 Code $0.95/M in, $0.19/M cached, $4.00/M out; Gemini 3.6 Flash billed to a separate Google AI Studio account"
   },
   "headline": {
-    "model": "gemini36",
-    "model_label": "gemini-3.6-flash (Google AI Studio)",
-    "best": "aider",
-    "worst": "aider",
-    "max_rate": 0.0,
-    "min_rate": 0.0,
+    "model": null,
+    "model_label": null,
+    "best": null,
+    "worst": null,
+    "max_rate": 0,
+    "min_rate": 0,
     "spread_pp": 0.0
   },
-  "models": [
-    "gemini36"
-  ],
-  "per_model": {
-    "gemini36": {
-      "model": "gemini36",
-      "model_label": "gemini-3.6-flash (Google AI Studio)",
-      "harnesses": [
-        {
-          "model": "gemini36",
-          "model_label": "gemini-3.6-flash (Google AI Studio)",
-          "harness": "aider",
-          "n_tasks": 12,
-          "n_cells": 12,
-          "n_resolved": 0,
-          "resolve_rate": 0.0,
-          "n_infra_errors": 0,
-          "n_timeouts": 0,
-          "tokens_total": 242638,
-          "prompt_tokens": 63227,
-          "cached_tokens": 0,
-          "completion_tokens": 179411,
-          "llm_calls": 27,
-          "llm_errors": 0,
-          "llm_retries": 0,
-          "cost_usd": 1.4404,
-          "wall_s_total": 2402.4,
-          "steps_total": null,
-          "parser_warnings": 0,
-          "resolved_per_mtok": 0.0,
-          "resolved_per_usd": 0.0,
-          "reps": 1
-        }
-      ],
-      "best": "aider",
-      "worst": "aider",
-      "max_rate": 0.0,
-      "min_rate": 0.0,
-      "spread_pp": 0.0,
-      "ranking": [
-        "aider"
-      ],
-      "cost_usd": 1.4404,
-      "tokens_total": 242638
-    }
-  },
+  "models": [],
+  "per_model": {},
   "cross_model": null,
-  "harnesses": [
+  "harnesses": [],
+  "not_driven": [
     {
       "model": "gemini36",
       "model_label": "gemini-3.6-flash (Google AI Studio)",
@@ -86,23 +41,47 @@
       "resolve_rate": 0.0,
       "n_infra_errors": 0,
       "n_timeouts": 0,
-      "tokens_total": 242638,
-      "prompt_tokens": 63227,
+      "tokens_total": 0,
+      "prompt_tokens": 0,
       "cached_tokens": 0,
-      "completion_tokens": 179411,
-      "llm_calls": 27,
+      "completion_tokens": 0,
+      "llm_calls": 0,
       "llm_errors": 0,
       "llm_retries": 0,
-      "cost_usd": 1.4404,
+      "cost_usd": 0.0,
       "wall_s_total": 2402.4,
       "steps_total": null,
       "parser_warnings": 0,
-      "resolved_per_mtok": 0.0,
-      "resolved_per_usd": 0.0,
+      "resolved_per_mtok": null,
+      "resolved_per_usd": null,
+      "reps": 1
+    },
+    {
+      "model": "gemini36",
+      "model_label": "gemini-3.6-flash (Google AI Studio)",
+      "harness": "goose",
+      "n_tasks": 12,
+      "n_cells": 12,
+      "n_resolved": 2,
+      "resolve_rate": 0.1667,
+      "n_infra_errors": 0,
+      "n_timeouts": 2,
+      "tokens_total": 0,
+      "prompt_tokens": 0,
+      "cached_tokens": 0,
+      "completion_tokens": 0,
+      "llm_calls": 0,
+      "llm_errors": 0,
+      "llm_retries": 0,
+      "cost_usd": 0.0,
+      "wall_s_total": 2017.3,
+      "steps_total": 126,
+      "parser_warnings": 0,
+      "resolved_per_mtok": null,
+      "resolved_per_usd": null,
       "reps": 1
     }
   ],
-  "not_driven": [],
   "tasks": [
     {
       "task": "overfull-hbox",
@@ -124,10 +103,23 @@
           "n_steps": null,
           "wall_s": 165.3,
           "parser_warnings": 0
+        },
+        "gemini36__goose": {
+          "model": "gemini36",
+          "harness": "goose",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 1,
+          "wall_s": 100.7,
+          "parser_warnings": 0
         }
       },
       "n_solved_by": 0,
-      "n_attempted_by": 1,
+      "n_attempted_by": 2,
       "solved_by": [],
       "disputed": false
     },
@@ -151,10 +143,23 @@
           "n_steps": null,
           "wall_s": 251.8,
           "parser_warnings": 0
+        },
+        "gemini36__goose": {
+          "model": "gemini36",
+          "harness": "goose",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 1,
+          "wall_s": 58.6,
+          "parser_warnings": 0
         }
       },
       "n_solved_by": 0,
-      "n_attempted_by": 1,
+      "n_attempted_by": 2,
       "solved_by": [],
       "disputed": false
     },
@@ -178,10 +183,23 @@
           "n_steps": null,
           "wall_s": 148.4,
           "parser_warnings": 0
+        },
+        "gemini36__goose": {
+          "model": "gemini36",
+          "harness": "goose",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 9,
+          "wall_s": 139.6,
+          "parser_warnings": 0
         }
       },
       "n_solved_by": 0,
-      "n_attempted_by": 1,
+      "n_attempted_by": 2,
       "solved_by": [],
       "disputed": false
     },
@@ -193,7 +211,8 @@
       "expert_time_estimate_min": 60.0,
       "oracle_ok": false,
       "cells": {
-        "gemini36__aider": null
+        "gemini36__aider": null,
+        "gemini36__goose": null
       },
       "n_solved_by": 0,
       "n_attempted_by": 0,
@@ -220,12 +239,27 @@
           "n_steps": null,
           "wall_s": 164.7,
           "parser_warnings": 0
+        },
+        "gemini36__goose": {
+          "model": "gemini36",
+          "harness": "goose",
+          "resolved": true,
+          "reward": 1.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 22,
+          "wall_s": 146.5,
+          "parser_warnings": 0
         }
       },
-      "n_solved_by": 0,
-      "n_attempted_by": 1,
-      "solved_by": [],
-      "disputed": false
+      "n_solved_by": 1,
+      "n_attempted_by": 2,
+      "solved_by": [
+        "gemini36__goose"
+      ],
+      "disputed": true
     },
     {
       "task": "pytorch-model-recovery",
@@ -235,7 +269,8 @@
       "expert_time_estimate_min": 15.0,
       "oracle_ok": false,
       "cells": {
-        "gemini36__aider": null
+        "gemini36__aider": null,
+        "gemini36__goose": null
       },
       "n_solved_by": 0,
       "n_attempted_by": 0,
@@ -262,10 +297,23 @@
           "n_steps": null,
           "wall_s": 138.1,
           "parser_warnings": 0
+        },
+        "gemini36__goose": {
+          "model": "gemini36",
+          "harness": "goose",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 1,
+          "wall_s": 59.0,
+          "parser_warnings": 0
         }
       },
       "n_solved_by": 0,
-      "n_attempted_by": 1,
+      "n_attempted_by": 2,
       "solved_by": [],
       "disputed": false
     },
@@ -277,7 +325,8 @@
       "expert_time_estimate_min": 30.0,
       "oracle_ok": true,
       "cells": {
-        "gemini36__aider": null
+        "gemini36__aider": null,
+        "gemini36__goose": null
       },
       "n_solved_by": 0,
       "n_attempted_by": 0,
