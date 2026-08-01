@@ -37,36 +37,36 @@ decision:
 
 ```mermaid
 flowchart TB
-    subgraph sel["Selection + screening (before any scored run)"]
-        TB["terminal-bench@2.0<br/>89 tasks"] --> SEL["scripts/select_tasks.py<br/>seeded, stratified"]
+    subgraph sel["Selection + screening — before any scored run"]
+        TB["terminal-bench@2.0<br/>89 tasks"] --> SEL["select_tasks.py<br/>seeded · stratified · blind"]
         SEL --> CAND["artifacts/candidates.json"]
-        CAND --> SCR["scripts/screen_oracle.sh<br/>oracle = reference solution<br/>0 model tokens"]
-        SCR --> SUB["artifacts/scored_subset.json<br/>only tasks whose grader works here"]
+        CAND --> SCR["screen_oracle.sh<br/>runs each task's own<br/>reference solution<br/>0 model tokens"]
+        SCR --> BSS["build_scored_subset.py"]
+        BSS --> SUB["artifacts/scored_subset.json<br/>only tasks whose grader<br/>demonstrably works here"]
     end
 
-    subgraph exec["Execution — one process per harness"]
-        ORC["oracle baseline<br/>reference solution"] --> HARBOR
-        RUN["scripts/run_harness.sh"] --> HARBOR["harbor run"]
+    subgraph exec["Execution — one harness at a time, identical config"]
+        RUN["run_harness.sh"] --> HARBOR["harbor run"]
         HARBOR --> C1["container: terminus-2"]
         HARBOR --> C2["container: mini-swe-agent"]
         HARBOR --> C3["container: aider"]
-        HARBOR --> C4["container: opencode"]
-        HARBOR --> C5["container: goose"]
+        HARBOR --> C4["container: goose"]
     end
 
     SUB --> RUN
 
-    GW["scripts/gateway.py<br/>OpenAI-compatible<br/>pins model · meters tokens<br/>budget cap · backoff"]
-    C1 & C2 & C3 & C4 & C5 -->|"sk-harness-NAME"| GW
-    GW -->|litellm| MOON["Moonshot API<br/>kimi-k2.7-code"]
+    GW["gateway.py — OpenAI-compatible<br/>pins the model · meters tokens per harness<br/>global + per-harness spend caps · backoff"]
+    C1 & C2 & C3 & C4 -->|"sk-harness-NAME__MODEL"| GW
+    GW -->|litellm| UP["Gemini 3.6 Flash<br/>(one model, pinned)"]
     GW --> METER["artifacts/gateway.jsonl"]
 
-    HARBOR --> JOBS["jobs/run-*/<br/>rewards + trajectories"]
-    JOBS --> AN["scripts/analyze.py"]
+    HARBOR --> JOBS["jobs/run-MODEL--HARNESS/<br/>rewards + ATIF trajectories"]
+    JOBS --> AN["analyze.py<br/>joins rewards with the meter"]
     METER --> AN
     AN --> RES["artifacts/results.json<br/>artifacts/trajectories/*.json"]
-    RES --> DEP["scripts/deploy_pages.sh"]
-    DEP --> SITE["GitHub Pages (gh-pages branch)<br/>leaderboard + task×harness grid"]
+    RES --> RR["render_readme.py"]
+    RES --> DEP["deploy_pages.sh"]
+    DEP --> SITE["GitHub Pages · gh-pages branch<br/>leaderboard · task×harness grid · trajectories"]
 ```
 
 ## Components
