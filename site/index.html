@@ -298,10 +298,13 @@ function render(d){
 
   html += `<section><div class="shead"><h2>Per-cell detail</h2></div>
    <p class="note">Token counts come from the gateway every harness shared, not from each
-   harness's own reporting — several report nothing usable.</p>
+   harness's own reporting — several report nothing usable. <strong>Parse fails</strong> counts
+   the times a harness could not parse the model's own reply against the output contract it
+   imposes; every one is a step spent recovering from the scaffold rather than on the task,
+   and it is a harness-model interaction a resolve rate alone would hide.</p>
    <div class="card gridscroll"><table><thead><tr>
      <th>Model</th><th>Harness</th><th>Solved</th><th>Rate</th><th>Prompt</th><th>Cached</th>
-     <th>Output</th><th>Calls</th><th>Cost</th><th>Per $</th><th>Timeouts</th><th>Not run</th>
+     <th>Output</th><th>Calls</th><th>Cost</th><th>Per $</th><th>Timeouts</th><th>Parse fails</th><th>Not run</th>
    </tr></thead><tbody>`;
   for (const m of models) for (const h of pm[m].harnesses){
     html += `<tr><td><span class="pill mdl">${esc(m)}</span></td>
@@ -311,7 +314,8 @@ function render(d){
       <td>${num(h.completion_tokens)}</td><td>${num(h.llm_calls)}</td>
       <td>$${(h.cost_usd||0).toFixed(3)}</td>
       <td>${h.resolved_per_usd!=null?h.resolved_per_usd.toFixed(1):"—"}</td>
-      <td>${h.n_timeouts}</td><td>${h.n_infra_errors}</td></tr>`;
+      <td>${h.n_timeouts}</td><td>${num(h.parser_warnings)}</td>
+      <td>${h.n_infra_errors}</td></tr>`;
   }
   html += `</tbody></table></div></section>`;
 
@@ -437,6 +441,7 @@ async function openDrill(key, task){
         <span class="pill" style="margin-left:8px">${esc(status)}</span>
         ${cell&&cell.n_steps!=null?`<span class="pill" style="margin-left:6px">${cell.n_steps} steps</span>`:""}
         ${cell&&cell.wall_s!=null?`<span class="pill" style="margin-left:6px">${Math.round(cell.wall_s)}s</span>`:""}
+        ${cell&&cell.parser_warnings?`<span class="pill" style="margin-left:6px">${cell.parser_warnings} parse fails</span>`:""}
       </div>
       <button class="closebtn" id="closedrill" type="button">Close</button>
     </div>

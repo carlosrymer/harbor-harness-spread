@@ -1,335 +1,0 @@
-[?2004hroot@d931f65aae01:/app# asciinema rec --stdin /logs/agent/recording.cast
-[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
-[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
-[?2004hroot@d931f65aae01:/app# clear
-[?2004l[H[J[3J[?2004hroot@d931f65aae01:/app# ls -la /app && df -h && mount
-[?2004ltotal 12
-drwxr-xr-x 1 root root 4096 Oct 22  2025 [0m[01;34m.[0m
-drwxr-xr-x 1 root root 4096 Aug  1 16:21 [01;34m..[0m
-drwxr-xr-x 8 root root 4096 Oct 22  2025 [01;34mvarsea[0m
-Filesystem      Size  Used Avail Use% Mounted on
-overlay         252G   32G  6.0G  85% /
-tmpfs            64M     0   64M   0% /dev
-tmpfs           7.9G     0  7.9G   0% /sys/fs/cgroup
-shm              64M   24K   64M   1% /dev/shm
-/dev/vda        252G   32G  6.0G  85% /ccr-ca.crt
-tmpfs           7.9G     0  7.9G   0% /proc/acpi
-tmpfs           7.9G     0  7.9G   0% /proc/scsi
-tmpfs           7.9G     0  7.9G   0% /sys/firmware
-overlay on / type overlay (rw,relatime,lowerdir=/var/lib/docker/containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/892/fs:/var/lib/docker/containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/76/fs:/var/lib/docker/containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/75/fs:/var/lib/docker/containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/73/fs:/var/lib/docker/containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/70/fs:/var/lib/docker/containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/9/fs,upperdir=/var/lib/docker/containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/893/fs,workdir=/var/lib/docker/containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/893/work)
-proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
-tmpfs on /dev type tmpfs (rw,nosuid,size=65536k,mode=755)
-devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=666)
-sysfs on /sys type sysfs (ro,nosuid,nodev,noexec,relatime)
-tmpfs on /sys/fs/cgroup type tmpfs (rw,nosuid,nodev,noexec,relatime,mode=755)
-cgroup on /sys/fs/cgroup/cpu type cgroup (ro,nosuid,nodev,noexec,relatime,cpu)
-cgroup on /sys/fs/cgroup/cpuacct type cgroup (ro,nosuid,nodev,noexec,relatime,cpuacct)
-cgroup on /sys/fs/cgroup/memory type cgroup (ro,nosuid,nodev,noexec,relatime,memory)
-cgroup on /sys/fs/cgroup/devices type cgroup (ro,nosuid,nodev,noexec,relatime,devices)
-cgroup on /sys/fs/cgroup/freezer type cgroup (ro,nosuid,nodev,noexec,relatime,freezer)
-cgroup on /sys/fs/cgroup/blkio type cgroup (ro,nosuid,nodev,noexec,relatime,blkio)
-cgroup on /sys/fs/cgroup/pids type cgroup (ro,nosuid,nodev,noexec,relatime,pids)
-mqueue on /dev/mqueue type mqueue (rw,nosuid,nodev,noexec,relatime)
-shm on /dev/shm type tmpfs (rw,nosuid,nodev,noexec,relatime,size=65536k)
-/dev/vda on /ccr-ca.crt type ext4 (ro,relatime,resuid=65534,resgid=65534)
-/dev/vda on /logs/verifier type ext4 (rw,relatime,resuid=65534,resgid=65534)
-/dev/vda on /logs/agent type ext4 (rw,relatime,resuid=65534,resgid=65534)
-/dev/vda on /logs/artifacts type ext4 (rw,relatime,resuid=65534,resgid=65534)
-/dev/vda on /etc/resolv.conf type ext4 (rw,relatime,resuid=65534,resgid=65534)
-/dev/vda on /etc/hostname type ext4 (rw,relatime,resuid=65534,resgid=65534)
-/dev/vda on /etc/hosts type ext4 (rw,relatime,resuid=65534,resgid=65534)
-/dev/vda on /usr/local/bin/uv type ext4 (ro,relatime,resuid=65534,resgid=65534)
-proc on /proc/bus type proc (ro,nosuid,nodev,noexec,relatime)
-proc on /proc/fs type proc (ro,nosuid,nodev,noexec,relatime)
-proc on /proc/irq type proc (ro,nosuid,nodev,noexec,relatime)
-proc on /proc/sys type proc (ro,nosuid,nodev,noexec,relatime)
-proc on /proc/sysrq-trigger type proc (ro,nosuid,nodev,noexec,relatime)
-tmpfs on /proc/acpi type tmpfs (ro,relatime)
-tmpfs on /proc/interrupts type tmpfs (rw,nosuid,size=65536k,mode=755)
-tmpfs on /proc/kcore type tmpfs (rw,nosuid,size=65536k,mode=755)
-tmpfs on /proc/keys type tmpfs (rw,nosuid,size=65536k,mode=755)
-tmpfs on /proc/scsi type tmpfs (ro,relatime)
-tmpfs on /proc/timer_list type tmpfs (rw,nosuid,size=65536k,mode=755)
-tmpfs on /sys/firmware type tmpfs (ro,relatime)
-[?2004hroot@d931f65aae01:/app# ls -la /app/varsea && (cd /app && git status 2>&1; git log -p 2>&1; cd /app/varsea && git status 2>&1; git log -p 2>&1)
-[?2004ltotal 32
-drwxr-xr-x 8 root root 4096 Oct 22  2025 [0m[01;34m.[0m
-drwxr-xr-x 1 root root 4096 Oct 22  2025 [01;34m..[0m
-drwxr-xr-x 2 root root 4096 Oct 22  2025 [01;34mbackup-5bbc53a0[0m
-drwxr-xr-x 2 root root 4096 Oct 22  2025 [01;34mcfg-9c5059a5[0m
-drwxr-xr-x 2 root root 4096 Oct 22  2025 [01;34mdata-815023d4[0m
-drwxr-xr-x 3 root root 4096 Oct 22  2025 [01;34mdisks[0m
-drwxr-xr-x 2 root root 4096 Oct 22  2025 [01;34mlogs-6d85a702[0m
-drwxr-xr-x 2 root root 4096 Oct 22  2025 [01;34mtmp-96a1686e[0m
-bash: git: command not found
-bash: git: command not found
-bash: git: command not found
-bash: git: command not found
-[?2004hroot@d931f65aae01:/app# grep -rnE "8XD[A-Z0-9]{17}W54" /var/lib/docker/ 2>/dev/null || true
-[?2004l[?2004hroot@d931f65aae01:/app# find /app -type f
-[?2004l/app/varsea/data-815023d4/20251022-044237.log
-/app/varsea/data-815023d4/1761108157243430303.bin
-/app/varsea/logs-6d85a702/20251022-044237.log
-/app/varsea/logs-6d85a702/1761108157287341389.bin
-/app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat
-/app/varsea/cfg-9c5059a5/1761108157343064955.bin
-/app/varsea/cfg-9c5059a5/20251022-044237.log
-/app/varsea/backup-5bbc53a0/1761108157319017506.bin
-/app/varsea/backup-5bbc53a0/20251022-044237.log
-/app/varsea/tmp-96a1686e/1761108157187440736.bin
-/app/varsea/tmp-96a1686e/20251022-044237.log
-[?2004hroot@d931f65aae01:/app# grep -rn '8XD' /app /tmp /var /root 2>/dev/null || true
-[?2004l[?2004hroot@d931f65aae01:/app# grep -rn 'PASSWORD=' /app /tmp /var /root 2>/dev/null || true
-[?2004l[?2004hroot@d931f65aae01:/app# file $(find /app -type f)
-[?2004l/app/varsea/data-815023d4/20251022-044237.log:       ASCII text
-/app/varsea/data-815023d4/1761108157243430303.bin:   data
-/app/varsea/logs-6d85a702/20251022-044237.log:       ASCII text
-/app/varsea/logs-6d85a702/1761108157287341389.bin:   data
-/app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat:     data
-/app/varsea/cfg-9c5059a5/1761108157343064955.bin:    data
-/app/varsea/cfg-9c5059a5/20251022-044237.log:        ASCII text
-/app/varsea/backup-5bbc53a0/1761108157319017506.bin: data
-/app/varsea/backup-5bbc53a0/20251022-044237.log:     ASCII text
-/app/varsea/tmp-96a1686e/1761108157187440736.bin:    data
-/app/varsea/tmp-96a1686e/20251022-044237.log:        ASCII text
-[?2004hroot@d931f65aae01:/app# strings /app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat | grep -E '8XD|launchcode|PASSWORD' || true
-[?2004lapp/[01;31m[Klaunchcode[m[K.txtUT	
-[01;31m[KPASSWORD[m[K=[01;31m[K8XD[m[KP5Q2RT9Z
-app/[01;31m[Klaunchcode[m[K.txtUT
-[01;31m[K8XD[m[K]
-[?2004hroot@d931f65aae01:/app# for f in $(find /app -type f); do echo "=== $f ==="; strings -a $f | grep -E '8XD' || true; done
-[?2004l=== /app/varsea/data-815023d4/20251022-044237.log ===
-=== /app/varsea/data-815023d4/1761108157243430303.bin ===
-=== /app/varsea/logs-6d85a702/20251022-044237.log ===
-=== /app/varsea/logs-6d85a702/1761108157287341389.bin ===
-=== /app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat ===
-PASSWORD=[01;31m[K8XD[m[KP5Q2RT9Z
-[01;31m[K8XD[m[K]
-=== /app/varsea/cfg-9c5059a5/1761108157343064955.bin ===
-=== /app/varsea/cfg-9c5059a5/20251022-044237.log ===
-=== /app/varsea/backup-5bbc53a0/1761108157319017506.bin ===
-=== /app/varsea/backup-5bbc53a0/20251022-044237.log ===
-=== /app/varsea/tmp-96a1686e/1761108157187440736.bin ===
-=== /app/varsea/tmp-96a1686e/20251022-044237.log ===
-[?2004hroot@d931f65aae01:/app# grep -a -o -E 'PASSWORD=8XD[A-Z0-9]{11}W54' $(find /app -type f) || true
-[?2004l[?2004hroot@d931f65aae01:/app# grep -a -b -o 'PASSWORD=' /app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat
-[?2004l[32m[K1048652[m[K[36m[K:[m[K[01;31m[KPASSWORD=[m[K
-[?2004hroot@d931f65aae01:/app# grep -a -b -o '8XD' /app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat
-[?2004l[32m[K1048661[m[K[36m[K:[m[K[01;31m[K8XD[m[K
-[32m[K4150390[m[K[36m[K:[m[K[01;31m[K8XD[m[K
-[?2004hroot@d931f65aae01:/app# python3 -c 'with open("/app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat", "rb") as f: f.seek(1048640); print(f.read(128))'
-[?2004lb'\x00\x01\x04\x00\x00\x00\x00\x04\x00\x00\x00\x00PASSWORD=8XDP5Q2RT9Z\x17*\xab\x9e/\xae\xed\xeb)\xa1.\x0f\x9d\x80\x8dA)\x99\x0f\x89\x8eF^G\xa4\xc2\xf8q\xbe\x17@\xaaZ$\xcc\x10b\x8c\xe5\xac\xec\xe8\xbf\xc0!^s\x11\xe0jAA7v\xd1\xb1I\xb9\x07bH\x02\x8d\xb2\x15\x02}\xfez\x8cJ\xce\x05\xcc\xc0\xc9\xda\xa7L\x84\x7f>(\xb0\x80\\!\r\xd2\x86\x17+U\xca\xbd5'
-[?2004hroot@d931f65aae01:/app# python3 -c 'with open("/app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat", "rb") as f: f.seek(4150370); print(f.read(128))'
-[?2004lb'\x9f\xbc\xab\x15\x02\x91\xe6\x8a\x957\xc2\xd6\x03\x81\x11\xdb\xa1\xd1\x9a\xd68XD]\xff\xb5\xef&\x07z\xd7\xa8\xba\x0fF\xc7k\xb5V\x0b\x8b\t\r15s\xc6\x03\x9d\xcf\x15*\xdd\x83\x15\xe0\x14t\xe1\xe7\xd6\x16C~@\xec9\x1f\xfdf\xaf\x86P\xd5\xb1@\xf9\xb3\x87|\xcf\xaap\x8f\xe9>\xd4\x86\x06\x8f<0\xbe\xec\xd1\xdb\xf2u\xc9Fg\xef\x1e\xfe\xf5\x97*j\x06o\xb8H\xd4)Wl\x05ur\x15\xe6\xdd\x9ec\xd6L\xa5^'
-[?2004hroot@d931f65aae01:/app# python3 -c '
-[?2004l[?2004h> import re, os
-[?2004l[?2004h> pattern = re.compile(b"8XD[A-Z0-9]{17}W54")
-[?2004l[?2004h> for root, dirs, files in os.walk("/"):
-[?2004l[?2004h>     if root.startswith(("/proc", "/sys", "/dev")):
-[?2004l[?2004h>         continue
-[?2004l[?2004h>     for fname in files:
-[?2004l[?2004h>         path = os.path.join(root, fname)
-[?2004l[?2004h>         try:
-[?2004l[?2004h>             with open(path, "rb") as f:
-[?2004l[?2004h>                 data = f.read()
-[?2004l[?2004h>                 m = pattern.findall(data)
-[?2004l[?2004h>                 if m:
-[?2004l[?2004h>                     print(path, m)
-[?2004l[?2004h>         except Exception:
-[?2004l[?2004h>             pass
-[?2004l[?2004h> '
-[?2004l[?2004hroot@d931f65aae01:/app# python3 -c 'import os; [print(os.path.join(r, f), open(os.path.join(r, f), "rb").read(32)) for r, d, fs in os.walk("/app") for f in fs]' M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K'
-[?2004l/app/varsea/data-815023d4/20251022-044237.log b'Dummy entry at 2025-10-22 04:42:'
-/app/varsea/data-815023d4/1761108157243430303.bin b':b\xb0\xcdq\xaa\xc6,\xc2\xae\xcaIA\xd2\x17|\xf4p\xb6\x88\x0f\xf4<7z\xddU\x00i7\xb8\x0b'
-/app/varsea/logs-6d85a702/20251022-044237.log b'Dummy entry at 2025-10-22 04:42:'
-/app/varsea/logs-6d85a702/1761108157287341389.bin b'\x14n\x82\xc085\x9e\xe9\xca\x8f{\xeeE`\x04,\x98 .K\xc2\xd9\x7f(\x1ae\xb6\x1cJ?\xfd\x1c'
-/app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat b'\xd0\xd3\xb9p\x85\xdc\xd5\xdea\xd8\xb4/\xf6\x15\x05\xe8t\xd5<K>\xeb\xf31\x0eI+\xaa\x85+\xef;'
-/app/varsea/cfg-9c5059a5/1761108157343064955.bin b'\xea\x11\x84\xd6\x12TSS5\xc7\xe2F\nT&\x14\xd5:;\x00\xd69\x10\xe8r\xd0\x83\xd1\xabKy\xd3'
-/app/varsea/cfg-9c5059a5/20251022-044237.log b'Dummy entry at 2025-10-22 04:42:'
-/app/varsea/backup-5bbc53a0/1761108157319017506.bin b'E\x04T\x93\xe6"\xd6\xebr`\x17\x98.\x16\xf9J\x19y\t\'\xabb\xb2%%QU\xbd\xfaw\x81\x99'
-/app/varsea/backup-5bbc53a0/20251022-044237.log b'Dummy entry at 2025-10-22 04:42:'
-/app/varsea/tmp-96a1686e/1761108157187440736.bin b';l\xf3\xb5.Y|\x1c\x91\x00\xbf\x87\x95\x8d\xc9%D2\x8d,\xf4\x19\x0c\xb4\x15\xd2\xa5\xbb\x19\xfa\xbcP'
-/app/varsea/tmp-96a1686e/20251022-044237.log b'Dummy entry at 2025-10-22 04:42:'
-[?2004hroot@d931f65aae01:/app# grep -a -o -E '.{0,10}8XD.{0,30}' /app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat
-[?2004l[01;31m[K PASSWORD=8XDP5Q2RT9Z*[m[K
-[01;31m[K8XD][m[K
-[?2004hroot@d931f65aae01:/app# python3 -c '
-[?2004l[?2004h> with open("/app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat", "rb") as f:
-[?2004l[?2004h>     data = f.read()
-[?2004l[?2004h> idx = 0
-[?2004l[?2004h> while True:
-[?2004l[?2004h>     idx = data.find(b"launchcode", idx)
-[?2004l[?2004h>     if idx == -1: break
-[?2004l[?2004h>     print("Found launchcode at", idx, data[max(0, idx-50):min(len(data), idx+100)])
-[?2004l[?2004h>     idx += 1
-[?2004l[?2004h> '
-[?2004lFound launchcode at 1048610 b'\xc5]\xd8l,\x03\xfbU\xf0*\x9c\xa7q\xe4\x8a\x01PK\x03\x04\n\x00\x00\x00\x00\x00S%V[\xc4]r\xb0!\x00\x00\x00!\x00\x00\x00\x12\x00\x1c\x00app/launchcode.txtUT\t\x00\x03\xbd`\xf8h\xbd`\xf8hux\x0b\x00\x01\x04\x00\x00\x00\x00\x04\x00\x00\x00\x00PASSWORD=8XDP5Q2RT9Z\x17*\xab\x9e/\xae\xed\xeb)\xa1.\x0f\x9d\x80\x8dA)\x99\x0f\x89\x8eF^G\xa4\xc2\xf8q\xbe\x17@\xaaZ$\xcc\x10b\x8c'
-Found launchcode at 3145791 b'PK\x01\x02\x1e\x03\n\x00\x00\x00\x00\x00S%V[\xc4]r\xb0!\x00\x00\x00!\x00\x00\x00\x12\x00\x18\x00\x00\x00\x00\x00\x01\x00\x00\x00\xa4\x81\x00\x00\x00\x00app/launchcode.txtUT\x05\x00\x03\xbd`\xf8hux\x0b\x00\x01\x04\x00\x00\x00\x00\x04\x00\x00\x00\x00PK\x05\x06\x00\x00\x00\x00\x01\x00\x01\x00X\x00\x00\x00m\x00\x00\x00\x00\x007t\xb3>2\xc5\xe2\x05\x89\xf8\xb8{\xc6\n\xcb\x1a\xf4\x05:b\xc4\x04"\x9d\xe4\xb1\xb6foJ\xf5\xa0!\xdb\xb5%\x9f\x7f\xb1\x80'
-[?2004hroot@d931f65aae01:/app# python3 -c '
-[?2004l[?2004h> import re
-[?2004l[?2004h> with open("/dev/vda", "rb") as f:
-[?2004l[?2004h>     chunk_size = 10*1024*1024
-[?2004l[?2004h>     offset = 0
-[?2004l[?2004h>     p1 = re.compile(b"launchcode")
-[?2004l[?2004h>     p2 = re.compile(b"8XD[A-Z0-9]{17}W54")
-[?2004l[?2004h>     p3 = re.compile(b"PASSWORD=8XD[A-Z0-9]+")
-[?2004l[?2004h>     for i in range(50):
-[?2004l[?2004h>         chunk = f.read(chunk_size)
-[?2004l[?2004h>         if not chunk: break
-[?2004l[?2004h>         for m in p1.finditer(chunk):
-[?2004l[?2004h>             print("p1 match at", offset + m.start(), chunk[max(0, m.start()-20):m.start()+80])
-[?2004l[?2004h>         for m in p2.finditer(chunk):
-[?2004l[?2004h>             print("p2 MATCH!!", offset + m.start(), m.group())
-[?2004l[?2004h>         for m in p3.finditer(chunk):
-[?2004l[?2004h>             print("p3 match at", offset + m.start(), m.group())
-[?2004l[?2004h>         offset += len(chunk)
-[?2004l[?2004h> '
-[?2004lTraceback (most recent call last):
-  File "<string>", line 3, in <module>
-FileNotFoundError: [Errno 2] No such file or directory: '/dev/vda'
-[?2004hroot@d931f65aae01:/app# ls -la /dev
-[?2004ltotal 4
-drwxr-xr-x 5 root root  340 Aug  1 16:20 [0m[01;34m.[0m
-drwxr-xr-x 1 root root 4096 Aug  1 16:21 [01;34m..[0m
-lrwxrwxrwx 1 root root   11 Aug  1 16:20 [01;36mcore[0m -> [40;33;01m/proc/kcore[0m
-lrwxrwxrwx 1 root root   13 Aug  1 16:20 [01;36mfd[0m -> [01;34m/proc/self/fd[0m
-crw-rw-rw- 1 root root 1, 7 Aug  1 16:20 [40;33;01mfull[0m
-drwxrwxrwt 2 root root   40 Aug  1 16:20 [30;42mmqueue[0m
-crw-rw-rw- 1 root root 1, 3 Aug  1 16:20 [40;33;01mnull[0m
-lrwxrwxrwx 1 root root    8 Aug  1 16:20 [01;36mptmx[0m -> [40;33;01mpts/ptmx[0m
-drwxr-xr-x 2 root root    0 Aug  1 16:20 [01;34mpts[0m
-crw-rw-rw- 1 root root 1, 8 Aug  1 16:20 [40;33;01mrandom[0m
-drwxrwxrwt 2 root root   40 Aug  1 16:21 [30;42mshm[0m
-lrwxrwxrwx 1 root root   15 Aug  1 16:20 [01;36mstderr[0m -> [40;33;01m/proc/self/fd/2[0m
-lrwxrwxrwx 1 root root   15 Aug  1 16:20 [01;36mstdin[0m -> [40;33;01m/proc/self/fd/0[0m
-lrwxrwxrwx 1 root root   15 Aug  1 16:20 [01;36mstdout[0m -> [40;33;01m/proc/self/fd/1[0m
-crw-rw-rw- 1 root root 5, 0 Aug  1 16:24 [40;33;01mtty[0m
-crw-rw-rw- 1 root root 1, 9 Aug  1 16:20 [40;33;01murandom[0m
-crw-rw-rw- 1 root root 1, 5 Aug  1 16:20 [40;33;01mzero[0m
-[?2004hroot@d931f65aae01:/app# python3 -c 'f=open("/app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat", "rb"); f.seek(1048652); d=f.read(33); print(d, d.hex())'
-[?2004lb'PASSWORD=8XDP5Q2RT9Z\x17*\xab\x9e/\xae\xed\xeb)\xa1.\x0f\x9d' 50415353574f52443d385844503551325254395a172aab9e2faeedeb29a12e0f9d
-[?2004hroot@d931f65aae01:/app# python3 -c '
-[?2004l[?2004h> import struct
-[?2004l[?2004h> with open("/app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat", "rb") as f:
-[?2004l[?2004h>     data = f.read()
-[?2004l[?2004h> idx = 0
-[?2004l[?2004h> while True:
-[?2004l[?2004h>     idx = data.find(b"PK\x03\x04", idx)
-[?2004l[?2004h>     if idx == -1: break
-[?2004l[?2004h>     print("=== PK0304 at", idx, "===")
-[?2004l[?2004h>     sig, ver, flag, method, time, date, crc, csize, usize, fnlen, elen = struct.unpack("<IHHHHHIIIHH", data[idx:idx+30])
-[?2004l[?2004h>     fn = data[idx+30:idx+30+fnlen]
-[?2004l[?2004h>     extra = data[idx+30+fnlen:idx+30+fnlen+elen]
-[?2004l[?2004h>     payload = data[idx+30+fnlen+elen:idx+30+fnlen+elen+csize]
-[?2004l[?2004h>     print("filename:", fn, "method:", method, "crc:", hex(crc), "csize:", csize, "usize:", usize)
-[?2004l[?2004h>     print("flag:", hex(flag), "payload:", payload)
-[?2004l[?2004h>     idx += 1
-[?2004l[?2004h> '
-[?2004l=== PK0304 at 1048576 ===
-filename: b'app/launchcode.txt' method: 0 crc: 0xb0725dc4 csize: 33 usize: 33
-flag: 0x0 payload: b'PASSWORD=8XDP5Q2RT9Z\x17*\xab\x9e/\xae\xed\xeb)\xa1.\x0f\x9d'
-[?2004hroot@d931f65aae01:/app# python3 -c 'import zlib; payload = b"PASSWORD=8XDP5Q2RT9Z\x17*\xab\x9e/\xae\xed\xeb)\xa1.\x0f\x9d"; print("CRC:", hex(zlib.crc32(payload)))'
-[?2004lCRC: 0x4e5bfc80
-[?2004hroot@d931f65aae01:/app# python3 -c '
-[?2004l[?2004h> import os, struct
-[?2004l[?2004h> for root, dirs, files in os.walk("/app"):
-[?2004l[?2004h>     for fname in files:
-[?2004l[?2004h>         path = os.path.join(root, fname)
-[?2004l[?2004h>         try:
-[?2004l[?2004h>             with open(path, "rb") as f:
-[?2004l[?2004h>                 data = f.read()
-[?2004l[?2004h>             idx = 0
-[?2004l[?2004h>             while True:
-[?2004l[?2004h>                 idx = data.find(b"PK\x03\x04", idx)
-[?2004l[?2004h>                 if idx == -1: break
-[?2004l[?2004h>                 sig, ver, flag, method, time, date, crc, csize, usize, fnlen, elen = struct.unpack("<IHHHHHIIIHH", data[idx:idx+30])
-[?2004l[?2004h>                 fn = data[idx+30:idx+30+fnlen]
-[?2004l[?2004h>                 payload = data[idx+30+fnlen+elen:idx+30+fnlen+elen+csize]
-[?2004l[?2004h>                 print(path, "offset:", idx, "fn:", fn, "payload:", payload)
-[?2004l[?2004h>                 idx += 1
-[?2004l[?2004h>         except Exception:
-[?2004l[?2004h>             pass
-[?2004l[?2004h> '
-[?2004l/app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat offset: 1048576 fn: b'app/launchcode.txt' payload: b'PASSWORD=8XDP5Q2RT9Z\x17*\xab\x9e/\xae\xed\xeb)\xa1.\x0f\x9d'
-[?2004hroot@d931f65aae01:/app# ls -l $(find /app/varsea -type f)
-[?2004l-rw-r--r-- 1 root root    5120 Oct 22  2025 /app/varsea/backup-5bbc53a0/1761108157319017506.bin
--rw-r--r-- 1 root root      35 Oct 22  2025 /app/varsea/backup-5bbc53a0/20251022-044237.log
--rw-r--r-- 1 root root    5120 Oct 22  2025 /app/varsea/cfg-9c5059a5/1761108157343064955.bin
--rw-r--r-- 1 root root      35 Oct 22  2025 /app/varsea/cfg-9c5059a5/20251022-044237.log
--rw-r--r-- 1 root root    5120 Oct 22  2025 /app/varsea/data-815023d4/1761108157243430303.bin
--rw-r--r-- 1 root root      35 Oct 22  2025 /app/varsea/data-815023d4/20251022-044237.log
--rw-r--r-- 1 root root 4194304 Oct 22  2025 /app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat
--rw-r--r-- 1 root root    5120 Oct 22  2025 /app/varsea/logs-6d85a702/1761108157287341389.bin
--rw-r--r-- 1 root root      35 Oct 22  2025 /app/varsea/logs-6d85a702/20251022-044237.log
--rw-r--r-- 1 root root    5120 Oct 22  2025 /app/varsea/tmp-96a1686e/1761108157187440736.bin
--rw-r--r-- 1 root root      35 Oct 22  2025 /app/varsea/tmp-96a1686e/20251022-044237.log
-[?2004hroot@d931f65aae01:/app# python3 -c 'import os; [print(f, os.path.getsize(f)) for f in sorted([os.path.join(r, fn) for r, d, fs in os.walk("/app/varsea") for fn in fs if fn.endswith((".bin", ".dat"))])]
-[?2004l[?2004h> python3 -c '
-[?2004l/app/varsea/backup-5bbc53a0/1761108157319017506.bin 5120
-/app/varsea/cfg-9c5059a5/1761108157343064955.bin 5120
-/app/varsea/data-815023d4/1761108157243430303.bin 5120
-/app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat 4194304
-/app/varsea/logs-6d85a702/1761108157287341389.bin 5120
-/app/varsea/tmp-96a1686e/1761108157187440736.bin 5120
-Traceback (most recent call last):
-  File "<string>", line 2, in <module>
-NameError: name 'python3' is not defined
-[?2004hroot@d931f65aae01:/app# import zlib, os, struct
-[?2004lbash: import: command not found
-[?2004hroot@d931f65aae01:/app# dat_path = "/app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat"
-[?2004lbash: dat_path: command not found
-[?2004hroot@d931f65aae01:/app# bin_files = [
-[?2004lbash: bin_files: command not found
-[?2004hroot@d931f65aae01:/app#     "/app/varsea/tmp-96a1686e/1761108157187440736.bin",
-[?2004lbash: /app/varsea/tmp-96a1686e/1761108157187440736.bin,: No such file or directory
-[?2004hroot@d931f65aae01:/app#     "/app/varsea/data-815023d4/1761108157243430303.bin",
-[?2004lbash: /app/varsea/data-815023d4/1761108157243430303.bin,: No such file or directory
-[?2004hroot@d931f65aae01:/app#     "/app/varsea/logs-6d85a702/1761108157287341389.bin",
-[?2004lbash: /app/varsea/logs-6d85a702/1761108157287341389.bin,: No such file or directory
-[?2004hroot@d931f65aae01:/app#     "/app/varsea/backup-5bbc53a0/1761108157319017506.bin",
-[?2004lbash: /app/varsea/backup-5bbc53a0/1761108157319017506.bin,: No such file or directory
-[?2004hroot@d931f65aae01:/app#     "/app/varsea/cfg-9c5059a5/1761108157343064955.bin"
-[?2004lbash: /app/varsea/cfg-9c5059a5/1761108157343064955.bin: Permission denied
-[?2004hroot@d931f65aae01:/app# ]
-[?2004lbash: ]: command not found
-[?2004hroot@d931f65aae01:/app# with open(dat_path, "rb") as f: dat = f.read()
-[?2004lbash: syntax error near unexpected token `('
-[?2004hroot@d931f65aae01:/app# idx = 1048576
-[?2004lbash: idx: command not found
-[?2004hroot@d931f65aae01:/app# chunk_dat = dat[idx:idx+5120]
-[?2004lbash: chunk_dat: command not found
-[?2004hroot@d931f65aae01:/app# for bf in bin_files:
-[?2004l[?2004h>     with open(bf, "rb") as f: bdata = f.read()
-[?2004lbash: syntax error near unexpected token `with'
-[?2004hroot@d931f65aae01:/app#     xored = bytes(a ^ b for a, b in zip(chunk_dat, bdata))
-[?2004lbash: syntax error near unexpected token `('
-[?2004hroot@d931f65aae01:/app#     sig, ver, flag, method, time, date, crc, csize, usize, fnlen, elen = struct.unpack("<IHHHHHIIIHH", dat[idx:idx+30])
-[?2004lbash: syntax error near unexpected token `('
-[?2004hroot@d931f65aae01:/app#     payload = xored[30+fnlen+elen:30+fnlen+elen+csize]
-[?2004lbash: payload: command not found
-[?2004hroot@d931f65aae01:/app#     calc_crc = zlib.crc32(payload)
-[?2004lbash: syntax error near unexpected token `('
-[?2004hroot@d931f65aae01:/app#     print(bf, "calc_crc:", hex(calc_crc), "target_crc:", hex(crc), "payload:", payload)
-[?2004lbash: syntax error near unexpected token `bf,'
-[?2004hroot@d931f65aae01:/app# '
-[?2004l[?2004h> python3 -c 'import base64; code = """aW1wb3J0IHpsaWIsIG9zLCBzdHJ1Y3QsIGl0ZXJ0b29scwoKZGF0X3BhdGggPSAiL2FwcC92YXJzZWEvZGlza3Mvc3ViMS9zdWJBL3N1YkFscGhhL2FlM2Y0Yy5kYXQiCmJpbl9maWxlcyA9IFsKICAgICIvYXBwL3ZhcnNlYS90bXAtOTZhMTY4NmUvMTc2MTEwODE1NzE4NzQ0MDczNi5iaW4iLAogICAgIi9hcHAvdmFyc2VhL2RhdGEtODE1MDIzZDQvMTc2MTEwODE1NzI0MzQzMDMwMy5iaW4iLAogICAgIi9hcHAvdmFyc2VhL2xvZ3MtNmQ4NWE3MDIvMTc2MTEwODE1NzI4NzM0MTM4OS5iaW4iLAogICAgIi9hcHAvdmFyc2VhL2JhY2t1cC01YmJjNTNhMC8xNzYxMTA4MTU3MzE5MDE3NTA2LmJpbiIsCiAgICAiL2FwcC92YXJzZWEvY2ZnLTljNTA1OWE1LzE3NjExMDgxNTczNDMwNjQ5NTUuYmluIgpdCgp3aXRoIG9wZW4oZGF0X3BhdGgsICJyYiIpIGFzIGY6CiAgICBkYXQgPSBmLnJlYWQoKQoKaWR4ID0gMTA0ODU3NgpjaHVua19kYXQgPSBkYXRbaWR4OmlkeCs1MTIwXQoKYmluX2RhdGFzID0gW29wZW4oZiwgInJiIikucmVhZCgpIGZvciBmIGluIGJpbl9maWxlc10KCnNpZywgdmVyLCBmbGFnLCBtZXRob2QsIHRpbWUsIGRhdGUsIGNyYywgY3NpemUsIHVzaXplLCBmbmxlbiwgZWxlbiA9IHN0cnVjdC51bnBhY2soIjxJSEhISEhJSUlISCIsIGRhdFtpZHg6aWR4KzMwXSkKcHJpbnQoZiJUYXJnZXQgQ1JDOiB7aGV4KGNyYyl9IikKCmZvciByIGluIHJhbmdlKDEsIGxlbihiaW5fZGF0YXMpICsgMSk6CiAgICBmb3IgY29tYiBpbiBpdGVydG9vbHMuY29tYmluYXRpb25zKHJhbmdlKGxlbihiaW5fZGF0YXMpKSwgcik6CiAgICAgICAgcmVzID0gYnl0ZWFycmF5KGNodW5rX2RhdCkKICAgICAgICBmb3IgaSBpbiBjb21iOgogICAgICAgICAgICBmb3IgayBpbiByYW5nZSg1MTIwKToKICAgICAgICAgICAgICAgIHJlc1trXSAePSBiaW5fZGF0YXNbaV1ba10KICAgICAgICAKICAgICAgICBwYXlsb2FkID0gcmVzWzMwK2ZubGVuK2VsZW46MzArZm5sZW4rZWxlbitjc2l6ZV0KICAgICAgICBjYWxjX2NyYyA9IHpsaWIuY3JjMzIocGF5bG9hZCkKICAgICAgICBpZiBjYWxjX2NyYyA9PSBjcmM6CiAgICAgICAgICAgIHByaW50KGYiQ1JDIE1BVENHISBjb21iaW5hdGlvbjoge2NvbWJ9LCBwYXlsb2FkOiB7cGF5bG9hZH0iKQogICAgICAgIGVsc2U6CiAgICAgICAgICAgIGlmIGInUEFTU1dPUkQ9JyBpbiBwYXlsb2FkIG9yIGInOFhEJyBpbiBwYXlsb2FkOgogICAgICAgICAgICAgICAgcHJpbnQoZiJDb21iIHtjb21ifSwgY2FsY19jcmMge2hleChjYWxjX2NyYyl9LCBwYXlsb2FkOiB7cGF5bG9hZH0iKQo="""; open("/tmp/solve.py", "wb").write(base64.b64decode(code))
-[?2004lbash: syntax error near unexpected token `"/tmp/solve.py",'
-[?2004hroot@d931f65aae01:/app# python3 /tmp/solve.py
-[?2004lpython3: can't open file '/tmp/solve.py': [Errno 2] No such file or directory
-[?2004hroot@d931f65aae01:/app# echo 'aW1wb3J0IHpsaWIsIG9zLCBzdHJ1Y3QsIGl0ZXJ0b29scwoKZGF0X3BhdGggPSAiL2FwcC92YXJzZWEvZGlza3Mvc3ViMS9zdWJBL3N1YkFscGhhL2FlM2Y0Yy5kYXQiCmJpbl9maWxlcyA9IFsKICAgICIvYXBwL3ZhcnNlYS90bXAtOTZhMTY4NmUvMTc2MTEwODE1NzE4NzQ0MDczNi5iaW4iLAogICAgIi9hcHAvdmFyc2VhL2RhdGEtODE1MDIzZDQvMTc2MTEwODE1NzI0MzQzMDMwMy5iaW4iLAogICAgIi9hcHAvdmFyc2VhL2xvZ3MtNmQ4NWE3MDIvMTc2MTEwODE1NzI4NzM0MTM4OS5iaW4iLAogICAgIi9hcHAvdmFyc2VhL2JhY2t1cC01YmJjNTNhMC8xNzYxMTA4MTU3MzE5MDE3NTA2LmJpbiIsCiAgICAiL2FwcC92YXJzZWEvY2ZnLTljNTA1OWE1LzE3NjExMDgxNTczNDMwNjQ5NTUuYmluIgpdCgp3aXRoIG9wZW4oZGF0X3BhdGgsICJyYiIpIGFzIGY6CiAgICBkYXQgPSBmLnJlYWQoKQoKaWR4ID0gMTA0ODU3NgpjaHVua19kYXQgPSBkYXRbaWR4OmlkeCs1MTIwXQoKYmluX2RhdGFzID0gW29wZW4oZiwgInJiIikucmVhZCgpIGZvciBmIGluIGJpbl9maWxlc10KCnNpZywgdmVyLCBmbGFnLCBtZXRob2QsIHRpbWUsIGRhdGUsIGNyYywgY3NpemUsIHVzaXplLCBmbmxlbiwgZWxlbiA9IHN0cnVjdC51bnBhY2soIjxJSEhISEhJSUlISCIsIGRhdFtpZHg6aWR4KzMwXSkKcHJpbnQoZiJUYXJnZXQgQ1JDOiB7aGV4KGNyYyl9IikKCmZvciByIGluIHJhbmdlKDEsIGxlbihiaW5fZGF0YXMpICsgMSk6CiAgICBmb3IgY29tYiBpbiBpdGVydG9vbHMuY29tYmluYXRpb25zKHJhbmdlKGxlbihiaW5fZGF0YXMpKSwgcik6CiAgICAgICAgcmVzID0gYnl0ZWFycmF5KGNodW5rX2RhdCkKICAgICAgICBmb3IgaSBpbiBjb21iOgogICAgICAgICAgICBmb3IgayBpbiByYW5nZSg1MTIwKToKICAgICAgICAgICAgICAgIHJlc1trXSAePSBiaW5fZGF0YXNbaV1ba10KICAgICAgICAKICAgICAgICBwYXlsb2FkID0gcmVzWzMwK2ZubGVuK2VsZW46MzArZm5sZW4rZWxlbitjc2l6ZV0KICAgICAgICBjYWxjX2NyYyA9IHpsaWIuY3JjMzIocGF5bG9hZCkKICAgICAgICBpZiBjYWxjX2NyYyA9PSBjcmM6CiAgICAgICAgICAgIHByaW50KGYiQ1JDIE1BVENHISBjb21iaW5hdGlvbjoge2NvbWJ9LCBwYXlsb2FkOiB7cGF5bG9hZH0iKQogICAgICAgIGVsc2U6CiAgICAgICAgICAgIGlmIGInUEFTU1dPUkQ9JyBpbiBwYXlsb2FkIG9yIGInOFhEJyBpbiBwYXlsb2FkOgogICAgICAgICAgICAgICAgcHJpbnQoZiJDb21iIHtjb21ifSwgY2FsY19jcmMge2hleChjYWxjX2NyYyl9LCBwYXlsb2FkOiB7cGF5bG9hZH0iKQo=' | base64 -d > /tmp/solve.py && python3 /tmp/solve.py
-[?2004l  File "/tmp/solve.py", line 28
-    res[k] = bin_datas[i][k]
-           ^
-SyntaxError: invalid non-printable character U+001E
-[?2004hroot@d931f65aae01:/app# python3 -c 'import zlib, struct, itertools; dat = open("/app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat", "rb").read(); bin_files = ["/app/varsea/tmp-96a1686e/1761108157187440736.bin", "/app/varsea/data-815023d4/1761108157243430303.bin", "/app/varsea/logs-6d85a702/1761108157287341389.bin", "/app/varsea/backup-5bbc53a0/1761108157319017506.bin", "/app/varsea/cfg-9c5059a5/1761108157343064955.bin"]; bin_datas = [open(f, "rb").read() for f in bin_files]; idx = 1048576; chunk_dat = dat[idx:idx+5120]; sig, ver, flag, method, time, date, crc, csize, usize, fnlen, elen = struct.unpack("<IHHHHHIIIHH", dat[idx:idx+30]); print("Target CRC:", hex(crc)); [print("MATCH! comb:", comb, "payload:", bytes(a^b for a,b in zip(chunk_dat, [bytes(functools.reduce(lambda x,y: [p^q for p,q in zip(x,y)], [bin_datas[i] for i in comb]))]))[30+fnlen+elen:30+fnlen+elen+csize]) for r in range(1, len(bin_datas)+1) for comb in itertools.combinations(range(len(bin_datas)), r)]'
-[?2004lTarget CRC: 0xb0725dc4
-Traceback (most recent call last):
-  File "<string>", line 1, in <module>
-NameError: name 'functools' is not defined. Did you forget to import 'functools'?
-[?2004hroot@d931f65aae01:/app# python3 -c 'import zlib, struct, itertools, functools; dat = open("/app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat", "rb").read(); bin_files = ["/app/varsea/tmp-96a1686e/1761108157187440736.bin", "/app/varsea/data-815023d4/1761108157243430303.bin", "/app/varsea/logs-6d85a702/1761108157287341389.bin", "/app/varsea/backup-5bbc53a0/1761108157319017506.bin", "/app/varsea/cfg-9c5059a5/1761108157343064955.bin"]; bin_datas = [open(f, "rb").read() for f in bin_files]; idx = 1048576; chunk_dat = dat[idx:idx+5120]; sig, ver, flag, method, time, date, crc, csize, usize, fnlen, elen = struct.unpack("<IHHHHHIIIHH", dat[idx:idx+30]); print("Target CRC:", hex(crc)); [print("comb:", comb, "crc:", hex(zlib.crc32(bytes(a^b for a,b in zip(chunk_dat, functools.reduce(lambda x,y: bytes(p^q for p,q in zip(x,y)), [bin_datas[i] for i in comb]))[30+fnlen+elen:30+fnlen+elen+csize]))), "payload:", bytes(a^b for a,b in zip(chunk_dat, functools.reduce(lambda x,y: bytes(p^q for p,q in zip(x,y)), [bin_datas[i] for i in comb]))[30+fnlen+elen:30+fnlen+elen+csize]) for r in range(1, len(bin_datas)+1) for comb in itertools.combinations(range(len(bin_datas)), r)]'
-[?2004l  File "<string>", line 1
-    import zlib, struct, itertools, functools; dat = open("/app/varsea/disks/sub1/subA/subAlpha/ae3f4c.dat", "rb").read(); bin_files = ["/app/varsea/tmp-96a1686e/1761108157187440736.bin", "/app/varsea/data-815023d4/1761108157243430303.bin", "/app/varsea/logs-6d85a702/1761108157287341389.bin", "/app/varsea/backup-5bbc53a0/1761108157319017506.bin", "/app/varsea/cfg-9c5059a5/1761108157343064955.bin"]; bin_datas = [open(f, "rb").read() for f in bin_files]; idx = 1048576; chunk_dat = dat[idx:idx+5120]; sig, ver, flag, method, time, date, crc, csize, usize, fnlen, elen = struct.unpack("<IHHHHHIIIHH", dat[idx:idx+30]); print("Target CRC:", hex(crc)); [print("comb:", comb, "crc:", hex(zlib.crc32(bytes(a^b for a,b in zip(chunk_dat, functools.reduce(lambda x,y: bytes(p^q for p,q in zip(x,y)), [bin_datas[i] for i in comb]))[30+fnlen+elen:30+fnlen+elen+csize]))), "payload:", bytes(a^b for a,b in zip(chunk_dat, functools.reduce(lambda x,y: bytes(p^q for p,q in zip(x,y)), [bin_datas[i] for i in comb]))[30+fnlen+elen:30+fnlen+elen+csize]) for r in range(1, len(bin_datas)+1) for comb in itertools.combinations(range(len(bin_datas)), r)]
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ^
-SyntaxError: closing parenthesis ']' does not match opening parenthesis '('
-[?2004hroot@d931f65aae01:/app# python3 -c 'import base64; exec(base64.b64decode("aW1wb3J0IHpsaWIsIHN0cnVjdCwgaXRlcnRvb2xzLCBmdW5jdG9vbHMKZGF0ID0gb3BlbignL2FwcC92YXJzZWEvZGlza3Mvc3ViMS9zdWJBL3N1YkFscGhhL2FlM2Y0Yy5kYXQnLCAncmInKS5yZWFkKCkKYmluX2ZpbGVzID0gWycvYXBwL3ZhcnNlYS90bXAtOTZhMTY4NmUvMTc2MTEwODE1NzE4NzQ0MDczNi5iaW4nLCAnL2FwcC92YXJzZWEvZGF0YS04MTUwMjNkNC8xNzYxMTA4MTU3MjQzNDMwMzAzLmJpbicsICcvYXBwL3ZhcnNlYS9sb2dzLTZkODVhNzAyLzE3NjExMDgxNTcyODczNDEzODkuYmluJywgJy9hcHAvdmFyc2VhL2JhY2t1cC01YmJjNTNhMC8xNzYxMTA4MTU3MzE5MDE3NTA2LmJpbicsICcvYXBwL3ZhcnNlYS9jZmctOWM1MDU5YTUvMTc2MTEwODE1NzM0MzA2NDk1NS5iaW4nXQpiaW5fZGF0YXMgPSBbb3BlbihmLCAncmInKS5yZWFkKCkgZm9yIGYgaW4gYmluX2ZpbGVzXQppZHggPSAxMDQ4NTc2CmNodW5rX2RhdCA9IGRhdFtpZHg6aWR4KzUxMjBdCnNpZywgdmVyLCBmbGFnLCBtZXRob2QsIHRpbWUsIGRhdGUsIGNyYywgY3NpemUsIHVzaXplLCBmbmxlbiwgZWxlbiA9IHN0cnVjdC51bnBhY2soJzxJSEhISEhJSUlISCcsIGRhdFtpZHg6aWR4KzMwXSkKcHJpbnQoJ1RhcmdldCBDUkM6JywgaGV4KGNyYykpCmZvciByIGluIHJhbmdlKDEsIGxlbihiaW5fZGF0YXMpICsgMSk6CiAgICBmb3IgY29tYiBpbiBpdGVydG9vbHMuY29tYmluYXRpb25zKHJhbmdlKGxlbihiaW5fZGF0YXMpKSwgcik6CiAgICAgICAgbWFzayA9IGZ1bmN0b29scy5yZWR1Y2UobGFtYmRhIHgsIHk6IGJ5dGVzKHBecSBmb3IgcCwgcSBpbiB6aXAoeCwgeSkpLCBbYmluX2RhdGFzW2ldIGZvciBpIGluIGNvbWJdKQogICAgICAgIHJlcyA9IGJ5dGVzKGFeYiBmb3IgYSwgYiBpbiB6aXAoY2h1bmtfZGF0LCBtYXNrKSkKICAgICAgICBwYXlsb2FkID0gcmVzWzMwK2ZubGVuK2VsZW4gOiAzMCArIGZubGVuICsgZWxlbiArIGNzaXplXQogICAgICAgIGNhbGNfY3JjID0gemxpYi5jcmMzMihwYXlsb2FkKQogICAgICAgIGlmIGNhbGNfY3JjID09IGNyYzoKICAgICAgICAgICAgcHJpbnQoJ01BVENIISEgY29tYjonLCBjb21iLCAncGF5bG9hZDonLCBwYXlsb2FkKQogICAgICAgIGVsaWYgYidQQVNTV09SRD0nIGluIHBheWxvYWQgb3IgYic4WEQnIGluIHBheWxvYWQ6CiAgICAgICAgICAgIHByaW50KCdQYXJ0aWFsIGNvbWI6JywgY29tYiwgJ2NyYzsnLCBoZXgoY2FsY19jcmMpLCAncGF5bG9hZDonLCBwYXlsb2FkKQo=")))
-[?2004l[?2004h> 

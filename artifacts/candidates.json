@@ -1,0 +1,229 @@
+{
+  "seed": 20260801,
+  "n_tasks": 24,
+  "max_agent_timeout_sec": 900,
+  "dataset": "terminal-bench@2.0",
+  "total_tasks_in_dataset": 89,
+  "candidate_pool_size": 50,
+  "excluded_unavailable": {
+    "qemu-alpine-ssh": "image unpullable in this environment (registry CDN 503)"
+  },
+  "tasks": [
+    {
+      "id": "fix-git",
+      "difficulty": "easy",
+      "category": "software-engineering",
+      "docker_image": "alexgshaw/fix-git:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 5.0
+    },
+    {
+      "id": "overfull-hbox",
+      "difficulty": "easy",
+      "category": "debugging",
+      "docker_image": "alexgshaw/overfull-hbox:20251031",
+      "agent_timeout_sec": 750.0,
+      "verifier_timeout_sec": 360.0,
+      "expert_time_estimate_min": 60.0
+    },
+    {
+      "id": "configure-git-webserver",
+      "difficulty": "hard",
+      "category": "system-administration",
+      "docker_image": "alexgshaw/configure-git-webserver:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 15.0
+    },
+    {
+      "id": "gpt2-codegolf",
+      "difficulty": "hard",
+      "category": "software-engineering",
+      "docker_image": "alexgshaw/gpt2-codegolf:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 2400.0
+    },
+    {
+      "id": "model-extraction-relu-logits",
+      "difficulty": "hard",
+      "category": "mathematics",
+      "docker_image": "alexgshaw/model-extraction-relu-logits:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 480.0
+    },
+    {
+      "id": "password-recovery",
+      "difficulty": "hard",
+      "category": "security",
+      "docker_image": "alexgshaw/password-recovery:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 100.0
+    },
+    {
+      "id": "sparql-university",
+      "difficulty": "hard",
+      "category": "data-querying",
+      "docker_image": "alexgshaw/sparql-university:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 800.0
+    },
+    {
+      "id": "torch-pipeline-parallelism",
+      "difficulty": "hard",
+      "category": "software-engineering",
+      "docker_image": "alexgshaw/torch-pipeline-parallelism:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 240.0
+    },
+    {
+      "id": "adaptive-rejection-sampler",
+      "difficulty": "medium",
+      "category": "scientific-computing",
+      "docker_image": "alexgshaw/adaptive-rejection-sampler:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 180.0
+    },
+    {
+      "id": "chess-best-move",
+      "difficulty": "medium",
+      "category": "games",
+      "docker_image": "alexgshaw/chess-best-move:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 45.0
+    },
+    {
+      "id": "count-dataset-tokens",
+      "difficulty": "medium",
+      "category": "model-training",
+      "docker_image": "alexgshaw/count-dataset-tokens:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 30
+    },
+    {
+      "id": "crack-7z-hash",
+      "difficulty": "medium",
+      "category": "security",
+      "docker_image": "alexgshaw/crack-7z-hash:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 5.0
+    },
+    {
+      "id": "db-wal-recovery",
+      "difficulty": "medium",
+      "category": "file-operations",
+      "docker_image": "alexgshaw/db-wal-recovery:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 45.0
+    },
+    {
+      "id": "gcode-to-text",
+      "difficulty": "medium",
+      "category": "file-operations",
+      "docker_image": "alexgshaw/gcode-to-text:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 60.0
+    },
+    {
+      "id": "hf-model-inference",
+      "difficulty": "medium",
+      "category": "data-science",
+      "docker_image": "alexgshaw/hf-model-inference:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 20.0
+    },
+    {
+      "id": "largest-eigenval",
+      "difficulty": "medium",
+      "category": "mathematics",
+      "docker_image": "alexgshaw/largest-eigenval:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 60.0
+    },
+    {
+      "id": "log-summary-date-ranges",
+      "difficulty": "medium",
+      "category": "data-processing",
+      "docker_image": "alexgshaw/log-summary-date-ranges:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 75.0
+    },
+    {
+      "id": "multi-source-data-merger",
+      "difficulty": "medium",
+      "category": "data-processing",
+      "docker_image": "alexgshaw/multi-source-data-merger:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 30.0
+    },
+    {
+      "id": "openssl-selfsigned-cert",
+      "difficulty": "medium",
+      "category": "security",
+      "docker_image": "alexgshaw/openssl-selfsigned-cert:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 20.0
+    },
+    {
+      "id": "pytorch-model-recovery",
+      "difficulty": "medium",
+      "category": "model-training",
+      "docker_image": "alexgshaw/pytorch-model-recovery:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 15.0
+    },
+    {
+      "id": "query-optimize",
+      "difficulty": "medium",
+      "category": "data-science",
+      "docker_image": "alexgshaw/query-optimize:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 60.0
+    },
+    {
+      "id": "sqlite-db-truncate",
+      "difficulty": "medium",
+      "category": "debugging",
+      "docker_image": "alexgshaw/sqlite-db-truncate:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 60.0
+    },
+    {
+      "id": "sqlite-with-gcov",
+      "difficulty": "medium",
+      "category": "system-administration",
+      "docker_image": "alexgshaw/sqlite-with-gcov:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 30.0
+    },
+    {
+      "id": "tune-mjcf",
+      "difficulty": "medium",
+      "category": "scientific-computing",
+      "docker_image": "alexgshaw/tune-mjcf:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 30.0
+    }
+  ]
+}

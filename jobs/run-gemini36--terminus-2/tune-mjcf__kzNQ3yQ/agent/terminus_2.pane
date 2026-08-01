@@ -1,287 +1,0 @@
-[?2004hroot@0a5d9c94c7cf:/app# asciinema rec --stdin /logs/agent/recording.cast
-[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
-[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
-[?2004hroot@0a5d9c94c7cf:/app# clear
-[?2004l[H[J[3J[?2004hroot@0a5d9c94c7cf:/app# cat /app/eval.py
-[?2004limport time
-from pathlib import Path
-
-import mujoco
-import numpy as np
-
-total_sim_time = 2.0
-atol = 1e-5  # absolute tolerance for state comparison
-pctg = 0.6  # target percentage of reference model time
-n_runs = 20  # number of runs to average timing
-model_path = Path("model.xml")
-model_ref_path = Path("model_ref.xml")
-
-
-def test_correctness():
-    """Compare final states of models with potentially different timesteps"""
-    model = mujoco.MjModel.from_xml_path(str(model_path))
-    model_ref = mujoco.MjModel.from_xml_path(str(model_ref_path))
-
-    seed = np.random.randint(0, 10000)
-    final_state = simulate_model(model, seed)
-    final_state_ref = simulate_model(model_ref, seed)
-
-    # compare final states
-    state_diff = np.linalg.norm(final_state - final_state_ref)
-    print(f"Final state difference: {state_diff:.4f}")
-
-    assert np.allclose(final_state, final_state_ref, atol=atol), (
-        f"Final states differ by {state_diff}, exceeding tolerance {atol}"
-    )
-
-
-def simulate_model(model, seed):
-    """Simulate model with randomized initial qpos and return only the final state"""
-    data = mujoco.MjData(model)
-    nstep = int(total_sim_time / model.opt.timestep)
-    # jiggle initial qpos for robustness
-    rng = np.random.default_rng(seed)
-    data.qpos += rng.normal(0, 0.01, size=data.qpos.shape)
-    mujoco.mj_forward(model, data)
-
-    for _ in range(nstep):
-        mujoco.mj_step(model, data)
-
-    full_physics = mujoco.mjtState.mjSTATE_FULLPHYSICS
-    state = np.zeros(mujoco.mj_stateSize(model, full_physics))
-    mujoco.mj_getState(model, data, state, full_physics)
-    assert not np.isnan(state).any(), "Final state contains NaN values"
-    assert not np.isinf(state).any(), "Final state contains Inf values"
-    return state
-
-
-def simulation_time(model, n_runs):
-    """Run n_runs times with different seeds, and return time taken."""
-    times = []
-    for _ in range(n_runs):
-        seed = np.random.randint(0, 10000)
-        time_start = time.perf_counter()
-        _ = simulate_model(model, seed)
-        time_end = time.perf_counter()
-        times.append(time_end - time_start)
-    return np.array(times)
-
-
-def test_model_speed():
-    """Test that new model is faster than the reference model"""
-    model = mujoco.MjModel.from_xml_path(str(model_path))
-    model_ref = mujoco.MjModel.from_xml_path(str(model_ref_path))
-
-    # simulate both models for same total time with same random seed
-    times_model = simulation_time(model, n_runs=n_runs)
-    times_model_ref = simulation_time(model_ref, n_runs=n_runs)
-    speedup = (times_model_ref / times_model).mean().item()
-    act_time_pctg = (times_model / times_model_ref).mean().item()
-
-    print(f"Avg simulation time: {times_model.mean().item():.4f} secs")
-    print(f"Avg simulation time (ref): {times_model_ref.mean().item():.4f} secs")
-    print(f"Speedup: {speedup:.2f}x")
-    print(f"Time pctg: {act_time_pctg:.2f}")
-
-    assert act_time_pctg <= pctg, (
-        f"Time pctg {act_time_pctg * 100:.2f}% (need {pctg * 100:.2f}%)"
-    )
-
-
-if __name__ == "__main__":
-    test_correctness()
-    test_model_speed()
-[?2004hroot@0a5d9c94c7cf:/app# cat /app/model_ref.xml
-[?2004l<!-- Inspired by https://github.com/google-deepmind/mujoco/blob/main/model/plugin/elasticity/cable.xml -->
-<mujoco model="Cable">
-
-  <extension>
-    <plugin plugin="mujoco.elasticity.cable"/>
-  </extension>
-
-  <statistic center="0 0 .3" extent="1"/>
-  <visual>
-    <global elevation="-30"/>
-  </visual>
-
-  <compiler autolimits="true"/>
-
-  <size memory="2M"/>
-
-  <worldbody>
-    <composite type="cable" curve="s" count="41 1 1" size="1" offset="-.3 0 .6" initial="none">
-      <plugin plugin="mujoco.elasticity.cable">
-        <!--Units are in Pa (SI)-->
-        <config key="twist" value="1e7"/>
-        <config key="bend" value="4e6"/>
-        <config key="vmax" value="0.05"/>
-      </plugin>
-      <joint kind="main" damping=".015"/>
-      <geom type="capsule" size=".005" rgba=".8 .2 .1 1" condim="1"/>
-    </composite>
-    <body name="slider" pos=".7 0 .6">
-      <joint type="slide" axis="1 0 0" damping=".1"/>
-      <geom size=".01"/>
-    </body>
-  </worldbody>
-  <equality>
-    <connect name="right_boundary" body1="B_last" body2="slider" anchor=".025 0 0"/>
-  </equality>
-  <contact>
-    <exclude body1="B_last" body2="slider"/>
-  </contact>
-  <actuator>
-    <motor site="S_last" gear="0 0 0 1 0 0" ctrlrange="-.03 .03"/>
-  </actuator>
-</mujoco>[?2004hroot@0a5d9c94c7cf:/app# cp /app/model_ref.xml /app/model.xml
-[?2004l[?2004hroot@0a5d9c94c7cf:/app# python3 /app/eval.py
-[?2004lFinal state difference: 0.0000
-Avg simulation time: 0.8879 secs
-Avg simulation time (ref): 0.8535 secs
-Speedup: 0.97x
-Time pctg: 1.04
-Traceback (most recent call last):
-  File [35m"/app/eval.py"[0m, line [35m88[0m, in [35m<module>[0m
-    [31mtest_model_speed[0m[1;31m()[0m
-    [31m~~~~~~~~~~~~~~~~[0m[1;31m^^[0m
-  File [35m"/app/eval.py"[0m, line [35m81[0m, in [35mtest_model_speed[0m
-    assert [1;31mact_time_pctg <= pctg[0m, (
-           [1;31m^^^^^^^^^^^^^^^^^^^^^[0m
-[1;35mAssertionError[0m: [35mTime pctg 104.39% (need 60.00%)[0m
-[?2004hroot@0a5d9c94c7cf:/app# python3 -c "import mujoco; m = mujoco.MjModel.from_xml_path('model_ref.xml'); print('timestep:', m.opt.timestep); print('integrator:', m.opt.integrator); print('solver:', m.opt.solver); print('iterations:', m.opt.iterations); print('ls_iterations:', m.opt.ls_iterations); print('tolerance:', m.opt.tolerance); print('nbody:', m.nbody); print('ngeom:', m.ngeom); print('njoint:', m.njoint); print('nv:', m.nv)"
-[?2004ltimestep: 0.002
-integrator: 0
-solver: 2
-iterations: 100
-ls_iterations: 50
-tolerance: 1e-08
-nbody: 42
-ngeom: 41
-Traceback (most recent call last):
-  File [35m"<string>"[0m, line [35m1[0m, in [35m<module>[0m
-    import mujoco; m = mujoco.MjModel.from_xml_path('model_ref.xml'); print('timestep:', m.opt.timestep); print('integrator:', m.opt.integrator); print('solver:', m.opt.solver); print('iterations:', m.opt.iterations); print('ls_iterations:', m.opt.ls_iterations); print('tolerance:', m.opt.tolerance); print('nbody:', m.nbody); print('ngeom:', m.ngeom); print('njoint:', [1;31mm.njoint[0m); print('nv:', m.nv)
-                                                                                                                                                                                                                                                                                                                                                                                   [1;31m^^^^^^^^[0m
-[1;35mAttributeError[0m: [35m'mujoco._structs.MjModel' object has no attribute 'njoint'. Did you mean: 'joint'?[0m
-[?2004hroot@0a5d9c94c7cf:/app# cat << 'EOF' > /app/test_opt.py
-[?2004l[?2004h> import time
-[?2004l[?2004h> import mujoco
-[?2004l[?2004h> import numpy as np
-[?2004l[?2004h> from pathlib import Path
-[?2004l[?2004h> 
-[?2004l[?2004h> def eval_xml(xml_str, seed=42):
-[?2004l[?2004h>     m_ref = mujoco.MjModel.from_xml_path('model_ref.xml')
-[?2004l[?2004h>     m_test = mujoco.MjModel.from_xml_string(xml_str)
-[?2004l[?2004h>     
-[?2004l[?2004h>     diffs = []
-[?2004l[?2004h>     for s in [seed, seed+1, seed+2, seed+3, seed+4]:
-[?2004l[?2004h>         d_ref = mujoco.MjData(m_ref)
-[?2004l[?2004h>         d_test = mujoco.MjData(m_test)
-[?2004l[?2004h>         
-[?2004l[?2004h>         rng = np.random.default_rng(s)
-[?2004l[?2004h>         jiggle = rng.normal(0, 0.01, size=d_ref.qpos.shape)
-[?2004l[?2004h>         d_ref.qpos += jiggle
-[?2004l[?2004h>         d_test.qpos += jiggle
-[?2004l[?2004h>         
-[?2004l[?2004h>         mujoco.mj_forward(m_ref, d_ref)
-[?2004l[?2004h>         mujoco.mj_forward(m_test, d_test)
-[?2004l[?2004h>         
-[?2004l[?2004h>         nstep_ref = int(2.0 / m_ref.opt.timestep)
-[?2004l[?2004h>         nstep_test = int(2.0 / m_test.opt.timestep)
-[?2004l[?2004h>         
-[?2004l[?2004h>         for _ in range(nstep_ref):
-[?2004l[?2004h>             mujoco.mj_step(m_ref, d_ref)
-[?2004l[?2004h>         for _ in range(nstep_test):
-[?2004l[?2004h>             mujoco.mj_step(m_test, d_test)
-[?2004l[?2004h>             
-[?2004l[?2004h>         full_physics = mujoco.mjtState.mjSTATE_FULLPHYSICS
-[?2004l[?2004h>         st_ref = np.zeros(mujoco.mj_stateSize(m_ref, full_physics))
-[?2004l[?2004h>         st_test = np.zeros(mujoco.mj_stateSize(m_test, full_physics))
-[?2004l[?2004h>         mujoco.mj_getState(m_ref, d_ref, st_ref, full_physics)
-[?2004l[?2004h>         mujoco.mj_getState(m_test, d_test, st_test, full_physics)
-[?2004l[?2004h>         
-[?2004l[?2004h>         if np.isnan(st_test).any() or np.isinf(st_test).any():
-[?2004l[?2004h>             return 999.0, 999.0
-[?2004l[?2004h>         
-[?2004l[?2004h>         diffs.append(np.linalg.norm(st_ref - st_test))
-[?2004l[?2004h>     
-[?2004l[?2004h>     max_diff = np.max(diffs)
-[?2004l[?2004h>     
-[?2004l[?2004h>     t0 = time.perf_counter()
-[?2004l[?2004h>     for _ in range(5):
-[?2004l[?2004h>         d_test = mujoco.MjData(m_test)
-[?2004l[?2004h>         d_test.qpos += jiggle
-[?2004l[?2004h>         mujoco.mj_forward(m_test, d_test)
-[?2004l[?2004h>         for _ in range(nstep_test):
-[?2004l[?2004h>             mujoco.mj_step(m_test, d_test)
-[?2004l[?2004h>     t1 = time.perf_counter()
-[?2004l[?2004h>     avg_time = (t1 - t0) / 5.0
-[?2004l[?2004h>     return max_diff, avg_time
-[?2004l[?2004h> 
-[?2004l[?2004h> base_xml = Path('model_ref.xml').read_text()
-[?2004l[?2004h> print("Baseline:")
-[?2004l[?2004h> diff, t = eval_xml(base_xml)
-[?2004l[?2004h> print(f"Diff: {diff:.8f}, Time: {t:.4f}s")
-[?2004l[?2004h> EOF
-[?2004l[?2004hroot@0a5d9c94c7cf:/app# python3 /app/test_opt.py
-[?2004lBaseline:
-Diff: 0.00000000, Time: 0.7894s
-[?2004hroot@0a5d9c94c7cf:/app# echo 'aW1wb3J0IG11am9jbwppbXBvcnQgbnVtcHkgYXMgbnAKaW1wb3J0IHRpbWUKZnJvbSBwYXRobGliIGltcG9ydCBQYXRoCmZyb20gdGVzdF9vcHQgaW1wb3J0IGV2YWxfeG1sCgpiYXNlX3htbCA9IFBhdGgoJ21vZGVsX3JlZi54bWwnKS5yZWFkX3RleHQoKQoKZGVmIGFkZF9vcHRpb24oeG1sX3N0ciwgb3B0X3RhZyk6CiAgICBpZHggPSB4bWxfc3RyLmZpbmQoJzx3b3JsZGJvZHk+JykKICAgIHJldHVybiB4bWxfc3RyWzppZHhdICsgb3B0X3RhZyArICdcbicgKyB4bWxfc3RyW2lkeDpdCgp0ZXN0cyA9IFsKICAgICgiYmFzZWxpbmUiLCBiYXNlX3htbCksCiAgICAoInNvbHZlcj1DRyIsIGFkZF9vcHRpb24oYmFzZV94bWwsICc8b3B0aW9uIHNvbHZlcj0iQ0ciLz4nKSksCiAgICAoInNvbHZlcj1QR1MiLCBhZGRfb3B0aW9uKGJhc2VfeG1sLCAnPG9wdGlvbiBzb2x2ZXI9IlBHUyIvPicpKSwKICAgICgiaW50ZWdyYXRvcj1pbXBsaWNpdCIsIGFkZF9vcHRpb24oYmFzZV94bWwsICc8b3B0aW9uIGludGVncmF0b3I9ImltcGxpY2l0Ii8+JykpLAogICAgKCJpbnRlZ3JhdG9yPWltcGxpY2l0ZmFzdCIsIGFkZF9vcHRpb24oYmFzZV94bWwsICc8b3B0aW9uIGludGVncmF0b3I9ImltcGxpY2l0ZmFzdCIvPicpKSwKICAgICgiaXRlcmF0aW9ucz0xMCIsIGFkZF9vcHRpb24oYmFzZV94bWwsICc8b3B0aW9uIGl0ZXJhdGlvbnM9IjEwIi8+JykpLAogICAgKCJpdGVyYXRpb25zPTIwIiwgYWRkX29wdGlvbihiYXNlX3htbCwgJzxvcHRpb24gaXRlcmF0aW9ucz0iMjAiLz4nKSksCiAgICAoIml0ZXJhdGlvbnM9NTAiLCBhZGRfb3B0aW9uKGJhc2VfeG1sLCAnPG9wdGlvbiBpdGVyYXRpb25zPSI1MCIvPicpKSwKICAgICgidG9sZXJhbmNlPTFlLTQiLCBhZGRfb3B0aW9uKGJhc2VfeG1sLCAnPG9wdGlvbiB0b2xlcmFuY2U9IjFlLTQiLz4nKSksCiAgICAoInRvbGVyYW5jZT0xZS0zIiwgYWRkX29wdGlvbihiYXNlX3htbCwgJzxvcHRpb24gdG9sZXJhbmNlPSIxZS0zIi8+JykpLAogICAgKCJqYWNvYmlhbj1zcGFyc2UiLCBhZGRfb3B0aW9uKGJhc2VfeG1sLCAnPG9wdGlvbiBqYWNvYmlhbj0ic3BhcnNlIi8+JykpLAogICAgKCJqYWNvYmlhbj1kZW5zZSIsIGFkZF9vcHRpb24oYmFzZV94bWwsICc8b3B0aW9uIGphY29iaWFuPSJkZW5zZSIvPicpKSwKICAgICgiZmxhZyBjb2xsaXNpb249ZGlzYWJsZSIsIGFkZF9vcHRpb24oYmFzZV94bWwsICc8b3B0aW9uPjxmbGFnIGNvbGxpc2lvbj0iZGlzYWJsZSIvPjwvb3B0aW9uPicpKSwKICAgICgiZmxhZyBjb250YWN0PWRpc2FibGUiLCBhZGRfb3B0aW9uKGJhc2VfeG1sLCAnPG9wdGlvbiBjb250YWN0PWRpc2FibGUvPicpKSwKICAgICgiZmxhZyB3YXJtc3RhcnQ9ZW5hYmxlIiwgYWRkX29wdGlvbihiYXNlX3htbCwgJzxvcHRpb24+PGZsYWcgd2FybXN0YXJ0PSJlbmFibGUiLz48L29wdGlvbj4nKSksCiAgICAoImZsYWcgd2FybXN0YXJ0PWRpc2FibGUiLCBhZGRfb3B0aW9uKGJhc2VfeG1sLCAnPG9wdGlvbiI+PGZsYWcgd2FybXN0YXJ0PWRpc2FibGUiLz48L29wdGlvbj4nKSksCl0KCmZvciBuYW1lLCB4bWwgaW4gdGVzdHM6CiAgICB0cnk6CiAgICAgICAgZGlmZiwgdCA9IGV2YWxfeG1sKHhtbCkKICAgICAgICBwYXNzX3RvbCA9ICJQQVNTIiBpZiBkaWZmIDw9IDFlLTUgaWVsc2UgIkZBSUwiCiAgICAgICAgcHJpbnQoZiJ7bmFtZTozMHN9IHwgZGlmZjoge2RpZmY6LjhmfSAoe3Bhc3NfdG9sfSkgfCB0aW1lOiB7dDouNGZ9cyIpCiAgICBleGNlcHQgRXhjZXB0aW9uIGFzIGU6CiAgICAgICAgcHJpbnQoZiJ7bmFtZTozMHN9IHwgRVJST1I6IHtlfSIpCg==' | base64 -d > /app/test_all_opts.py
-[?2004l[?2004hroot@0a5d9c94c7cf:/app# python3 /app/test_all_opts.py
-[?2004l  File [35m"/app/test_all_opts.py"[0m, line [35m35[0m
-    pass_tol = [1;31m"PASS" if diff <= 1e-5[0m ielse "FAIL"
-               [1;31m^^^^^^^^^^^^^^^^^^^^^^[0m
-[1;35mSyntaxError[0m: [35mexpected 'else' after 'if' expression[0m
-[?2004hroot@0a5d9c94c7cf:/app# cat << 'EOF' > /app/make_script.py
-[?2004l[?2004h> import mujoco
-[?2004l[?2004h> import numpy as np
-[?2004l[?2004h> import time
-[?2004l[?2004h> from pathlib import Path
-[?2004l[?2004h> from test_opt import eval_xml
-[?2004l[?2004h> 
-[?2004l[?2004h> base_xml = Path('model_ref.xml').read_text()
-[?2004l[?2004h> 
-[?2004l[?2004h> def add_option(xml_str, opt_tag):
-[?2004l[?2004h>     idx = xml_str.find('<worldbody>')
-[?2004l[?2004h>     return xml_str[:idx] + opt_tag + '\n' + xml_str[idx:]
-[?2004l[?2004h> 
-[?2004l[?2004h> tests = [
-[?2004l[?2004h>     ('baseline', base_xml),
-[?2004l[?2004h>     ('solver=CG', add_option(base_xml, '<option solver="CG"/>')),
-[?2004l[?2004h>     ('solver=PGS', add_option(base_xml, '<option solver="PGS"/>')),
-[?2004l[?2004h>     ('integrator=implicit', add_option(base_xml, '<option integrator="implicit"/>')),
-[?2004l[?2004h>     ('integrator=implicitfast', add_option(base_xml, '<option integrator="implicitfast"/>')),
-[?2004l[?2004h>     ('iterations=10', add_option(base_xml, '<option iterations="10"/>')),
-[?2004l[?2004h>     ('iterations=20', add_option(base_xml, '<option iterations="20"/>')),
-[?2004l[?2004h>     ('iterations=50', add_option(base_xml, '<option iterations="50"/>')),
-[?2004l[?2004h>     ('tolerance=1e-4', add_option(base_xml, '<option tolerance="1e-4"/>')),
-[?2004l[?2004h>     ('tolerance=1e-3', add_option(base_xml, '<option tolerance="1e-3"/>')),
-[?2004l[?2004h>     ('jacobian=sparse', add_option(base_xml, '<option jacobian="sparse"/>')),
-[?2004l[?2004h>     ('jacobian=dense', add_option(base_xml, '<option jacobian="dense"/>')),
-[?2004l[?2004h>     ('flag collision=disable', add_option(base_xml, '<option><flag collision="disable"/></option>')),
-[?2004l[?2004h>     ('flag contact=disable', add_option(base_xml, '<option><flag contact="disable"/></option>')),
-[?2004l[?2004h>     ('flag warmstart=enable', add_option(base_xml, '<option><flag warmstart="enable"/></option>')),
-[?2004l[?2004h>     ('flag warmstart=disable', add_option(base_xml, '<option><flag warmstart="disable"/></option>')),
-[?2004l[?2004h> ]
-[?2004l[?2004h> 
-[?2004l[?2004h> for name, xml in tests:
-[?2004l[?2004h>     try:
-[?2004l[?2004h>         diff, t = eval_xml(xml)
-[?2004l[?2004h>         pass_tol = 'PASS' if diff <= 1e-5 else 'FAIL'
-[?2004l[?2004h>         print(f'{name:30s} | diff: {diff:.8f} ({pass_tol}) | time: {t:.4f}s')
-[?2004l[?2004h>     except Exception as e:
-[?2004l[?2004h>         print(f'{name:30s} | ERROR: {e}')
-[?2004l[?2004h> EOF
-[?2004l[?2004hroot@0a5d9c94c7cf:/app# python3 /app/make_script.py
-[?2004lBaseline:
-Diff: 0.00000000, Time: 0.8181s
-baseline                       | diff: 0.00000000 (PASS) | time: 0.7947s
-solver=CG                      | diff: 0.00001688 (FAIL) | time: 0.5104s
-solver=PGS                     | diff: 0.00000362 (PASS) | time: 0.4724s
-integrator=implicit            | diff: 0.00109678 (FAIL) | time: 2.2659s
-integrator=implicitfast        | diff: 0.00000000 (PASS) | time: 0.8307s
-iterations=10                  | diff: 0.00000000 (PASS) | time: 0.8242s
-iterations=20                  | diff: 0.00000000 (PASS) | time: 1.3320s
-iterations=50                  | diff: 0.00000000 (PASS) | time: 0.8912s
-tolerance=1e-4                 | diff: 0.00000000 (PASS) | time: 0.8414s
-tolerance=1e-3                 | diff: 0.00000000 (PASS) | time: 0.8405s
-jacobian=sparse                | diff: 0.00000000 (PASS) | time: 1.0170s

@@ -9,7 +9,7 @@ Selection rule (fixed in advance, applied before any harness was run):
      minutes, which is what makes a 5-harness sweep affordable at all. 51 tasks
      survive.
   3. Stratify by difficulty in proportion to that candidate pool
-     (easy 4/51, medium 35/51, hard 12/51) -> 1 easy, 5 medium, 2 hard for N=8.
+     (easy 4/51, medium 35/51, hard 12/51) -> 2 easy, 16 medium, 6 hard for N=24.
   4. Maximise category coverage: walk categories in descending pool size and
      take one task from each before taking a second from any.
   5. Break every remaining tie with random.Random(SEED) so the choice is
@@ -39,7 +39,7 @@ UNAVAILABLE = {
 }
 
 SEED = 20260801
-N_TASKS = 8
+N_TASKS = 24
 MAX_AGENT_TIMEOUT_SEC = 900
 DATASET_DIR = Path(__file__).resolve().parent.parent / "terminal-bench"
 

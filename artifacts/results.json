@@ -46,18 +46,19 @@
           "resolve_rate": 1.0,
           "n_infra_errors": 0,
           "n_timeouts": 0,
-          "tokens_total": 431567,
-          "prompt_tokens": 398664,
-          "cached_tokens": 97226,
-          "completion_tokens": 32903,
-          "llm_calls": 55,
+          "tokens_total": 1376510,
+          "prompt_tokens": 1321604,
+          "cached_tokens": 740653,
+          "completion_tokens": 54906,
+          "llm_calls": 95,
           "llm_errors": 0,
           "llm_retries": 0,
-          "cost_usd": 0.7354,
+          "cost_usd": 1.561,
           "wall_s_total": 84.2,
           "steps_total": 8,
-          "resolved_per_mtok": 2.317,
-          "resolved_per_usd": 1.36,
+          "parser_warnings": 16,
+          "resolved_per_mtok": 0.726,
+          "resolved_per_usd": 0.641,
           "reps": 1
         }
       ],
@@ -69,8 +70,8 @@
       "ranking": [
         "terminus-2"
       ],
-      "cost_usd": 0.7354,
-      "tokens_total": 431567
+      "cost_usd": 1.561,
+      "tokens_total": 1376510
     }
   },
   "cross_model": null,
@@ -85,18 +86,19 @@
       "resolve_rate": 1.0,
       "n_infra_errors": 0,
       "n_timeouts": 0,
-      "tokens_total": 431567,
-      "prompt_tokens": 398664,
-      "cached_tokens": 97226,
-      "completion_tokens": 32903,
-      "llm_calls": 55,
+      "tokens_total": 1376510,
+      "prompt_tokens": 1321604,
+      "cached_tokens": 740653,
+      "completion_tokens": 54906,
+      "llm_calls": 95,
       "llm_errors": 0,
       "llm_retries": 0,
-      "cost_usd": 0.7354,
+      "cost_usd": 1.561,
       "wall_s_total": 84.2,
       "steps_total": 8,
-      "resolved_per_mtok": 2.317,
-      "resolved_per_usd": 1.36,
+      "parser_warnings": 16,
+      "resolved_per_mtok": 0.726,
+      "resolved_per_usd": 0.641,
       "reps": 1
     }
   ],
@@ -180,7 +182,8 @@
           "infra_error": false,
           "attempted": true,
           "n_steps": 8,
-          "wall_s": 84.2
+          "wall_s": 84.2,
+          "parser_warnings": 16
         }
       },
       "n_solved_by": 1,

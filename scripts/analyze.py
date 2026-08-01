@@ -137,6 +137,20 @@ def read_trial(d: Path) -> dict:
     # Anything else -- a 402 from the gateway budget guard, a TLS/network failure,
     # a missing image -- means the cell never got a fair attempt. Those are
     # reported as "not run" and excluded from the denominator, never scored as 0.
+    # Count the harness's own response-parsing failures. terminus-2 in particular
+    # logs "Extra text detected before/after JSON object" whenever the model's
+    # reply does not match the strict shape its parser expects -- each one is a
+    # step the harness spends recovering from its own format contract rather than
+    # on the task. This is exactly the kind of harness-model interaction that a
+    # resolve rate alone hides.
+    parser_warnings = 0
+    tl = d / "trial.log"
+    if tl.exists():
+        try:
+            parser_warnings = tl.read_text(errors="replace").count("Extra text detected")
+        except OSError:
+            parser_warnings = 0
+
     timed_out = bool(exc and "AgentTimeoutError" in exc)
     infra_error = bool(exc) and not timed_out
     started, finished = r.get("started_at"), r.get("finished_at")
@@ -144,7 +158,7 @@ def read_trial(d: Path) -> dict:
         "task": task, "trial_dir": str(d.relative_to(ROOT)),
         "reward": reward, "resolved": bool(reward and reward > 0),
         "exception": exc, "timed_out": timed_out, "infra_error": infra_error,
-        "attempted": not infra_error,
+        "attempted": not infra_error, "parser_warnings": parser_warnings,
         "started_at": started, "finished_at": finished,
         "n_steps": count_steps(d),
         "wall_s": wall_seconds(r),
@@ -291,6 +305,7 @@ def summarise(model: str, harness: str, primary: dict, meter: dict, reps: list) 
     m = meter.get(f"{harness}__{model}", {})
     tot_tok = m.get("prompt_tokens", 0) + m.get("completion_tokens", 0)
     steps = [t["n_steps"] for t in primary.values() if t["n_steps"] is not None]
+    parse_warn = sum(t.get("parser_warnings", 0) for t in primary.values())
     walls = [t["wall_s"] for t in primary.values() if t["wall_s"] is not None]
     return {
         "model": model, "model_label": MODEL_LABELS.get(model, model), "harness": harness,
@@ -306,6 +321,7 @@ def summarise(model: str, harness: str, primary: dict, meter: dict, reps: list) 
         "llm_retries": m.get("retries", 0), "cost_usd": m.get("cost_usd", 0.0),
         "wall_s_total": round(sum(walls), 1) if walls else None,
         "steps_total": sum(steps) if steps else None,
+        "parser_warnings": parse_warn,
         "resolved_per_mtok": round(n_resolved / (tot_tok / 1e6), 3) if tot_tok else None,
         "resolved_per_usd": round(n_resolved / m["cost_usd"], 3) if m.get("cost_usd") else None,
         "reps": len(reps),
@@ -432,6 +448,7 @@ def main() -> None:
                 "exception": t["exception"], "timed_out": t["timed_out"],
                 "infra_error": t["infra_error"], "attempted": t["attempted"],
                 "n_steps": t["n_steps"], "wall_s": t["wall_s"],
+                "parser_warnings": t.get("parser_warnings", 0),
             }
         solved = [k for k, c in row["cells"].items() if c and c["resolved"]]
         att = [k for k, c in row["cells"].items() if c and c["attempted"]]

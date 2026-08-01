@@ -8,6 +8,24 @@ apart the benchmark results landed.
 <!-- BEGIN:headline -->
 <!-- END:headline -->
 
+> ### ⚠️ If you run Terminal-Bench 2.0 on a restricted network, check this first
+>
+> Every Terminal-Bench 2.0 task's `tests/test.sh` begins by `curl`-installing `uv` from
+> `astral.sh`, then runs the task's pytest suite through `uvx`. If that install cannot happen —
+> a proxy, an egress allowlist, an air-gapped runner — the suite never executes, and the
+> script's closing `if [ $? -eq 0 ]` branch writes a **hardcoded `0`** into `reward.txt`.
+>
+> Harbor then reports a completed trial, reward 0.0, no exception. **That zero is
+> indistinguishable from a real agent failure**, and it will quietly become "the model scored
+> 0%" in your write-up. It nearly became mine: I had a full 8-task sweep of clean-looking
+> zeros before I read a verifier log instead of trusting a reward.
+>
+> The fix is two flags and a bind-mount (`--ve` for the verifier phase's CA, `uvx` mounted onto
+> `PATH`). The safeguard is better: run Harbor's `oracle` agent — which executes each task's own
+> reference solution — through the identical pipeline first, and refuse to score any task whose
+> reference solution can't pass. It costs no model tokens. Details in
+> [Verification: the zeros were fake](#verification-the-zeros-were-fake).
+
 ## What this showcases
 
 **Technology:** [Harbor](https://github.com/laude-institute/harbor) — the agent-evaluation
@@ -28,6 +46,8 @@ same containerised benchmark is exactly what it's built for — and reimplementi
 those adapters faithfully would have been the whole project.
 
 ### What surprised me
+
+<h3 id="verification-the-zeros-were-fake">Verification: the zeros were fake</h3>
 
 **The benchmark scored every task 0 for hours, and the agents were never the reason.**
 This is the finding I'd most want another person running Harbor to know. Every
