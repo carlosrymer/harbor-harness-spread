@@ -24,14 +24,24 @@ decision:
    to a harness by a per-harness API key, so the cost comparison comes from one instrument.
 3. **The task subset must be chosen before the results exist.** Selection is a committed,
    seeded script, run once and frozen, so the subset cannot have been tuned to a result.
+4. **A task only counts if its grader demonstrably works here.** Every Terminal-Bench 2.0
+   `test.sh` bootstraps `uv` from the network before running the task's pytest suite; where
+   that bootstrap fails the suite never runs and the script writes a hardcoded `0`. So every
+   candidate is first screened with Harbor's `oracle` agent — the task's own reference
+   solution — through the identical pipeline. Tasks whose reference solution cannot pass are
+   dropped rather than scored, because an agent "failing" them would be a fabricated result.
+   Screening consumes no model tokens, which makes it the cheapest way to grow a trustworthy
+   scored set.
 
 ## System diagram
 
 ```mermaid
 flowchart TB
-    subgraph sel["Selection (run once, frozen)"]
+    subgraph sel["Selection + screening (before any scored run)"]
         TB["terminal-bench@2.0<br/>89 tasks"] --> SEL["scripts/select_tasks.py<br/>seeded, stratified"]
-        SEL --> SUB["artifacts/subset.json<br/>12 tasks"]
+        SEL --> CAND["artifacts/candidates.json"]
+        CAND --> SCR["scripts/screen_oracle.sh<br/>oracle = reference solution<br/>0 model tokens"]
+        SCR --> SUB["artifacts/scored_subset.json<br/>only tasks whose grader works here"]
     end
 
     subgraph exec["Execution — one process per harness"]
@@ -63,7 +73,9 @@ flowchart TB
 
 | Component | Responsibility | Tech |
 |---|---|---|
-| `scripts/select_tasks.py` | Picks the task subset deterministically (seeded, stratified by difficulty, spread across categories) and freezes it to `artifacts/subset.json` | Python 3.13, `tomllib` |
+| `scripts/select_tasks.py` | Picks task *candidates* deterministically (seeded, stratified by difficulty, spread across categories) → `artifacts/candidates.json` | Python 3.13, `tomllib` |
+| `scripts/screen_oracle.sh` | Runs each candidate's reference solution through the identical pipeline; skips already-screened tasks and guards free disk before pulling multi-GB images | bash + Harbor CLI |
+| `scripts/build_scored_subset.py` | Keeps only candidates whose reference solution passed → `artifacts/scored_subset.json`, the set every harness is scored on | Python |
 | `scripts/gateway.py` | OpenAI-compatible endpoint every harness shares: pins the model, meters tokens per harness, enforces a hard spend cap, retries rate limits with jittered backoff, bounds concurrency and per-request time | FastAPI + uvicorn + litellm |
 | `scripts/gw_ctl.sh` | Starts/stops the gateway by PID file and pins pricing and temperature | bash |
 | `scripts/run_harness.sh` | Runs one harness over the frozen subset with identical flags, mounts, and env for every harness | bash + Harbor CLI |
@@ -78,7 +90,10 @@ flowchart TB
    `task.toml` metadata).
 2. `select_tasks.py` filters to tasks with an agent budget ≤ 900s, allocates a difficulty
    quota proportional to that pool, then greedily picks across categories with a seeded
-   tie-break. Output frozen to `artifacts/subset.json`.
+   tie-break → `artifacts/candidates.json`.
+3. `screen_oracle.sh` runs every candidate's own reference solution through the same
+   containers, verifier and network setup. `build_scored_subset.py` keeps the ones that
+   passed → `artifacts/scored_subset.json`. Harnesses are only ever scored on that set.
 3. `gw_ctl.sh start` launches the gateway bound to `0.0.0.0:4010`, reachable from the host
    and from every task container at the Docker bridge gateway address.
 4. `run_harness.sh <harness>` invokes `harbor run` restricted to the frozen task ids, with
