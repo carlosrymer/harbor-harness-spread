@@ -1,0 +1,309 @@
+{
+  "meta": {
+    "dataset": "terminal-bench@2.0",
+    "n_tasks": 8,
+    "total_tasks_in_dataset": 89,
+    "candidate_pool_size": 50,
+    "selection_seed": 20260801,
+    "max_agent_timeout_sec": 900,
+    "model": "moonshotai/kimi-k3 (Moonshot API, pinned by the gateway)",
+    "temperature": 1.0,
+    "n_attempts_per_task": 1,
+    "price_note": "Moonshot list price for Kimi K2.7 Code: $0.95/M input, $0.19/M cached input, $4.00/M output"
+  },
+  "headline": {
+    "best": "terminus-2",
+    "worst": "terminus-2",
+    "max_rate": 0.0,
+    "min_rate": 0.0,
+    "spread_pp": 0.0
+  },
+  "harnesses": [
+    {
+      "harness": "terminus-2",
+      "n_tasks": 8,
+      "n_resolved": 0,
+      "resolve_rate": 0.0,
+      "n_infra_errors": 0,
+      "n_timeouts": 6,
+      "n_cells": 8,
+      "tokens_total": 716013,
+      "prompt_tokens": 652971,
+      "cached_tokens": 544969,
+      "completion_tokens": 63042,
+      "reasoning_tokens": 32493,
+      "llm_calls": 80,
+      "llm_errors": 0,
+      "llm_retries": 1,
+      "cost_usd": 0.4583,
+      "wall_s_total": 3760.8,
+      "steps_total": 76,
+      "steps_median": 7,
+      "resolved_per_mtok": 0.0,
+      "resolved_per_usd": 0.0,
+      "reps": 1
+    }
+  ],
+  "not_driven": [],
+  "tasks": [
+    {
+      "task": "overfull-hbox",
+      "difficulty": "easy",
+      "category": "debugging",
+      "agent_timeout_sec": 750.0,
+      "expert_time_estimate_min": 60.0,
+      "cells": {
+        "terminus-2": {
+          "resolved": false,
+          "reward": 0.0,
+          "exception": "harbor.trial.errors.AgentTimeoutError: Agent execution timed out after 450.0 seconds",
+          "timed_out": true,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 7,
+          "wall_s": 500.1
+        }
+      },
+      "n_solved_by": 0,
+      "n_attempted_by": 1,
+      "solved_by": [],
+      "disputed": false
+    },
+    {
+      "task": "gpt2-codegolf",
+      "difficulty": "hard",
+      "category": "software-engineering",
+      "agent_timeout_sec": 900.0,
+      "expert_time_estimate_min": 2400.0,
+      "cells": {
+        "terminus-2": {
+          "resolved": false,
+          "reward": 0.0,
+          "exception": "harbor.trial.errors.AgentTimeoutError: Agent execution timed out after 540.0 seconds",
+          "timed_out": true,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 6,
+          "wall_s": 579.0
+        }
+      },
+      "n_solved_by": 0,
+      "n_attempted_by": 1,
+      "solved_by": [],
+      "disputed": false
+    },
+    {
+      "task": "password-recovery",
+      "difficulty": "hard",
+      "category": "security",
+      "agent_timeout_sec": 900.0,
+      "expert_time_estimate_min": 100.0,
+      "cells": {
+        "terminus-2": {
+          "resolved": false,
+          "reward": 0.0,
+          "exception": "harbor.trial.errors.AgentTimeoutError: Agent execution timed out after 540.0 seconds",
+          "timed_out": true,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 19,
+          "wall_s": 581.6
+        }
+      },
+      "n_solved_by": 0,
+      "n_attempted_by": 1,
+      "solved_by": [],
+      "disputed": false
+    },
+    {
+      "task": "gcode-to-text",
+      "difficulty": "medium",
+      "category": "file-operations",
+      "agent_timeout_sec": 900.0,
+      "expert_time_estimate_min": 60.0,
+      "cells": {
+        "terminus-2": {
+          "resolved": false,
+          "reward": 0.0,
+          "exception": "harbor.trial.errors.AgentTimeoutError: Agent execution timed out after 540.0 seconds",
+          "timed_out": true,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 19,
+          "wall_s": 571.3
+        }
+      },
+      "n_solved_by": 0,
+      "n_attempted_by": 1,
+      "solved_by": [],
+      "disputed": false
+    },
+    {
+      "task": "log-summary-date-ranges",
+      "difficulty": "medium",
+      "category": "data-processing",
+      "agent_timeout_sec": 900.0,
+      "expert_time_estimate_min": 75.0,
+      "cells": {
+        "terminus-2": {
+          "resolved": false,
+          "reward": 0.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 6,
+          "wall_s": 99.0
+        }
+      },
+      "n_solved_by": 0,
+      "n_attempted_by": 1,
+      "solved_by": [],
+      "disputed": false
+    },
+    {
+      "task": "pytorch-model-recovery",
+      "difficulty": "medium",
+      "category": "model-training",
+      "agent_timeout_sec": 900.0,
+      "expert_time_estimate_min": 15.0,
+      "cells": {
+        "terminus-2": {
+          "resolved": false,
+          "reward": 0.0,
+          "exception": "harbor.trial.errors.AgentTimeoutError: Agent execution timed out after 540.0 seconds",
+          "timed_out": true,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 8,
+          "wall_s": 572.9
+        }
+      },
+      "n_solved_by": 0,
+      "n_attempted_by": 1,
+      "solved_by": [],
+      "disputed": false
+    },
+    {
+      "task": "sqlite-with-gcov",
+      "difficulty": "medium",
+      "category": "system-administration",
+      "agent_timeout_sec": 900.0,
+      "expert_time_estimate_min": 30.0,
+      "cells": {
+        "terminus-2": {
+          "resolved": false,
+          "reward": 0.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 4,
+          "wall_s": 282.2
+        }
+      },
+      "n_solved_by": 0,
+      "n_attempted_by": 1,
+      "solved_by": [],
+      "disputed": false
+    },
+    {
+      "task": "tune-mjcf",
+      "difficulty": "medium",
+      "category": "scientific-computing",
+      "agent_timeout_sec": 900.0,
+      "expert_time_estimate_min": 30.0,
+      "cells": {
+        "terminus-2": {
+          "resolved": false,
+          "reward": 0.0,
+          "exception": "harbor.trial.errors.AgentTimeoutError: Agent execution timed out after 540.0 seconds",
+          "timed_out": true,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 7,
+          "wall_s": 574.7
+        }
+      },
+      "n_solved_by": 0,
+      "n_attempted_by": 1,
+      "solved_by": [],
+      "disputed": false
+    }
+  ],
+  "variance": [],
+  "task_meta": {
+    "overfull-hbox": {
+      "id": "overfull-hbox",
+      "difficulty": "easy",
+      "category": "debugging",
+      "docker_image": "alexgshaw/overfull-hbox:20251031",
+      "agent_timeout_sec": 750.0,
+      "verifier_timeout_sec": 360.0,
+      "expert_time_estimate_min": 60.0
+    },
+    "gpt2-codegolf": {
+      "id": "gpt2-codegolf",
+      "difficulty": "hard",
+      "category": "software-engineering",
+      "docker_image": "alexgshaw/gpt2-codegolf:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 2400.0
+    },
+    "password-recovery": {
+      "id": "password-recovery",
+      "difficulty": "hard",
+      "category": "security",
+      "docker_image": "alexgshaw/password-recovery:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 100.0
+    },
+    "gcode-to-text": {
+      "id": "gcode-to-text",
+      "difficulty": "medium",
+      "category": "file-operations",
+      "docker_image": "alexgshaw/gcode-to-text:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 60.0
+    },
+    "log-summary-date-ranges": {
+      "id": "log-summary-date-ranges",
+      "difficulty": "medium",
+      "category": "data-processing",
+      "docker_image": "alexgshaw/log-summary-date-ranges:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 75.0
+    },
+    "pytorch-model-recovery": {
+      "id": "pytorch-model-recovery",
+      "difficulty": "medium",
+      "category": "model-training",
+      "docker_image": "alexgshaw/pytorch-model-recovery:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 15.0
+    },
+    "sqlite-with-gcov": {
+      "id": "sqlite-with-gcov",
+      "difficulty": "medium",
+      "category": "system-administration",
+      "docker_image": "alexgshaw/sqlite-with-gcov:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 30.0
+    },
+    "tune-mjcf": {
+      "id": "tune-mjcf",
+      "difficulty": "medium",
+      "category": "scientific-computing",
+      "docker_image": "alexgshaw/tune-mjcf:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 30.0
+    }
+  }
+}

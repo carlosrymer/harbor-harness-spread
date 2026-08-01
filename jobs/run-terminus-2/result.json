@@ -1,20 +1,20 @@
 {
     "id": "996770de-e86e-444d-bdb3-0ec28f77b0fc",
     "started_at": "2026-08-01T15:46:22.246918",
-    "updated_at": "2026-08-01T15:57:37.057163Z",
-    "finished_at": null,
+    "updated_at": "2026-08-01T16:05:47.450615",
+    "finished_at": "2026-08-01T16:05:47.450615",
     "n_total_trials": 8,
     "stats": {
-        "n_completed_trials": 5,
-        "n_errored_trials": 4,
-        "n_running_trials": 3,
+        "n_completed_trials": 8,
+        "n_errored_trials": 6,
+        "n_running_trials": 0,
         "n_pending_trials": 0,
         "n_cancelled_trials": 0,
         "n_retries": 0,
         "evals": {
             "terminus-2__bench-model__terminal-bench": {
-                "n_trials": 5,
-                "n_errors": 4,
+                "n_trials": 8,
+                "n_errors": 6,
                 "metrics": [
                     {
                         "mean": 0.0
@@ -26,25 +26,30 @@
                         "0.0": [
                             "log-summary-date-ranges__KTv7tL4",
                             "pytorch-model-recovery__huaWYtz",
-                            "tune-mjcf__P4UigZR",
                             "password-recovery__Eyyh8ge",
-                            "gcode-to-text__Gogj5US"
+                            "tune-mjcf__P4UigZR",
+                            "gcode-to-text__Gogj5US",
+                            "overfull-hbox__mtsFjnB",
+                            "sqlite-with-gcov__JsbfSvX",
+                            "gpt2-codegolf__mNvuwTF"
                         ]
                     }
                 },
                 "exception_stats": {
                     "AgentTimeoutError": [
                         "pytorch-model-recovery__huaWYtz",
-                        "tune-mjcf__P4UigZR",
                         "password-recovery__Eyyh8ge",
-                        "gcode-to-text__Gogj5US"
+                        "tune-mjcf__P4UigZR",
+                        "gcode-to-text__Gogj5US",
+                        "overfull-hbox__mtsFjnB",
+                        "gpt2-codegolf__mNvuwTF"
                     ]
                 }
             }
         },
-        "n_input_tokens": 534953,
-        "n_cache_tokens": 448000,
-        "n_output_tokens": 43300,
+        "n_input_tokens": 628469,
+        "n_cache_tokens": 520649,
+        "n_output_tokens": 53916,
         "cost_usd": null
     }
 }
