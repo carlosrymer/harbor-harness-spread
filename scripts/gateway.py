@@ -200,7 +200,13 @@ async def chat_completions(request: Request) -> Any:
 
     kwargs: dict[str, Any] = {k: v for k, v in body.items() if k in _FORWARD}
     kwargs["model"] = STATE["upstream"]          # pin the model
-    kwargs["temperature"] = STATE["temperature"]  # pin decoding randomness
+    # Pin decoding randomness when a temperature is configured. A negative value
+    # means "send nothing and let the provider default apply" -- needed because
+    # Kimi K2.7 Code rejects any temperature except 1, while Gemini 3.x warns that
+    # explicit temperature is deprecated. Either way it is identical for every
+    # harness on that model, which is what the comparison requires.
+    if STATE["temperature"] is not None and STATE["temperature"] >= 0:
+        kwargs["temperature"] = STATE["temperature"]
     if STATE["max_tokens"] and not kwargs.get("max_tokens"):
         kwargs["max_tokens"] = STATE["max_tokens"]
 
@@ -282,7 +288,8 @@ def main() -> None:
     ap.add_argument("--max-retries", type=int, default=6)
     ap.add_argument("--backoff-base", type=float, default=2.0)
     ap.add_argument("--backoff-cap", type=float, default=60.0)
-    ap.add_argument("--temperature", type=float, default=0.0)
+    ap.add_argument("--temperature", type=float, default=-1.0,
+                    help="negative means do not send a temperature at all")
     ap.add_argument("--max-tokens", type=int, default=0)
     ap.add_argument("--upstream-timeout", type=float, default=300.0,
                     help="per-request upstream timeout; a hung call otherwise stalls a whole trial")

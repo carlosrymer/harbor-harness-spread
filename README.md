@@ -205,9 +205,10 @@ AGENT_TIMEOUT_MULT=0.6 HARNESSES="terminus-2 mini-swe-agent aider goose" NCONC=4
 .venv/bin/python scripts/analyze.py
 .venv/bin/python scripts/render_readme.py
 
-# 6. Serve the site locally
+# 6. Serve the site locally, or publish it
 cp artifacts/results.json site/data/ && cp -r artifacts/trajectories site/data/
 python3 -m http.server -d site 8000
+bash scripts/deploy_pages.sh   # publishes site/ to the gh-pages branch
 ```
 
 Note: in a network that terminates TLS at an inspecting proxy, task containers must be given
@@ -226,7 +227,10 @@ container for that reason; on an unrestricted network those mounts are unnecessa
 
 ## Deployed via
 
-GitHub Pages, published by GitHub Actions on push to `main`. The site is static and reads the
+GitHub Pages, served from the `gh-pages` branch (`bash scripts/deploy_pages.sh`). There is no
+Actions workflow: the token in the build environment lacks the `workflow` scope and the Pages
+REST endpoints are proxy-blocked, so the workflow I would have used sits in
+[`deploy/`](deploy/README.md) rather than pretending to run. The site is static and reads the
 same JSON committed under `artifacts/`, so the page can never disagree with the run data.
 
 ---

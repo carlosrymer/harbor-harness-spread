@@ -1,35 +1,0 @@
-Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:2 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:3 http://archive.ubuntu.com/ubuntu noble-backports InRelease
-Hit:4 http://security.ubuntu.com/ubuntu noble-security InRelease
-Reading package lists...
-Reading package lists...
-Building dependency tree...
-Reading state information...
-The following additional packages will be installed:
-  libcurl4t64
-The following packages will be upgraded:
-  curl libcurl4t64
-2 upgraded, 0 newly installed, 0 to remove and 85 not upgraded.
-Need to get 569 kB of archives.
-After this operation, 2048 B of additional disk space will be used.
-Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 curl amd64 8.5.0-2ubuntu10.11 [226 kB]
-Get:2 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libcurl4t64 amd64 8.5.0-2ubuntu10.11 [342 kB]
-debconf: delaying package configuration, since apt-utils is not installed
-Fetched 569 kB in 0s (1368 kB/s)
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 11968 files and directories currently installed.)
-Preparing to unpack .../curl_8.5.0-2ubuntu10.11_amd64.deb ...
-Unpacking curl (8.5.0-2ubuntu10.11) over (8.5.0-2ubuntu10.6) ...
-Preparing to unpack .../libcurl4t64_8.5.0-2ubuntu10.11_amd64.deb ...
-Unpacking libcurl4t64:amd64 (8.5.0-2ubuntu10.11) over (8.5.0-2ubuntu10.6) ...
-Setting up libcurl4t64:amd64 (8.5.0-2ubuntu10.11) ...
-Setting up curl (8.5.0-2ubuntu10.11) ...
-Processing triggers for libc-bin (2.39-0ubuntu8.6) ...
-curl: (60) SSL certificate problem: self-signed certificate in certificate chain
-More details here: https://curl.se/docs/sslcerts.html
-
-curl failed to verify the legitimacy of the server and therefore could not
-establish a secure connection to it. To learn more about this situation and
-how to fix it, please visit the web page mentioned above.
-/tests/test.sh: line 10: /root/.local/bin/env: No such file or directory
-/tests/test.sh: line 19: uvx: command not found

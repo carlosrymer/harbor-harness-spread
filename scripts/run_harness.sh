@@ -14,7 +14,12 @@ JOB="${2:?job name required}"
 NCONC="${3:-2}"
 shift 3 2>/dev/null || shift $#
 
-TASKS_FILE="$ROOT/artifacts/subset.json"
+# Run only tasks the oracle baseline proved are scorable here. Tasks whose own
+# reference solution cannot pass in this environment are excluded up front rather
+# than run and then discarded -- otherwise every harness pays for cells that can
+# never produce a score.
+TASKS_FILE="$ROOT/artifacts/scored_subset.json"
+[ -f "$TASKS_FILE" ] || TASKS_FILE="$ROOT/artifacts/subset.json"
 CA=/ccr-ca.crt
 GW_HOST="http://172.17.0.1:4010/v1"       # host-side agents (terminus-*)
 GW_CONTAINER="http://172.17.0.1:4010/v1"  # installed agents run in the container
@@ -24,12 +29,23 @@ GW_CONTAINER="http://172.17.0.1:4010/v1"  # installed agents run in the containe
 # Repeat runs get their own meter identity (KEY_SUFFIX) so their tokens are not
 # added to the primary run's cost. Without this a harness that was repeated would
 # look proportionally more expensive than one that was not.
-KEY="sk-harness-${HARNESS}${KEY_SUFFIX:-}"
+# The meter key carries harness AND model so usage is attributed to the exact
+# cell of the grid. Repeat runs add their own suffix so they never inflate the
+# primary run's cost.
+MODEL_SLUG="${MODEL_SLUG:?set MODEL_SLUG}"
+KEY="sk-harness-${HARNESS}__${MODEL_SLUG}${KEY_SUFFIX:-}"
 
 # CA bundle: this environment terminates TLS at an egress proxy, so containers
-# must trust its CA. uv is bind-mounted because astral.sh is not reachable from
-# inside the containers here (503 through the transparent proxy), and several
-# harnesses bootstrap themselves with it.
+# must trust its CA. uv AND uvx are bind-mounted because astral.sh is not
+# reachable from inside the containers here (503 through the transparent proxy).
+#
+# uvx matters for correctness, not just convenience: EVERY Terminal-Bench 2.0
+# test.sh begins by curl-installing uv from astral.sh and then runs the task's
+# pytest suite through `uvx`. With no uvx on PATH the suite never executes and
+# the script's `if [ $? -eq 0 ]` branch writes a hardcoded 0 to reward.txt --
+# so every task silently scores 0 no matter what the agent did. Those are false
+# zeros, indistinguishable from real failures in the job output. The verifier
+# phase gets its own env (--ve); the agent phase's --ae does not reach it.
 MOUNTS='[{"type":"bind","source":"/root/.ccr/ca-bundle.crt","target":"/ccr-ca.crt","read_only":true},{"type":"bind","source":"/root/.local/bin/uv","target":"/usr/local/bin/uv","read_only":true}]'
 
 INC=()
@@ -52,5 +68,7 @@ OPENAI_API_KEY="$KEY" OPENAI_BASE_URL="$GW_HOST" OPENAI_API_BASE="$GW_HOST" \
   --ae OPENAI_API_KEY="$KEY" \
   --ae OPENAI_BASE_URL="$GW_CONTAINER" --ae OPENAI_API_BASE="$GW_CONTAINER" \
   --ae OPENAI_HOST="http://172.17.0.1:4010" --ae OPENAI_BASE_PATH="v1/chat/completions" \
+  --ve SSL_CERT_FILE=$CA --ve REQUESTS_CA_BUNDLE=$CA --ve CURL_CA_BUNDLE=$CA \
+  --ve PIP_CERT=$CA --ve UV_NATIVE_TLS=1 \
   "$@"
 echo "[run_harness] EXIT=$? harness=$HARNESS job=$JOB"

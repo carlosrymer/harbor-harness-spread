@@ -14,7 +14,7 @@ case "${1:-}" in
     # choice -- see the run-to-run variance section of the README.
     setsid nohup "$ROOT/.venv/bin/python" "$ROOT/scripts/gateway.py" \
       --upstream "$UPSTREAM" --port 4010 --log "$LOG" --max-concurrency 4 \
-      --temperature "${TEMPERATURE:-1.0}" \
+      --temperature "${TEMPERATURE:--1}" \
       --budget-usd "${BUDGET_USD:-11.0}" \
       --budget-per-harness-usd "${BUDGET_PER_HARNESS_USD:-0}" \
       --price-in "${PRICE_IN:-0.95}" --price-cached "${PRICE_CACHED:-0.19}" \

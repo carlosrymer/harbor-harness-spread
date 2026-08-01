@@ -14,7 +14,7 @@ NCONC="${NCONC:-4}"
 HARNESSES="${HARNESSES:?set HARNESSES}"
 
 for H in $HARNESSES; do
-  JOB="run-${H}--rep${REP}"
+  JOB="run-${MODEL_SLUG:?set MODEL_SLUG}--${H}--rep${REP}"
   echo "[run_repeat] ===== $H rep$REP starting $(date -u +%H:%M:%S) ====="
   MODEL_OVERRIDE=""
   [ "$H" = "aider" ] && MODEL_OVERRIDE="openai/openai/bench-model"

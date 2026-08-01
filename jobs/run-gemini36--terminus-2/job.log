@@ -1,0 +1,69 @@
+Installing: tmux, asciinema
+Installing: tmux, asciinema
+Installing: tmux, asciinema
+Detected system: {'os': 'debian-based', 'package_manager': 'apt-get', 'update_command': None}
+Installing tools using apt-get: DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y tmux asciinema
+Detected system: {'os': 'debian-based', 'package_manager': 'apt-get', 'update_command': None}
+Installing tools using apt-get: DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y tmux asciinema
+Detected system: {'os': 'debian-based', 'package_manager': 'apt-get', 'update_command': None}
+Installing tools using apt-get: DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y tmux asciinema
+Starting recording.
+Sending keys: ['asciinema rec --stdin /logs/agent/recording.cast', 'Enter'] min_timeout_sec: 1.0 max_timeout_sec: 180.0
+Sending keys: ['clear', 'Enter'] min_timeout_sec: 0.0 max_timeout_sec: 180.0
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Starting recording.
+Sending keys: ['asciinema rec --stdin /logs/agent/recording.cast', 'Enter'] min_timeout_sec: 1.0 max_timeout_sec: 180.0
+Sending keys: ['clear', 'Enter'] min_timeout_sec: 0.0 max_timeout_sec: 180.0
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Starting recording.
+Sending keys: ['asciinema rec --stdin /logs/agent/recording.cast', 'Enter'] min_timeout_sec: 1.0 max_timeout_sec: 180.0
+Sending keys: ['clear', 'Enter'] min_timeout_sec: 0.0 max_timeout_sec: 180.0
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Sending keys: ['ls -la /app/logs | head -n 20\n'] min_timeout_sec: 0.1 max_timeout_sec: 180.0
+Sending keys: ['head -n 20 /app/logs/*.log | head -n 30\n'] min_timeout_sec: 0.1 max_timeout_sec: 180.0
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/log-summary-date-ranges__iXKt5EF/agent/trajectory.json
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Sending keys: ['cat /app/eval.py\n'] min_timeout_sec: 0.5 max_timeout_sec: 180.0
+Sending keys: ['cat /app/model_ref.xml\n'] min_timeout_sec: 0.5 max_timeout_sec: 180.0
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/tune-mjcf__kzNQ3yQ/agent/trajectory.json
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Sending keys: ['ls -la /app && df -h && mount\n'] min_timeout_sec: 0.5 max_timeout_sec: 180.0
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/password-recovery__Sfc8aEi/agent/trajectory.json
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Sending keys: ['cp /app/model_ref.xml /app/model.xml\npython3 /app/eval.py\n'] min_timeout_sec: 5.0 max_timeout_sec: 180.0
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Sending keys: ["cat << 'EOF' > /tmp/analyze.py\nimport glob, os, re\n\nlog_files = glob.glob('/app/logs/*.log')\nprint(f'Total log files: {len(log_files)}')\n\nseverities = set()\nfile_date_mismatch = 0\n\nfor f in log_files:\n    fname = os.path.basename(f)\n    fdate_str = fname.split('_')[0]\n    with open(f) as fp:\n        for line in fp:\n            m = re.search(r'\\[([A-Z]+)\\]', line)\n            if m:\n                severities.add(m.group(1))\n            ldate_str = line[:10]\n            if ldate_str != fdate_str:\n                file_date_mismatch += 1\n\nprint('Severities found:', severities)\nprint('Line date vs file date mismatches:', file_date_mismatch)\nEOF\npython3 /tmp/analyze.py\n"] min_timeout_sec: 2.0 max_timeout_sec: 180.0
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/tune-mjcf__kzNQ3yQ/agent/trajectory.json
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Sending keys: [''] min_timeout_sec: 5.0 max_timeout_sec: 180.0
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/log-summary-date-ranges__iXKt5EF/agent/trajectory.json
+Sending keys: ['ls -la /app/varsea && (cd /app && git status 2>&1; git log -p 2>&1; cd /app/varsea && git status 2>&1; git log -p 2>&1)\n'] min_timeout_sec: 0.5 max_timeout_sec: 180.0
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Sending keys: ['grep -rnE "8XD[A-Z0-9]{17}W54" /var/lib/docker/ 2>/dev/null || true\n'] min_timeout_sec: 2.0 max_timeout_sec: 180.0
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/password-recovery__Sfc8aEi/agent/trajectory.json
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/tune-mjcf__kzNQ3yQ/agent/trajectory.json
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Sending keys: [''] min_timeout_sec: 10.0 max_timeout_sec: 180.0
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Failed to retrieve model info for 'openai/bench-model': This model isn't mapped yet. model=openai/bench-model, custom_llm_provider=openai. Add it here - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json.. Using fallback context limit: 1000000
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Sending keys: ['cat << \'EOF\' > /tmp/process.py\nimport glob, os, re, datetime\n\nref_date = datetime.date(2025, 8, 12)\n\ntoday_date = ref_date\nlast_7_start = ref_date - datetime.timedelta(days=6)\nlast_30_start = ref_date - datetime.timedelta(days=29)\nmonth_to_date_start = datetime.date(ref_date.year, ref_date.month, 1)\n\nprint("Today:", today_date)\nprint("Last 7 days:", last_7_start, "to", ref_date)\nprint("Last 30 days:", last_30_start, "to", ref_date)\nprint("Month to date:", month_to_date_start, "to", ref_date)\n\nperiods = [\'today\', \'last_7_days\', \'last_30_days\', \'month_to_date\', \'total\']\nseverities = [\'ERROR\', \'WARNING\', \'INFO\']\n\ncounts = {p: {s: 0 for s in severities} for p in periods}\n\nlog_files = glob.glob(\'/app/logs/*.log\')\n\nfor f in log_files:\n    fname = os.path.basename(f)\n    fdate_str = fname.split(\'_\')[0]\n    try:\n        fdate = datetime.datetime.strptime(fdate_str, \'%Y-%m-%d\').date()\n    except ValueError:\n        continue\n    \n    with open(f, \'r\', encoding=\'utf-8\', errors=\'ignore\') as fp:\n        for line in fp:\n            m = re.search(r\'\\[(ERROR|WARNING|INFO)\\]\', line)\n            if not m:\n                continue\n            sev = m.group(1)\n            \n            counts[\'total\'][sev] += 1\n            \n            if fdate == today_date:\n                counts[\'today\'][sev] += 1\n            if last_7_start <= fdate <= ref_date:\n                counts[\'last_7_days\'][sev] += 1\n            if last_30_start <= fdate <= ref_date:\n                counts[\'last_30_days\'][sev] += 1\n            if month_to_date_start <= fdate <= ref_date:\n                counts[\'month_to_date\'][sev] += 1\n\noutput_lines = [\'period,severity,count\']\nfor p in periods:\n    for s in severities:\n        output_lines.append(f"{p},{s},{counts[p][s]}")\n\ncsv_content = \'\\n\'.join(output_lines) + \'\\n\'\nprint(\'\\nGenerated CSV:\')\nprint(csv_content)\n\nwith open(\'/app/summary.csv\', \'w\') as f:\n    f.write(csv_content)\n\nprint("Saved to /app/summary.csv")\nEOF\npython3 /tmp/process.py\n'] min_timeout_sec: 2.0 max_timeout_sec: 180.0

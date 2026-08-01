@@ -9,10 +9,11 @@
 set -uo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 NCONC="${NCONC:-4}"
-HARNESSES="${HARNESSES:-terminus-2 mini-swe-agent aider opencode goose}"
+HARNESSES="${HARNESSES:-terminus-2 mini-swe-agent aider goose}"
+MODEL_SLUG="${MODEL_SLUG:?set MODEL_SLUG}"
 
 for H in $HARNESSES; do
-  JOB="run-${H}"
+  JOB="run-${MODEL_SLUG}--${H}"
   if [ -f "$ROOT/jobs/$JOB/result.json" ] && \
      "$ROOT/.venv/bin/python" -c "
 import json,sys

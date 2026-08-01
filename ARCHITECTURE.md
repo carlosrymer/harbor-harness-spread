@@ -35,6 +35,7 @@ flowchart TB
     end
 
     subgraph exec["Execution — one process per harness"]
+        ORC["oracle baseline<br/>reference solution"] --> HARBOR
         RUN["scripts/run_harness.sh"] --> HARBOR["harbor run"]
         HARBOR --> C1["container: terminus-2"]
         HARBOR --> C2["container: mini-swe-agent"]
@@ -54,8 +55,8 @@ flowchart TB
     JOBS --> AN["scripts/analyze.py"]
     METER --> AN
     AN --> RES["artifacts/results.json<br/>artifacts/trajectories/*.json"]
-    RES --> GHA["GitHub Actions"]
-    GHA --> SITE["GitHub Pages<br/>static leaderboard + explorer"]
+    RES --> DEP["scripts/deploy_pages.sh"]
+    DEP --> SITE["GitHub Pages (gh-pages branch)<br/>leaderboard + task×harness grid"]
 ```
 
 ## Components
@@ -68,7 +69,8 @@ flowchart TB
 | `scripts/run_harness.sh` | Runs one harness over the frozen subset with identical flags, mounts, and env for every harness | bash + Harbor CLI |
 | `scripts/analyze.py` | Joins Harbor rewards with the gateway meter into the site's JSON; trims trajectories into readable excerpts | Python |
 | `site/index.html` | Static leaderboard, cost-adjusted ranking, task × harness grid, trajectory drill-down | Vanilla HTML/CSS/JS, no build step, no external requests |
-| `.github/workflows/deploy.yml` | Copies committed artifacts into the site and publishes to Pages | GitHub Actions |
+| `scripts/deploy_pages.sh` | Copies committed artifacts into `site/data/` and publishes the site to the `gh-pages` branch | bash + git |
+| `scripts/render_readme.py` | Renders every number in `README.md` from `artifacts/results.json` | Python |
 
 ## Data flow
 
@@ -94,11 +96,20 @@ flowchart TB
 
 ## Deployment
 
-GitHub Pages, via GitHub Actions on push to `main` (`actions/configure-pages@v5` with
-`enablement: true`, `upload-pages-artifact@v3`, `deploy-pages@v4`). The site is plain
-static files with no build step and no external network requests — the JSON it reads is
-committed in this repository and copied into the artifact at deploy time. Re-running the
-experiment and committing new `artifacts/` is what triggers a content change.
+GitHub Pages, served from the **`gh-pages` branch**, whose root is the built static site.
+`scripts/deploy_pages.sh` copies `artifacts/results.json` and `artifacts/trajectories/` into
+`site/data/` and force-pushes that directory to `gh-pages`; GitHub enables Pages for the
+branch on its own. `main` keeps the source and the run artifacts.
+
+There is deliberately **no GitHub Actions workflow**. The token available in the build
+environment lacks the `workflow` scope, so any push touching `.github/workflows/**` is
+rejected by GitHub, and the REST Pages endpoints are blocked by the egress proxy (403), so
+Pages could not be configured that way either. The workflow that *would* have been used is
+kept at `deploy/github-pages-workflow.yml` — outside `.github/` so nothing implies it runs —
+with the reasoning in `deploy/README.md`.
+
+The site is plain static files: no build step, no external network requests, and it reads only
+JSON committed in this repository, so the page can never disagree with the run data.
 
 ## Tech choices & rationale
 

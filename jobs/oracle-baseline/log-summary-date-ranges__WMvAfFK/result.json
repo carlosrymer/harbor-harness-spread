@@ -1,0 +1,136 @@
+{
+    "id": "ce95b313-f8d1-411a-bc60-54cb1db19f04",
+    "task_name": "log-summary-date-ranges",
+    "trial_name": "log-summary-date-ranges__WMvAfFK",
+    "trial_uri": "file:///home/user/builds/harbor-harness-spread/jobs/oracle-baseline/log-summary-date-ranges__WMvAfFK",
+    "task_id": {
+        "path": "terminal-bench/log-summary-date-ranges"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "fe600befce59ff43dd85cb1db864652d4e6fa4706c6dd8a1d82118c1a76561ae",
+    "config": {
+        "task": {
+            "path": "terminal-bench/log-summary-date-ranges",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "log-summary-date-ranges__WMvAfFK",
+        "trials_dir": "jobs/oracle-baseline",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": 1.0,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "oracle",
+            "import_path": null,
+            "model_name": null,
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/.ccr/ca-bundle.crt",
+                    "target": "/ccr-ca.crt",
+                    "read_only": true
+                },
+                {
+                    "type": "bind",
+                    "source": "/root/.local/bin/uv",
+                    "target": "/usr/local/bin/uv",
+                    "read_only": true
+                },
+                {
+                    "type": "bind",
+                    "source": "/root/.local/bin/uvx",
+                    "target": "/usr/local/bin/uvx",
+                    "read_only": true
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {
+                "SSL_CERT_FILE": "/ccr-ca.crt",
+                "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                "PIP_CERT": "/ccr-ca.crt",
+                "UV_NATIVE_TLS": "1"
+            },
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "job_id": "f51fd673-dc61-4700-908d-2e27e7093ee9"
+    },
+    "agent_info": {
+        "name": "oracle",
+        "version": "1.0.0",
+        "model_info": null
+    },
+    "agent_result": {
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-08-01T16:11:13.285427Z",
+    "finished_at": "2026-08-01T16:12:19.968003Z",
+    "environment_setup": {
+        "started_at": "2026-08-01T16:11:13.469340Z",
+        "finished_at": "2026-08-01T16:11:16.185936Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-08-01T16:11:16.185983Z",
+        "finished_at": "2026-08-01T16:11:16.186047Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-08-01T16:11:16.186127Z",
+        "finished_at": "2026-08-01T16:11:54.567995Z"
+    },
+    "verifier": {
+        "started_at": "2026-08-01T16:11:55.352602Z",
+        "finished_at": "2026-08-01T16:12:08.325305Z"
+    },
+    "step_results": null
+}

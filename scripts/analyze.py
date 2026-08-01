@@ -11,10 +11,15 @@ Output
   artifacts/results.json                  leaderboard + task x harness grid + cost
   artifacts/trajectories/<harness>__<task>.json  trimmed trajectory excerpts
 
-Cost model: Moonshot list price for Kimi K3 -- $3.00 /M uncached input,
-$0.30 /M cached input, $15.00 /M output. Cached prompt tokens are billed at the
-discounted rate, which matters a lot: several harnesses re-send a long prefix on
-every step and would look far more expensive under a flat input price.
+Cost model: cost is taken from the per-call ``cost_usd`` the gateway already
+computed, so the write-up, the site, and the budget guard can never disagree
+about what was spent. The constants below are only a fallback for older log
+lines that predate per-call costing.
+
+Moonshot list price for Kimi K2.7 Code: $0.95 /M uncached input, $0.19 /M cached
+input, $4.00 /M output. Cached prompt tokens bill at the discounted rate, which
+matters a lot here: several harnesses re-send a long prefix on every step and
+would look far more expensive under a flat input price.
 """
 
 from __future__ import annotations
@@ -28,19 +33,29 @@ ROOT = Path(__file__).resolve().parent.parent
 JOBS = ROOT / "jobs"
 ART = ROOT / "artifacts"
 
-PRICE_IN_UNCACHED = 3.00 / 1_000_000
-PRICE_IN_CACHED = 0.30 / 1_000_000
-PRICE_OUT = 15.00 / 1_000_000
+PRICE_IN_UNCACHED = 0.95 / 1_000_000
+PRICE_IN_CACHED = 0.19 / 1_000_000
+PRICE_OUT = 4.00 / 1_000_000
 
-# job-name prefix -> harness label shown on the site
-def job_harness(job_name: str) -> str | None:
-    m = re.match(r"^run-(.+?)(?:--rep(\d+))?$", job_name)
-    return m.group(1) if m else None
-
-
-def job_rep(job_name: str) -> int:
-    m = re.match(r"^run-(.+?)--rep(\d+)$", job_name)
-    return int(m.group(2)) if m else 1
+# Job names encode the whole cell identity:
+#   run-<model-slug>--<harness>[--rep<N>]
+# "--" is the separator because harness names themselves contain single hyphens
+# (mini-swe-agent, terminus-2) and would otherwise be ambiguous.
+def parse_job(job_name: str) -> tuple[str, str, int] | None:
+    """-> (model_slug, harness, rep) or None if this dir is not a sweep job."""
+    if not job_name.startswith("run-"):
+        return None
+    parts = job_name[len("run-"):].split("--")
+    if len(parts) < 2:
+        return None
+    model, harness = parts[0], parts[1]
+    rep = 1
+    if len(parts) > 2 and parts[2].startswith("rep"):
+        try:
+            rep = int(parts[2][3:])
+        except ValueError:
+            rep = 1
+    return model, harness, rep
 
 
 def cost_usd(p_tok: int, cached: int, c_tok: int) -> float:
@@ -52,7 +67,8 @@ def load_gateway_meter() -> dict:
     """Per-harness token totals measured at the gateway (not self-reported)."""
     per = defaultdict(lambda: {"calls": 0, "errors": 0, "retries": 0, "prompt_tokens": 0,
                                "cached_tokens": 0, "completion_tokens": 0,
-                               "reasoning_tokens": 0, "latency_s": 0.0})
+                               "reasoning_tokens": 0, "latency_s": 0.0,
+                               "metered_cost_usd": 0.0, "have_metered_cost": False})
     path = ART / "gateway.jsonl"
     if not path.exists():
         return {}
@@ -76,8 +92,14 @@ def load_gateway_meter() -> dict:
         for k in ("prompt_tokens", "cached_tokens", "completion_tokens", "reasoning_tokens"):
             e[k] += d.get(k) or 0
         e["latency_s"] += d.get("latency_s") or 0.0
+        if d.get("cost_usd") is not None:
+            e["metered_cost_usd"] += d["cost_usd"]
+            e["have_metered_cost"] = True
     for h, e in per.items():
-        e["cost_usd"] = round(cost_usd(e["prompt_tokens"], e["cached_tokens"], e["completion_tokens"]), 4)
+        # Prefer what the gateway actually billed; recompute only for old lines.
+        e["cost_usd"] = round(
+            e["metered_cost_usd"] if e["have_metered_cost"]
+            else cost_usd(e["prompt_tokens"], e["cached_tokens"], e["completion_tokens"]), 4)
         e["latency_s"] = round(e["latency_s"], 1)
     return dict(per)
 
@@ -103,11 +125,27 @@ def read_trial(d: Path) -> dict:
     if (d / "exception.txt").exists():
         txt = (d / "exception.txt").read_text().strip().splitlines()
         exc = txt[-1][:300] if txt else "unknown"
+
+    # Distinguish "the agent had its shot and failed" from "this cell never ran".
+    #
+    # AgentTimeoutError means the harness burned its entire wall-clock budget
+    # without solving the task. That is a real benchmark outcome -- Terminal-Bench
+    # scores it as a failure -- so it counts as an honest 0. It is also often the
+    # most interesting failure mode, since thrashing until the clock runs out is
+    # exactly the sort of thing a harness, not a model, is responsible for.
+    #
+    # Anything else -- a 402 from the gateway budget guard, a TLS/network failure,
+    # a missing image -- means the cell never got a fair attempt. Those are
+    # reported as "not run" and excluded from the denominator, never scored as 0.
+    timed_out = bool(exc and "AgentTimeoutError" in exc)
+    infra_error = bool(exc) and not timed_out
     started, finished = r.get("started_at"), r.get("finished_at")
     return {
         "task": task, "trial_dir": str(d.relative_to(ROOT)),
         "reward": reward, "resolved": bool(reward and reward > 0),
-        "exception": exc, "started_at": started, "finished_at": finished,
+        "exception": exc, "timed_out": timed_out, "infra_error": infra_error,
+        "attempted": not infra_error,
+        "started_at": started, "finished_at": finished,
         "n_steps": count_steps(d),
         "wall_s": wall_seconds(r),
     }
@@ -241,151 +279,238 @@ def extract_trajectory(trial_dir: Path, harness: str, task: str) -> dict | None:
             "n_agent_steps": len(agent_steps), "steps": out_steps}
 
 
+MODEL_LABELS = {
+    "gemini36": "gemini-3.6-flash (Google AI Studio)",
+    "kimik27": "kimi-k2.7-code (Moonshot)",
+}
+
+
+def summarise(model: str, harness: str, primary: dict, meter: dict, reps: list) -> dict:
+    n_attempted = sum(1 for t in primary.values() if t["attempted"])
+    n_resolved = sum(1 for t in primary.values() if t["resolved"])
+    m = meter.get(f"{harness}__{model}", {})
+    tot_tok = m.get("prompt_tokens", 0) + m.get("completion_tokens", 0)
+    steps = [t["n_steps"] for t in primary.values() if t["n_steps"] is not None]
+    walls = [t["wall_s"] for t in primary.values() if t["wall_s"] is not None]
+    return {
+        "model": model, "model_label": MODEL_LABELS.get(model, model), "harness": harness,
+        "n_tasks": n_attempted, "n_cells": len(primary), "n_resolved": n_resolved,
+        "resolve_rate": round(n_resolved / n_attempted, 4) if n_attempted else 0.0,
+        "n_infra_errors": sum(1 for t in primary.values() if t["infra_error"]),
+        "n_timeouts": sum(1 for t in primary.values() if t["timed_out"]),
+        "tokens_total": tot_tok,
+        "prompt_tokens": m.get("prompt_tokens", 0),
+        "cached_tokens": m.get("cached_tokens", 0),
+        "completion_tokens": m.get("completion_tokens", 0),
+        "llm_calls": m.get("calls", 0), "llm_errors": m.get("errors", 0),
+        "llm_retries": m.get("retries", 0), "cost_usd": m.get("cost_usd", 0.0),
+        "wall_s_total": round(sum(walls), 1) if walls else None,
+        "steps_total": sum(steps) if steps else None,
+        "resolved_per_mtok": round(n_resolved / (tot_tok / 1e6), 3) if tot_tok else None,
+        "resolved_per_usd": round(n_resolved / m["cost_usd"], 3) if m.get("cost_usd") else None,
+        "reps": len(reps),
+    }
+
+
 def main() -> None:
     subset = json.loads((ART / "subset.json").read_text())
     task_meta = {t["id"]: t for t in subset["tasks"]}
     task_ids = [t["id"] for t in subset["tasks"]]
 
-    runs = defaultdict(list)  # harness -> list of (rep, {task: trial})
+    # Oracle baseline: the reference solution run through the same pipeline. Any
+    # task the oracle cannot pass is not measuring agent ability in this
+    # environment, so it is excluded from every rate rather than scored as 0.
+    oracle = {}
+    odir = JOBS / "oracle-baseline"
+    if odir.is_dir():
+        for d in trial_dirs(odir):
+            t = read_trial(d)
+            oracle[t["task"]] = t["resolved"]
+
+    runs = defaultdict(list)  # (model, harness) -> [{rep, job, trials}]
     if JOBS.exists():
+        tdir = ART / "trajectories"
+        tdir.mkdir(parents=True, exist_ok=True)
         for job_dir in sorted(JOBS.iterdir()):
             if not job_dir.is_dir():
                 continue
-            h = job_harness(job_dir.name)
-            if not h:
+            parsed = parse_job(job_dir.name)
+            if not parsed:
                 continue
+            model, harness, rep = parsed
             trials = {}
-            tdir = ART / "trajectories"
-            tdir.mkdir(parents=True, exist_ok=True)
             for d in trial_dirs(job_dir):
                 t = read_trial(d)
+                # A task the oracle could not solve here never gets scored.
+                if oracle and not oracle.get(t["task"], True):
+                    t["attempted"] = False
+                    t["infra_error"] = True
+                    t["exception"] = (t["exception"] or
+                                      "excluded: reference solution also fails in this environment")
                 trials[t["task"]] = t
-                if job_rep(job_dir.name) == 1:  # only the primary run feeds the site
-                    ex = extract_trajectory(d, h, t["task"])
+                if rep == 1:
+                    ex = extract_trajectory(d, harness, t["task"])
                     if ex:
-                        (tdir / f"{h}__{t['task']}.json").write_text(json.dumps(ex, indent=1))
+                        (tdir / f"{model}__{harness}__{t['task']}.json").write_text(
+                            json.dumps(ex, indent=1))
             if trials:
-                runs[h].append({"rep": job_rep(job_dir.name), "job": job_dir.name, "trials": trials})
+                runs[(model, harness)].append({"rep": rep, "job": job_dir.name, "trials": trials})
 
     meter = load_gateway_meter()
 
-    harnesses = []
-    for h, reps in sorted(runs.items()):
+    rows = []
+    for (model, harness), reps in sorted(runs.items()):
         primary = sorted(reps, key=lambda r: r["rep"])[0]["trials"]
-        n_attempted = len(primary)
-        n_resolved = sum(1 for t in primary.values() if t["resolved"])
-        n_errors = sum(1 for t in primary.values() if t["exception"])
-        m = meter.get(h, {})
-        tot_tok = m.get("prompt_tokens", 0) + m.get("completion_tokens", 0)
-        steps = [t["n_steps"] for t in primary.values() if t["n_steps"] is not None]
-        walls = [t["wall_s"] for t in primary.values() if t["wall_s"] is not None]
-        harnesses.append({
-            "harness": h,
-            "n_tasks": n_attempted,
-            "n_resolved": n_resolved,
-            "resolve_rate": round(n_resolved / n_attempted, 4) if n_attempted else 0.0,
-            "n_infra_errors": n_errors,
-            "tokens_total": tot_tok,
-            "prompt_tokens": m.get("prompt_tokens", 0),
-            "cached_tokens": m.get("cached_tokens", 0),
-            "completion_tokens": m.get("completion_tokens", 0),
-            "reasoning_tokens": m.get("reasoning_tokens", 0),
-            "llm_calls": m.get("calls", 0),
-            "llm_errors": m.get("errors", 0),
-            "llm_retries": m.get("retries", 0),
-            "cost_usd": m.get("cost_usd", 0.0),
-            "wall_s_total": round(sum(walls), 1) if walls else None,
-            "steps_total": sum(steps) if steps else None,
-            "steps_median": (sorted(steps)[len(steps) // 2] if steps else None),
-            # Cost-adjusted: resolved tasks per million tokens and per dollar.
-            "resolved_per_mtok": round(n_resolved / (tot_tok / 1e6), 3) if tot_tok else None,
-            "resolved_per_usd": round(n_resolved / m["cost_usd"], 3) if m.get("cost_usd") else None,
-            "reps": len(reps),
-        })
+        rows.append(summarise(model, harness, primary, meter, reps))
 
-    # A harness that finished every trial without ever calling the model did not
-    # "score 0" -- it never ran. Aider did exactly this at first (Harbor strips the
-    # provider prefix, so litellm inside aider got a bare model name and refused),
-    # and Harbor still reported a clean trial with reward 0. Anything with no
-    # metered LLM calls is reported as not-driven, never as a zero on the board.
-    not_driven = [h for h in harnesses if h["llm_calls"] == 0]
-    harnesses = [h for h in harnesses if h["llm_calls"] > 0]
+    not_driven = [r for r in rows if r["llm_calls"] == 0]
+    rows = [r for r in rows if r["llm_calls"] > 0]
 
-    harnesses.sort(key=lambda x: (-x["resolve_rate"], x["cost_usd"]))
-    rates = [h["resolve_rate"] for h in harnesses]
-    spread = round(max(rates) - min(rates), 4) if rates else 0.0
+    models = sorted({r["model"] for r in rows})
+    per_model = {}
+    for mdl in models:
+        hs = sorted([r for r in rows if r["model"] == mdl],
+                    key=lambda x: (-x["resolve_rate"], x["cost_usd"]))
+        rates = [h["resolve_rate"] for h in hs]
+        per_model[mdl] = {
+            "model": mdl, "model_label": MODEL_LABELS.get(mdl, mdl), "harnesses": hs,
+            "best": hs[0]["harness"] if hs else None,
+            "worst": hs[-1]["harness"] if hs else None,
+            "max_rate": max(rates) if rates else 0,
+            "min_rate": min(rates) if rates else 0,
+            "spread_pp": round((max(rates) - min(rates)) * 100, 1) if rates else 0.0,
+            "ranking": [h["harness"] for h in hs],
+            "cost_usd": round(sum(h["cost_usd"] for h in hs), 4),
+            "tokens_total": sum(h["tokens_total"] for h in hs),
+        }
 
-    # task x harness grid
+    # Does the harness ranking survive a change of model? This is the stronger
+    # question: a spread that reorders under a different model is an interaction
+    # with that model, not a property of the harness.
+    cross = None
+    if len(models) >= 2:
+        a, b = models[0], models[1]
+        ra, rb = per_model[a]["ranking"], per_model[b]["ranking"]
+        common = [h for h in ra if h in rb]
+        agree = [h for h in common if ra.index(h) == rb.index(h)]
+        pairs_total = pairs_agree = 0
+        for i in range(len(common)):
+            for j in range(i + 1, len(common)):
+                x, y = common[i], common[j]
+                pairs_total += 1
+                if (ra.index(x) < ra.index(y)) == (rb.index(x) < rb.index(y)):
+                    pairs_agree += 1
+        cross = {
+            "model_a": a, "model_b": b,
+            "ranking_a": ra, "ranking_b": rb,
+            "identical_ranking": ra == rb,
+            "same_position": agree,
+            "pairwise_agreement": (round(pairs_agree / pairs_total, 3) if pairs_total else None),
+            "pairs_total": pairs_total, "pairs_agree": pairs_agree,
+            "best_a": per_model[a]["best"], "best_b": per_model[b]["best"],
+            "spread_a_pp": per_model[a]["spread_pp"], "spread_b_pp": per_model[b]["spread_pp"],
+        }
+
+    # task x (model, harness) grid
     grid = []
     for tid in task_ids:
-        row = {"task": tid, **{k: task_meta[tid][k] for k in
-                               ("difficulty", "category", "agent_timeout_sec", "expert_time_estimate_min")},
-               "cells": {}}
-        for h, reps in runs.items():
+        row = {"task": tid,
+               **{k: task_meta[tid][k] for k in
+                  ("difficulty", "category", "agent_timeout_sec", "expert_time_estimate_min")},
+               "oracle_ok": oracle.get(tid), "cells": {}}
+        for (model, harness), reps in runs.items():
             primary = sorted(reps, key=lambda r: r["rep"])[0]["trials"]
             t = primary.get(tid)
-            row["cells"][h] = None if not t else {
+            row["cells"][f"{model}__{harness}"] = None if not t else {
+                "model": model, "harness": harness,
                 "resolved": t["resolved"], "reward": t["reward"],
-                "exception": t["exception"], "n_steps": t["n_steps"], "wall_s": t["wall_s"],
+                "exception": t["exception"], "timed_out": t["timed_out"],
+                "infra_error": t["infra_error"], "attempted": t["attempted"],
+                "n_steps": t["n_steps"], "wall_s": t["wall_s"],
             }
-        solved_by = [h for h, c in row["cells"].items() if c and c["resolved"]]
-        row["n_solved_by"] = len(solved_by)
-        row["solved_by"] = sorted(solved_by)
-        row["disputed"] = 0 < len(solved_by) < len([c for c in row["cells"].values() if c])
+        solved = [k for k, c in row["cells"].items() if c and c["resolved"]]
+        att = [k for k, c in row["cells"].items() if c and c["attempted"]]
+        row["n_solved_by"], row["n_attempted_by"] = len(solved), len(att)
+        row["solved_by"] = sorted(solved)
+        row["disputed"] = 0 < len(solved) < len(att)
         grid.append(row)
 
-    # repeat-run variance (only harnesses run more than once)
     variance = []
-    for h, reps in runs.items():
+    for (model, harness), reps in runs.items():
         if len(reps) < 2:
             continue
-        per_rep = []
-        for r in sorted(reps, key=lambda r: r["rep"]):
-            n = len(r["trials"])
+        per_rep, ordered = [], sorted(reps, key=lambda r: r["rep"])
+        for r in ordered:
+            n = sum(1 for t in r["trials"].values() if t["attempted"])
             k = sum(1 for t in r["trials"].values() if t["resolved"])
             per_rep.append({"rep": r["rep"], "job": r["job"], "n": n, "resolved": k,
                             "rate": round(k / n, 4) if n else 0.0})
         flips = []
-        base = sorted(reps, key=lambda r: r["rep"])[0]["trials"]
-        for other in sorted(reps, key=lambda r: r["rep"])[1:]:
+        base = ordered[0]["trials"]
+        for other in ordered[1:]:
             for tid, t in other["trials"].items():
                 b = base.get(tid)
-                if b and b["resolved"] != t["resolved"]:
+                if b and b["attempted"] and t["attempted"] and b["resolved"] != t["resolved"]:
                     flips.append({"task": tid, "rep1": b["resolved"], "rep2": t["resolved"]})
-        variance.append({"harness": h, "reps": per_rep, "flips": flips})
+        variance.append({"model": model, "harness": harness,
+                         "model_label": MODEL_LABELS.get(model, model),
+                         "reps": per_rep, "flips": flips,
+                         "n_flips": len(flips),
+                         "rate_range_pp": round((max(r["rate"] for r in per_rep) -
+                                                 min(r["rate"] for r in per_rep)) * 100, 1)})
+
+    headline_model = models[0] if models else None
+    head = per_model.get(headline_model, {}) if headline_model else {}
+    excluded = [t for t in task_ids if oracle and not oracle.get(t, True)]
 
     out = {
         "meta": {
             "dataset": subset["dataset"],
             "n_tasks": len(task_ids),
+            "n_tasks_scored": len(task_ids) - len(excluded),
+            "excluded_by_oracle": excluded,
             "total_tasks_in_dataset": subset["total_tasks_in_dataset"],
             "candidate_pool_size": subset["candidate_pool_size"],
             "selection_seed": subset["seed"],
             "max_agent_timeout_sec": subset["max_agent_timeout_sec"],
-            "model": "moonshotai/kimi-k3 (Moonshot API, pinned by the gateway)",
-            "temperature": 1.0,
+            "agent_timeout_multiplier": 0.6,
+            "models": [MODEL_LABELS.get(m, m) for m in models],
+            "temperature": "1.0 (Kimi) / provider default (Gemini)",
             "n_attempts_per_task": 1,
-            "price_note": "Moonshot list price: $3.00/M input, $0.30/M cached input, $15.00/M output",
+            "price_note": "Moonshot Kimi K2.7 Code $0.95/M in, $0.19/M cached, $4.00/M out; "
+                          "Gemini 3.6 Flash billed to a separate Google AI Studio account",
         },
         "headline": {
-            "best": harnesses[0]["harness"] if harnesses else None,
-            "worst": harnesses[-1]["harness"] if harnesses else None,
-            "max_rate": max(rates) if rates else 0,
-            "min_rate": min(rates) if rates else 0,
-            "spread_pp": round(spread * 100, 1),
+            "model": headline_model,
+            "model_label": MODEL_LABELS.get(headline_model, headline_model),
+            "best": head.get("best"), "worst": head.get("worst"),
+            "max_rate": head.get("max_rate", 0), "min_rate": head.get("min_rate", 0),
+            "spread_pp": head.get("spread_pp", 0.0),
         },
-        "harnesses": harnesses,
+        "models": models,
+        "per_model": per_model,
+        "cross_model": cross,
+        "harnesses": rows,
         "not_driven": not_driven,
         "tasks": grid,
         "variance": variance,
+        "oracle": oracle,
         "task_meta": task_meta,
     }
     (ART / "results.json").write_text(json.dumps(out, indent=2))
     print(json.dumps(out["headline"], indent=2))
-    for h in harnesses:
-        print(f"  {h['harness']:16s} {h['n_resolved']:2d}/{h['n_tasks']:2d} "
-              f"= {h['resolve_rate']*100:5.1f}%  tok={h['tokens_total']:>9,}  "
-              f"${h['cost_usd']:.2f}  err={h['n_infra_errors']}")
+    if excluded:
+        print("excluded by oracle baseline:", excluded)
+    for mdl in models:
+        pm = per_model[mdl]
+        print(f"\n== {pm['model_label']}  spread {pm['spread_pp']}pp  ${pm['cost_usd']:.2f}")
+        for h in pm["harnesses"]:
+            print(f"   {h['harness']:16s} {h['n_resolved']:2d}/{h['n_tasks']:2d} "
+                  f"= {h['resolve_rate']*100:5.1f}%  tok={h['tokens_total']:>9,}  "
+                  f"${h['cost_usd']:.3f}  timeouts={h['n_timeouts']}  not-run={h['n_infra_errors']}")
+    if cross:
+        print(f"\ncross-model pairwise ranking agreement: "
+              f"{cross['pairs_agree']}/{cross['pairs_total']}")
 
 
 if __name__ == "__main__":

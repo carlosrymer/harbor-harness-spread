@@ -1,0 +1,42 @@
+{
+    "task": {
+        "path": "terminal-bench/gpt2-codegolf",
+        "source": "terminal-bench"
+    },
+    "trial_name": "gpt2-codegolf__2QkmyXq",
+    "trials_dir": "jobs/oracle-baseline",
+    "agent_timeout_multiplier": 1.0,
+    "environment": {
+        "type": "docker",
+        "mounts": [
+            {
+                "type": "bind",
+                "source": "/root/.ccr/ca-bundle.crt",
+                "target": "/ccr-ca.crt",
+                "read_only": true
+            },
+            {
+                "type": "bind",
+                "source": "/root/.local/bin/uv",
+                "target": "/usr/local/bin/uv",
+                "read_only": true
+            },
+            {
+                "type": "bind",
+                "source": "/root/.local/bin/uvx",
+                "target": "/usr/local/bin/uvx",
+                "read_only": true
+            }
+        ]
+    },
+    "verifier": {
+        "env": {
+            "SSL_CERT_FILE": "/ccr-ca.crt",
+            "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+            "CURL_CA_BUNDLE": "/ccr-ca.crt",
+            "PIP_CERT": "/ccr-ca.crt",
+            "UV_NATIVE_TLS": "1"
+        }
+    },
+    "job_id": "f51fd673-dc61-4700-908d-2e27e7093ee9"
+}

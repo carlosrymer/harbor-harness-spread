@@ -1,0 +1,72 @@
+{
+  "seed": 20260801,
+  "n_tasks": 8,
+  "max_agent_timeout_sec": 900,
+  "dataset": "terminal-bench@2.0",
+  "total_tasks_in_dataset": 89,
+  "candidate_pool_size": 50,
+  "excluded_unavailable": {
+    "qemu-alpine-ssh": "image unpullable in this environment (registry CDN 503)"
+  },
+  "tasks": [
+    {
+      "id": "overfull-hbox",
+      "difficulty": "easy",
+      "category": "debugging",
+      "docker_image": "alexgshaw/overfull-hbox:20251031",
+      "agent_timeout_sec": 750.0,
+      "verifier_timeout_sec": 360.0,
+      "expert_time_estimate_min": 60.0
+    },
+    {
+      "id": "gpt2-codegolf",
+      "difficulty": "hard",
+      "category": "software-engineering",
+      "docker_image": "alexgshaw/gpt2-codegolf:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 2400.0
+    },
+    {
+      "id": "password-recovery",
+      "difficulty": "hard",
+      "category": "security",
+      "docker_image": "alexgshaw/password-recovery:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 100.0
+    },
+    {
+      "id": "log-summary-date-ranges",
+      "difficulty": "medium",
+      "category": "data-processing",
+      "docker_image": "alexgshaw/log-summary-date-ranges:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 75.0
+    },
+    {
+      "id": "sqlite-with-gcov",
+      "difficulty": "medium",
+      "category": "system-administration",
+      "docker_image": "alexgshaw/sqlite-with-gcov:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 30.0
+    },
+    {
+      "id": "tune-mjcf",
+      "difficulty": "medium",
+      "category": "scientific-computing",
+      "docker_image": "alexgshaw/tune-mjcf:20251031",
+      "agent_timeout_sec": 900.0,
+      "verifier_timeout_sec": 900.0,
+      "expert_time_estimate_min": 30.0
+    }
+  ],
+  "excluded_by_oracle": [
+    "gcode-to-text",
+    "pytorch-model-recovery"
+  ],
+  "oracle_note": "Tasks whose own reference solution could not pass in this environment are excluded from the sweep entirely: running them would spend budget on cells that can never be scored."
+}
