@@ -1,37 +1,53 @@
 {
     "id": "5de9a97a-befc-449d-b46c-f8326b0d014c",
     "started_at": "2026-08-01T16:36:53.965181",
-    "updated_at": "2026-08-01T16:38:30.394569Z",
-    "finished_at": null,
+    "updated_at": "2026-08-01T16:53:05.051056",
+    "finished_at": "2026-08-01T16:53:05.051056",
     "n_total_trials": 12,
     "stats": {
-        "n_completed_trials": 4,
-        "n_errored_trials": 0,
-        "n_running_trials": 4,
-        "n_pending_trials": 4,
+        "n_completed_trials": 12,
+        "n_errored_trials": 2,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
         "n_cancelled_trials": 0,
         "n_retries": 0,
         "evals": {
             "oracle__terminal-bench": {
-                "n_trials": 4,
-                "n_errors": 0,
+                "n_trials": 11,
+                "n_errors": 2,
                 "metrics": [
                     {
-                        "mean": 1.0
+                        "mean": 0.5833333333333334
                     }
                 ],
                 "pass_at_k": {},
                 "reward_stats": {
                     "reward": {
+                        "0.0": [
+                            "crack-7z-hash__v8hkSDo",
+                            "chess-best-move__W4Hw4pK",
+                            "count-dataset-tokens__TpaZ7bB",
+                            "largest-eigenval__N7NByx8"
+                        ],
                         "1.0": [
+                            "sparql-university__kjiWJBy",
                             "db-wal-recovery__4ZiSczo",
                             "model-extraction-relu-logits__UpoLqUD",
-                            "sparql-university__kjiWJBy",
-                            "fix-git__6KtsNxk"
+                            "configure-git-webserver__5twh2rf",
+                            "fix-git__6KtsNxk",
+                            "adaptive-rejection-sampler__3PfW3re",
+                            "torch-pipeline-parallelism__K7vFesS"
                         ]
                     }
                 },
-                "exception_stats": {}
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "crack-7z-hash__v8hkSDo"
+                    ],
+                    "VerifierTimeoutError": [
+                        "query-optimize__zbVUNYU"
+                    ]
+                }
             }
         },
         "n_input_tokens": null,

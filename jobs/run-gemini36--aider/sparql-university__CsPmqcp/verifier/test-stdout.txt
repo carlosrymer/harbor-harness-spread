@@ -1,0 +1,16 @@
+Hit:1 http://security.ubuntu.com/ubuntu noble-security InRelease
+Hit:2 http://archive.ubuntu.com/ubuntu noble InRelease
+Hit:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease
+Hit:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+curl is already the newest version (8.5.0-2ubuntu10.11).
+0 upgraded, 0 newly installed, 0 to remove and 35 not upgraded.
+curl: (22) The requested URL returned error: 503
+error: unexpected argument '-w' found
+
+Usage: uvx [OPTIONS] [COMMAND]
+
+For more information, try '--help'.

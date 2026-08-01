@@ -50,4 +50,4 @@ rootdir: /tests
 plugins: json-ctrf-0.3.5
 collected 6 items
 
-../tests/test_outputs.py 
+../tests/test_outputs.py ..

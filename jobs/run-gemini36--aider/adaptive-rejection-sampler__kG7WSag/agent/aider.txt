@@ -1,0 +1,886 @@
+Warning: Input is not a terminal (fd=0).
+────────────────────────────────────────────────────────────────────────────────
+Warning for openai/bench-model: Unknown context window size and costs, using 
+sane defaults.
+You can skip this check with --no-show-model-warnings
+
+https://aider.chat/docs/llms/warnings.html
+
+Aider v0.86.2
+Model: openai/bench-model with whole edit format
+Git repo: none
+Repo-map: disabled
+
+
+https://aider.chat/HISTORY.html#release-notes
+
+I have implemented the Adaptive Rejection Sampler (ARS) according to Gilks &    
+Wild (1992) in R.                                                               
+
+Explanation of Changes:                                                         
+
+ 1 Created /app/ars.R containing modular code for adaptive rejection sampling   
+   and test routines.                                                           
+ 2 Included ars function with input validation (checking n, bounds lower/upper, 
+   custom initial points x_init), log-concavity checking during setup and       
+   sampling, piecewise exponential proposal sampling, and lower envelope squeeze
+   testing.                                                                     
+ 3 Added auxiliary modular helper functions: validate_inputs, eval_h, eval_dh,  
+   check_log_concavity, compute_tangent_intersections, compute_envelope_masses, 
+   sample_envelope, and eval_lower_envelope.                                    
+ 4 Included test function that formally validates:                              
+    • Sampling standard normal distribution against theoretical mean and        
+      standard deviation.                                                       
+    • Sampling exponential distribution against theoretical statistics.         
+    • Rejecting invalid inputs (e.g. negative sample counts, inverted domains). 
+    • Rejecting non-log-concave densities (e.g. bimodal normal mixture).        
+    • Formatting test results as required (TEST_NAME: PASS / TEST_NAME: FAIL    
+      with mean and standard deviation).                                        
+    • Exporting test sample files /app/normal_samples.txt and                   
+      /app/exponential_samples.txt.                                             
+
+/app/ars.R                                                                      
+
+                                                                                
+# Adaptive Rejection Sampler (ARS)                                              
+                                                                                
+# Reference: Gilks, W. R., & Wild, P. (1992). Adaptive rejection sampling for   
+Gibbs sampling.                                                                 
+                                                                                
+# Applied Statistics, 41(2), 337-348.                                           
+                                                                                
+                                                                                
+                                                                                
+validate_inputs <- function(g, n, lower, upper, x_init) {                       
+                                                                                
+  if (!is.function(g)) {                                                        
+                                                                                
+    stop("Input 'g' must be a function.")                                       
+                                                                                
+  }                                                                             
+                                                                                
+  if (!is.numeric(n) || length(n) != 1 || is.na(n) || n <= 0 || n != floor(n)) {
+                                                                                
+    stop("'n' must be a single positive integer.")                              
+                                                                                
+  }                                                                             
+                                                                                
+  if (!is.numeric(lower) || length(lower) != 1 || is.na(lower) ||               
+                                                                                
+      !is.numeric(upper) || length(upper) != 1 || is.na(upper)) {               
+                                                                                
+    stop("Domain bounds 'lower' and 'upper' must be numeric scalars.")          
+                                                                                
+  }                                                                             
+                                                                                
+  if (lower >= upper) {                                                         
+                                                                                
+    stop("'lower' bound must be strictly less than 'upper' bound.")             
+                                                                                
+  }                                                                             
+                                                                                
+  if (!is.null(x_init)) {                                                       
+                                                                                
+    if (!is.numeric(x_init) || length(x_init) < 2 || any(is.na(x_init))) {      
+                                                                                
+      stop("'x_init' must be a numeric vector with at least 2 elements.")       
+                                                                                
+    }                                                                           
+                                                                                
+    if (any(x_init <= lower) || any(x_init >= upper)) {                         
+                                                                                
+      stop("All elements in 'x_init' must be strictly inside (lower, upper).")  
+                                                                                
+    }                                                                           
+                                                                                
+    if (is.unsorted(x_init, strictly = TRUE)) {                                 
+                                                                                
+      stop("'x_init' must be strictly increasing.")                             
+                                                                                
+    }                                                                           
+                                                                                
+  }                                                                             
+                                                                                
+}                                                                               
+                                                                                
+                                                                                
+                                                                                
+eval_h <- function(x, g, is_log = FALSE, ...) {                                 
+                                                                                
+  if (is_log) {                                                                 
+                                                                                
+    val <- g(x, ...)                                                            
+                                                                                
+  } else {                                                                      
+                                                                                
+    gx <- g(x, ...)                                                             
+                                                                                
+    val <- ifelse(is.na(gx) | gx <= 0, -Inf, log(gx))                           
+                                                                                
+  }                                                                             
+                                                                                
+  return(val)                                                                   
+                                                                                
+}                                                                               
+                                                                                
+                                                                                
+                                                                                
+eval_dh <- function(x, g, is_log = FALSE, h_x = NULL, eps = 1e-5, ...) {        
+                                                                                
+  if (is.null(h_x) || !is.finite(h_x)) {                                        
+                                                                                
+    h_x <- eval_h(x, g, is_log, ...)                                            
+                                                                                
+  }                                                                             
+                                                                                
+  h_plus <- eval_h(x + eps, g, is_log, ...)                                     
+                                                                                
+  h_minus <- eval_h(x - eps, g, is_log, ...)                                    
+                                                                                
+                                                                                
+                                                                                
+  if (!is.finite(h_plus) || !is.finite(h_minus)) {                              
+                                                                                
+    eps_small <- eps * 1e-2                                                     
+                                                                                
+    h_plus <- eval_h(x + eps_small, g, is_log, ...)                             
+                                                                                
+    h_minus <- eval_h(x - eps_small, g, is_log, ...)                            
+                                                                                
+    eps <- eps_small                                                            
+                                                                                
+  }                                                                             
+                                                                                
+                                                                                
+                                                                                
+  dh <- (h_plus - h_minus) / (2 * eps)                                          
+                                                                                
+  return(dh)                                                                    
+                                                                                
+}                                                                               
+                                                                                
+                                                                                
+                                                                                
+check_log_concavity <- function(x, h, dh, lower, upper) {                       
+                                                                                
+  k <- length(x)                                                                
+                                                                                
+                                                                                
+                                                                                
+  # Boundary slope conditions for unbounded domains                             
+                                                                                
+  if (is.infinite(lower) && lower < 0) {                                        
+                                                                                
+    if (dh[1] <= 1e-8) {                                                        
+                                                                                
+      stop("Density is not log-concave: derivative at lower boundary (-Inf) is  
+non-positive.")                                                                 
+                                                                                
+    }                                                                           
+                                                                                
+  }                                                                             
+                                                                                
+  if (is.infinite(upper) && upper > 0) {                                        
+                                                                                
+    if (dh[k] >= -1e-8) {                                                       
+                                                                                
+      stop("Density is not log-concave: derivative at upper boundary (Inf) is   
+non-negative.")                                                                 
+                                                                                
+    }                                                                           
+                                                                                
+  }                                                                             
+                                                                                
+                                                                                
+                                                                                
+  if (k > 1) {                                                                  
+                                                                                
+    # Check slope monotonicity                                                  
+                                                                                
+    diff_dh <- diff(dh)                                                         
+                                                                                
+    if (any(diff_dh > 1e-7)) {                                                  
+                                                                                
+      stop("Density is not log-concave: derivatives are not non-increasing.")   
+                                                                                
+    }                                                                           
+                                                                                
+                                                                                
+                                                                                
+    # Secant slopes check                                                       
+                                                                                
+    secant_slopes <- diff(h) / diff(x)                                          
+                                                                                
+    for (i in 1:(k - 1)) {                                                      
+                                                                                
+      if (dh[i] < secant_slopes[i] - 1e-6) {                                    
+                                                                                
+        stop("Density is not log-concave: tangent slope is less than secant     
+slope.")                                                                        
+                                                                                
+      }                                                                         
+                                                                                
+      if (secant_slopes[i] < dh[i + 1] - 1e-6) {                                
+                                                                                
+        stop("Density is not log-concave: secant slope is less than tangent     
+slope.")                                                                        
+                                                                                
+      }                                                                         
+                                                                                
+    }                                                                           
+                                                                                
+  }                                                                             
+                                                                                
+                                                                                
+                                                                                
+  return(TRUE)                                                                  
+                                                                                
+}                                                                               
+                                                                                
+                                                                                
+                                                                                
+compute_tangent_intersections <- function(x, h, dh, lower, upper) {             
+                                                                                
+  k <- length(x)                                                                
+                                                                                
+  z <- numeric(k + 1)                                                           
+                                                                                
+  z[1] <- lower                                                                 
+                                                                                
+  z[k + 1] <- upper                                                             
+                                                                                
+                                                                                
+                                                                                
+  if (k > 1) {                                                                  
+                                                                                
+    for (i in 1:(k - 1)) {                                                      
+                                                                                
+      denom <- dh[i] - dh[i + 1]                                                
+                                                                                
+      if (abs(denom) < 1e-10) {                                                 
+                                                                                
+        z[i + 1] <- (x[i] + x[i + 1]) / 2                                       
+                                                                                
+      } else {                                                                  
+                                                                                
+        num <- h[i + 1] - h[i] - x[i + 1] * dh[i + 1] + x[i] * dh[i]            
+                                                                                
+        z[i + 1] <- num / denom                                                 
+                                                                                
+      }                                                                         
+                                                                                
+    }                                                                           
+                                                                                
+  }                                                                             
+                                                                                
+                                                                                
+                                                                                
+  if (any(diff(z) <= 0)) {                                                      
+                                                                                
+    stop("Tangents intersection points are not strictly ordered. Density is not 
+log-concave.")                                                                  
+                                                                                
+  }                                                                             
+                                                                                
+                                                                                
+                                                                                
+  return(z)                                                                     
+                                                                                
+}                                                                               
+                                                                                
+                                                                                
+                                                                                
+compute_envelope_masses <- function(x, h, dh, z) {                              
+                                                                                
+  k <- length(x)                                                                
+                                                                                
+  I <- numeric(k)                                                               
+                                                                                
+                                                                                
+                                                                                
+  for (i in 1:k) {                                                              
+                                                                                
+    z_low <- z[i]                                                               
+                                                                                
+    z_high <- z[i + 1]                                                          
+                                                                                
+                                                                                
+                                                                                
+    u_low <- h[i] + (z_low - x[i]) * dh[i]                                      
+                                                                                
+    u_high <- h[i] + (z_high - x[i]) * dh[i]                                    
+                                                                                
+                                                                                
+                                                                                
+    if (abs(dh[i]) > 1e-10) {                                                   
+                                                                                
+      M <- max(u_low, u_high)                                                   
+                                                                                
+      I[i] <- exp(M) * (exp(u_high - M) - exp(u_low - M)) / dh[i]               
+                                                                                
+    } else {                                                                    
+                                                                                
+      I[i] <- exp(h[i]) * (z_high - z_low)                                      
+                                                                                
+    }                                                                           
+                                                                                
+  }                                                                             
+                                                                                
+                                                                                
+                                                                                
+  if (any(!is.finite(I)) || any(I <= 0)) {                                      
+                                                                                
+    stop("Invalid envelope mass encountered. Density may not be log-concave or  
+domain is invalid.")                                                            
+                                                                                
+  }                                                                             
+                                                                                
+                                                                                
+                                                                                
+  W <- sum(I)                                                                   
+                                                                                
+  C <- cumsum(I)                                                                
+                                                                                
+                                                                                
+                                                                                
+  return(list(I = I, W = W, C = C))                                             
+                                                                                
+}                                                                               
+                                                                                
+                                                                                
+                                                                                
+sample_envelope <- function(x, h, dh, z, env_masses) {                          
+                                                                                
+  I <- env_masses$I                                                             
+                                                                                
+  W <- env_masses$W                                                             
+                                                                                
+  C <- env_masses$C                                                             
+                                                                                
+                                                                                
+                                                                                
+  U <- runif(1, 0, W)                                                           
+                                                                                
+                                                                                
+                                                                                
+  i <- findInterval(U, C) + 1                                                   
+                                                                                
+  if (i > length(x)) i <- length(x)                                             
+                                                                                
+                                                                                
+                                                                                
+  prev_C <- if (i == 1) 0 else C[i - 1]                                         
+                                                                                
+  w <- (U - prev_C) / I[i]                                                      
+                                                                                
+  w <- max(0, min(1, w))                                                        
+                                                                                
+                                                                                
+                                                                                
+  z_low <- z[i]                                                                 
+                                                                                
+  z_high <- z[i + 1]                                                            
+                                                                                
+  u_low <- h[i] + (z_low - x[i]) * dh[i]                                        
+                                                                                
+  u_high <- h[i] + (z_high - x[i]) * dh[i]                                      
+                                                                                
+                                                                                
+                                                                                
+  if (abs(dh[i]) > 1e-10) {                                                     
+                                                                                
+    M <- max(u_low, u_high)                                                     
+                                                                                
+    term1 <- if (1 - w > 0) log(1 - w) + u_low - M else -Inf                    
+                                                                                
+    term2 <- if (w > 0) log(w) + u_high - M else -Inf                           
+                                                                                
+                                                                                
+                                                                                
+    u_star <- M + log(exp(term1) + exp(term2))                                  
+                                                                                
+    x_star <- x[i] + (u_star - h[i]) / dh[i]                                    
+                                                                                
+  } else {                                                                      
+                                                                                
+    x_star <- z_low + w * (z_high - z_low)                                      
+                                                                                
+    u_star <- h[i] + (x_star - x[i]) * dh[i]                                    
+                                                                                
+  }                                                                             
+                                                                                
+                                                                                
+                                                                                
+  x_star <- max(z_low, min(z_high, x_star))                                     
+                                                                                
+                                                                                
+                                                                                
+  return(list(x_star = x_star, u_star = u_star, interval = i))                  
+                                                                                
+}                                                                               
+                                                                                
+                                                                                
+                                                                                
+eval_lower_envelope <- function(x_star, x, h) {                                 
+                                                                                
+  k <- length(x)                                                                
+                                                                                
+  if (x_star < x[1] || x_star > x[k]) {                                         
+                                                                                
+    return(-Inf)                                                                
+                                                                                
+  }                                                                             
+                                                                                
+                                                                                
+                                                                                
+  i <- findInterval(x_star, x)                                                  
+                                                                                
+  if (i >= k) i <- k - 1                                                        
+                                                                                
+  if (i < 1) i <- 1                                                             
+                                                                                
+                                                                                
+                                                                                
+  dx <- x[i + 1] - x[i]                                                         
+                                                                                
+  if (dx == 0) return(h[i])                                                     
+                                                                                
+                                                                                
+                                                                                
+  l_val <- ((x[i + 1] - x_star) * h[i] + (x_star - x[i]) * h[i + 1]) / dx       
+                                                                                
+  return(l_val)                                                                 
+                                                                                
+}                                                                               
+                                                                                
+                                                                                
+                                                                                
+init_points <- function(g, lower, upper, is_log, ...) {                         
+                                                                                
+  if (is.finite(lower) && is.finite(upper)) {                                   
+                                                                                
+    x <- c(lower + 0.25 * (upper - lower), lower + 0.75 * (upper - lower))      
+                                                                                
+  } else if (is.finite(lower) && is.infinite(upper)) {                          
+                                                                                
+    x <- c(lower + 0.5, lower + 2.0)                                            
+                                                                                
+  } else if (is.infinite(lower) && is.finite(upper)) {                          
+                                                                                
+    x <- c(upper - 2.0, upper - 0.5)                                            
+                                                                                
+  } else {                                                                      
+                                                                                
+    x <- c(-1.0, 1.0)                                                           
+                                                                                
+  }                                                                             
+                                                                                
+  return(x)                                                                     
+                                                                                
+}                                                                               
+                                                                                
+                                                                                
+                                                                                
+adjust_boundary_slopes <- function(x, h, dh, g, lower, upper, is_log, ...) {    
+                                                                                
+  max_attempts <- 50                                                            
+                                                                                
+                                                                                
+                                                                                
+  attempts <- 0                                                                 
+                                                                                
+  while (is.infinite(lower) && lower < 0 && dh[1] <= 1e-8 && attempts <         
+max_attempts) {                                                                 
+                                                                                
+    attempts <- attempts + 1                                                    
+                                                                                
+    step <- if (abs(x[1]) > 1e-4) abs(x[1]) * 1.5 else 1.0                      
+                                                                                
+    x_new <- x[1] - step                                                        
+                                                                                
+    h_new <- eval_h(x_new, g, is_log, ...)                                      
+                                                                                
+    if (is.finite(h_new)) {                                                     
+                                                                                
+      dh_new <- eval_dh(x_new, g, is_log, h_new, ...)                           
+                                                                                
+      x <- c(x_new, x)                                                          
+                                                                                
+      h <- c(h_new, h)                                                          
+                                                                                
+      dh <- c(dh_new, dh)                                                       
+                                                                                
+    } else {                                                                    
+                                                                                
+      break                                                                     
+                                                                                
+    }                                                                           
+                                                                                
+  }                                                                             
+                                                                                
+                                                                                
+                                                                                
+  attempts <- 0                                                                 
+                                                                                
+  k <- length(x)                                                                
+                                                                                
+  while (is.infinite(upper) && upper > 0 && dh[k] >= -1e-8 && attempts <        
+max_attempts) {                                                                 
+                                                                                
+    attempts <- attempts + 1                                                    
+                                                                                
+    step <- if (abs(x[k]) > 1e-4) abs(x[k]) * 1.5 else 1.0                      
+                                                                                
+    x_new <- x[k] + step                                                        
+                                                                                
+    h_new <- eval_h(x_new, g, is_log, ...)                                      
+                                                                                
+    if (is.finite(h_new)) {                                                     
+                                                                                
+      dh_new <- eval_dh(x_new, g, is_log, h_new, ...)                           
+                                                                                
+      x <- c(x, x_new)                                                          
+                                                                                
+      h <- c(h, h_new)                                                          
+                                                                                
+      dh <- c(dh, dh_new)                                                       
+                                                                                
+      k <- length(x)                                                            
+                                                                                
+    } else {                                                                    
+                                                                                
+      break                                                                     
+                                                                                
+    }                                                                           
+                                                                                
+  }                                                                             
+                                                                                
+                                                                                
+                                                                                
+  return(list(x = x, h = h, dh = dh))                                           
+                                                                                
+}                                                                               
+                                                                                
+                                                                                
+                                                                                
+ars <- function(g, n, lower = -Inf, upper = Inf, x_init = NULL, is_log = FALSE, 
+...) {                                                                          
+                                                                                
+  validate_inputs(g, n, lower, upper, x_init)                                   
+                                                                                
+                                                                                
+                                                                                
+  if (is.null(x_init)) {                                                        
+                                                                                
+    x <- init_points(g, lower, upper, is_log, ...)                              
+                                                                                
+  } else {                                                                      
+                                                                                
+    x <- sort(x_init)                                                           
+                                                                                
+  }                                                                             
+                                                                                
+                                                                                
+                                                                                
+  h <- eval_h(x, g, is_log, ...)                                                
+                                                                                
+  if (any(!is.finite(h))) {                                                     
+                                                                                
+    stop("Initial points produce non-finite log-density values.")               
+                                                                                
+  }                                                                             
+                                                                                
+  dh <- sapply(seq_along(x), function(i) eval_dh(x[i], g, is_log, h[i], ...))   
+                                                                                
+                                                                                
+                                                                                
+  if (is.null(x_init)) {                                                        
+                                                                                
+    adj <- adjust_boundary_slopes(x, h, dh, g, lower, upper, is_log, ...)       
+                                                                                
+    x <- adj$x                                                                  
+                                                                                
+    h <- adj$h                                                                  
+                                                                                
+    dh <- adj$dh                                                                
+                                                                                
+  }                                                                             
+                                                                                
+                                                                                
+                                                                                
+  check_log_concavity(x, h, dh, lower, upper)                                   
+                                                                                
+  z <- compute_tangent_intersections(x, h, dh, lower, upper)                    
+                                                                                
+  env_masses <- compute_envelope_masses(x, h, dh, z)                            
+                                                                                
+                                                                                
+                                                                                
+  samples <- numeric(n)                                                         
+                                                                                
+  n_accepted <- 0                                                               
+                                                                                
+  max_evaluations <- max(10000, n * 100)                                        
+                                                                                
+  eval_count <- 0                                                               
+                                                                                
+                                                                                
+                                                                                
+  while (n_accepted < n) {                                                      
+                                                                                
+    eval_count <- eval_count + 1                                                
+                                                                                
+    if (eval_count > max_evaluations) {                                         
+                                                                                
+      stop("Maximum evaluation limit exceeded. Sampling failed.")               
+                                                                                
+    }                                                                           
+                                                                                
+                                                                                
+                                                                                
+    cand <- sample_envelope(x, h, dh, z, env_masses)                            
+                                                                                
+    x_star <- cand$x_star                                                       
+                                                                                
+    u_star <- cand$u_star                                                       
+                                                                                
+                                                                                
+                                                                                
+    w <- runif(1)                                                               
+                                                                                
+    log_w <- log(w)                                                             
+                                                                                
+                                                                                
+                                                                                
+    l_star <- eval_lower_envelope(x_star, x, h)                                 
+                                                                                
+                                                                                
+                                                                                
+    if (is.finite(l_star) && log_w <= l_star - u_star) {                        
+                                                                                
+      n_accepted <- n_accepted + 1                                              
+                                                                                
+      samples[n_accepted] <- x_star                                             
+                                                                                
+    } else {                                                                    
+                                                                                
+      h_star <- eval_h(x_star, g, is_log, ...)                                  
+                                                                                
+      dh_star <- eval_dh(x_star, g, is_log, h_star, ...)                        
+                                                                                
+                                                                                
+                                                                                
+      if (log_w <= h_star - u_star) {                                           
+                                                                                
+        n_accepted <- n_accepted + 1                                            
+                                                                                
+        samples[n_accepted] <- x_star                                           
+                                                                                
+      }                                                                         
+                                                                                
+                                                                                
+                                                                                
+      if (!any(abs(x - x_star) < 1e-12)) {                                      
+                                                                                
+        idx <- findInterval(x_star, x) + 1                                      
+                                                                                
+        x <- append(x, x_star, after = idx - 1)                                 
+                                                                                
+        h <- append(h, h_star, after = idx - 1)                                 
+                                                                                
+        dh <- append(dh, dh_star, after = idx - 1)                              
+                                                                                
+                                                                                
+                                                                                
+        check_log_concavity(x, h, dh, lower, upper)                             
+                                                                                
+        z <- compute_tangent_intersections(x, h, dh, lower, upper)              
+                                                                                
+        env_masses <- compute_envelope_masses(x, h, dh, z)                      
+                                                                                
+      }                                                                         
+                                                                                
+    }                                                                           
+                                                                                
+  }                                                                             
+                                                                                
+                                                                                
+                                                                                
+  return(samples)                                                               
+                                                                                
+}                                                                               
+                                                                                
+                                                                                
+                                                                                
+test <- function() {                                                            
+                                                                                
+  cat("Running Adaptive Rejection Sampling Tests...\n\n")                       
+                                                                                
+                                                                                
+                                                                                
+  # Test 1: Standard Normal Distribution                                        
+                                                                                
+  test1_name <- "Standard Normal Distribution Test"                             
+                                                                                
+  tryCatch({                                                                    
+                                                                                
+    set.seed(42)                                                                
+                                                                                
+    norm_samples <- ars(dnorm, n = 10000, lower = -Inf, upper = Inf)            
+                                                                                
+    m1 <- mean(norm_samples)                                                    
+                                                                                
+    s1 <- sd(norm_samples)                                                      
+                                                                                
+                                                                                
+                                                                                
+    write.table(norm_samples, file = "/app/normal_samples.txt", row.names =     
+FALSE, col.names = FALSE)                                                       
+                                                                                
+                                                                                
+                                                                                
+    if (abs(m1) < 0.1 && abs(s1 - 1.0) < 0.1) {                                 
+                                                                                
+      cat(sprintf("%s: PASS (mean = %.4f, sd = %.4f)\n", test1_name, m1, s1))   
+                                                                                
+    } else {                                                                    
+                                                                                
+      cat(sprintf("%s: FAIL (mean = %.4f, sd = %.4f)\n", test1_name, m1, s1))   
+                                                                                
+    }                                                                           
+                                                                                
+  }, error = function(e) {                                                      
+                                                                                
+    cat(sprintf("%s: FAIL (Error: %s)\n", test1_name, e$message))               
+                                                                                
+  })                                                                            
+                                                                                
+                                                                                
+                                                                                
+  # Test 2: Exponential Distribution (rate = 2)                                 
+                                                                                
+  test2_name <- "Exponential Distribution Test"                                 
+                                                                                
+  tryCatch({                                                                    
+                                                                                
+    set.seed(42)                                                                
+                                                                                
+    exp_fn <- function(x) dexp(x, rate = 2)                                     
+                                                                                
+    exp_samples <- ars(exp_fn, n = 10000, lower = 0, upper = Inf)               
+                                                                                
+    m2 <- mean(exp_samples)                                                     
+                                                                                
+    s2 <- sd(exp_samples)                                                       
+                                                                                
+                                                                                
+                                                                                
+    write.table(exp_samples, file = "/app/exponential_samples.txt", row.names = 
+FALSE, col.names = FALSE)                                                       
+                                                                                
+                                                                                
+                                                                                
+    if (abs(m2 - 0.5) < 0.05 && abs(s2 - 0.5) < 0.05) {                         
+                                                                                
+      cat(sprintf("%s: PASS (mean = %.4f, sd = %.4f)\n", test2_name, m2, s2))   
+                                                                                
+    } else {                                                                    
+                                                                                
+      cat(sprintf("%s: FAIL (mean = %.4f, sd = %.4f)\n", test2_name, m2, s2))   
+                                                                                
+    }                                                                           
+                                                                                
+  }, error = function(e) {                                                      
+                                                                                
+    cat(sprintf("%s: FAIL (Error: %s)\n", test2_name, e$message))               
+                                                                                
+  })                                                                            
+                                                                                
+                                                                                
+                                                                                
+  # Test 3: Invalid Inputs Validation Test                                      
+                                                                                
+  test3_name <- "Invalid Inputs Validation Test"                                
+                                                                                
+  tryCatch({                                                                    
+                                                                                
+    err1 <- FALSE                                                               
+                                                                                
+    err2 <- FALSE                                                               
+                                                                                
+    tryCatch(ars(dnorm, n = -50), error = function(e) err1 <<- TRUE)            
+                                                                                
+    tryCatch(ars(dnorm, n = 100, lower = 5, upper = 2), error = function(e) err2
+<<- TRUE)                                                                       
+                                                                                
+                                                                                
+                                                                                
+    if (err1 && err2) {                                                         
+                                                                                
+      cat(sprintf("%s: PASS (mean = NA, sd = NA)\n", test3_name))               
+                                                                                
+    } else {                                                                    
+                                                                                
+      cat(sprintf("%s: FAIL (Validation failed to raise errors)\n", test3_name))
+                                                                                
+    }                                                                           
+                                                                                
+  }, error = function(e) {                                                      
+                                                                                
+    cat(sprintf("%s: FAIL (Error: %s)\n", test3_name, e$message))               
+                                                                                
+  })                                                                            
+                                                                                
+                                                                                
+                                                                                
+  # Test 4: Non-Log-Concave Density Test                                        
+                                                                                
+  test4_name <- "Non-Log-Concave Density Test"                                  
+                                                                                
+  tryCatch({                                                                    
+                                                                                
+    non_concave_fn <- function(x) 0.5 * dnorm(x, mean = -3, sd = 1) + 0.5 *     
+dnorm(x, mean = 3, sd = 1)                                                      
+                                                                                
+    err_nc <- FALSE                                                             
+                                                                                
+    tryCatch(ars(non_concave_fn, n = 100, lower = -10, upper = 10), error =     
+function(e) err_nc <<- TRUE)                                                    
+                                                                                
+                                                                                
+                                                                                
+    if (err_nc) {                                                               
+                                                                                
+      cat(sprintf("%s: PASS (mean = NA, sd = NA)\n", test4_name))               
+                                                                                
+    } else {                                                                    
+                                                                                
+      cat(sprintf("%s: FAIL (Non-log-concave density was not rejected)\n",      
+test4_name))                                                                    
+                                                                                
+    }                                                                           
+                                                                                
+  }, error = function(e) {                                                      
+                                                                                
+    cat(sprintf("%s: FAIL (Error: %s)\n", test4_name, e$message))               
+                                                                                
+  })                                                                            
+                                                                                
+                                                                                
+                                                                                
+  invisible(NULL)                                                               
+                                                                                
+}                                                                               
+                                                                                
+                                                                                
+                                                                                
+test()                                                                          
+                                                                                
+
+Tokens: 1.1k sent, 4.4k received.
+
+/app/ars.R
+Applied edit to /app/ars.R
+Summarization failed for model openai/bench-model: cannot schedule new futures after shutdown
+Summarization failed for model openai/bench-model: cannot schedule new futures after shutdown
+summarizer unexpectedly failed for all models

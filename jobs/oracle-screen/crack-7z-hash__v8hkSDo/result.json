@@ -1,0 +1,141 @@
+{
+    "id": "116a9673-2f27-4a32-932a-d65dd95c91d7",
+    "task_name": "crack-7z-hash",
+    "trial_name": "crack-7z-hash__v8hkSDo",
+    "trial_uri": "file:///home/user/builds/harbor-harness-spread/jobs/oracle-screen/crack-7z-hash__v8hkSDo",
+    "task_id": {
+        "path": "/home/user/builds/harbor-harness-spread/terminal-bench/crack-7z-hash"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "6557afcd0ab96deef7a8292019ea507be18f91433df61618b622866a293525a8",
+    "config": {
+        "task": {
+            "path": "/home/user/builds/harbor-harness-spread/terminal-bench/crack-7z-hash",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "crack-7z-hash__v8hkSDo",
+        "trials_dir": "/home/user/builds/harbor-harness-spread/jobs/oracle-screen",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": 1.0,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "oracle",
+            "import_path": null,
+            "model_name": null,
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/.ccr/ca-bundle.crt",
+                    "target": "/ccr-ca.crt",
+                    "read_only": true
+                },
+                {
+                    "type": "bind",
+                    "source": "/root/.local/bin/uv",
+                    "target": "/usr/local/bin/uv",
+                    "read_only": true
+                },
+                {
+                    "type": "bind",
+                    "source": "/root/.local/bin/uvx",
+                    "target": "/usr/local/bin/uvx",
+                    "read_only": true
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {
+                "SSL_CERT_FILE": "/ccr-ca.crt",
+                "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                "PIP_CERT": "/ccr-ca.crt",
+                "UV_NATIVE_TLS": "1"
+            },
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "job_id": "5de9a97a-befc-449d-b46c-f8326b0d014c"
+    },
+    "agent_info": {
+        "name": "oracle",
+        "version": "1.0.0",
+        "model_info": null
+    },
+    "agent_result": {
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "exception_info": {
+        "exception_type": "AgentTimeoutError",
+        "exception_message": "Agent execution timed out after 900.0 seconds",
+        "exception_traceback": "Traceback (most recent call last):\n  File \"/usr/lib/python3.13/asyncio/tasks.py\", line 507, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/home/user/builds/harbor-harness-spread/.venv/lib/python3.13/site-packages/harbor/agents/oracle.py\", line 132, in run\n    result = await environment.exec(\n             ^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n    )\n    ^\n  File \"/home/user/builds/harbor-harness-spread/.venv/lib/python3.13/site-packages/harbor/environments/docker/docker.py\", line 1096, in exec\n    return await self._compose_exec(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<6 lines>...\n    )\n    ^\n  File \"/home/user/builds/harbor-harness-spread/.venv/lib/python3.13/site-packages/harbor/environments/docker/docker.py\", line 1173, in _compose_exec\n    return await self._run_docker_compose_command(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<4 lines>...\n    )\n    ^\n  File \"/home/user/builds/harbor-harness-spread/.venv/lib/python3.13/site-packages/harbor/environments/docker/docker.py\", line 649, in _run_docker_compose_command\n    result = await self._collect_buffered_output(\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n    )\n    ^\n  File \"/home/user/builds/harbor-harness-spread/.venv/lib/python3.13/site-packages/harbor/environments/docker/docker.py\", line 675, in _collect_buffered_output\n    stdout_bytes, stderr_bytes = await asyncio.wait_for(\n                                 ^^^^^^^^^^^^^^^^^^^^^^^\n        process.communicate(input=stdin_data), timeout=timeout_sec\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/usr/lib/python3.13/asyncio/tasks.py\", line 507, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/usr/lib/python3.13/asyncio/subprocess.py\", line 201, in communicate\n    stdin, stdout, stderr = await tasks.gather(stdin, stdout, stderr)\n                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.13/asyncio/subprocess.py\", line 181, in _read_stream\n    output = await stream.read()\n             ^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.13/asyncio/streams.py\", line 723, in read\n    block = await self.read(self._limit)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.13/asyncio/streams.py\", line 730, in read\n    await self._wait_for_data('read')\n  File \"/usr/lib/python3.13/asyncio/streams.py\", line 539, in _wait_for_data\n    await self._waiter\nasyncio.exceptions.CancelledError\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/user/builds/harbor-harness-spread/.venv/lib/python3.13/site-packages/harbor/trial/trial.py\", line 450, in _run_agent_phase\n    await asyncio.wait_for(\n    ...<6 lines>...\n    )\n  File \"/usr/lib/python3.13/asyncio/tasks.py\", line 506, in wait_for\n    async with timeouts.timeout(timeout):\n               ~~~~~~~~~~~~~~~~^^^^^^^^^\n  File \"/usr/lib/python3.13/asyncio/timeouts.py\", line 116, in __aexit__\n    raise TimeoutError from exc_val\nTimeoutError\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/user/builds/harbor-harness-spread/.venv/lib/python3.13/site-packages/harbor/trial/single_step.py\", line 77, in _run_agent\n    await self._run_agent_phase(\n    ...<4 lines>...\n    )\n  File \"/home/user/builds/harbor-harness-spread/.venv/lib/python3.13/site-packages/harbor/trial/trial.py\", line 459, in _run_agent_phase\n    raise AgentTimeoutError(\n        f\"Agent execution timed out after {timeout_sec} seconds\"\n    ) from exc\nharbor.trial.errors.AgentTimeoutError: Agent execution timed out after 900.0 seconds\n",
+        "occurred_at": "2026-08-01T16:51:57.144222"
+    },
+    "started_at": "2026-08-01T16:36:54.060000Z",
+    "finished_at": "2026-08-01T16:53:00.088472Z",
+    "environment_setup": {
+        "started_at": "2026-08-01T16:36:54.166873Z",
+        "finished_at": "2026-08-01T16:36:57.019623Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-08-01T16:36:57.019667Z",
+        "finished_at": "2026-08-01T16:36:57.019715Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-08-01T16:36:57.019775Z",
+        "finished_at": "2026-08-01T16:51:57.120722Z"
+    },
+    "verifier": {
+        "started_at": "2026-08-01T16:51:59.043609Z",
+        "finished_at": "2026-08-01T16:52:47.377177Z"
+    },
+    "step_results": null
+}

@@ -1,0 +1,147 @@
+{
+    "id": "88cd0390-11a7-40df-9e89-dab44cb88e00",
+    "task_name": "db-wal-recovery",
+    "trial_name": "db-wal-recovery__66CGNzp",
+    "trial_uri": "file:///home/user/builds/harbor-harness-spread/jobs/run-gemini36--aider/db-wal-recovery__66CGNzp",
+    "task_id": {
+        "path": "/home/user/builds/harbor-harness-spread/terminal-bench/db-wal-recovery"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "01f470c86f3a1f7ce4d91bdf0aaaa89fa96a4124ac48617990e2735b5291913a",
+    "config": {
+        "task": {
+            "path": "/home/user/builds/harbor-harness-spread/terminal-bench/db-wal-recovery",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "db-wal-recovery__66CGNzp",
+        "trials_dir": "/home/user/builds/harbor-harness-spread/jobs/run-gemini36--aider",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": 0.4,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "aider",
+            "import_path": null,
+            "model_name": "openai/openai/bench-model",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "env": {
+                "SSL_CERT_FILE": "/ccr-ca.crt",
+                "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                "NODE_EXTRA_CA_CERTS": "/ccr-ca.crt",
+                "GIT_SSL_CAINFO": "/ccr-ca.crt",
+                "PIP_CERT": "/ccr-ca.crt",
+                "CARGO_HTTP_CAINFO": "/ccr-ca.crt",
+                "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+                "OPENAI_BASE_URL": "http://172.17.0.1:4010/v1",
+                "OPENAI_API_BASE": "http://172.17.0.1:4010/v1",
+                "OPENAI_HOST": "http://172.17.0.1:4010",
+                "OPENAI_BASE_PATH": "v1/chat/completions"
+            },
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/.ccr/ca-bundle.crt",
+                    "target": "/ccr-ca.crt",
+                    "read_only": true
+                },
+                {
+                    "type": "bind",
+                    "source": "/root/.local/bin/uv",
+                    "target": "/usr/local/bin/uv",
+                    "read_only": true
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {
+                "SSL_CERT_FILE": "/ccr-ca.crt",
+                "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                "PIP_CERT": "/ccr-ca.crt",
+                "UV_NATIVE_TLS": "1"
+            },
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "job_id": "7125b95c-c9fb-45da-9559-b03cb8d2cc17"
+    },
+    "agent_info": {
+        "name": "aider",
+        "version": "0.86.2",
+        "model_info": {
+            "name": "openai/bench-model",
+            "provider": "openai"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-08-01T16:54:11.446576Z",
+    "finished_at": "2026-08-01T16:57:34.859654Z",
+    "environment_setup": {
+        "started_at": "2026-08-01T16:54:11.710305Z",
+        "finished_at": "2026-08-01T16:54:14.038057Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-08-01T16:54:14.038240Z",
+        "finished_at": "2026-08-01T16:54:57.789150Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-08-01T16:54:57.789369Z",
+        "finished_at": "2026-08-01T16:56:58.716705Z"
+    },
+    "verifier": {
+        "started_at": "2026-08-01T16:56:59.347361Z",
+        "finished_at": "2026-08-01T16:57:16.293088Z"
+    },
+    "step_results": null
+}

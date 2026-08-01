@@ -3,3 +3,15 @@ Collecting main service artifacts
 Collecting main service artifacts
 Collecting main service artifacts
 Collecting main service artifacts
+Collecting main service artifacts
+Collecting main service artifacts
+Collecting main service artifacts
+Collecting main service artifacts
+Collecting main service artifacts
+Collecting main service artifacts
+Collecting main service artifacts
+Trial query-optimize__zbVUNYU failed: Verifier execution timed out after 900.0 seconds
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Exception VerifierTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
