@@ -31,13 +31,13 @@ def main() -> None:
 
     # ---- headline
     hl = (
-        f"On **{meta['models'][0] if meta.get('models') else head.get('model_label','')}**, "
-        f"across {meta.get('n_tasks_scored', meta['n_tasks'])} Terminal-Bench 2.0 tasks with "
-        f"the model, the tasks, and the time budget held constant, the best harness "
-        f"(`{head['best']}`) resolved **{head['max_rate']*100:.1f}%** and the worst "
-        f"(`{head['worst']}`) resolved **{head['min_rate']*100:.1f}%** — a spread of "
-        f"**{head['spread_pp']} percentage points** attributable to nothing but the scaffold "
-        f"around the model."
+        f"On **{head.get('model_label','')}**, over the **{head.get('n_tasks')} Terminal-Bench "
+        f"2.0 tasks every harness attempted**, with the model, the tasks and the time budget "
+        f"held constant, the best harness (`{head['best']}`) resolved "
+        f"**{head['max_rate']*100:.1f}%** and the worst (`{head['worst']}`) resolved "
+        f"**{head['min_rate']*100:.1f}%** — a spread of **{head['spread_pp']} percentage "
+        f"points** attributable to nothing but the scaffold around the model. "
+        f"Ranking: {' › '.join('`'+h+'`' for h in head.get('ranking', []))}."
     )
     if len(models) > 1:
         hl += (f" Under a second model ({pm[models[1]]['model_label']}) the spread is "
@@ -60,20 +60,24 @@ def main() -> None:
                 f"{h['resolved_per_usd'] if h['resolved_per_usd'] is not None else '—'} | "
                 f"{h['n_timeouts']} |")
         out.append("")
-    n_scored = meta.get("n_tasks_scored", meta["n_tasks"])
-    per_flip = 100.0 / n_scored if n_scored else 0.0
+    n_scored = head.get("n_tasks") or meta.get("n_tasks_scored", meta["n_tasks"])
+    per_flip = head.get("pp_per_task") or (100.0 / n_scored if n_scored else 0.0)
     out.append("")
     out.append(f"> **Read these rates as relative, not absolute.** Every harness ran with a "
-               f"**{meta.get('agent_timeout_multiplier')}× time budget** — 40% of each task's own "
-               f"wall-clock allowance — applied identically to all of them so the comparison "
+               f"**{meta.get('agent_timeout_multiplier')}× time budget** — that fraction of each task's "
+               f"own wall-clock allowance — applied identically to all of them so the comparison "
                f"stays fair. That deliberately depresses every number here, so **these rates are "
                f"not comparable to published Terminal-Bench 2.0 figures** and should not be "
                f"quoted as a result for this model. The only claim being made is the *gap "
                f"between harnesses within this run*.")
     out.append("")
-    out.append(f"> **How much weight the spread can carry:** on {n_scored} scored tasks, one "
-               f"task changing outcome moves a harness by **{per_flip:.1f} percentage points**. "
-               f"Any spread below that is indistinguishable from a single coin flip.")
+    out.append(f"> **How much weight the spread can carry:** on the {n_scored} tasks every "
+               f"harness attempted, one task changing outcome moves a harness by "
+               f"**{per_flip:.1f} percentage points**. The measured spread of "
+               f"{head['spread_pp']}pp is therefore about "
+               f"{head['spread_pp']/per_flip:.0f} task(s) wide. Any spread of one task or less "
+               f"is indistinguishable from a coin flip, and this run has no repeat passes to "
+               f"bound that directly — see the variance note below.")
     c = RES.get("cross_model")
     if c:
         out.append("**Does the ranking survive changing the model?** "
@@ -125,9 +129,16 @@ def main() -> None:
 
     # ---- run config
     cfg = [
-        f"- **Benchmark:** `{meta['dataset']}` — {meta['n_tasks']} tasks selected from "
-        f"{meta['total_tasks_in_dataset']}, of which "
-        f"**{meta.get('n_tasks_scored', meta['n_tasks'])} are scored**",
+        f"- **Benchmark:** `{meta['dataset']}` ({meta['total_tasks_in_dataset']} tasks). "
+        f"{meta.get('n_candidates', '?')} candidates were selected and oracle-screened; "
+        f"**{meta.get('n_qualified', '?')} qualified** and **{meta['n_tasks']} were scored** "
+        f"(capped in seeded order)",
+        f"- **Excluded — grader failure, not agent failure:** "
+        f"{len(meta.get('disqualified_by_oracle', []))} task(s) whose own reference solution "
+        f"could not pass here "
+        + (", ".join(f"`{t}`" for t in meta.get("disqualified_by_oracle", [])) or "none")
+        + f". A further {len(meta.get('unscreened', []))} candidate(s) could not be screened at "
+          f"all because their images would not pull in this environment.",
         f"- **Selection:** seeded (`{meta['selection_seed']}`) stratified pick from the "
         f"{meta['candidate_pool_size']} tasks with an agent budget ≤ "
         f"{meta['max_agent_timeout_sec']}s, frozen before any run — `scripts/select_tasks.py`",
@@ -139,9 +150,7 @@ def main() -> None:
         f"baseline confirmed the graders work in this environment",
         f"- **Pricing:** {meta['price_note']}",
     ]
-    if meta.get("excluded_by_oracle"):
-        cfg.append("- **Excluded by the oracle baseline** (reference solution cannot pass here, so "
-                   "never scored): " + ", ".join(f"`{t}`" for t in meta["excluded_by_oracle"]))
+
     text = block("runconfig", "\n".join(cfg), text)
 
     # ---- spend
@@ -153,11 +162,22 @@ def main() -> None:
         lines.append(f"- **{p_['model_label']}**: ${p_['cost_usd']:.2f} across "
                      f"{p_['tokens_total']:,} metered tokens")
     calls = sum(h["llm_calls"] for h in RES["harnesses"])
+    allin = RES.get("all_in_spend", {})
     lines.append("")
-    lines.append(f"Total metered spend: **${total:.2f}** over {calls:,} model calls. Every figure "
-                 f"is billed at the gateway as the call happens, not estimated afterwards, and "
-                 f"per-harness spend is capped at an equal slice so the harness that runs first "
-                 f"cannot starve the one that runs last.")
+    lines.append(f"That is the spend behind the numbers published above: **${total:.2f}** over "
+                 f"{calls:,} model calls, billed at the gateway as each call happened rather than "
+                 f"estimated afterwards.")
+    if allin:
+        lines.append("")
+        lines.append("**All-in cost of the build, including work that produced nothing "
+                     "publishable** — probes, the invalidated false-zero sweep, and a Gemini run "
+                     "discarded when the task set was widened:")
+        lines.append("")
+        for prov, v in sorted(allin.items()):
+            lines.append(f"- **{prov}**: ${v['cost_usd']:.2f} over {v['calls']:,} calls")
+        lines.append("")
+        lines.append("The gap between those two figures is the honest price of finding the "
+                     "verifier bug: a large share of the total bought discarded results.")
     text = block("spend", "\n".join(lines), text)
 
     # ---- not driven

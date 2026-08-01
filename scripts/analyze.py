@@ -25,6 +25,7 @@ would look far more expensive under a flat input price.
 from __future__ import annotations
 
 import json
+import os
 import re
 from collections import defaultdict
 from pathlib import Path
@@ -329,19 +330,25 @@ def summarise(model: str, harness: str, primary: dict, meter: dict, reps: list) 
 
 
 def main() -> None:
-    subset = json.loads((ART / "subset.json").read_text())
+    sub_path = ART / "scored_subset.json"
+    if not sub_path.exists():
+        sub_path = ART / "subset.json"
+    subset = json.loads(sub_path.read_text())
     task_meta = {t["id"]: t for t in subset["tasks"]}
     task_ids = [t["id"] for t in subset["tasks"]]
 
     # Oracle baseline: the reference solution run through the same pipeline. Any
     # task the oracle cannot pass is not measuring agent ability in this
     # environment, so it is excluded from every rate rather than scored as 0.
+    # Every oracle-* job counts: screening happened in more than one pass, and a
+    # task qualifies if its reference solution passed in ANY of them.
     oracle = {}
-    odir = JOBS / "oracle-baseline"
-    if odir.is_dir():
+    for odir in sorted(JOBS.glob("oracle-*")):
+        if not odir.is_dir():
+            continue
         for d in trial_dirs(odir):
             t = read_trial(d)
-            oracle[t["task"]] = t["resolved"]
+            oracle[t["task"]] = oracle.get(t["task"], False) or t["resolved"]
 
     runs = defaultdict(list)  # (model, harness) -> [{rep, job, trials}]
     if JOBS.exists():
@@ -368,6 +375,16 @@ def main() -> None:
                     t["infra_error"] = True
                     t["exception"] = (t["exception"] or
                                       "excluded: reference solution also fails in this environment")
+                # A task can have more than one trial directory: an interrupted
+                # run leaves a CancelledError stub behind, and a later fill run
+                # adds a real one. Prefer the trial that actually produced a
+                # reward, so a stub can never overwrite a completed cell.
+                prev = trials.get(t["task"])
+                if prev is not None:
+                    def rank(x):
+                        return (x["reward"] is not None, x["attempted"], not x["infra_error"])
+                    if rank(prev) >= rank(t):
+                        continue
                 trials[t["task"]] = t
                 if rep == 1:
                     ex = extract_trajectory(d, harness, t["task"])
@@ -403,6 +420,37 @@ def main() -> None:
             "ranking": [h["harness"] for h in hs],
             "cost_usd": round(sum(h["cost_usd"] for h in hs), 4),
             "tokens_total": sum(h["tokens_total"] for h in hs),
+        }
+
+    # Like-for-like comparison. Harnesses can end up with different denominators
+    # (a budget cut-off leaves cells unattempted), and comparing 3/9 against 2/12
+    # is not a fair spread. So the defensible headline is computed only over the
+    # tasks EVERY harness on that model actually attempted.
+    common = {}
+    for mdl in models:
+        hs = [r["harness"] for r in rows if r["model"] == mdl]
+        attempted_sets = []
+        for h in hs:
+            reps = runs[(mdl, h)]
+            primary = sorted(reps, key=lambda r: r["rep"])[0]["trials"]
+            attempted_sets.append({t for t, v in primary.items() if v["attempted"]})
+        shared = set.intersection(*attempted_sets) if attempted_sets else set()
+        per_h = []
+        for h in hs:
+            reps = runs[(mdl, h)]
+            primary = sorted(reps, key=lambda r: r["rep"])[0]["trials"]
+            k = sum(1 for t in shared if primary[t]["resolved"])
+            per_h.append({"harness": h, "n": len(shared), "resolved": k,
+                          "rate": round(k / len(shared), 4) if shared else 0.0})
+        per_h.sort(key=lambda x: -x["rate"])
+        rates_c = [x["rate"] for x in per_h]
+        common[mdl] = {
+            "model": mdl, "n_common_tasks": len(shared),
+            "tasks": sorted(shared), "harnesses": per_h,
+            "spread_pp": round((max(rates_c) - min(rates_c)) * 100, 1) if rates_c else 0.0,
+            "best": per_h[0]["harness"] if per_h else None,
+            "worst": per_h[-1]["harness"] if per_h else None,
+            "pp_per_task": round(100.0 / len(shared), 1) if shared else None,
         }
 
     # Does the harness ranking survive a change of model? This is the stronger
@@ -485,7 +533,39 @@ def main() -> None:
     head = per_model.get(headline_model, {}) if headline_model else {}
     excluded = [t for t in task_ids if oracle and not oracle.get(t, True)]
 
+    # All-in spend across every meter log, including discarded runs, so the
+    # write-up can state what the build actually cost rather than only what the
+    # published numbers cost.
+    all_in = {}
+    for f in sorted(ART.glob("gateway.jsonl")) + sorted((ART / "compat").glob("*.jsonl")):
+        try:
+            lines = f.read_text().splitlines()
+        except OSError:
+            continue
+        sub, n, ups = 0.0, 0, set()
+        for ln in lines:
+            try:
+                dd = json.loads(ln)
+            except json.JSONDecodeError:
+                continue
+            if dd.get("event") != "call":
+                continue
+            n += 1
+            ups.add(dd.get("upstream", "?"))
+            c = dd.get("cost_usd")
+            if c is None:
+                pt, ct = dd.get("prompt_tokens") or 0, dd.get("completion_tokens") or 0
+                c = (pt * 3 + ct * 15) / 1e6 if "k3" in str(dd.get("upstream")) else (pt * 0.95 + ct * 4) / 1e6
+            sub += c
+        prov = "Google AI Studio (Gemini)" if any("gemini" in u for u in ups) else "Moonshot (Kimi)"
+        e = all_in.setdefault(prov, {"cost_usd": 0.0, "calls": 0})
+        e["cost_usd"] += sub
+        e["calls"] += n
+    for v in all_in.values():
+        v["cost_usd"] = round(v["cost_usd"], 2)
+
     out = {
+        "all_in_spend": all_in,
         "meta": {
             "dataset": subset["dataset"],
             "n_tasks": len(task_ids),
@@ -495,22 +575,33 @@ def main() -> None:
             "candidate_pool_size": subset["candidate_pool_size"],
             "selection_seed": subset["seed"],
             "max_agent_timeout_sec": subset["max_agent_timeout_sec"],
-            "agent_timeout_multiplier": 0.6,
+            "agent_timeout_multiplier": float(os.environ.get("AGENT_TIMEOUT_MULT", "0.4")),
             "models": [MODEL_LABELS.get(m, m) for m in models],
             "temperature": "1.0 (Kimi) / provider default (Gemini)",
             "n_attempts_per_task": 1,
-            "price_note": "Moonshot Kimi K2.7 Code $0.95/M in, $0.19/M cached, $4.00/M out; "
-                          "Gemini 3.6 Flash billed to a separate Google AI Studio account",
+            "price_note": "Gemini 3.6 Flash list price $1.50/M input, $0.375/M cached input, "
+                          "$7.50/M output, applied to gateway-metered tokens",
+            "n_candidates": subset.get("n_candidates"),
+            "n_qualified": subset.get("n_qualified"),
+            "disqualified_by_oracle": subset.get("disqualified_by_oracle", []),
+            "unscreened": subset.get("unscreened", []),
         },
-        "headline": {
+        # The headline is the like-for-like number: same tasks for every harness.
+        "headline": (lambda c: {
             "model": headline_model,
             "model_label": MODEL_LABELS.get(headline_model, headline_model),
-            "best": head.get("best"), "worst": head.get("worst"),
-            "max_rate": head.get("max_rate", 0), "min_rate": head.get("min_rate", 0),
-            "spread_pp": head.get("spread_pp", 0.0),
-        },
+            "basis": "common attempted subset",
+            "n_tasks": c.get("n_common_tasks", 0),
+            "pp_per_task": c.get("pp_per_task"),
+            "best": c.get("best"), "worst": c.get("worst"),
+            "max_rate": (c["harnesses"][0]["rate"] if c.get("harnesses") else 0),
+            "min_rate": (c["harnesses"][-1]["rate"] if c.get("harnesses") else 0),
+            "spread_pp": c.get("spread_pp", 0.0),
+            "ranking": [h["harness"] for h in c.get("harnesses", [])],
+        })(common.get(headline_model, {})),
         "models": models,
         "per_model": per_model,
+        "common_subset": common,
         "cross_model": cross,
         "harnesses": rows,
         "not_driven": not_driven,
@@ -530,6 +621,11 @@ def main() -> None:
             print(f"   {h['harness']:16s} {h['n_resolved']:2d}/{h['n_tasks']:2d} "
                   f"= {h['resolve_rate']*100:5.1f}%  tok={h['tokens_total']:>9,}  "
                   f"${h['cost_usd']:.3f}  timeouts={h['n_timeouts']}  not-run={h['n_infra_errors']}")
+    for mdl, c in common.items():
+        print(f"\n== like-for-like on the {c['n_common_tasks']} tasks every harness attempted "
+              f"({mdl}): spread {c['spread_pp']}pp, 1 task = {c['pp_per_task']}pp")
+        for h in c["harnesses"]:
+            print(f"   {h['harness']:16s} {h['resolved']}/{h['n']} = {h['rate']*100:5.1f}%")
     if cross:
         print(f"\ncross-model pairwise ranking agreement: "
               f"{cross['pairs_agree']}/{cross['pairs_total']}")

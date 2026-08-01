@@ -218,12 +218,12 @@ function render(d){
   html += `<div class="hero">
     <div class="heronum">${head.spread_pp ?? 0}<small>pp</small></div>
     <div class="herotext">
-      On <b>${esc(head.model_label||"")}</b>, the best harness (<b>${esc(head.best||"—")}</b>)
-      resolved ${pct(head.max_rate||0)} of the scored subset and the worst
-      (<b>${esc(head.worst||"—")}</b>) resolved ${pct(head.min_rate||0)}.
-      Same model, same ${meta.n_tasks_scored ?? meta.n_tasks} tasks, same time budget —
-      only the harness changed.
-      ${models.length>1?`Under the second model the spread is <b>${pm[models[1]].spread_pp}pp</b>.`:""}
+      On <b>${esc(head.model_label||"")}</b>, over the <b>${head.n_tasks} tasks every harness
+      attempted</b>, the best harness (<b>${esc(head.best||"—")}</b>) resolved
+      ${pct(head.max_rate||0)} and the worst (<b>${esc(head.worst||"—")}</b>) resolved
+      ${pct(head.min_rate||0)}. Same model, same tasks, same time budget — only the harness
+      changed. On this set one task is worth <b>${head.pp_per_task}pp</b>, so the spread is
+      about <b>${Math.round(head.spread_pp/head.pp_per_task)} task(s)</b> wide.
     </div></div>`;
 
   html += `<div class="stats">
@@ -238,6 +238,27 @@ function render(d){
     <div class="stat"><div class="k">Metered spend</div><div class="v">$${totalCost.toFixed(2)}</div>
       <div class="n">${(totalTok/1e6).toFixed(2)}M tokens</div></div>
   </div>`;
+
+  const cs = (d.common_subset||{})[head.model];
+  if (cs && cs.harnesses && cs.harnesses.length){
+    html += `<section><div class="shead"><h2>Like-for-like: the ${cs.n_common_tasks} tasks every harness attempted</h2>
+      <span class="pill mdl">spread ${cs.spread_pp}pp</span></div>
+      <p class="note">Harnesses can end up with different denominators — a budget cut-off leaves
+      cells unattempted — and comparing 3/9 against 2/12 is not a fair spread. This table is the
+      defensible comparison: identical tasks, identical model, identical time budget. It is the
+      number quoted at the top of this page.</p>
+      <div class="card"><div class="gridscroll"><table><thead><tr>
+        <th>Harness</th><th>Solved</th><th>Rate</th></tr></thead><tbody>`;
+    for (const h of cs.harnesses){
+      html += `<tr><td><strong>${esc(h.harness)}</strong></td>
+        <td>${h.resolved}/${h.n}</td><td>${pct(h.rate)}</td></tr>`;
+    }
+    html += `</tbody></table></div>
+      <p class="note" style="margin-bottom:0">One task is worth <strong>${cs.pp_per_task}pp</strong>
+      here, so a spread of one task or less would be indistinguishable from a coin flip. The
+      measured ${cs.spread_pp}pp gap is about
+      ${Math.round(cs.spread_pp/cs.pp_per_task)} task(s) wide.</p></div></section>`;
+  }
 
   if (meta.excluded_by_oracle && meta.excluded_by_oracle.length){
     html += `<div class="warn"><strong>${meta.excluded_by_oracle.length} task(s) excluded from

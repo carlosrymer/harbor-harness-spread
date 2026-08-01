@@ -1,0 +1,58 @@
+{
+    "task": {
+        "path": "/home/user/builds/harbor-harness-spread/terminal-bench/torch-pipeline-parallelism",
+        "source": "terminal-bench"
+    },
+    "trial_name": "torch-pipeline-parallelism__XAzFSrX",
+    "trials_dir": "/home/user/builds/harbor-harness-spread/jobs/fill-mswea",
+    "agent_timeout_multiplier": 0.4,
+    "agent": {
+        "name": "mini-swe-agent",
+        "model_name": "openai/bench-model",
+        "env": {
+            "SSL_CERT_FILE": "/ccr-ca.crt",
+            "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+            "CURL_CA_BUNDLE": "/ccr-ca.crt",
+            "NODE_EXTRA_CA_CERTS": "/ccr-ca.crt",
+            "GIT_SSL_CAINFO": "/ccr-ca.crt",
+            "PIP_CERT": "/ccr-ca.crt",
+            "CARGO_HTTP_CAINFO": "/ccr-ca.crt",
+            "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+            "OPENAI_BASE_URL": "http://172.17.0.1:4010/v1",
+            "OPENAI_API_BASE": "http://172.17.0.1:4010/v1"
+        }
+    },
+    "environment": {
+        "type": "docker",
+        "mounts": [
+            {
+                "type": "bind",
+                "source": "/root/.ccr/ca-bundle.crt",
+                "target": "/ccr-ca.crt",
+                "read_only": true
+            },
+            {
+                "type": "bind",
+                "source": "/root/.local/bin/uv",
+                "target": "/usr/local/bin/uv",
+                "read_only": true
+            },
+            {
+                "type": "bind",
+                "source": "/root/.local/bin/uvx",
+                "target": "/usr/local/bin/uvx",
+                "read_only": true
+            }
+        ]
+    },
+    "verifier": {
+        "env": {
+            "SSL_CERT_FILE": "/ccr-ca.crt",
+            "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+            "CURL_CA_BUNDLE": "/ccr-ca.crt",
+            "PIP_CERT": "/ccr-ca.crt",
+            "UV_NATIVE_TLS": "1"
+        }
+    },
+    "job_id": "99cc1fcf-1fe5-4a5e-9928-219ff7603b53"
+}

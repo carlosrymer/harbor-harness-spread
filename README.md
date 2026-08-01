@@ -6,6 +6,7 @@ I held one model fixed, swapped only the agent harness around it, and measured h
 apart the benchmark results landed.
 
 <!-- BEGIN:headline -->
+On **gemini-3.6-flash (Google AI Studio)**, over the **9 Terminal-Bench 2.0 tasks every harness attempted**, with the model, the tasks and the time budget held constant, the best harness (`mini-swe-agent`) resolved **33.3%** and the worst (`aider`) resolved **0.0%** — a spread of **33.3 percentage points** attributable to nothing but the scaffold around the model. Ranking: `mini-swe-agent` › `goose` › `aider`.
 <!-- END:headline -->
 
 > ### ⚠️ If you run Terminal-Bench 2.0 on a restricted network, check this first
@@ -41,7 +42,7 @@ The claim I wanted to test is one that gets repeated a lot but rarely gets shown
 
 If that's true, then a large share of what gets reported as *model* progress is *harness*
 progress, and comparing two models evaluated under different scaffolds is confounded. Harbor
-is the right tool to check it, because running four different agent harnesses against the
+is the right tool to check it, because running several different agent harnesses against the
 same containerised benchmark is exactly what it's built for — and reimplementing even two of
 those adapters faithfully would have been the whole project.
 
@@ -102,6 +103,18 @@ verifiers, and it isn't a benchmark where a harness can luck into a pass.
 ### Results
 
 <!-- BEGIN:leaderboard -->
+**gemini-3.6-flash (Google AI Studio)** — spread **33.3pp**
+
+| Harness | Resolved | Resolve rate | Tokens (in / cached / out) | Cost | Solved per $ | Timed out |
+|---|---|---|---|---|---|---|
+| `mini-swe-agent` | 3/9 | **33.3%** | 3,898,263 / 2,305,436 / 193,178 | $4.703 | 0.638 | 6 |
+| `goose` | 2/12 | **16.7%** | 2,026,738 / 793,664 / 74,663 | $2.707 | 0.739 | 2 |
+| `aider` | 0/12 | **0.0%** | 63,227 / 0 / 179,411 | $1.440 | 0.0 | 0 |
+
+
+> **Read these rates as relative, not absolute.** Every harness ran with a **0.4× time budget** — that fraction of each task's own wall-clock allowance — applied identically to all of them so the comparison stays fair. That deliberately depresses every number here, so **these rates are not comparable to published Terminal-Bench 2.0 figures** and should not be quoted as a result for this model. The only claim being made is the *gap between harnesses within this run*.
+
+> **How much weight the spread can carry:** on the 9 tasks every harness attempted, one task changing outcome moves a harness by **11.1 percentage points**. The measured spread of 33.3pp is therefore about 3 task(s) wide. Any spread of one task or less is indistinguishable from a coin flip, and this run has no repeat passes to bound that directly — see the variance note below.
 <!-- END:leaderboard -->
 
 Cost-adjusted matters here: a harness that wins by burning several times the tokens is a
@@ -117,9 +130,31 @@ against anyone.
 ### Where the harnesses disagreed
 
 <!-- BEGIN:grid -->
+| Task | Difficulty | Category | `mini-swe-agent`<br><sub>gemini36</sub> | `goose`<br><sub>gemini36</sub> | `aider`<br><sub>gemini36</sub> | Agreement |
+|---|---|---|---|---|---|---|
+| `fix-git` | easy | software-engineering | ✅ | ❌ | ❌ | **split 1/3** |
+| `overfull-hbox` | easy | debugging | ⏱ | ❌ | ❌ | 0/3 |
+| `configure-git-webserver` | hard | system-administration | – | ❌ | ❌ | 0/2 |
+| `gpt2-codegolf` | hard | software-engineering | ⏱ | ❌ | ❌ | 0/3 |
+| `model-extraction-relu-logits` | hard | mathematics | ⏱ | ⏱ | ❌ | 0/3 |
+| `password-recovery` | hard | security | – | ❌ | ❌ | 0/2 |
+| `sparql-university` | hard | data-querying | ⏱ | ✅ | ❌ | **split 1/3** |
+| `torch-pipeline-parallelism` | hard | software-engineering | ⏱ | ❌ | ❌ | 0/3 |
+| `adaptive-rejection-sampler` | medium | scientific-computing | ⏱ | ❌ | ❌ | 0/3 |
+| `db-wal-recovery` | medium | file-operations | ✅ | ⏱ | ❌ | **split 1/3** |
+| `log-summary-date-ranges` | medium | data-processing | ✅ | ✅ | ❌ | **split 2/3** |
+| `sqlite-with-gcov` | medium | system-administration | – | ❌ | ❌ | 0/2 |
+
+✅ solved · ❌ attempted, not solved · ⏱ ran out of its time budget (counted as a failure) · – not run or excluded (never counted as a zero)
 <!-- END:grid -->
 
 <!-- BEGIN:disagreement -->
+4 of 12 scored tasks split the harnesses:
+
+- **`fix-git`** (easy, software-engineering) — solved by `mini-swe-agent` (gemini36); missed by `aider` (gemini36), `goose` (gemini36)
+- **`sparql-university`** (hard, data-querying) — solved by `goose` (gemini36); missed by `aider` (gemini36), `mini-swe-agent` (gemini36)
+- **`db-wal-recovery`** (medium, file-operations) — solved by `mini-swe-agent` (gemini36); missed by `aider` (gemini36), `goose` (gemini36)
+- **`log-summary-date-ranges`** (medium, data-processing) — solved by `goose` (gemini36), `mini-swe-agent` (gemini36); missed by `aider` (gemini36)
 <!-- END:disagreement -->
 
 The [live site](https://carlosrymer.github.io/harbor-harness-spread/) lets you click any cell
@@ -128,6 +163,14 @@ in that grid and read the trajectory for that run.
 ### Run configuration
 
 <!-- BEGIN:runconfig -->
+- **Benchmark:** `terminal-bench@2.0` (89 tasks). 24 candidates were selected and oracle-screened; **13 qualified** and **12 were scored** (capped in seeded order)
+- **Excluded — grader failure, not agent failure:** 6 task(s) whose own reference solution could not pass here `chess-best-move`, `count-dataset-tokens`, `crack-7z-hash`, `gcode-to-text`, `largest-eigenval`, `pytorch-model-recovery`. A further 5 candidate(s) could not be screened at all because their images would not pull in this environment.
+- **Selection:** seeded (`20260801`) stratified pick from the 50 tasks with an agent budget ≤ 900s, frozen before any run — `scripts/select_tasks.py`
+- **Models:** gemini-3.6-flash (Google AI Studio)
+- **Agent time budget:** 0.4× each task's own limit, identical for every harness
+- **Attempts per task:** 1
+- **Verification:** each task's own test suite, after an `oracle` reference-solution baseline confirmed the graders work in this environment
+- **Pricing:** Gemini 3.6 Flash list price $1.50/M input, $0.375/M cached input, $7.50/M output, applied to gateway-metered tokens
 <!-- END:runconfig -->
 
 Held constant across harnesses: the task list, the model (pinned at the gateway, not merely
@@ -137,6 +180,16 @@ prompt templates, and context management. That's deliberate: those defaults **ar
 harness. This measures "harness as shipped", not "scaffold shape with all else equal".
 
 <!-- BEGIN:spend -->
+- **gemini-3.6-flash (Google AI Studio)**: $8.85 across 6,435,480 metered tokens
+
+That is the spend behind the numbers published above: **$8.85** over 371 model calls, billed at the gateway as each call happened rather than estimated afterwards.
+
+**All-in cost of the build, including work that produced nothing publishable** — probes, the invalidated false-zero sweep, and a Gemini run discarded when the task set was widened:
+
+- **Google AI Studio (Gemini)**: $10.42 over 474 calls
+- **Moonshot (Kimi)**: $1.70 over 115 calls
+
+The gap between those two figures is the honest price of finding the verifier bug: a large share of the total bought discarded results.
 <!-- END:spend -->
 
 ## Honest limitations
@@ -175,7 +228,17 @@ this run* is the result.
 
 ## Harnesses I could not run, and why
 
-Two of the six harnesses I tried are absent from the board. Neither was silently dropped.
+Three of the six harnesses I tried are absent from the board. None was silently dropped.
+
+- **`terminus-2`** — ran correctly and produced real results, but it is by a wide margin the
+  most expensive harness here, and I ran out of Gemini budget before it could complete the
+  12-task grid. Rather than publish it against a different denominator than everything else, I
+  left it off. Two things about it are worth recording anyway, because they are the reason it
+  is expensive: it costs roughly **$0.40 per task** against `aider`'s $0.12, and its output
+  parser rejected Gemini's replies **44–52 times per task** ("Extra text detected before/after
+  JSON object"). Every one of those is a step spent recovering from the harness's own format
+  contract instead of on the task. That is a harness-model interaction a resolve rate would
+  never show, and it is exactly the kind of thing this experiment exists to surface.
 
 - **`opencode`** — its build requires the OpenAI **Responses** API. Pointed at a
   chat-completions endpoint it fails with `AI_APICallError: Not Found`; pinning the
@@ -194,6 +257,7 @@ from the registry CDN in this environment across repeated attempts. It is record
 exclusion in `scripts/select_tasks.py` rather than dropped after the fact.
 
 <!-- BEGIN:notdriven -->
+Every harness on the board made real, metered model calls. Nothing was scored 0 while silently failing to call the model — the failure mode that cost me the most time on this build.
 <!-- END:notdriven -->
 
 **Claude Code and Codex CLI — the two agents most people would want in this comparison — are
