@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # Publish the static site so GitHub Pages serves it.
 #
-# Pages here builds from `main` (its source was set that way and the REST Pages
-# endpoints are blocked by this environment's proxy, so it cannot be changed back
-# to gh-pages from inside the build). So the built site is emitted at the repo
-# root of `main`: index.html + data/ + .nojekyll. The gh-pages branch is kept in
-# sync too, so the repo works under either Pages source setting.
+# Pages for this repo is configured as "main branch, /docs folder", and the REST
+# Pages endpoints are blocked by this environment's proxy so that setting cannot
+# be changed from inside the build. The built site is therefore written to docs/
+# on main. gh-pages is kept mirrored as well, so the repo also works if the Pages
+# source is ever switched back to that branch.
 #
 # .nojekyll matters: without it Pages runs Jekyll over the whole repository, which
 # is what made the main-branch builds fail.
@@ -20,11 +20,16 @@ cp artifacts/results.json site/data/results.json
 [ -d artifacts/trajectories ] && cp -r artifacts/trajectories site/data/trajectories
 touch site/.nojekyll
 
-# 2. emit the site at the repo root for Pages-from-main
-rm -rf data
-cp site/index.html index.html
-cp -r site/data data
-touch .nojekyll
+# 2. emit the built site into docs/ on main.
+#    This repo's Pages source is "main branch /docs folder"; the REST Pages
+#    endpoints are blocked by this environment's proxy so it cannot be changed
+#    from inside the build. Publishing anywhere else just makes the Pages build
+#    fail with: No such file or directory - /github/workspace/docs
+rm -rf docs
+mkdir -p docs
+cp site/index.html docs/index.html
+cp -r site/data docs/data
+touch docs/.nojekyll
 
 # 3. mirror to gh-pages as well (append, never force: a rewritten history does not
 #    reliably retrigger the Pages build)
@@ -49,5 +54,5 @@ if ! git -C "$WORK" diff --cached --quiet; then
   done
 fi
 rm -rf "$WORK"
-echo "[deploy] site staged at repo root and mirrored to gh-pages"
+echo "[deploy] site staged in docs/ and mirrored to gh-pages"
 echo "[deploy] commit and push main to publish: https://carlosrymer.github.io/harbor-harness-spread/"
