@@ -1,0 +1,539 @@
+[?2004hroot@61f1d9ac578f:/app# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@61f1d9ac578f:/app# clear
+[?2004l[H[J[3J[?2004hroot@61f1d9ac578f:/app# ls -la /app
+[?2004ltotal 486556
+drwxr-xr-x 1 root root      4096 Oct 28  2025 [0m[01;34m.[0m
+drwxr-xr-x 1 root root      4096 Aug 12 15:44 [01;34m..[0m
+-rw-r--r-- 1 root root 497759232 Oct 28  2025 gpt2-124M.ckpt
+-rw-r--r-- 1 root root    456318 Oct 28  2025 vocab.bpe
+[?2004hroot@61f1d9ac578f:/app# head -n 10 vocab.bpe
+[?2004l#version: 0.2
+Ġ t
+Ġ a
+h e
+i n
+r e
+o n
+Ġt he
+e r
+Ġ s
+[?2004hroot@61f1d9ac578f:/app# python3 -c "import tensorflow, numpy; print('Imports ok')" 2>/dev/null || python3 -c "import os; print('Python ok')"
+[?2004lPython ok
+[?2004hroot@61f1d9ac578f:/app# file gpt2-124M.ckpt && python3 -c "import sys; print(sys.path); import pip; print(pip.__file__)" 2>/dev/null || python3 -c "import zipfile, struct; print('Zip check:', zipfile.is_zipfile('gpt2-124M.ckpt'))"
+[?2004lbash: file: command not found
+Zip check: False
+[?2004hroot@61f1d9ac578f:/app# python3 -c "with open('gpt2-124M.ckpt', 'rb') as f: header = f.read(256); print(header[:64]); print(repr(header))"
+[?2004lb'\x03\xef\xf5>\xc0\x82\x06\xbf\x90\xc8\xdb\xbe6\xe5R\xbe\xa6\xcc\x02\xbeko\xc3\xbd+\xaa\xb4\xbe\xba\x98\x9c\xbd\xef\x04<\xbd}\xb7\x19\xbds\x84a\xbc\xb67=\xbe\xf6p\xf5\xbdc\x124=\xf1\x9d-=\xa9D\xa0\xbe'
+b'\x03\xef\xf5>\xc0\x82\x06\xbf\x90\xc8\xdb\xbe6\xe5R\xbe\xa6\xcc\x02\xbeko\xc3\xbd+\xaa\xb4\xbe\xba\x98\x9c\xbd\xef\x04<\xbd}\xb7\x19\xbds\x84a\xbc\xb67=\xbe\xf6p\xf5\xbdc\x124=\xf1\x9d-=\xa9D\xa0\xbe\\\x1f\x88<&\xbc\xb2>\xe8\xdb\xc7\xbe\xfa\xd8\xf4\xbc~@\xa8>=Y\xed=G\xd4\x1f=\xb6\xce\x06>>\xb9B=\xa0u\xfe\xbd1\xf2\xb7\xbb\xa5K\x11\xbew%\x95=C1\x05>\xb1\xb0\xed>\xd16\x03>\xf0\x7f\x13?\x9d\x03\xa1\xbd\xf6\xa8\x11\xbf\xa0\xd1\xcd<\xd7\x877\xbe\xf8\xc7S\xbe2\xe2\xf3;Q\x92\xf3<\n\x8f\x8c<\xdd\x0f\\\xbe\xfb\x17\x80\xbd\x8ct\x9e\xbe|\xb5\xfc=\x96:_>\xb5\x9aN\xbe\xd2\x9e\x82>\xc9u\x9a>\x99o\x94\xbe\x95\xd2\x93\xbd\xd8^\x1c>\x9f:\xe1\xbe\xb4Y\xb8\xbc,\xe2\xfe\xbb.V\x02\xbfT.\t=t\xa1\xf3\xbd\xf7\xab7\xben\xfb\xad\xbe\xa8\xf8\xb6>\xf0\x9fr\xbc\xd1\x1f\x02?\x03t\xbe\xbe'
+[?2004hroot@61f1d9ac578f:/app# python3 -c "import os; size = os.path.getsize('gpt2-124M.ckpt'); print('Size in bytes:', size); print('Float count:', size / 4)"
+[?2004lSize in bytes: 497759232
+Float count: 124439808.0
+[?2004hroot@61f1d9ac578f:/app# python3 -c "
+[?2004l[?2004h> vocab = 50257
+[?2004l[?2004h> n_embd = 768
+[?2004l[?2004h> n_layer = 12
+[?2004l[?2004h> n_ctx = 1024
+[?2004l[?2004h> 
+[?2004l[?2004h> wte = vocab * n_embd # 38597376
+[?2004l[?2004h> wpe = n_ctx * n_embd # 786432
+[?2004l[?2004h> # Per layer:
+[?2004l[?2004h> # ln_1: g(768) + b(768) = 1536
+[?2004l[?2004h> # attn c_attn: w(768, 2304) + b(2304) = 1769472 + 2304 = 1771776
+[?2004l[?2004h> # attn c_proj: w(768, 768) + b(768) = 589824 + 768 = 590592
+[?2004l[?2004h> # ln_2: g(768) + b(768) = 1536
+[?2004l[?2004h> # mlp c_fc: w(768, 3072) + b(3072) = 2359296 + 3072 = 2362368
+[?2004l[?2004h> # mlp c_proj: w(3072, 768) + b(768) = 2359296 + 768 = 2360064
+[?2004l[?2004h> layer_params = 1536 + 1771776 + 590592 + 1536 + 2362368 + 2360064
+[?2004l[?2004h> total_layers = 12 * layer_params
+[?2004l[?2004h> ln_f = 768 + 768
+[?2004l[?2004h> total = wte + wpe + total_layers + ln_f
+[?2004l[?2004h> print('Calculated total:', total)
+[?2004l[?2004h> print('Difference:', 124439808 - total)
+[?2004l[?2004h> "
+[?2004lCalculated total: 124439808
+Difference: 0
+[?2004hroot@61f1d9ac578f:/app# python3 -c "
+[?2004l[?2004h> import numpy as np
+[?2004l[?2004h> data = np.fromfile('gpt2-124M.ckpt', dtype=np.float32)
+[?2004l[?2004h> print('Data shape:', data.shape)
+[?2004l[?2004h> print('First 10 floats:', data[:10])
+[?2004l[?2004h> print('Mean:', np.mean(data), 'Std:', np.std(data))
+[?2004l[?2004h> "
+[?2004lTraceback (most recent call last):
+  File "<string>", line 2, in <module>
+ModuleNotFoundError: No module named 'numpy'
+[?2004hroot@61f1d9ac578f:/app# python3 -c "
+[?2004l[?2004h> import struct, array
+[?2004l[?2004h> with open('gpt2-124M.ckpt', 'rb') as f:
+[?2004l[?2004h>     chunk = f.read(100 * 4)
+[?2004l[?2004h>     floats = struct.unpack('100f', chunk)
+[?2004l[?2004h>     print('First 10 floats:', floats[:10])
+[?2004l[?2004h> "
+[?2004lFirst 10 floats: (0.4803391396999359, -0.5254325866699219, -0.42926454544067383, -0.2059524953365326, -0.12773379683494568, -0.09542735666036606, -0.35286077857017517, -0.07646317780017853, -0.04590314254164696, -0.03752850368618965)
+[?2004hroot@61f1d9ac578f:/app# python3 -c "
+[?2004l[?2004h> import struct
+[?2004l[?2004h> 
+[?2004l[?2004h> def read_floats(f, count):
+[?2004l[?2004h>     return struct.unpack(f'{count}f', f.read(count * 4))
+[?2004l[?2004h> 
+[?2004l[?2004h> with open('gpt2-124M.ckpt', 'rb') as f:
+[?2004l[?2004h>     # Tensor 0: wte (50257 * 768 = 38597376 floats)
+[?2004l[?2004h>     f.seek(0)
+[?2004l[?2004h>     wte0 = read_floats(f, 10)
+[?2004l[?2004h>     print('wte start:', wte0)
+[?2004l[?2004h>     
+[?2004l[?2004h>     # After wte is wpe (1024 * 768 = 786432 floats)
+[?2004l[?2004h>     f.seek((38597376) * 4)
+[?2004l[?2004h>     wpe0 = read_floats(f, 10)
+[?2004l[?2004h>     print('wpe start:', wpe0)
+[?2004l[?2004h>     
+[?2004l[?2004h>     # After wpe (offset 39383808), block 0 ln_1 weight (768 floats)
+[?2004l[?2004h>     f.seek((38597376 + 786432) * 4)
+[?2004l[?2004h>     ln1_g = read_floats(f, 10)
+[?2004l[?2004h>     ln1_b = read_floats(f, 10)
+[?2004l[?2004h>     print('ln1_g (expected ~1):', ln1_g[:5])
+[?2004l[?2004h>     print('ln1_b (expected ~0):', ln1_b[:5])
+[?2004l[?2004h> "
+[?2004lwte start: (0.4803391396999359, -0.5254325866699219, -0.42926454544067383, -0.2059524953365326, -0.12773379683494568, -0.09542735666036606, -0.35286077857017517, -0.07646317780017853, -0.04590314254164696, -0.03752850368618965)
+wpe start: (0.22745709121227264, 0.02743609994649887, -0.1548915058374405, -0.10033033788204193, 0.13492193818092346, 0.18756993114948273, -0.026417000219225883, 0.11494345217943192, -0.0600067675113678, -0.10778935998678207)
+ln1_g (expected ~1): (0.012613765895366669, 0.1112576425075531, -0.018961146473884583, -0.07971286028623581, -0.1944773644208908)
+ln1_b (expected ~0): (0.11374630033969879, 0.032197318971157074, 0.33875906467437744, 0.15941236913204193, -0.06322687119245529)
+[?2004hroot@61f1d9ac578f:/app# python3 -c "import struct; f = open('gpt2-124M.ckpt', 'rb'); [print(f'Chunk {i} at offset {i*768}: mean={sum(vals)/768:.3f}') for i in range(124439808 // 768) for vals in [struct.unpack('768f', f.read(768*4))] if 0.8 < sum(vals)/768 < 1.2 and sum((x - sum(vals)/768)**2 for x in vals)/768 < 0.1]; f.close()"
+[?2004lpython3 -c "
+import struct
+# Let's inspect TF GPT-2 checkpoint default export order.
+# Standard TF v1 checkpoint order of keys or standard dump order.
+# Let's search for positional embedding wpe (1024, 768).
+# Row 0 of wpe: position 0 embedding.
+# Let's check if wpe is at offset 0, or if wte is at the end, or if bias vectors exist.
+with open('gpt2-124M.ckpt', 'rb') as f:
+    data = f.read(1000 * 4)
+    floats = struct.unpack('1000f', data)
+    print('First 20 floats:', floats[:20])
+"
+ls -la /root /tmp /app
+^CTraceback (most recent call last):
+  File "<string>", line 1, in <module>
+KeyboardInterrupt
+
+[?2004hroot@61f1d9ac578f:/app# ls -la /root /tmp /app
+[?2004l/app:
+total 486556
+drwxr-xr-x 1 root root      4096 Oct 28  2025 [0m[01;34m.[0m
+drwxr-xr-x 1 root root      4096 Aug 12 15:44 [01;34m..[0m
+-rw-r--r-- 1 root root 497759232 Oct 28  2025 gpt2-124M.ckpt
+-rw-r--r-- 1 root root    456318 Oct 28  2025 vocab.bpe
+
+/root:
+total 20
+drwx------ 1 root root 4096 Aug 12 15:44 [01;34m.[0m
+drwxr-xr-x 1 root root 4096 Aug 12 15:44 [01;34m..[0m
+-rw-r--r-- 1 root root 3106 Apr 22  2024 .bashrc
+drwxr-xr-x 3 root root 4096 Aug 12 15:44 [01;34m.config[0m
+-rw-r--r-- 1 root root  161 Apr 22  2024 .profile
+
+/tmp:
+total 16
+drwxrwxrwt 1 root root 4096 Aug 12 15:44 [30;42m.[0m
+drwxr-xr-x 1 root root 4096 Aug 12 15:44 [01;34m..[0m
+-rw-r--r-- 1 root root  923 Aug  1 14:29 get-asciinema-timestamp.sh
+drwx------ 2 root root 4096 Aug 12 15:44 [01;34mtmux-0[0m
+[?2004hroot@61f1d9ac578f:/app# python3 -c "import struct; f = open('gpt2-124M.ckpt', 'rb'); header = struct.unpack('20i', f.read(80)); print('Header as ints:', header); f.close()"
+[?2004lHeader as ints: (1056304899, -1090092352, -1092892528, -1101863626, -1107112794, -1111265429, -1095456213, -1113810758, -1120140049, -1122388099, -1134459789, -1103284298, -1107988234, 1026822755, 1026399729, -1096792919, 1015553884, 1051900966, -1094198296, -1124804358)
+[?2004hroot@61f1d9ac578f:/app# python3 -c "import struct; f=open('gpt2-124M.ckpt','rb'); data=f.read(); floats=struct.unpack(f'{len(data)//4}f', data); [print(f'Offset {i} ({i*4}b): mean={sum(floats[i:i+768])/768:.4f}, min={min(floats[i:i+768]):.4f}, max={max(floats[i:i+768]):.4f}') for i in range(0, len(floats)-768, 768) if 0.5 < sum(floats[i:i+768])/768 < 1.5 and all(0 < x < 5 for x in floats[i:i+768]) and (sum((x-sum(floats[i:i+768])/768)**2 for x in floats[i:i+768])/768) < 0.2]" M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K"
+[?2004lpython3 -c "
+import struct
+# Let's inspect the exact list of variables in standard TF GPT-2 model (model/wte, model/wpe, model/h0/ln_1/g, model/h0/ln_1/b, ...)
+# Let's print min/max/mean of the first few 100k float blocks to understand data ranges across the file.
+with open('gpt2-124M.ckpt', 'rb') as f:
+    data = f.read()
+floats = struct.unpack(f'{len(data)//4}f', data)
+
+step = 1000000
+for i in range(0, len(floats), step):
+    chunk = floats[i:i+step]
+    print(f'Offset {i:9d}: min={min(chunk):8.3f}, max={max(chunk):8.3f}, mean={sum(chunk)/len(chunk):8.4f}')
+"
+^Cpython3 -c "import struct; f=open('gpt2-124M.ckpt','rb'); floats=struct.unpack('124439808f', f.read()); print('Loaded', len(floats)); [print(f'Offset {i:9d}: min={min(floats[i:i+1000000]):8.3f}, max={max(floats[i:i+1000000]):8.3f}, mean={sum(floats[i:i+1000000])/1000000:8.4f}') for i in range(0, len(floats), 1000000)]"
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+KeyboardInterrupt
+
+[?2004hroot@61f1d9ac578f:/app# python3 -c "import struct; f=open('gpt2-124M.ckpt','rb'); floats=struct.unpack('124439808f', f.read()); print('Loaded', len(floats)); [print(f'Offset {i:9d}: min={min(floats[i:i+1000000]):8.3f}, max={max(floats[i:i+1000000]):8.3f}, mean={sum(floats[i:i+1000000])/1000000:8.4f}') for i in range(0, len(floats), 1000000)]"
+[?2004lpython3 -c "import struct; f=open('gpt2-124M.ckpt','rb'); floats=struct.unpack('124439808f', f.read()); print('Loaded', len(floats)); [print(f'Offset {i:9d}: min={min(floats[i:i+1000000]):8.3f}, max={max(floats[i:i+1000000]):8.3f}, mean={sum(floats[i:i+1000000])/1000000:8.4f}') for i in range(0, len(floats), 1000000)]"
+
+^CKilled
+[?2004hroot@61f1d9ac578f:/app# python3 -c "import array; a = array.array('f'); f = open('gpt2-124M.ckpt', 'rb'); a.fromfile(f, 124439808); print('Read success, len:', len(a)); print('Sample[0:10]:', list(a[:10]))"
+[?2004lRead success, len: 124439808
+Sample[0:10]: [0.4803391396999359, -0.5254325866699219, -0.42926454544067383, -0.2059524953365326, -0.12773379683494568, -0.09542735666036606, -0.35286077857017517, -0.07646317780017853, -0.04590314254164696, -0.03752850368618965]
+[?2004hroot@61f1d9ac578f:/app# cat << 'EOF' > inspect.c
+[?2004l[?2004h> #include <stdio.h>
+[?2004l[?2004h> #include <stdlib.h>
+[?2004l[?2004h> 
+[?2004l[?2004h> int main() {
+[?2004l[?2004h>     FILE *f = fopen("gpt2-124M.ckpt", "rb");
+[?2004l[?2004h>     if (!f) { perror("fopen"); return 1; }
+[?2004l[?2004h>     float buf[10];
+[?2004l[?2004h>     if (fread(buf, sizeof(float), 10, f) == 10) {
+[?2004l[?2004h>         for (int i = 0; i < 10; i++) printf("%f ", buf[i]);
+[?2004l[?2004h>         printf("\n");
+[?2004l[?2004h>     }
+[?2004l[?2004h>     fclose(f);
+[?2004l[?2004h>     return 0;
+[?2004l[?2004h> }
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@61f1d9ac578f:/app# gcc inspect.c -o inspect && ./inspect
+[?2004l0.480339 -0.525433 -0.429265 -0.205952 -0.127734 -0.095427 -0.352861 -0.076463 -0.045903 -0.037529 
+[?2004hroot@61f1d9ac578f:/app# ./inspect
+[?2004l0.480339 -0.525433 -0.429265 -0.205952 -0.127734 -0.095427 -0.352861 -0.076463 -0.045903 -0.037529 
+[?2004hroot@61f1d9ac578f:/app# cat << 'EOF' > inspect_layout.c
+[?2004l[?2004h> #include <stdio.h>
+[?2004l[?2004h> #include <stdlib.h>
+[?2004l[?2004h> #include <sys/mman.h>
+[?2004l[?2004h> #include <sys/stat.h>
+[?2004l[?2004h> #include <fcntl.h>
+[?2004l[?2004h> #include <unistd.h>
+[?2004l[?2004h> #include <math.h>
+[?2004l[?2004h> 
+[?2004l[?2004h> void print_stats(const char* name, const float* ptr, size_t n) {
+[?2004l[?2004h>     double sum = 0, sq_sum = 0;
+[?2004l[?2004h>     float min_val = ptr[0], max_val = ptr[0];
+[?2004l[?2004h>     for (size_t i = 0; i < n; i++) {
+[?2004l[?2004h>         float v = ptr[i];
+[?2004l[?2004h>         sum += v;
+[?2004l[?2004h>         sq_sum += v * v;
+[?2004l[?2004h>         if (v < min_val) min_val = v;
+[?2004l[?2004h>         if (v > max_val) max_val = v;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     double mean = sum / n;
+[?2004l[?2004h>     double var = (sq_sum / n) - (mean * mean);
+[?2004l[?2004h>     printf("%-25s count=%-10zu mean=%8.4f std=%8.4f min=%8.4f max=%8.4f\n",
+[?2004l[?2004h>            name, n, mean, sqrt(var > 0 ? var : 0), min_val, max_val);
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> int main() {
+[?2004l[?2004h>     int fd = open("gpt2-124M.ckpt", O_RDONLY);
+[?2004l[?2004h>     if (fd < 0) { perror("open"); return 1; }
+[?2004l[?2004h>     struct stat st;
+[?2004l[?2004h>     fstat(fd, &st);
+[?2004l[?2004h>     size_t num_floats = st.st_size / sizeof(float);
+[?2004l[?2004h>     float* w = mmap(NULL, st.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
+[?2004l[?2004h>     if (w == MAP_FAILED) { perror("mmap"); return 1; }
+[?2004l[?2004h>     printf("Mapped %zu floats\n", num_floats);
+[?2004l[?2004h> 
+[?2004l[?2004h>     // Test Layout 1: Karpathy / standard export order
+[?2004l[?2004h>     // wte (50257*768), wpe (1024*768),
+[?2004l[?2004h>     // then 12 blocks: ln_1.g(768), ln_1.b(768), attn.c_attn.w(768*2304), attn.c_attn.b(2304),
+[?2004l[?2004h>     // attn.c_proj.w(768*768), attn.c_proj.b(768), ln_2.g(768), ln_2.b(768),
+[?2004l[?2004h>     // mlp.c_fc.w(768*3072), mlp.c_fc.b(3072), mlp.c_proj.w(3072*768), mlp.c_proj.b(768)
+[?2004l[?2004h>     // finally ln_f.g(768), ln_f.b(768)
+[?2004l[?2004h>     
+[?2004l[?2004h>     size_t off = 0;
+[?2004l[?2004h>     print_stats("wte", w + off, 50257 * 768); off += 50257 * 768;
+[?2004l[?2004h>     print_stats("wpe", w + off, 1024 * 768); off += 1024 * 768;
+[?2004l[?2004h>     
+[?2004l[?2004h>     for (int l = 0; l < 12; l++) {
+[?2004l[?2004h>         char label[64];
+[?2004l[?2004h>         snprintf(label, sizeof(label), "L%d.ln_1.g", l);
+[?2004l[?2004h>         print_stats(label, w + off, 768); off += 768;
+[?2004l[?2004h>         snprintf(label, sizeof(label), "L%d.ln_1.b", l);
+[?2004l[?2004h>         print_stats(label, w + off, 768); off += 768;
+[?2004l[?2004h>         snprintf(label, sizeof(label), "L%d.attn_c_attn.w", l);
+[?2004l[?2004h>         print_stats(label, w + off, 768 * 2304); off += 768 * 2304;
+[?2004l[?2004h>         snprintf(label, sizeof(label), "L%d.attn_c_attn.b", l);
+[?2004l[?2004h>         print_stats(label, w + off, 2304); off += 2304;
+[?2004l[?2004h>         snprintf(label, sizeof(label), "L%d.attn_c_proj.w", l);
+[?2004l[?2004h>         print_stats(label, w + off, 768 * 768); off += 768 * 768;
+[?2004l[?2004h>         snprintf(label, sizeof(label), "L%d.attn_c_proj.b", l);
+[?2004l[?2004h>         print_stats(label, w + off, 768); off += 768;
+[?2004l[?2004h>         snprintf(label, sizeof(label), "L%d.ln_2.g", l);
+[?2004l[?2004h>         print_stats(label, w + off, 768); off += 768;
+[?2004l[?2004h>         snprintf(label, sizeof(label), "L%d.ln_2.b", l);
+[?2004l[?2004h>         print_stats(label, w + off, 768); off += 768;
+[?2004l[?2004h>         snprintf(label, sizeof(label), "L%d.mlp_c_fc.w", l);
+[?2004l[?2004h>         print_stats(label, w + off, 768 * 3072); off += 768 * 3072;
+[?2004l[?2004h>         snprintf(label, sizeof(label), "L%d.mlp_c_fc.b", l);
+[?2004l[?2004h>         print_stats(label, w + off, 3072); off += 3072;
+[?2004l[?2004h>         snprintf(label, sizeof(label), "L%d.mlp_c_proj.w", l);
+[?2004l[?2004h>         print_stats(label, w + off, 3072 * 768); off += 3072 * 768;
+[?2004l[?2004h>         snprintf(label, sizeof(label), "L%d.mlp_c_proj.b", l);
+[?2004l[?2004h>         print_stats(label, w + off, 768); off += 768;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     print_stats("ln_f.g", w + off, 768); off += 768;
+[?2004l[?2004h>     print_stats("ln_f.b", w + off, 768); off += 768;
+[?2004l[?2004h>     printf("Total off=%zu, expected=%zu\n", off, num_floats);
+[?2004l[?2004h> 
+[?2004l[?2004h>     munmap(w, st.st_size);
+[?2004l[?2004h>     close(fd);
+[?2004l[?2004h>     return 0;
+[?2004l[?2004h> }
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@61f1d9ac578f:/app# gcc inspect_layout.c -o inspect_layout -lm && ./inspect_layout | head -n 30
+[?2004lMapped 124439808 floats
+wte                       count=38597376   mean= -0.0007 std=  0.1391 min=-11.0504 max= 15.0681
+wpe                       count=786432     mean= -0.0067 std=  0.1291 min= -2.6437 max=  2.2842
+L0.ln_1.g                 count=768        mean=  0.0147 std=  0.1301 min= -0.4365 max=  0.4971
+L0.ln_1.b                 count=768        mean=  0.0149 std=  0.1312 min= -0.3512 max=  0.5670
+L0.attn_c_attn.w          count=1769472    mean= -0.0020 std=  0.1100 min= -2.7596 max= 17.1023
+L0.attn_c_attn.b          count=2304       mean=  0.0002 std=  0.0785 min= -0.3067 max=  0.5334
+L0.attn_c_proj.w          count=589824     mean=  0.0002 std=  0.0933 min= -2.0992 max= 13.7437
+L0.attn_c_proj.b          count=768        mean=  0.0010 std=  0.0821 min= -0.2450 max=  0.3536
+L0.ln_2.g                 count=768        mean=  0.0005 std=  0.0803 min= -0.2366 max=  0.2414
+L0.ln_2.b                 count=768        mean= -0.0004 std=  0.0777 min= -0.3363 max=  0.2608
+L0.mlp_c_fc.w             count=2359296    mean=  0.0002 std=  0.1311 min= -4.1391 max=  3.7666
+L0.mlp_c_fc.b             count=3072       mean=  0.0023 std=  0.1454 min= -1.1564 max=  0.7451
+L0.mlp_c_proj.w           count=2359296    mean= -0.0024 std=  0.1231 min= -2.1614 max=  2.0201
+L0.mlp_c_proj.b           count=768        mean= -0.0097 std=  0.1254 min= -0.4362 max=  0.4019
+L1.ln_1.g                 count=768        mean=  0.0069 std=  0.1384 min= -0.3567 max=  0.5051
+L1.ln_1.b                 count=768        mean= -0.0002 std=  0.1292 min= -0.4666 max=  0.3730
+L1.attn_c_attn.w          count=1769472    mean= -0.0009 std=  0.1098 min= -3.7426 max=  4.7771
+L1.attn_c_attn.b          count=2304       mean=  0.0001 std=  0.0897 min= -0.5565 max=  0.3447
+L1.attn_c_proj.w          count=589824     mean=  0.0001 std=  0.0915 min= -2.9791 max=  2.9674
+L1.attn_c_proj.b          count=768        mean= -0.0007 std=  0.0685 min= -0.2518 max=  0.1976
+L1.ln_2.g                 count=768        mean= -0.0005 std=  0.0830 min= -0.3406 max=  0.3198
+L1.ln_2.b                 count=768        mean= -0.0001 std=  0.0794 min= -0.3014 max=  0.3219
+L1.mlp_c_fc.w             count=2359296    mean= -0.0000 std=  0.1170 min= -2.3135 max=  4.0140
+L1.mlp_c_fc.b             count=3072       mean= -0.0004 std=  0.1338 min= -0.5920 max=  0.4601
+L1.mlp_c_proj.w           count=2359296    mean= -0.0032 std=  0.1197 min= -1.9833 max=  1.7617
+L1.mlp_c_proj.b           count=768        mean= -0.0245 std=  0.1209 min= -0.4990 max=  0.3284
+L2.ln_1.g                 count=768        mean= -0.0157 std=  0.1273 min= -0.5073 max=  0.3444
+L2.ln_1.b                 count=768        mean= -0.0157 std=  0.1292 min= -0.3832 max=  0.3741
+L2.attn_c_attn.w          count=1769472    mean= -0.0011 std=  0.1119 min= -2.1041 max=  2.7329
+[?2004hroot@61f1d9ac578f:/app# cat << 'EOF' > find_ln.c
+[?2004l[?2004h> #include <stdio.h>
+[?2004l[?2004h> #include <stdlib.h>
+[?2004l[?2004h> #include <sys/mman.h>
+[?2004l[?2004h> #include <sys/stat.h>
+[?2004l[?2004h> #include <fcntl.h>
+[?2004l[?2004h> #include <unistd.h>
+[?2004l[?2004h> #include <math.h>
+[?2004l[?2004h> 
+[?2004l[?2004h> int main() {
+[?2004l[?2004h>     int fd = open("gpt2-124M.ckpt", O_RDONLY);
+[?2004l[?2004h>     struct stat st;
+[?2004l[?2004h>     fstat(fd, &st);
+[?2004l[?2004h>     size_t num_floats = st.st_size / sizeof(float);
+[?2004l[?2004h>     float* w = mmap(NULL, st.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
+[?2004l[?2004h> 
+[?2004l[?2004h>     for (size_t i = 0; i < num_floats - 768; i += 4) { // check every 4 floats
+[?2004l[?2004h>         double sum = 0;
+[?2004l[?2004h>         for (int k = 0; k < 768; k++) sum += w[i+k];
+[?2004l[?2004h>         double mean = sum / 768;
+[?2004l[?2004h>         if (mean > 0.7 && mean < 1.3) {
+[?2004l[?2004h>             double var = 0;
+[?2004l[?2004h>             for (int k = 0; k < 768; k++) {
+[?2004l[?2004h>                 double d = w[i+k] - mean;
+[?2004l[?2004h>                 var += d * d;
+[?2004l[?2004h>             }
+[?2004l[?2004h>             var /= 768;
+[?2004l[?2004h>             if (var < 0.2) {
+[?2004l[?2004h>                 printf("Found candidate LN g at float offset %zu (%zu bytes): mean=%.3f, std=%.3f, first5=[%.2f, %.2f, %.2f, %.2f, %.2f]\n",
+[?2004l[?2004h>                        i, i*4, mean, sqrt(var), w[i], w[i+1], w[i+2], w[i+3], w[i+4]);
+[?2004l[?2004h>             }
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     munmap(w, st.st_size);
+[?2004l[?2004h>     close(fd);
+[?2004l[?2004h>     return 0;
+[?2004l[?2004h> }
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@61f1d9ac578f:/app# gcc find_ln.c -o find_ln -lm && ./find_ln | head -n 30
+[?2004lpython3 -c "
+# Let's check TF variable order if TF is installed, or construct the TF key list
+# Standard TF GPT-2 124M variables in model/:
+# model/wte: [50257, 768] (38597376)
+# model/wpe: [1024, 768] (786432)
+# model/h0/attn/c_attn/w: [1, 768, 2304] (1769472)
+# model/h0/attn/c_attn/b: [2304]
+# model/h0/attn/c_proj/w: [1, 768, 768] (589824)
+# model/h0/attn/c_proj/b: [768]
+# model/h0/ln_1/g: [768]
+# model/h0/ln_1/b: [768]
+# model/h0/ln_2/g: [768]
+# model/h0/ln_2/b: [768]
+# model/h0/mlp/c_fc/w: [1, 768, 3072] (2359296)
+# model/h0/mlp/c_fc/b: [3072]
+# model/h0/mlp/c_proj/w: [1, 3072, 768] (2359296)
+# model/h0/mlp/c_proj/b: [768]
+# ...
+# model/ln_f/g: [768]
+# model/ln_f/b: [768]
+# Notice in TF, c_attn/b, c_attn/w, c_proj/b, c_proj/w, ln_1/b, ln_1/g, ln_2/b, ln_2/g, mlp/c_fc/b, mlp/c_fc/w, mlp/c_proj/b, mlp/c_proj/w!
+# Alphabetical order per layer h0:
+# 1. attn/c_attn/b (2304)
+# 2. attn/c_attn/w (1769472)
+# 3. attn/c_proj/b (768)
+# 4. attn/c_proj/w (589824)
+# 5. ln_1/b (768)
+# 6. ln_1/g (768)
+# 7. ln_2/b (768)
+# 8. ln_2/g (768)
+# 9. mlp/c_fc/b (3072)
+# 10. mlp/c_fc/w (2359296)
+# 11. mlp/c_proj/b (768)
+# 12. mlp/c_proj/w (2359296)
+print('Alphabetical idea listed')
+"
+python3 -c "import tensorflow as tf; print(tf.__version__)" 2>/dev/null || echo "No TF"
+python3 -c "
+import struct
+with open('gpt2-124M.ckpt', 'rb') as f:
+    data = f.read(10 * 768 * 4)
+    floats = struct.unpack(f'{10*768}f', data)
+    print('Token 0 norm:', sum(x*x for x in floats[:768])**0.5)
+    print('Token 1 norm:', sum(x*x for x in floats[768:1536])**0.5)
+"
+^C
+[?2004hroot@61f1d9ac578f:/app# python3 -c "import struct; f=open('gpt2-124M.ckpt','rb'); buf=f.read(1536*4); floats=struct.unpack('1536f', buf); print(sum(x*x for x in floats[:768])**0.5, sum(x*x for x in floats[768:1536])**0.5)"
+[?2004l9.49497936810636 5.069129819689457
+[?2004hroot@61f1d9ac578f:/app# python3 -c "import struct; f=open('gpt2-124M.ckpt','rb'); f.seek(38597376*4); buf=f.read(1536*4); floats=struct.unpack('1536f', buf); print(sum(x*x for x in floats[:768])**0.5, sum(x*x for x in floats[768:1536])**0.5)"
+[?2004l3.423908741469785 3.708569101041988
+[?2004hroot@61f1d9ac578f:/app# python3 -c "import struct; f=open('gpt2-124M.ckpt','rb'); f.seek(39383808*4); buf=f.read(3000*4); floats=struct.unpack('3000f', buf); print('First 20 floats:', floats[:20])"
+[?2004lFirst 20 floats: (0.012613765895366669, 0.1112576425075531, -0.018961146473884583, -0.07971286028623581, -0.1944773644208908, -0.022865435108542442, -0.04544481635093689, 0.048737768083810806, 0.039336930960416794, 0.10603900253772736, 0.11374630033969879, 0.032197318971157074, 0.33875906467437744, 0.15941236913204193, -0.06322687119245529, 0.06359272450208664, 0.15191376209259033, 0.021930141374468803, -0.005870906636118889, -0.06905064731836319)
+[?2004hroot@61f1d9ac578f:/app# python3 -c "
+[?2004l[?2004h> import struct
+[?2004l[?2004h> # Check if offset 39383808 starts with attn/c_attn/b (2304 floats)
+[?2004l[?2004h> with open('gpt2-124M.ckpt', 'rb') as f:
+[?2004l[?2004h>     f.seek((39383808) * 4)
+[?2004l[?2004h>     # Read 2304 floats (c_attn bias)
+[?2004l[?2004h>     c_attn_b = struct.unpack('2304f', f.read(2304 * 4))
+[?2004l[?2004h>     # c_attn bias in GPT-2 has 3 parts: q_bias (768), k_bias (768), v_bias (768)
+[?2004l[?2004h>     print('c_attn_b mean:', sum(c_attn_b)/2304)
+[?2004l[?2004h>     # After c_attn/b (2304) is c_attn/w (768 * 2304 = 1769472 floats)
+[?2004l[?2004h>     c_attn_w_first = struct.unpack('10f', f.read(40))
+[?2004l[?2004h>     print('c_attn_w_first:', c_attn_w_first)
+[?2004l[?2004h> "
+[?2004lc_attn_b mean: 0.015070896567439639
+c_attn_w_first: (0.0367182195186615, 0.020077161490917206, -0.09144525974988937, 0.046804457902908325, -0.12865287065505981, -0.012523827143013477, 0.049243491142988205, -0.07929431647062302, 0.19876478612422943, 0.16241660714149475)
+[?2004hroot@61f1d9ac578f:/app# python3 -c "
+[?2004l[?2004h> import struct
+[?2004l[?2004h> 
+[?2004l[?2004h> # Let's list the expected TF variable order:
+[?2004l[?2004h> # Root level:
+[?2004l[?2004h> # 1. model/ln_f/b: [768]
+[?2004l[?2004h> # 2. model/ln_f/g: [768]
+[?2004l[?2004h> # 3. model/wpe: [1024, 768]
+[?2004l[?2004h> # 4. model/wte: [50257, 768]
+[?2004l[?2004h> # OR model/h0..h11, model/ln_f, model/wpe, model/wte?
+[?2004l[?2004h> # Let's test the root variable order vs block variable order!
+[?2004l[?2004h> 
+[?2004l[?2004h> # In TF v1 checkpoint, all variables in the entire model are sorted ALPHABETICALLY by their full tensor name!
+[?2004l[?2004h> # Full tensor names in TF GPT-2:
+[?2004l[?2004h> # model/h0/attn/c_attn/b (2304)
+[?2004l[?2004h> # model/h0/attn/c_attn/w (768*2304)
+[?2004l[?2004h> # model/h0/attn/c_proj/b (768)
+[?2004l[?2004h> # model/h0/attn/c_proj/w (768*768)
+[?2004l[?2004h> # model/h0/ln_1/b (768)
+[?2004l[?2004h> # model/h0/ln_1/g (768)
+[?2004l[?2004h> # model/h0/ln_2/b (768)
+[?2004l[?2004h> # model/h0/ln_2/g (768)
+[?2004l[?2004h> # model/h0/mlp/c_fc/b (3072)
+[?2004l[?2004h> # model/h0/mlp/c_fc/w (768*3072)
+[?2004l[?2004h> # model/h0/mlp/c_proj/b (768)
+[?2004l[?2004h> # model/h0/mlp/c_proj/w (3072*768)
+[?2004l[?2004h> # ...
+[?2004l[?2004h> # model/h11/...
+[?2004l[?2004h> # model/ln_f/b (768)
+[?2004l[?2004h> # model/ln_f/g (768)
+[?2004l[?2004h> # model/wpe (1024*768)
+[?2004l[?2004h> # model/wte (50257*768)
+[?2004l[?2004h> 
+[?2004l[?2004h> # WAIT! Where are wte and wpe? 
+[?2004l[?2004h> # 'model/h0' comes BEFORE 'model/ln_f', 'model/wpe', 'model/wte' alphabetically!
+[?2004l[?2004h> # Alphabetical order:
+[?2004l[?2004h> # model/h0/...
+[?2004l[?2004h> # model/h1/...
+[?2004l[?2004h> # ...
+[?2004l[?2004h> # model/h10/...
+[?2004l[?2004h> # model/h11/...
+[?2004l[?2004h> # model/h2/...
+[?2004l[?2004h> # WAIT! Standard alphabetical string sorting vs h0..h11!
+[?2004l[?2004h> print('Let's test string sort of TF tensor names')
+[?2004l[?2004h> "
+[?2004l  File "<string>", line 44
+    print('Let's test string sort of TF tensor names')
+                                                    ^
+SyntaxError: unterminated string literal (detected at line 44)
+[?2004hroot@61f1d9ac578f:/app# python3 -c "
+[?2004l[?2004h> import struct
+[?2004l[?2004h> 
+[?2004l[?2004h> with open('gpt2-124M.ckpt', 'rb') as f:
+[?2004l[?2004h>     # Offset 0: wte (38597376)
+[?2004l[?2004h>     # Offset 38597376: wpe (786432)
+[?2004l[?2004h>     # Offset 39383808: block 0
+[?2004l[?2004h>     # Each block has 12 tensors in alphabetical order within block:
+[?2004l[?2004h>     # 1. attn/c_attn/b: 2304
+[?2004l[?2004h>     # 2. attn/c_attn/w: 1769472
+[?2004l[?2004h>     # 3. attn/c_proj/b: 768
+[?2004l[?2004h>     # 4. attn/c_proj/w: 589824
+[?2004l[?2004h>     # 5. ln_1/b: 768
+[?2004l[?2004h>     # 6. ln_1/g: 768
+[?2004l[?2004h>     # 7. ln_2/b: 768
+[?2004l[?2004h>     # 8. ln_2/g: 768
+[?2004l[?2004h>     # 9. mlp/c_fc/b: 3072
+[?2004l[?2004h>     # 10. mlp/c_fc/w: 2359296
+[?2004l[?2004h>     # 11. mlp/c_proj/b: 768
+[?2004l[?2004h>     # 12. mlp/c_proj/w: 2360064 - wait, c_proj/w is 3072*768 = 2359296
+[?2004l[?2004h>     block_len = 2304 + 1769472 + 768 + 589824 + 768 + 768 + 768 + 768 + 3072 + 2359296 + 768 + 2359296
+[?2004l[?2004h>     print('Block len:', block_len) # Should be 7087872
+[?2004l[?2004h>     print('12 blocks len:', 12 * block_len)
+[?2004l[?2004h>     print('wte + wpe + 12*block:', 39383808 + 12 * block_len)
+[?2004l[?2004h>     print('Remaining floats:', 124439808 - (39383808 + 12 * block_len))
+[?2004l[?2004h> "
+[?2004lBlock len: 7087872
+12 blocks len: 85054464
+wte + wpe + 12*block: 124438272
+Remaining floats: 1536
+[?2004hroot@61f1d9ac578f:/app# python3 -c "
+[?2004l[?2004h> import struct
+[?2004l[?2004h> with open('gpt2-124M.ckpt', 'rb') as f:
+[?2004l[?2004h>     # ln_f/g is at offset 124439040 floats
+[?2004l[?2004h>     f.seek(124439040 * 4)
+[?2004l[?2004h>     ln_f_g = struct.unpack('768f', f.read(768 * 4))
+[?2004l[?2004h>     print('ln_f/g mean:', sum(ln_f_g)/768, 'min:', min(ln_f_g), 'max:', max(ln_f_g))
+[?2004l[?2004h>     
+[?2004l[?2004h>     # L0 ln_1/g is at offset 39383808 + 2304 + 1769472 + 768 + 589824 + 768 = 41746752
+[?2004l[?2004h>     f.seek(41746752 * 4)
+[?2004l[?2004h>     l0_ln1_g = struct.unpack('768f', f.read(768 * 4))
+[?2004l[?2004h>     print('l0_ln1_g mean:', sum(l0_ln1_g)/768, 'min:', min(l0_ln1_g), 'max:', max(l0_ln1_g))
+[?2004l[?2004h> "
+[?2004lln_f/g mean: -0.00031063586336443905 min: -0.7358847260475159 max: 0.6595287322998047
+l0_ln1_g mean: 0.004150035327834682 min: -0.26509982347488403 max: 0.35359302163124084
+[?2004hroot@61f1d9ac578f:/app# python3 -c "
+[?2004l[?2004h> import struct
+[?2004l[?2004h> with open('gpt2-124M.ckpt', 'rb') as f:
+[?2004l[?2004h>     # Let's inspect the entire file's variable sizes
+[?2004l[?2004h>     # Let's write a python prototype of GPT-2 forward pass using this checkpoint and test on a known prompt!
+[?2004l[?2004h> "
+[?2004l  File "<string>", line 6
+    
+    ^
+IndentationError: expected an indented block after 'with' statement on line 3
+[?2004hroot@61f1d9ac578f:/app# cat << 'EOF' > test_gpt2.py
+[?2004l[?2004h> import struct
+[?2004l[?2004h> with open('vocab.bpe', 'r', encoding='utf-8') as f:
+[?2004l[?2004h>     lines = f.readlines()
+[?2004l[?2004h> print('Num bpe merges:', len(lines))
+[?2004l[?2004h> print('Lines[:5]:', [repr(l) for l in lines[:5]])
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@61f1d9ac578f:/app# python3 test_gpt2.py
+[?2004lNum bpe merges: 50001
+Lines[:5]: ["'#version: 0.2\\n'", "'Ġ t\\n'", "'Ġ a\\n'", "'h e\\n'", "'i n\\n'"]
+[?2004hroot@61f1d9ac578f:/app# ls -la /app
+[?2004ltotal 486620
+drwxr-xr-x 1 root root      4096 Aug 12 15:48 [0m[01;34m.[0m
+drwxr-xr-x 1 root root      4096 Aug 12 15:44 [01;34m..[0m
+-rwxr-xr-x 1 root root     16264 Aug 12 15:47 [01;32mfind_ln[0m
+-rw-r--r-- 1 root root      1120 Aug 12 15:47 find_ln.c
+-rw-r--r-- 1 root root 497759232 Oct 28  2025 gpt2-124M.ckpt
+-rwxr-xr-x 1 root root     16232 Aug 12 15:46 [01;32minspect[0m
+-rw-r--r-- 1 root root       329 Aug 12 15:46 inspect.c
+-rwxr-xr-x 1 root root     16376 Aug 12 15:47 [01;32minspect_layout[0m
+-rw-r--r-- 1 root root      3352 Aug 12 15:47 inspect_layout.c
+-rw-r--r-- 1 root root       179 Aug 12 15:48 test_gpt2.py
+-rw-r--r-- 1 root root    456318 Oct 28  2025 vocab.bpe
+[?2004hroot@61f1d9ac578f:/app# python3 -c "def bytes_to_unicode(): bs = list(range(ord('!'), ord('~')+1)) + list(range(ord('¡'), ord('¬')+1)) + list(range(ord('®'), ord('ÿ')+1)); cs = bs[:]; n = 0; [bs.append(b) or cs.append(256 + n) or (n := n + 1) for b in range(256) if b not in bs]; return dict(zip(bs, [chr(n) for n in cs])); b2u = bytes_to_unicode(); print('Space (32) maps to unicode char:', repr(b2u[32]))"
+[?2004lbash: !': event not found
+[?2004hroot@61f1d9ac578f:/app# 

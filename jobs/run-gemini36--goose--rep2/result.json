@@ -1,0 +1,58 @@
+{
+    "id": "42fd6dcd-831e-46ef-b629-8200b2806f08",
+    "started_at": "2026-08-12T15:52:32.807088",
+    "updated_at": "2026-08-12T16:03:53.796444",
+    "finished_at": "2026-08-12T16:03:53.796444",
+    "n_total_trials": 12,
+    "stats": {
+        "n_completed_trials": 12,
+        "n_errored_trials": 3,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "goose__bench-model__terminal-bench": {
+                "n_trials": 12,
+                "n_errors": 3,
+                "metrics": [
+                    {
+                        "mean": 0.3333333333333333
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "sparql-university__GBmr2Kr",
+                            "log-summary-date-ranges__jRsGAxg",
+                            "configure-git-webserver__mW7KRMY",
+                            "fix-git__6bns5FU"
+                        ],
+                        "0.0": [
+                            "db-wal-recovery__tmRu4sh",
+                            "model-extraction-relu-logits__fV2eJTf",
+                            "password-recovery__46NZYXK",
+                            "overfull-hbox__fL24bjj",
+                            "sqlite-with-gcov__Fxp7rMi",
+                            "adaptive-rejection-sampler__9radmbP",
+                            "torch-pipeline-parallelism__abSov9m",
+                            "gpt2-codegolf__wnkhLUJ"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "db-wal-recovery__tmRu4sh",
+                        "model-extraction-relu-logits__fV2eJTf",
+                        "password-recovery__46NZYXK"
+                    ]
+                }
+            }
+        },
+        "n_input_tokens": 2555512,
+        "n_cache_tokens": null,
+        "n_output_tokens": 61798,
+        "cost_usd": null
+    }
+}

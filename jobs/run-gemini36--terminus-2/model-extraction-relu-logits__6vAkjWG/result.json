@@ -1,0 +1,168 @@
+{
+    "id": "fa657360-d306-41f3-aba9-66a24adf5e60",
+    "task_name": "model-extraction-relu-logits",
+    "trial_name": "model-extraction-relu-logits__6vAkjWG",
+    "trial_uri": "file:///home/user/builds/harbor-harness-spread/jobs/fill-terminus-2-23385/model-extraction-relu-logits__6vAkjWG",
+    "task_id": {
+        "path": "/home/user/builds/harbor-harness-spread/terminal-bench/model-extraction-relu-logits"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "d0dd8f420350bee97f2d47a2b0c74996be0146aa7bd6f8a1871d9629200dc359",
+    "config": {
+        "task": {
+            "path": "/home/user/builds/harbor-harness-spread/terminal-bench/model-extraction-relu-logits",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "model-extraction-relu-logits__6vAkjWG",
+        "trials_dir": "/home/user/builds/harbor-harness-spread/jobs/fill-terminus-2-23385",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": 0.4,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "terminus-2",
+            "import_path": null,
+            "model_name": "openai/bench-model",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "env": {
+                "SSL_CERT_FILE": "/ccr-ca.crt",
+                "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                "NODE_EXTRA_CA_CERTS": "/ccr-ca.crt",
+                "GIT_SSL_CAINFO": "/ccr-ca.crt",
+                "PIP_CERT": "/ccr-ca.crt",
+                "CARGO_HTTP_CAINFO": "/ccr-ca.crt",
+                "OPENAI_HOST": "http://172.17.0.1:4010",
+                "OPENAI_BASE_PATH": "v1/chat/completions",
+                "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+                "OPENAI_BASE_URL": "http://172.17.0.1:4010/v1",
+                "OPENAI_API_BASE": "http://172.17.0.1:4010/v1"
+            },
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/.ccr/ca-bundle.crt",
+                    "target": "/ccr-ca.crt",
+                    "read_only": true
+                },
+                {
+                    "type": "bind",
+                    "source": "/root/.local/bin/uv",
+                    "target": "/usr/local/bin/uv",
+                    "read_only": true
+                },
+                {
+                    "type": "bind",
+                    "source": "/root/.local/bin/uvx",
+                    "target": "/usr/local/bin/uvx",
+                    "read_only": true
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {
+                "SSL_CERT_FILE": "/ccr-ca.crt",
+                "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                "PIP_CERT": "/ccr-ca.crt",
+                "UV_NATIVE_TLS": "1"
+            },
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "job_id": "8131c36a-d201-43b1-8c99-e26942c56bc3"
+    },
+    "agent_info": {
+        "name": "terminus-2",
+        "version": "2.0.0",
+        "model_info": {
+            "name": "bench-model",
+            "provider": "openai"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 57956,
+        "n_cache_tokens": 15889,
+        "n_output_tokens": 11889,
+        "cost_usd": null,
+        "rollout_details": [],
+        "metadata": {
+            "n_episodes": 10,
+            "api_request_times_msec": [
+                9585.473537445068,
+                37295.379400253296,
+                7267.972230911255,
+                4248.539209365845,
+                2704.3936252593994,
+                10694.891929626465,
+                7115.733623504639,
+                3098.2298851013184,
+                2014.3651962280273,
+                2045.5055236816406
+            ],
+            "summarization_count": 0
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-08-12T15:38:37.480254Z",
+    "finished_at": "2026-08-12T15:40:58.876781Z",
+    "environment_setup": {
+        "started_at": "2026-08-12T15:38:37.654313Z",
+        "finished_at": "2026-08-12T15:38:39.209963Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-08-12T15:38:39.210031Z",
+        "finished_at": "2026-08-12T15:38:50.081669Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-08-12T15:38:50.081829Z",
+        "finished_at": "2026-08-12T15:40:30.777571Z"
+    },
+    "verifier": {
+        "started_at": "2026-08-12T15:40:37.143455Z",
+        "finished_at": "2026-08-12T15:40:46.840982Z"
+    },
+    "step_results": null
+}

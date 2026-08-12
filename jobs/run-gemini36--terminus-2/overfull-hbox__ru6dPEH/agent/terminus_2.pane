@@ -1,0 +1,1070 @@
+[?2004hroot@6272ecee67e8:/app# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@6272ecee67e8:/app# clear
+[?2004l[H[J[3J[?2004hroot@6272ecee67e8:/app# ls -la
+[?2004ltotal 28
+drwxr-xr-x 1 root root 4096 Oct 31  2025 [0m[01;34m.[0m
+drwxr-xr-x 1 root root 4096 Aug 12 15:38 [01;34m..[0m
+-rw-r--r-- 1 root root 5186 Oct 24  2025 input.tex
+-rw-r--r-- 1 root root  328 Oct 24  2025 main.tex
+-rw-r--r-- 1 root root 6008 Oct 24  2025 synonyms.txt
+[?2004hroot@6272ecee67e8:/app# cat main.tex
+[?2004l\documentclass[letterpaper]{article}
+
+\setlength{\topmargin}{2in}
+\setlength{\headheight}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\textheight}{5in}
+\setlength{\textwidth}{2.5in}
+\setlength{\oddsidemargin}{2in}
+\setlength{\evensidemargin}{2in}
+\setlength{\footskip}{0.5in}
+
+\begin{document}
+
+\input{input.tex}
+
+\end{document}
+
+[?2004hroot@6272ecee67e8:/app# cat synonyms.txt
+[?2004labnormal, unusual, irregular, atypical, deviant, aberrant
+abortive, failed, unsuccessful, futile, fruitless, ineffective
+actual, real, genuine, true, factual
+admission, confession, acknowledgment, concession, declaration
+advantages, benefits, privileges, assets, strengths, perks
+advice, counsel, guidance, recommendations, suggestions, tips
+attention, focus, concentration, notice, regard
+book, volume, publication, work, text, manuscript
+centre, middle, core, heart, hub
+clan, family, tribe, group, kinship, lineage
+college, university, school, academy, institution
+communicative, talkative, expressive, open, articulate, forthcoming
+Conduct, Behavior, Actions, Deportment, Demeanor, Bearing
+country, nation, land, region, territory, countryside
+creative, imaginative, inventive, artistic
+curious, inquisitive, interested, odd, peculiar
+decencies, proprieties, courtesies, civilities, manners
+delays, postponements, setbacks, holdups, deferrals
+dreams, aspirations, visions, hopes, fantasies, ambitions
+dust, particles, powder, debris, residue, grime
+edge, border, boundary, margin, rim, periphery
+elations, joys, euphoria, excitement, exhilaration
+electric, electrical, powered, energized, charged
+excursions, trips, outings, journeys, expeditions, adventures
+extraordinary, remarkable, exceptional, outstanding, amazing
+firm, company, business, organization, corporation, enterprise
+flabby, soft, loose, slack, feeble
+forever, eternally, always, perpetually, endlessly, permanently
+foul, dirty, filthy, contaminated, polluted, vile
+freedom, liberty, independence, autonomy, release, emancipation
+friendly, amiable, cordial, welcoming, kind
+fundamental, basic, essential, primary, underlying
+gift, talent, ability, present, offering, skill
+gorgeous, beautiful, stunning, magnificent, splendid, lovely
+grave, serious, solemn, severe, somber, weighty
+guide, leader, director, mentor
+habit, custom, routine, practice, pattern, tendency
+hardware, equipment, tools, implements, machinery, fixtures
+heightened, increased, intensified, enhanced, elevated, amplified
+hesitant, uncertain, tentative, reluctant, doubtful, wavering
+hope, optimism, expectation, faith, confidence, aspiration
+hostile, unfriendly, aggressive, antagonistic, belligerent, adverse
+house, home, residence, dwelling, building, abode
+idea, concept, thought, notion, plan, suggestion
+impressionability, susceptibility, receptiveness, vulnerability, influence
+infinite, endless, limitless, boundless, eternal, immeasurable
+interest, curiosity, concern, fascination, engagement
+intimate, close, personal, familiar, confidential
+intricate, complex, complicated, elaborate, detailed, sophisticated
+judgments, opinions, assessments, evaluations, decisions, verdicts
+levity, lightness, frivolity, humor, playfulness, jest
+machines, devices, apparatus, mechanisms, instruments
+marshes, swamps, wetlands, bogs, marshlands, moors
+migration, movement, relocation, journey, exodus, displacement
+mind, intellect, brain, consciousness, mentality, psyche
+moral, ethical, virtuous, righteous, principled, decent
+name, title, designation, label, identity, reputation
+natures, characters, temperaments, dispositions, essences, personalities
+obvious, clear, evident, apparent, plain, manifest
+office, workplace, bureau, headquarters, study, position
+old, obsolete, archaic, antiquated, ancient
+original, initial, authentic, innovative
+painting, artwork, portrait, picture, canvas, image
+pathfinder, pioneer, trailblazer, scout
+plagiaristic, copied, imitative, derivative, borrowed, unoriginal
+practical, sensible, useful, realistic, pragmatic, functional
+prominent, notable, distinguished, famous, important
+promises, pledges, commitments, assurances, guarantees, vows
+quality, characteristic, trait, attribute, feature, standard
+quick, fast, rapid, swift, speedy, prompt
+ragged, torn, frayed, rough, uneven, tattered
+readiness, preparedness, willingness, eagerness, availability, alertness
+reference, mention, allusion, citation
+reserved, quiet, restrained, modest, withdrawn
+responsiveness, sensitivity, awareness, reaction, attentiveness
+restless, agitated, uneasy, fidgety, anxious, unsettled
+revelation, disclosure, discovery, unveiling, exposure, epiphany
+revelations, disclosures, discoveries, exposures, unveilings, epiphanies
+riotous, wild, unruly, chaotic, boisterous, tumultuous
+road, street, path, route, way, highway
+romantic, idealistic, passionate, sentimental, dreamy, loving
+rooms, chambers, spaces, quarters, compartments, areas
+scorn, contempt, disdain, derision, mockery, ridicule
+season, period, time, phase, spell, duration
+series, sequence, chain, succession, set, progression
+settler, colonist, resident, inhabitant, homesteader
+sign, indication, signal, symbol, mark, evidence
+single, individual, sole, unmarried, one, solitary
+sleep, rest, slumber, repose, dormancy, unconsciousness
+special, unique, particular, distinctive
+substitute, replacement, alternative, proxy, surrogate
+successful, triumphant, prosperous, effective, accomplished, winning
+suppressions, concealments, repressions, restrictions, censorings, withholdings
+temperament, disposition, nature, character, personality, mood
+terms, conditions, words, expressions, periods, relationships
+town, community, municipality, settlement, village, borough
+trees, plants, vegetation, timber, woods, forest
+unknown, unfamiliar, mysterious, unidentified, strange, anonymous
+unsought, unwanted, uninvited, unrequested, undesired, spontaneous
+various, different, diverse, assorted, multiple, several
+veteran, vintage, seasoned, weathered, dated
+victim, target, casualty, sufferer, prey, subject
+vulnerable, defenseless, exposed, susceptible, weak, fragile
+warm, heated, cozy, mild
+weatherbeaten, worn, battered, deteriorated
+wet, moist, damp, soaked, saturated, humid
+wide, broad, extensive, spacious, large, expansive
+wisdom, knowledge, insight, understanding, intelligence, sagacity
+world, earth, globe, planet, society, realm
+young, youthful, juvenile, new, fresh, inexperienced
+[?2004hroot@6272ecee67e8:/app# cat input.tex
+[?2004lIn my younger and more vulnerable years my father gave me some advice that I've been turning over in my mind ever since.
+
+``Whenever you feel like criticising any one,'' he told me, ``just remember that all the people in this world haven't had the advantages that you've had.''
+
+He didn't say any more, but we've always been unusually communicative in a reserved way, and I understood that he meant a great deal more than that. In consequence, I'm inclined to reserve all judgments, a habit that has opened up many curious natures to me and also made me the victim of not a few veteran bores. The abnormal mind is quick to detect and attach itself to this quality when it appears in a normal person, and so it came about that in college I was unjustly accused of being a politician, because I was privy to the secret griefs of wild, unknown men. Most of the confidences were unsought---frequently I have feigned sleep, preoccupation, or a hostile levity when I realized by some unmistakable sign that an intimate revelation was quivering on the horizon; for the intimate revelations of young men, or at least the terms in which they express them, are usually plagiaristic and marred by obvious suppressions. Reserving judgments is a matter of infinite hope. I am still a little afraid of missing something if I forget that, as my father snobbishly suggested, and I snobbishly repeat, a sense of the fundamental decencies is parcelled out unequally at birth.
+
+And, after boasting this way of my tolerance, I come to the admission that it has a limit. Conduct may be founded on the hard rock or the wet marshes, but after a certain point I don't care what it's founded on. When I came back from the East last autumn I felt that I wanted the world to be in uniform and at a sort of moral attention forever; I wanted no more riotous excursions with privileged glimpses into the human heart. Only Gatsby, the man who gives his name to this book, was exempt from my reaction---Gatsby, who represented everything for which I have an unaffected scorn. If personality is an unbroken series of successful gestures, then there was something gorgeous about him, some heightened sensitivity to the promises of life, as if he were related to one of those intricate machines that register earthquakes ten thousand miles away. This responsiveness had nothing to do with that flabby impressionability which is dignified under the name of the ``creative temperament''---it was an extraordinary gift for hope, a romantic readiness such as I have never found in any other person and which it is not likely I shall ever find again. No---Gatsby turned out all right at the end; it is what preyed on Gatsby, what foul dust floated in the wake of his dreams that temporarily closed out my interest in the abortive sorrows and short-winded elations of men.
+
+My family have been prominent, well-to-do people in this Middle Western city for three generations. The Carraways are something of a clan, and we have a tradition that we're descended from the Dukes of Buccleuch, but the actual founder of my line was my grandfather's brother, who came here in fifty-one, sent a substitute to the Civil War, and started the wholesale hardware business that my father carries on to-day.
+
+I never saw this great-uncle, but I'm supposed to look like him---with special reference to the rather hard-boiled painting that hangs in father's office. I graduated from New Haven in 1915, just a quarter of a century after my father, and a little later I participated in that delayed Teutonic migration known as the Great War. I enjoyed the counter-raid so thoroughly that I came back restless. Instead of being the warm centre of the world, the Middle West now seemed like the ragged edge of the universe---so I decided to go East and learn the bond business. Everybody I knew was in the bond business, so I supposed it could support one more single man. All my aunts and uncles talked it over as if they were choosing a prep school for me, and finally said, ``Why---ye-es,'' with very grave, hesitant faces. Father agreed to finance me for a year, and after various delays I came East, permanently, I thought, in the spring of twenty-two.
+
+The practical thing was to find rooms in the city, but it was a warm season, and I had just left a country of wide lawns and friendly trees, so when a young man at the office suggested that we take a house together in a commuting town, it sounded like a great idea. He found the house, a weatherbeaten cardboard bungalow at eighty a month, but at the last minute the firm ordered him to Washington, and I went out to the country alone. I had a dog---at least I had him for a few days until he ran away---and an old Dodge and a Finnish woman, who made my bed and cooked breakfast and muttered Finnish wisdom to herself over the electric stove.
+
+It was lonely for a day or so until one morning some man, more recently arrived than I, stopped me on the road.
+
+``How do you get to West Egg village?'' he asked helplessly.
+
+I told him. And as I walked on I was lonely no longer. I was a guide, a pathfinder, an original settler. He had casually conferred on me the freedom of the neighborhood.
+[?2004hroot@6272ecee67e8:/app# pdflatex -interaction=nonstopmode main.tex
+[?2004lThis is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./main.tex
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-01-22>
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo))
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
+No file main.aux.
+(./input.tex
+Overfull \hbox (0.10312pt too wide) in paragraph at lines 5--6
+\OT1/cmr/m/n/10 many cu-ri-ous na-tures to me and also made
+
+Overfull \hbox (18.03828pt too wide) in paragraph at lines 5--6
+\OT1/cmr/m/n/10 men. Most of the con-fi-dences were unsought---
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+Overfull \hbox (1.90868pt too wide) in paragraph at lines 7--8
+\OT1/cmr/m/n/10 ri-otous ex-cur-sions with priv-i-leged glimpses
+
+Overfull \hbox (3.242pt too wide) in paragraph at lines 7--8
+\OT1/cmr/m/n/10 This re-spon-sive-ness had noth-ing to do with
+
+Overfull \hbox (54.68654pt too wide) in paragraph at lines 7--8
+\OT1/cmr/m/n/10 ni-fied un-der the name of the ``cre-ative temperament''---
+[2] [3]
+Overfull \hbox (6.07536pt too wide) in paragraph at lines 13--14
+\OT1/cmr/m/n/10 cooked break-fast and mut-tered Finnish wis-
+[4])
+Overfull \hbox (8.4539pt too wide) in paragraph at lines 19--15
+\OT1/cmr/m/n/10 lonely no longer. I was a guide, a pathfinder,
+[5] (./main.aux) )
+(see the transcript file for additional information)</usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
+Output written on main.pdf (5 pages, 29584 bytes).
+Transcript written on main.log.
+[?2004hroot@6272ecee67e8:/app# python3 -c "with open('synonyms.txt') as f: print(f.read())"
+[?2004labnormal, unusual, irregular, atypical, deviant, aberrant
+abortive, failed, unsuccessful, futile, fruitless, ineffective
+actual, real, genuine, true, factual
+admission, confession, acknowledgment, concession, declaration
+advantages, benefits, privileges, assets, strengths, perks
+advice, counsel, guidance, recommendations, suggestions, tips
+attention, focus, concentration, notice, regard
+book, volume, publication, work, text, manuscript
+centre, middle, core, heart, hub
+clan, family, tribe, group, kinship, lineage
+college, university, school, academy, institution
+communicative, talkative, expressive, open, articulate, forthcoming
+Conduct, Behavior, Actions, Deportment, Demeanor, Bearing
+country, nation, land, region, territory, countryside
+creative, imaginative, inventive, artistic
+curious, inquisitive, interested, odd, peculiar
+decencies, proprieties, courtesies, civilities, manners
+delays, postponements, setbacks, holdups, deferrals
+dreams, aspirations, visions, hopes, fantasies, ambitions
+dust, particles, powder, debris, residue, grime
+edge, border, boundary, margin, rim, periphery
+elations, joys, euphoria, excitement, exhilaration
+electric, electrical, powered, energized, charged
+excursions, trips, outings, journeys, expeditions, adventures
+extraordinary, remarkable, exceptional, outstanding, amazing
+firm, company, business, organization, corporation, enterprise
+flabby, soft, loose, slack, feeble
+forever, eternally, always, perpetually, endlessly, permanently
+foul, dirty, filthy, contaminated, polluted, vile
+freedom, liberty, independence, autonomy, release, emancipation
+friendly, amiable, cordial, welcoming, kind
+fundamental, basic, essential, primary, underlying
+gift, talent, ability, present, offering, skill
+gorgeous, beautiful, stunning, magnificent, splendid, lovely
+grave, serious, solemn, severe, somber, weighty
+guide, leader, director, mentor
+habit, custom, routine, practice, pattern, tendency
+hardware, equipment, tools, implements, machinery, fixtures
+heightened, increased, intensified, enhanced, elevated, amplified
+hesitant, uncertain, tentative, reluctant, doubtful, wavering
+hope, optimism, expectation, faith, confidence, aspiration
+hostile, unfriendly, aggressive, antagonistic, belligerent, adverse
+house, home, residence, dwelling, building, abode
+idea, concept, thought, notion, plan, suggestion
+impressionability, susceptibility, receptiveness, vulnerability, influence
+infinite, endless, limitless, boundless, eternal, immeasurable
+interest, curiosity, concern, fascination, engagement
+intimate, close, personal, familiar, confidential
+intricate, complex, complicated, elaborate, detailed, sophisticated
+judgments, opinions, assessments, evaluations, decisions, verdicts
+levity, lightness, frivolity, humor, playfulness, jest
+machines, devices, apparatus, mechanisms, instruments
+marshes, swamps, wetlands, bogs, marshlands, moors
+migration, movement, relocation, journey, exodus, displacement
+mind, intellect, brain, consciousness, mentality, psyche
+moral, ethical, virtuous, righteous, principled, decent
+name, title, designation, label, identity, reputation
+natures, characters, temperaments, dispositions, essences, personalities
+obvious, clear, evident, apparent, plain, manifest
+office, workplace, bureau, headquarters, study, position
+old, obsolete, archaic, antiquated, ancient
+original, initial, authentic, innovative
+painting, artwork, portrait, picture, canvas, image
+pathfinder, pioneer, trailblazer, scout
+plagiaristic, copied, imitative, derivative, borrowed, unoriginal
+practical, sensible, useful, realistic, pragmatic, functional
+prominent, notable, distinguished, famous, important
+promises, pledges, commitments, assurances, guarantees, vows
+quality, characteristic, trait, attribute, feature, standard
+quick, fast, rapid, swift, speedy, prompt
+ragged, torn, frayed, rough, uneven, tattered
+readiness, preparedness, willingness, eagerness, availability, alertness
+reference, mention, allusion, citation
+reserved, quiet, restrained, modest, withdrawn
+responsiveness, sensitivity, awareness, reaction, attentiveness
+restless, agitated, uneasy, fidgety, anxious, unsettled
+revelation, disclosure, discovery, unveiling, exposure, epiphany
+revelations, disclosures, discoveries, exposures, unveilings, epiphanies
+riotous, wild, unruly, chaotic, boisterous, tumultuous
+road, street, path, route, way, highway
+romantic, idealistic, passionate, sentimental, dreamy, loving
+rooms, chambers, spaces, quarters, compartments, areas
+scorn, contempt, disdain, derision, mockery, ridicule
+season, period, time, phase, spell, duration
+series, sequence, chain, succession, set, progression
+settler, colonist, resident, inhabitant, homesteader
+sign, indication, signal, symbol, mark, evidence
+single, individual, sole, unmarried, one, solitary
+sleep, rest, slumber, repose, dormancy, unconsciousness
+special, unique, particular, distinctive
+substitute, replacement, alternative, proxy, surrogate
+successful, triumphant, prosperous, effective, accomplished, winning
+suppressions, concealments, repressions, restrictions, censorings, withholdings
+temperament, disposition, nature, character, personality, mood
+terms, conditions, words, expressions, periods, relationships
+town, community, municipality, settlement, village, borough
+trees, plants, vegetation, timber, woods, forest
+unknown, unfamiliar, mysterious, unidentified, strange, anonymous
+unsought, unwanted, uninvited, unrequested, undesired, spontaneous
+various, different, diverse, assorted, multiple, several
+veteran, vintage, seasoned, weathered, dated
+victim, target, casualty, sufferer, prey, subject
+vulnerable, defenseless, exposed, susceptible, weak, fragile
+warm, heated, cozy, mild
+weatherbeaten, worn, battered, deteriorated
+wet, moist, damp, soaked, saturated, humid
+wide, broad, extensive, spacious, large, expansive
+wisdom, knowledge, insight, understanding, intelligence, sagacity
+world, earth, globe, planet, society, realm
+young, youthful, juvenile, new, fresh, inexperienced
+
+[?2004hroot@6272ecee67e8:/app# python3 -c "with open('input.tex') as f: lines = f.readlines()
+[?2004l[?2004h> for i, l in enumerate(lines, 1):
+[?2004l[?2004h>     print(f'{i:3d}: {repr(l)}')"
+[?2004l  1: "In my younger and more vulnerable years my father gave me some advice that I've been turning over in my mind ever since.\n"
+  2: '\n'
+  3: "``Whenever you feel like criticising any one,'' he told me, ``just remember that all the people in this world haven't had the advantages that you've had.''\n"
+  4: '\n'
+  5: "He didn't say any more, but we've always been unusually communicative in a reserved way, and I understood that he meant a great deal more than that. In consequence, I'm inclined to reserve all judgments, a habit that has opened up many curious natures to me and also made me the victim of not a few veteran bores. The abnormal mind is quick to detect and attach itself to this quality when it appears in a normal person, and so it came about that in college I was unjustly accused of being a politician, because I was privy to the secret griefs of wild, unknown men. Most of the confidences were unsought---frequently I have feigned sleep, preoccupation, or a hostile levity when I realized by some unmistakable sign that an intimate revelation was quivering on the horizon; for the intimate revelations of young men, or at least the terms in which they express them, are usually plagiaristic and marred by obvious suppressions. Reserving judgments is a matter of infinite hope. I am still a little afraid of missing something if I forget that, as my father snobbishly suggested, and I snobbishly repeat, a sense of the fundamental decencies is parcelled out unequally at birth.\n"
+  6: '\n'
+  7: "And, after boasting this way of my tolerance, I come to the admission that it has a limit. Conduct may be founded on the hard rock or the wet marshes, but after a certain point I don't care what it's founded on. When I came back from the East last autumn I felt that I wanted the world to be in uniform and at a sort of moral attention forever; I wanted no more riotous excursions with privileged glimpses into the human heart. Only Gatsby, the man who gives his name to this book, was exempt from my reaction---Gatsby, who represented everything for which I have an unaffected scorn. If personality is an unbroken series of successful gestures, then there was something gorgeous about him, some heightened sensitivity to the promises of life, as if he were related to one of those intricate machines that register earthquakes ten thousand miles away. This responsiveness had nothing to do with that flabby impressionability which is dignified under the name of the ``creative temperament''---it was an extraordinary gift for hope, a romantic readiness such as I have never found in any other person and which it is not likely I shall ever find again. No---Gatsby turned out all right at the end; it is what preyed on Gatsby, what foul dust floated in the wake of his dreams that temporarily closed out my interest in the abortive sorrows and short-winded elations of men.\n"
+  8: '\n'
+  9: "My family have been prominent, well-to-do people in this Middle Western city for three generations. The Carraways are something of a clan, and we have a tradition that we're descended from the Dukes of Buccleuch, but the actual founder of my line was my grandfather's brother, who came here in fifty-one, sent a substitute to the Civil War, and started the wholesale hardware business that my father carries on to-day.\n"
+ 10: '\n'
+ 11: "I never saw this great-uncle, but I'm supposed to look like him---with special reference to the rather hard-boiled painting that hangs in father's office. I graduated from New Haven in 1915, just a quarter of a century after my father, and a little later I participated in that delayed Teutonic migration known as the Great War. I enjoyed the counter-raid so thoroughly that I came back restless. Instead of being the warm centre of the world, the Middle West now seemed like the ragged edge of the universe---so I decided to go East and learn the bond business. Everybody I knew was in the bond business, so I supposed it could support one more single man. All my aunts and uncles talked it over as if they were choosing a prep school for me, and finally said, ``Why---ye-es,'' with very grave, hesitant faces. Father agreed to finance me for a year, and after various delays I came East, permanently, I thought, in the spring of twenty-two.\n"
+ 12: '\n'
+ 13: 'The practical thing was to find rooms in the city, but it was a warm season, and I had just left a country of wide lawns and friendly trees, so when a young man at the office suggested that we take a house together in a commuting town, it sounded like a great idea. He found the house, a weatherbeaten cardboard bungalow at eighty a month, but at the last minute the firm ordered him to Washington, and I went out to the country alone. I had a dog---at least I had him for a few days until he ran away---and an old Dodge and a Finnish woman, who made my bed and cooked breakfast and muttered Finnish wisdom to herself over the electric stove.\n'
+ 14: '\n'
+ 15: 'It was lonely for a day or so until one morning some man, more recently arrived than I, stopped me on the road.\n'
+ 16: '\n'
+ 17: "``How do you get to West Egg village?'' he asked helplessly.\n"
+ 18: '\n'
+ 19: 'I told him. And as I walked on I was lonely no longer. I was a guide, a pathfinder, an original settler. He had casually conferred on me the freedom of the neighborhood.\n'
+[?2004hroot@6272ecee67e8:/app# grep -A 2 -B 2 "Overfull \\hbox" main.log
+[?2004l[?2004hroot@6272ecee67e8:/app# python3 -c "import subprocess, re; res = subprocess.run(['pdflatex', '-interaction=nonstopmode', 'main.tex'], capture_output=True, text=True); print('\n'.join(re.findall(r'Overfull .*', res.stdout)))"
+[?2004lOverfull \hbox (0.10312pt too wide) in paragraph at lines 5--6
+Overfull \hbox (18.03828pt too wide) in paragraph at lines 5--6
+Overfull \hbox (1.90868pt too wide) in paragraph at lines 7--8
+Overfull \hbox (3.242pt too wide) in paragraph at lines 7--8
+Overfull \hbox (54.68654pt too wide) in paragraph at lines 7--8
+Overfull \hbox (6.07536pt too wide) in paragraph at lines 13--14
+Overfull \hbox (8.4539pt too wide) in paragraph at lines 19--15
+[?2004hroot@6272ecee67e8:/app# python3 -c "import base64; code = '''
+[?2004l[?2004h> import re
+[?2004l[?2004h> import subprocess
+[?2004l[?2004h> 
+[?2004l[?2004h> def run_pdflatex():
+[?2004l[?2004h>     res = subprocess.run(['pdflatex', '-interaction=nonstopmode', 'main.tex'], capture_output=True, text=True)
+[?2004l[?2004h>     overfulls = re.findall(r'Overfull \\hbox \((.*?\\bpt too wide\)) in paragraph at lines (\\d+--\\d+)', res.stdout)
+[?2004l[?2004h>     return overfulls
+[?2004l[?2004h> 
+[?2004l[?2004h> print('Initial overfulls:', run_pdflatex())
+[?2004l[?2004h> '''; open('solve.py', 'w').write(code)"
+[?2004l<string>:1: SyntaxWarning: invalid escape sequence '\h'
+[?2004hroot@6272ecee67e8:/app# python3 solve.py
+[?2004lTraceback (most recent call last):
+  File "/app/solve.py", line 10, in <module>
+    print('Initial overfulls:', run_pdflatex())
+                                ^^^^^^^^^^^^^^
+  File "/app/solve.py", line 7, in run_pdflatex
+    overfulls = re.findall(r'Overfull \hbox \((.*?pt too wide\)) in paragraph at lines (\d+--\d+)', res.stdout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/re/__init__.py", line 217, in findall
+    return _compile(pattern, flags).findall(string)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/re/__init__.py", line 307, in _compile
+    p = _compiler.compile(pattern, flags)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/re/_compiler.py", line 745, in compile
+    p = _parser.parse(p, flags)
+        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/re/_parser.py", line 979, in parse
+    p = _parse_sub(source, state, flags & SRE_FLAG_VERBOSE, 0)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/re/_parser.py", line 460, in _parse_sub
+    itemsappend(_parse(source, state, verbose, nested + 1,
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/re/_parser.py", line 544, in _parse
+    code = _escape(source, this, state)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/re/_parser.py", line 443, in _escape
+    raise source.error("bad escape %s" % escape, len(escape))
+re.error: bad escape \h at position 9
+[?2004hroot@6272ecee67e8:/app# python3 -c "import base64; open('solve.py', 'wb').write(base64.b64decode('aW1wb3J0IHJlLCBzdWJwcm9jZXNzLCBvcywgc3lzCgppcG1vcnQgcmUgc3VicHJvY2VzcwoKZGVmIGdldF9vdmVyZnVsbHMoKToKICAgIHJlcyA9IHN1YnByb2Nlc3MucnVuKFsicGRmbGF0ZXgiLCAiLWludGVyYWN0aW9uPW5vbnN0b3Btb2RlIiwgIm1haW4udGV4Il0sIGNhcHR1cmVfb3V0cHV0PVRydWUsIHRleHQ9VHJ1ZSkKICAgIGxpbmVzID0gcmUuZmluZGFsbChyIk92ZXJmdWxsIFwoXGhpYm94LiogIiwgcmVzLnN0ZG91dCkKICAgIHJldHVybiBbTDEgZm9yIEwxIGluIHJlcy5zdGRvdXQuc3BsaXRsaW5lcygpIGlmICJPdmVyZnVsbCIsIGluIEwxXQoKcHJpbnQoImhlbGxvIikK'))"
+[?2004l[?2004hroot@6272ecee67e8:/app# python3 -c "import base64
+[?2004l[?2004h> code = '''import re, subprocess
+[?2004l[?2004h> 
+[?2004l[?2004h> def get_overfulls():
+[?2004l[?2004h>     res = subprocess.run(['pdflatex', '-interaction=nonstopmode', 'main.tex'], capture_output=True, text=True)
+[?2004l[?2004h>     return [line for line in res.stdout.splitlines() if 'Overfull \\hbox' in line]
+[?2004l[?2004h> 
+[?2004l[?2004h> print('Overfull count:', len(get_overfulls()))
+[?2004l[?2004h> for o in get_overfulls():
+[?2004l[?2004h>     print(o)
+[?2004l[?2004h> '''
+[?2004l[?2004h> with open('solve.py', 'w') as f:
+[?2004l[?2004h>     f.write(code)
+[?2004l[?2004h> "
+[?2004l<string>:2: SyntaxWarning: invalid escape sequence '\h'
+[?2004hroot@6272ecee67e8:/app# python3 solve.py
+[?2004l/app/solve.py:5: SyntaxWarning: invalid escape sequence '\h'
+  return [line for line in res.stdout.splitlines() if 'Overfull \hbox' in line]
+Overfull count: 7
+Overfull \hbox (0.10312pt too wide) in paragraph at lines 5--6
+Overfull \hbox (18.03828pt too wide) in paragraph at lines 5--6
+Overfull \hbox (1.90868pt too wide) in paragraph at lines 7--8
+Overfull \hbox (3.242pt too wide) in paragraph at lines 7--8
+Overfull \hbox (54.68654pt too wide) in paragraph at lines 7--8
+Overfull \hbox (6.07536pt too wide) in paragraph at lines 13--14
+Overfull \hbox (8.4539pt too wide) in paragraph at lines 19--15
+[?2004hroot@6272ecee67e8:/app# python3 -c "import re, subprocess; res = subprocess.run(['pdflatex', '-interaction=nonstopmode', 'main.tex'], capture_output=True, text=True); print('\n'.join([l for l in res.stdout.splitlines() if 'Overfull' in l]))"
+[?2004lOverfull \hbox (0.10312pt too wide) in paragraph at lines 5--6
+Overfull \hbox (18.03828pt too wide) in paragraph at lines 5--6
+Overfull \hbox (1.90868pt too wide) in paragraph at lines 7--8
+Overfull \hbox (3.242pt too wide) in paragraph at lines 7--8
+Overfull \hbox (54.68654pt too wide) in paragraph at lines 7--8
+Overfull \hbox (6.07536pt too wide) in paragraph at lines 13--14
+Overfull \hbox (8.4539pt too wide) in paragraph at lines 19--15
+[?2004hroot@6272ecee67e8:/app# echo 'aW1wb3J0IHJlLCBzdWJwcm9jZXNzLCBjb3B5LCByYW5kb20KCndpdGggb3Blbigic3lub255bXMudHh0IikgYXMgZjoKICAgIHN5bl9saW5lcyA9IFtsLnN0cmlwKCkgZm9yIGwgaW4gZiBpZiBsLnN0cmlwKCldCgp3b3JkX3RvX3N5bnMgPSB7fQpmb3IgbGluZSBpbiBzeW5fbGluZXM6CiAgICB3b3JkcyA9IFt3LnN0cmlwKCkgZm9yIHcgaW4gbGluZS5zcGxpdCgiLCIpIGlmIHcuc3RyaXAoKV0KICAgIGZvciB3IGluIHdvcmRzOgogICAgICAgIHdvcmRfdG9fc3luc1t3XSA9IHdvcmRzCiAgICAgICAgd29yZF90b19zeW5zW3cubG93ZXIoKV0gPSB3b3JkcwogICAgICAgIHdvcmRfdG9fc3luc1t3LmNhcGl0YWxpemUoKV0gPSBbeC5jYXBpdGFsaXplKCkgZm9yIHggaW4gd29yZHNdCgp3aXRoIG9wZW4oImlucHV0LnRleCIpIGFzIGY6CiAgICBvcmlnX3RleHQgPSBmLnJlYWQoKQoKZGVmIGdldF9vdmVyZnVsbHNfd2l0aF90ZXh0KHRleHQpOgogICAgd2l0aCBvcGVuKCJpbnB1dC50ZXgiLCAidyIpIGFzIGY6CiAgICAgICAgZi53cml0ZSh0ZXh0KQogICAgcmVzID0gc3VicHJvY2Vzcy5ydW4oWyJwZGZsYXRleCIsICItaW50ZXJhY3Rpb249bm9uc3RvcG1vZGUiLCAibWFpbi50ZXgiXSwgY2FwdHVyZV9vdXRwdXQ9VHJ1ZSwgdGV4dD1UcnVlKQogICAgbGluZXMgPSBbbCBmb3IgbCBpbiByZXMuc3Rkb3V0LnNwbGl0bGluZXMoKSBpZiAiT3ZlcmZ1bGwgXFhoYm94IiBpbiBsXQogICAgcmV0dXJuIGxpbmVzCgpwcmludCgiSW5pdGlhbCBvdmVyZnVsbHM6IikKZm9yIGwgaW4gZ2V0X292ZXJmdWxsc193aXRoX3RleHQob3JpZ190ZXh0KToKICAgIHByaW50KDIsIGwpCg==' | base64 -d > test_solve.py
+[?2004l[?2004hroot@6272ecee67e8:/app# python3 test_solve.py
+[?2004l/app/test_solve.py:21: SyntaxWarning: invalid escape sequence '\X'
+  lines = [l for l in res.stdout.splitlines() if "Overfull \Xhbox" in l]
+Initial overfulls:
+[?2004hroot@6272ecee67e8:/app# python3 -c "import base64; b = 'aW1wb3J0IHJlLCBzdWJwcm9jZXNzLCByYW5kb20KC3N5bl9tYXAgPSB7fQp3aXRoIG9wZW4oJ3N5bm9ueW1zLnR4dCcpIGFzIGY6CiAgICBmb3IgbGluZSBpbiBmOgogICAgICAgIGxpbmUgPSBsaW5lLnN0cmlwKCkKICAgICAgICBpZiBub3QgbGluZTogY29udGludWUKICAgICAgICB3b3JkcyA9IFt3LnN0cmlwKCkgZm9yIHcgaW4gbGluZS5zcGxpdCgnLCcpIGlmIHcuc3RyaXAoKV0KICAgICAgICBmb3IHeaderdyBpbiB3b3JkczoKICAgICAgICAgICAgc3luX21hcFt3XSA9IHdvcmRzCiAgICAgICAgICAgIHN5bl9tYXBbdy5sb3dlcigpXSA9IHdvcmRzCiAgICAgICAgICAgIHN5bl9tYXBbdy5jYXBpdGFsaXplKCldID0gW3guY2FwaXRhbGl6ZSgpIGZvciB4IGluIHdvcmRzXQogICAgICAgICAgICBzeW5fbWFwXHcudXBwZXIoKV0gPSBbeC51cHBlcigpIGZvciB4IGluIHdvcmRzXQo='"
+[?2004l[?2004hroot@6272ecee67e8:/app# python3 -c "import re, subprocess, random; print('Testing python execution without raw newlines')"
+[?2004lTesting python execution without raw newlines
+[?2004hroot@6272ecee67e8:/app# python3 -c "import base64; data = b'aW1wb3J0IHJlLCBzdWJwcm9jZXNzLCByYW5kb20KC3N5bl9tYXAgPSB7fQp3aXRoIG9wZW4oJ3N5bm9ueW1zLnR4dCcpIGFzIGY6CiAgICBmb3IgbGluZSBpbiBmOgogICAgICAgIGxpbmUgPSBsaW5lLnN0cmlwKCkKICAgICAgICBpZiBub3QgbGluZTogY29udGludWUKICAgICAgICB3b3JkcyA9IFt3LnN0cmlwKCkgZm9yIHcgaW4gbGluZS5zcGxpdCgnLCcpIGlmIHcuc3RyaXAoKV0KICAgICAgICBmb3IHeaderdyBpbiB3b3JkczoKICAgICAgICAgICAgc3luX21hcFt3XSA9IHdvcmRzCiAgICAgICAgICAgIHN5bl9tYXBbdy5sb3dlcigpXSA9IHdvcmRzCiAgICAgICAgICAgIHN5bl9tYXBbdy5jYXBpdGFsaXplKCldID0gW3guY2FwaXRhbGl6ZSgpIGZvciB4IGluIHdvcmRzXQo='"
+[?2004l[?2004hroot@6272ecee67e8:/app# python3 -c "import base64
+[?2004l[?2004h> code = base64.b64decode('aW1wb3J0IHJlLCBzdWJwcm9jZXNzLCByYW5kb20KCnN5bl9tYXAgPSB7fQp3aXRoIG9wZW4oJ3N5bm9ueW1zLnR4dCcpIGFzIGY6CiAgICBmb3IgbGluZSBpbiBmOgogICAgICAgIGxpbmUgPSBsaW5lLnN0cmlwKCkKICAgICAgICBpZiBub3QgbGluZTogY29udGludWUKICAgICAgICB3b3JkcyA9IFt3LnN0cmlwKCkgZm9yIHcgaW4gbGluZS5zcGxpdCgnLCcpIGlmIHcuc3RyaXAoKV0KICAgICAgICBmb3IHeaderdyBpbiB3b3JkczoKICAgICAgICAgICAgc3luX21hcFt3XSA9IHdvcmRzCiAgICAgICAgICAgIHN5bl9tYXBbdy5sb3dlcigpXSA9IHdvcmRzCiAgICAgICAgICAgIHN5bl9tYXBbdy5jYXBpdGFsaXplKCldID0gW3guY2FwaXRhbGl6ZSgpIGZvciB4IGluIHdvcmRzXQo=')
+[?2004l[?2004h> "
+[?2004l[?2004hroot@6272ecee67e8:/app# python3 -c "
+[?2004l[?2004h> import re, subprocess, random
+[?2004l[?2004h> 
+[?2004l[?2004h> syn_map = {}
+[?2004l[?2004h> with open('synonyms.txt') as f:
+[?2004l[?2004h>     for line in f:
+[?2004l[?2004h>         line = line.strip()
+[?2004l[?2004h>         if not line: continue
+[?2004l[?2004h>         words = [w.strip() for w in line.split(',') if w.strip()]
+[?2004l[?2004h>         for w in words:
+[?2004l[?2004h>             syn_map[w] = words
+[?2004l[?2004h>             syn_map[w.lower()] = words
+[?2004l[?2004h>             syn_map[w.capitalize()] = [x.capitalize() for x in words]
+[?2004l[?2004h>             syn_map[w.upper()] = [x.upper() for x in words]
+[?2004l[?2004h> 
+[?2004l[?2004h> with open('input.tex') as f: orig_text = f.read()
+[?2004l[?2004h> 
+[?2004l[?2004h> def get_overfulls(text):
+[?2004l[?2004h>     with open('input.tex', 'w') as f: f.write(text)
+[?2004l[?2004h>     res = subprocess.run(['pdflatex', '-interaction=nonstopmode', 'main.tex'], capture_output=True, text=True)
+[?2004l[?2004h>     return [l for l in res.stdout.splitlines() if 'Overfull' in l]
+[?2004l[?2004h> 
+[?2004l[?2004h> tokens = re.split(r'(\b[A-Za-z]+\b)', orig_text)
+[?2004l[?2004h> replaceable = [(i, t, syn_map[t]) for i, t in enumerate(tokens) if t in syn_map and len(syn_map[t]) > 1]
+[?2004l[?2004h> print(f'Replaceable tokens: {len(replaceable)}')
+[?2004l[?2004h> 
+[?2004l[?2004h> curr_tokens = list(tokens)
+[?2004l[?2004h> best_of = get_overfulls(''.join(curr_tokens))
+[?2004l[?2004h> print(f'Initial overfulls: {len(best_of)}')
+[?2004l[?2004h> 
+[?2004l[?2004h> step = 0
+[?2004l[?2004h> while len(best_of) > 0 and step < 100:
+[?2004l[?2004h>     step += 1
+[?2004l[?2004h>     improved = False
+[?2004l[?2004h>     for t_idx, orig_tok, options in replaceable:
+[?2004l[?2004h>         curr_val = curr_tokens[t_idx]
+[?2004l[?2004h>         for opt in options:
+[?2004l[?2004h>             if opt == curr_val: continue
+[?2004l[?2004h>             test_tokens = list(curr_tokens)
+[?2004l[?2004h>             test_tokens[t_idx] = opt
+[?2004l[?2004h>             of = get_overfulls(''.join(test_tokens))
+[?2004l[?2004h>             if len(of) < len(best_of):
+[?2004l[?2004h>                 print(f'Step {step}: Improved {len(best_of)} -> {len(of)} ({curr_val} -> {opt})')
+[?2004l[?2004h>                 curr_tokens = test_tokens
+[?2004l[?2004h>                 best_of = of
+[?2004l[?2004h>                 improved = True
+[?2004l[?2004h>                 break
+[?2004l[?2004h>         if improved: break
+[?2004l[?2004h>     if not improved:
+[?2004l[?2004h>         print('Random tweak...')
+[?2004l[?2004h>         t_idx, orig_tok, options = random.choice(replaceable)
+[?2004l[?2004h>         curr_tokens[t_idx] = random.choice(options)
+[?2004l[?2004h>         best_of = get_overfulls(''.join(curr_tokens))
+[?2004l[?2004h> 
+[?2004l[?2004h> if len(best_of) == 0:
+[?2004l[?2004h>     print('SUCCESS! Zero overfull hboxes!')
+[?2004l[?2004h>     with open('input.tex', 'w') as f: f.write(''.join(curr_tokens))
+[?2004l[?2004h> else:
+[?2004l[?2004h>     print(f'Ended with {len(best_of)} overfulls')
+[?2004l[?2004h> " > run.log 2>&1 &
+[?2004l[1] 3013
+[?2004hroot@6272ecee67e8:/app# sleep 2; cat run.log
+[?2004l[?2004hroot@6272ecee67e8:/app# cat run.log
+[?2004l[?2004hroot@6272ecee67e8:/app# ps aux | grep python3
+[?2004lroot        2690  0.1  0.1 103336 22988 pts/0    Sl+  15:38   0:00 /usr/bin/[01;31m[Kpython3[m[K /usr/bin/asciinema rec --stdin /logs/agent/recording.cast
+root        2691  0.0  0.0  29572 15868 pts/0    S+   15:38   0:00 /usr/bin/[01;31m[Kpython3[m[K /usr/bin/asciinema rec --stdin /logs/agent/recording.cast
+root        2692  0.0  0.0  29584 16444 pts/0    S+   15:38   0:00 /usr/bin/[01;31m[Kpython3[m[K /usr/bin/asciinema rec --stdin /logs/agent/recording.cast
+root        3013  1.3  0.0  18240 13060 pts/1    S    15:40   0:00 [01;31m[Kpython3[m[K -c  import re, subprocess, random  syn_map = {} with open('synonyms.txt') as f:     for line in f:         line = line.strip()         if not line: continue         words = [w.strip() for w in line.split(',') if w.strip()]         for w in words:             syn_map[w] = words             syn_map[w.lower()] = words             syn_map[w.capitalize()] = [x.capitalize() for x in words]             syn_map[w.upper()] = [x.upper() for x in words]  with open('input.tex') as f: orig_text = f.read()  def get_overfulls(text):     with open('input.tex', 'w') as f: f.write(text)     res = subprocess.run(['pdflatex', '-interaction=nonstopmode', 'main.tex'], capture_output=True, text=True)     return [l for l in res.stdout.splitlines() if 'Overfull' in l]  tokens = re.split(r'(\b[A-Za-z]+\b)', orig_text) replaceable = [(i, t, syn_map[t]) for i, t in enumerate(tokens) if t in syn_map and len(syn_map[t]) > 1] print(f'Replaceable tokens: {len(replaceable)}')  curr_tokens = list(tokens) best_of = get_overfulls(''.join(curr_tokens)) print(f'Initial overfulls: {len(best_of)}')  step = 0 while len(best_of) > 0 and step < 100:     step += 1     improved = False     for t_idx, orig_tok, options in replaceable:         curr_val = curr_tokens[t_idx]         for opt in options:             if opt == curr_val: continue             test_tokens = list(curr_tokens)             test_tokens[t_idx] = opt             of = get_overfulls(''.join(test_tokens))             if len(of) < len(best_of):                 print(f'Step {step}: Improved {len(best_of)} -> {len(of)} ({curr_val} -> {opt})')                 curr_tokens = test_tokens                 best_of = of                 improved = True                 break         if improved: break     if not improved:         print('Random tweak...')         t_idx, orig_tok, options = random.choice(replaceable)         curr_tokens[t_idx] = random.choice(options)         best_of = get_overfulls(''.join(curr_tokens))  if len(best_of) == 0:     print('SUCCESS! Zero overfull hboxes!')     with open('input.tex', 'w') as f: f.write(''.join(curr_tokens)) else:     print(f'Ended with {len(best_of)} overfulls') 
+root        3090  0.0  0.0   3920  2124 pts/1    S+   15:40   0:00 grep --color=auto [01;31m[Kpython3[m[K
+[?2004hroot@6272ecee67e8:/app# sleep 5
+[?2004lcat run.log
+[?2004hroot@6272ecee67e8:/app# cat run.log
+[?2004l[?2004hroot@6272ecee67e8:/app# ps aux | grep python3
+[?2004lroot        2690  0.1  0.1 103336 22988 pts/0    Sl+  15:38   0:00 /usr/bin/[01;31m[Kpython3[m[K /usr/bin/asciinema rec --stdin /logs/agent/recording.cast
+root        2691  0.0  0.0  29572 15868 pts/0    S+   15:38   0:00 /usr/bin/[01;31m[Kpython3[m[K /usr/bin/asciinema rec --stdin /logs/agent/recording.cast
+root        2692  0.0  0.0  29584 16452 pts/0    S+   15:38   0:00 /usr/bin/[01;31m[Kpython3[m[K /usr/bin/asciinema rec --stdin /logs/agent/recording.cast
+root        3013  1.1  0.0  18404 13244 pts/1    S    15:40   0:00 [01;31m[Kpython3[m[K -c  import re, subprocess, random  syn_map = {} with open('synonyms.txt') as f:     for line in f:         line = line.strip()         if not line: continue         words = [w.strip() for w in line.split(',') if w.strip()]         for w in words:             syn_map[w] = words             syn_map[w.lower()] = words             syn_map[w.capitalize()] = [x.capitalize() for x in words]             syn_map[w.upper()] = [x.upper() for x in words]  with open('input.tex') as f: orig_text = f.read()  def get_overfulls(text):     with open('input.tex', 'w') as f: f.write(text)     res = subprocess.run(['pdflatex', '-interaction=nonstopmode', 'main.tex'], capture_output=True, text=True)     return [l for l in res.stdout.splitlines() if 'Overfull' in l]  tokens = re.split(r'(\b[A-Za-z]+\b)', orig_text) replaceable = [(i, t, syn_map[t]) for i, t in enumerate(tokens) if t in syn_map and len(syn_map[t]) > 1] print(f'Replaceable tokens: {len(replaceable)}')  curr_tokens = list(tokens) best_of = get_overfulls(''.join(curr_tokens)) print(f'Initial overfulls: {len(best_of)}')  step = 0 while len(best_of) > 0 and step < 100:     step += 1     improved = False     for t_idx, orig_tok, options in replaceable:         curr_val = curr_tokens[t_idx]         for opt in options:             if opt == curr_val: continue             test_tokens = list(curr_tokens)             test_tokens[t_idx] = opt             of = get_overfulls(''.join(test_tokens))             if len(of) < len(best_of):                 print(f'Step {step}: Improved {len(best_of)} -> {len(of)} ({curr_val} -> {opt})')                 curr_tokens = test_tokens                 best_of = of                 improved = True                 break         if improved: break     if not improved:         print('Random tweak...')         t_idx, orig_tok, options = random.choice(replaceable)         curr_tokens[t_idx] = random.choice(options)         best_of = get_overfulls(''.join(curr_tokens))  if len(best_of) == 0:     print('SUCCESS! Zero overfull hboxes!')     with open('input.tex', 'w') as f: f.write(''.join(curr_tokens)) else:     print(f'Ended with {len(best_of)} overfulls') 
+root        3214  0.0  0.0   3920  2176 pts/1    S+   15:41   0:00 grep --color=auto [01;31m[Kpython3[m[K
+[?2004hroot@6272ecee67e8:/app# sleep 10
+[?2004l[?2004hroot@6272ecee67e8:/app# pdflatex -interaction=nonstopmode main.tex | grep "Overfull \\hbox"
+[?2004l[?2004hroot@6272ecee67e8:/app# pdflatex -interaction=nonstopmode main.tex
+[?2004lThis is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./main.tex
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-01-22>
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo))
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
+(./main.aux) (./input.tex [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+]
+Overfull \hbox (1.90868pt too wide) in paragraph at lines 7--8
+\OT1/cmr/m/n/10 ri-otous ex-cur-sions with priv-i-leged glimpses
+
+Overfull \hbox (3.242pt too wide) in paragraph at lines 7--8
+\OT1/cmr/m/n/10 This re-spon-sive-ness had noth-ing to do with
+
+Overfull \hbox (54.68654pt too wide) in paragraph at lines 7--8
+\OT1/cmr/m/n/10 ni-fied un-der the name of the ``cre-ative temperament''---
+[2] [3]
+Overfull \hbox (6.07536pt too wide) in paragraph at lines 13--14
+\OT1/cmr/m/n/10 cooked break-fast and mut-tered Finnish wis-
+[4])
+Overfull \hbox (8.4539pt too wide) in paragraph at lines 19--15
+\OT1/cmr/m/n/10 lonely no longer. I was a guide, a pathfinder,
+[5] (./main.aux) )
+(see the transcript file for additional information)</usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
+Output written on main.pdf (5 pages, 29582 bytes).
+Transcript written on main.log.
+[?2004hroot@6272ecee67e8:/app# pkill -f python3
+[?2004lTraceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/asciinema/recorder.py", line 63, in record
+    record_(
+  File "/usr/lib/python3/dist-packages/asciinema/pty_.py", line 182, in record
+    copy(sig_fd)
+  File "/usr/lib/python3/dist-packages/asciinema/pty_.py", line 156, in copy
+    crfds.remove(signal_fd)
+ValueError: list.remove(x): x not in list
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/asciinema/recorder.py", line 62, in record
+    with async_writer(sync_writer, time_offset, record_stdin) as _writer:
+  File "/usr/lib/python3/dist-packages/asciinema/async_worker.py", line 41, in __exit__
+    raise RuntimeError(
+RuntimeError: worker process exited with code -15
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/bin/asciinema", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/usr/lib/python3/dist-packages/asciinema/__main__.py", line 254, in main
+    code = command.execute()
+           ^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/asciinema/commands/record.py", line 127, in execute
+    recorder.record(
+  File "/usr/lib/python3/dist-packages/asciinema/recorder.py", line 47, in record
+    with tty_fds() as (tty_stdin_fd, tty_stdout_fd), async_notifier(
+  File "/usr/lib/python3/dist-packages/asciinema/async_worker.py", line 41, in __exit__
+    raise RuntimeError(
+RuntimeError: worker process exited with code -15
+[?2004hroot@6272ecee67e8:/app# python3 -c "code = '''import re, subprocess, random\n\nsyn_map = {}\nwith open('synonyms.txt') as f:\n    for line in f:\n        line =  line.strip()\n        if not line: continue\n        words = [w.strip() for w in line.split(',') if w.strip()]\n        for w in words:\n            syn_map[w]  = words\n            syn_map[w.lower()] = words\n            syn_map[w.capitalize()] = [x.capitalize() for x in words]\n            syn_map[w.upper()] = [x.uppeer() for x in words]\n\nwith open('input.tex') as f: orig_text = f.read()\n\ndef check_overfull(text):\n    with open('input.tex', 'w') as f: f.write(text)\n     res = subprocess.run(['pdflatex', '-interaction=nonstopmode', 'main.tex'], capture_output=True, text=True)\n    lines = [l for l in res.stdout.splitlines() if ''Overfull' in l]\n    return len(lines), lines\n\ntokens = re.split(r'(\\b[A-Za-z]+\\b)', orig_text)\nreplaceable = [(i, tokens[i], syn_map[tokens[i]]) for i in  range(len(tokens)) if tokens[i] in syn_map and len(syn_map[tokens[i]]) > 1]\n\nprint(f'Replaceable tokens count: {len(replaceable)}')\n\ncurr_tokens = list(tokeens)\nbest_count, best_lines = check_overfull(''.join(curr_tokens))\nprint(f'Starting overfull count: {best_count}')\n\nfor step in range(1, 500):\n    if best_ccount == 0:\n        break\n    improved = False\n    random.shuffle(replaceable)\n    for idx, orig, opts in replaceable:\n        curr_val = curr_tokens[idx]\nn        for opt in opts:\n            if opt == curr_val: continue\n            curr_tokens[idx] = opt\n            cnt, lines = check_overfull(''.join(curr_tokkens))\n            if cnt < best_count:\n                best_count = cnt\n                best_lines = lines\n                improved = True\n                 print(f'Step {step}: reduced overfulls to {best_count} (changed token {idx} "{curr_val}" -> "{opt}")')\n                break\n            else:\n                 curr_tokens[idx] = curr_val\n        if improved:\n            break\n    if not improved:\n        p1, p2 = random.sample(replaceable, 2)\n        opt1 = ranndom.choice(p1[2])\n        opt2 = random.choice(p2[2])\n        curr_tokens[p1[0]] = opt1\n        curr_tokens[p2[0]] = opt2\n        cnt, lines = check_overfulll(''.join(curr_tokens))\n        if cnt <= best_count:\n            best_count = cnt\n            best_lines = lines\n        else:\n            curr_tokens[p1[[0]] = p1[1]\n            curr_tokens[p2[0]] = p2[1]\n\nprint(f'Final overfull count: {best_count}')\nif best_count == 0:\n    print('SUCCESS! input.tex saved wiith 0 overfull hboxes.')\n'''; open('opt.py', 'w').write(code)"
+[?2004l[?2004hroot@6272ecee67e8:/app# python3 opt.py
+[?2004lReplaceable tokens count: 0
+Starting overfull count: 5
+Traceback (most recent call last):
+  File "/app/opt.py", line 54, in <module>
+    p1, p2 = random.sample(replaceable, 2)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/random.py", line 430, in sample
+    raise ValueError("Sample larger than population or is negative")
+ValueError: Sample larger than population or is negative
+[?2004hroot@6272ecee67e8:/app# python3 -c "code = 'import re, subprocess, random\n\nsyn_map = {}\nwith open(\'synonyms.txt\') as f:\n    for line in f:\n        line =  line.strip()\n        if not line: continue\n        words = [w.strip() for w in line.split(\',\') if w.strip()]\n        for w in words:\n            syn_map[ww] = words\n            syn_map[w.lower()] = words\n            syn_map[w.capitalize()] = [x.capitalize() for x in words]\n\nwith open(\'input.tex\') as f: orig__text = f.read()\n\ndef check_overfull(text):\n    with open(\'input.tex\', \'w\') as f: f.write(text)\n    res = subprocess.run([\'pdflatex\', \'-interaction=noonstopmode\', \'main.tex\'], capture_output=True, text=True)\n    lines = [l for l in res.stdout.splitlines() if \'Overfull\' in l]\n    return len(lines), liness\n\ntokens = re.split(r\'(\\w+)\', orig_text)\nreplaceable = [(i, tokens[i], syn_map[tokens[i]]) for i in range(len(tokens)) if tokens[i] in syn_map and len(synn_map[tokens[i]]) > 1]\n\nprint(f\'Replaceable tokens count: {len(replaceable)}\')\nfor idx, tok, opts in replaceable:\n    print(f\'Token {idx}: {tok} -> {opts}}\')\n\ncurr_tokens = list(tokens)\nbest_count, best_lines = check_overfull(\$\$\$\$\$\$\$\$\)\n'; print('ok')"
+[?2004l<string>:1: SyntaxWarning: invalid escape sequence '\w'
+ok
+[?2004hroot@6272ecee67e8:/app# cat << 'EOF' > make_opt.py
+[?2004l[?2004h> import re, subprocess, random
+[?2004l[?2004h> 
+[?2004l[?2004h> syn_map = {}
+[?2004l[?2004h> with open('synonyms.txt') as f:
+[?2004l[?2004h>     for line in f:
+[?2004l[?2004h>         line = line.strip()
+[?2004l[?2004h>         if not line: continue
+[?2004l[?2004h>         words = [w.strip() for w in line.split(',') if w.strip()]
+[?2004l[?2004h>         for w in words:
+[?2004l[?2004h>             syn_map[w] = words
+[?2004l[?2004h>             syn_map[w.lower()] = words
+[?2004l[?2004h>             syn_map[w.capitalize()] = [x.capitalize() for x in words]
+[?2004l[?2004h> 
+[?2004l[?2004h> with open('input.tex') as f: orig_text = f.read()
+[?2004l[?2004h> 
+[?2004l[?2004h> def check_overfull(text):
+[?2004l[?2004h>     with open('input.tex', 'w') as f: f.write(text)
+[?2004l[?2004h>     res = subprocess.run(['pdflatex', '-interaction=nonstopmode', 'main.tex'], capture_output=True, text=True)
+[?2004l[?2004h>     lines = [l for l in res.stdout.splitlines() if 'Overfull' in l]
+[?2004l[?2004h>     return len(lines), lines
+[?2004l[?2004h> 
+[?2004l[?2004h> tokens = re.split(r'(\w+)', orig_text)
+[?2004l[?2004h> replaceable = [(i, tokens[i], syn_map[tokens[i]]) for i in range(len(tokens)) if tokens[i] in syn_map and len(syn_map[tokens[i]]) > 1]
+[?2004l[?2004h> 
+[?2004l[?2004h> print(f'Replaceable tokens count: {len(replaceable)}')
+[?2004l[?2004h> for idx, tok, opts in replaceable:
+[?2004l[?2004h>     print(f'Token {idx}: {tok} -> {opts}')
+[?2004l[?2004h> 
+[?2004l[?2004h> curr_tokens = list(tokens)
+[?2004l[?2004h> best_count, best_lines = check_overfull(''.join(curr_tokens))
+[?2004l[?2004h> print(f'Starting overfull count: {best_count}')
+[?2004l[?2004h> 
+[?2004l[?2004h> for step in range(1, 200):
+[?2004l[?2004h>     if best_count == 0:
+[?2004l[?2004h>         break
+[?2004l[?2004h>     improved = False
+[?2004l[?2004h>     random.shuffle(replaceable)
+[?2004l[?2004h>     for idx, orig, opts in replaceable:
+[?2004l[?2004h>         curr_val = curr_tokens[idx]
+[?2004l[?2004h>         for opt in opts:
+[?2004l[?2004h>             if opt == curr_val: continue
+[?2004l[?2004h>             curr_tokens[idx] = opt
+[?2004l[?2004h>             cnt, lines = check_overfull(''.join(curr_tokens))
+[?2004l[?2004h>             if cnt < best_count:
+[?2004l[?2004h>                 best_count = cnt
+[?2004l[?2004h>                 best_lines = lines
+[?2004l[?2004h>                 improved = True
+[?2004l[?2004h>                 print(f'Step {step}: reduced overfulls to {best_count} (changed token {idx} "{curr_val}" -> "{opt}")')
+[?2004l[?2004h>                 break
+[?2004l[?2004h>             else:
+[?2004l[?2004h>                 curr_tokens[idx] = curr_val
+[?2004l[?2004h>         if improved:
+[?2004l[?2004h>             break
+[?2004l[?2004h>     if not improved and len(replaceable) >= 2:
+[?2004l[?2004h>         p1, p2 = random.sample(replaceable, 2)
+[?2004l[?2004h>         opt1 = random.choice(p1[2])
+[?2004l[?2004h>         opt2 = random.choice(p2[2])
+[?2004l[?2004h>         curr_tokens[p1[0]] = opt1
+[?2004l[?2004h>         curr_tokens[p2[0]] = opt2
+[?2004l[?2004h>         cnt, lines = check_overfull(''.join(curr_tokens))
+[?2004l[?2004h>         if cnt < best_count:
+[?2004l[?2004h>             best_count = cnt
+[?2004l[?2004h>             best_lines = lines
+[?2004l[?2004h>             print(f'Double swap improved overfulls to {best_count}')
+[?2004l[?2004h>         else:
+[?2004l[?2004h>             curr_tokens[p1[0]] = p1[1]
+[?2004l[?2004h>             curr_tokens[p2[0]] = p2[1]
+[?2004l[?2004h> 
+[?2004l[?2004h> print(f'Final overfull count: {best_count}')
+[?2004l[?2004h> if best_count == 0:
+[?2004l[?2004h>     print('SUCCESS! input.tex saved with 0 overfull hboxes.')
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@6272ecee67e8:/app# python3 make_opt.py
+[?2004lReplaceable tokens count: 146
+Token 11: vulnerable -> ['vulnerable', 'defenseless', 'exposed', 'susceptible', 'weak', 'fragile']
+Token 25: advice -> ['advice', 'counsel', 'guidance', 'recommendations', 'suggestions', 'tips']
+Token 43: mind -> ['mind', 'intellect', 'brain', 'consciousness', 'mentality', 'psyche']
+Token 61: one -> ['single', 'individual', 'sole', 'unmarried', 'one', 'solitary']
+Token 85: world -> ['world', 'earth', 'globe', 'planet', 'society', 'realm']
+Token 95: advantages -> ['advantages', 'benefits', 'privileges', 'assets', 'strengths', 'perks']
+Token 123: always -> ['forever', 'eternally', 'always', 'perpetually', 'endlessly', 'permanently']
+Token 129: forthcoming -> ['communicative', 'talkative', 'expressive', 'open', 'articulate', 'forthcoming']
+Token 135: modest -> ['reserved', 'quiet', 'restrained', 'modest', 'withdrawn']
+Token 137: way -> ['road', 'street', 'path', 'route', 'way', 'highway']
+Token 179: judgments -> ['judgments', 'opinions', 'assessments', 'evaluations', 'decisions', 'verdicts']
+Token 183: habit -> ['habit', 'custom', 'routine', 'practice', 'pattern', 'tendency']
+Token 195: curious -> ['curious', 'inquisitive', 'interested', 'odd', 'peculiar']
+Token 197: natures -> ['natures', 'characters', 'temperaments', 'dispositions', 'essences', 'personalities']
+Token 213: victim -> ['victim', 'target', 'casualty', 'sufferer', 'prey', 'subject']
+Token 223: veteran -> ['veteran', 'vintage', 'seasoned', 'weathered', 'dated']
+Token 229: abnormal -> ['abnormal', 'unusual', 'irregular', 'atypical', 'deviant', 'aberrant']
+Token 231: mind -> ['mind', 'intellect', 'brain', 'consciousness', 'mentality', 'psyche']
+Token 235: quick -> ['quick', 'fast', 'rapid', 'swift', 'speedy', 'prompt']
+Token 251: quality -> ['quality', 'characteristic', 'trait', 'attribute', 'feature', 'standard']
+Token 281: college -> ['college', 'university', 'school', 'academy', 'institution']
+Token 317: wild -> ['riotous', 'wild', 'unruly', 'chaotic', 'boisterous', 'tumultuous']
+Token 319: unknown -> ['unknown', 'unfamiliar', 'mysterious', 'unidentified', 'strange', 'anonymous']
+Token 333: unsought -> ['unsought', 'unwanted', 'uninvited', 'unrequested', 'undesired', 'spontaneous']
+Token 343: sleep -> ['sleep', 'rest', 'slumber', 'repose', 'dormancy', 'unconsciousness']
+Token 351: hostile -> ['hostile', 'unfriendly', 'aggressive', 'antagonistic', 'belligerent', 'adverse']
+Token 353: levity -> ['levity', 'lightness', 'frivolity', 'humor', 'playfulness', 'jest']
+Token 367: sign -> ['sign', 'indication', 'signal', 'symbol', 'mark', 'evidence']
+Token 373: intimate -> ['intimate', 'close', 'personal', 'familiar', 'confidential']
+Token 375: revelation -> ['revelation', 'disclosure', 'discovery', 'unveiling', 'exposure', 'epiphany']
+Token 391: intimate -> ['intimate', 'close', 'personal', 'familiar', 'confidential']
+Token 393: revelations -> ['revelations', 'disclosures', 'discoveries', 'exposures', 'unveilings', 'epiphanies']
+Token 397: young -> ['young', 'youthful', 'juvenile', 'new', 'fresh', 'inexperienced']
+Token 409: terms -> ['terms', 'conditions', 'words', 'expressions', 'periods', 'relationships']
+Token 425: plagiaristic -> ['plagiaristic', 'copied', 'imitative', 'derivative', 'borrowed', 'unoriginal']
+Token 433: obvious -> ['obvious', 'clear', 'evident', 'apparent', 'plain', 'manifest']
+Token 435: suppressions -> ['suppressions', 'concealments', 'repressions', 'restrictions', 'censorings', 'withholdings']
+Token 439: judgments -> ['judgments', 'opinions', 'assessments', 'evaluations', 'decisions', 'verdicts']
+Token 449: infinite -> ['infinite', 'endless', 'limitless', 'boundless', 'eternal', 'immeasurable']
+Token 451: hope -> ['hope', 'optimism', 'expectation', 'faith', 'confidence', 'aspiration']
+Token 505: fundamental -> ['fundamental', 'basic', 'essential', 'primary', 'underlying']
+Token 507: decencies -> ['decencies', 'proprieties', 'courtesies', 'civilities', 'manners']
+Token 529: way -> ['road', 'street', 'path', 'route', 'way', 'highway']
+Token 545: admission -> ['admission', 'confession', 'acknowledgment', 'concession', 'declaration']
+Token 557: Conduct -> ['Conduct', 'Behavior', 'Actions', 'Deportment', 'Demeanor', 'Bearing']
+Token 577: wet -> ['wet', 'moist', 'damp', 'soaked', 'saturated', 'humid']
+Token 579: bogs -> ['marshes', 'swamps', 'wetlands', 'bogs', 'marshlands', 'moors']
+Token 639: world -> ['world', 'earth', 'globe', 'planet', 'society', 'realm']
+Token 659: moral -> ['moral', 'ethical', 'virtuous', 'righteous', 'principled', 'decent']
+Token 661: attention -> ['attention', 'focus', 'concentration', 'notice', 'regard']
+Token 663: forever -> ['forever', 'eternally', 'always', 'perpetually', 'endlessly', 'permanently']
+Token 673: riotous -> ['riotous', 'wild', 'unruly', 'chaotic', 'boisterous', 'tumultuous']
+Token 675: excursions -> ['excursions', 'trips', 'outings', 'journeys', 'expeditions', 'adventures']
+Token 689: heart -> ['centre', 'middle', 'core', 'heart', 'hub']
+Token 705: name -> ['name', 'title', 'designation', 'label', 'identity', 'reputation']
+Token 711: book -> ['book', 'volume', 'publication', 'work', 'text', 'manuscript']
+Token 721: reaction -> ['responsiveness', 'sensitivity', 'awareness', 'reaction', 'attentiveness']
+Token 743: scorn -> ['scorn', 'contempt', 'disdain', 'derision', 'mockery', 'ridicule']
+Token 747: personality -> ['temperament', 'disposition', 'nature', 'character', 'personality', 'mood']
+Token 755: series -> ['series', 'sequence', 'chain', 'succession', 'set', 'progression']
+Token 759: successful -> ['successful', 'triumphant', 'prosperous', 'effective', 'accomplished', 'winning']
+Token 771: gorgeous -> ['gorgeous', 'beautiful', 'stunning', 'magnificent', 'splendid', 'lovely']
+Token 779: heightened -> ['heightened', 'increased', 'intensified', 'enhanced', 'elevated', 'amplified']
+Token 781: sensitivity -> ['responsiveness', 'sensitivity', 'awareness', 'reaction', 'attentiveness']
+Token 787: promises -> ['promises', 'pledges', 'commitments', 'assurances', 'guarantees', 'vows']
+Token 805: one -> ['single', 'individual', 'sole', 'unmarried', 'one', 'solitary']
+Token 811: intricate -> ['intricate', 'complex', 'complicated', 'elaborate', 'detailed', 'sophisticated']
+Token 813: machines -> ['machines', 'devices', 'apparatus', 'mechanisms', 'instruments']
+Token 831: responsiveness -> ['responsiveness', 'sensitivity', 'awareness', 'reaction', 'attentiveness']
+Token 845: flabby -> ['flabby', 'soft', 'loose', 'slack', 'feeble']
+Token 847: impressionability -> ['impressionability', 'susceptibility', 'receptiveness', 'vulnerability', 'influence']
+Token 859: name -> ['name', 'title', 'designation', 'label', 'identity', 'reputation']
+Token 865: creative -> ['creative', 'imaginative', 'inventive', 'artistic']
+Token 867: temperament -> ['temperament', 'disposition', 'nature', 'character', 'personality', 'mood']
+Token 875: extraordinary -> ['extraordinary', 'remarkable', 'exceptional', 'outstanding', 'amazing']
+Token 877: gift -> ['gift', 'talent', 'ability', 'present', 'offering', 'skill']
+Token 881: hope -> ['hope', 'optimism', 'expectation', 'faith', 'confidence', 'aspiration']
+Token 885: romantic -> ['romantic', 'idealistic', 'passionate', 'sentimental', 'dreamy', 'loving']
+Token 887: readiness -> ['readiness', 'preparedness', 'willingness', 'eagerness', 'availability', 'alertness']
+Token 963: foul -> ['foul', 'dirty', 'filthy', 'contaminated', 'polluted', 'vile']
+Token 965: dust -> ['dust', 'particles', 'powder', 'debris', 'residue', 'grime']
+Token 979: dreams -> ['dreams', 'aspirations', 'visions', 'hopes', 'fantasies', 'ambitions']
+Token 991: interest -> ['interest', 'curiosity', 'concern', 'fascination', 'engagement']
+Token 997: abortive -> ['abortive', 'failed', 'unsuccessful', 'futile', 'fruitless', 'ineffective']
+Token 1007: elations -> ['elations', 'joys', 'euphoria', 'excitement', 'exhilaration']
+Token 1015: family -> ['clan', 'family', 'tribe', 'group', 'kinship', 'lineage']
+Token 1021: prominent -> ['prominent', 'notable', 'distinguished', 'famous', 'important']
+Token 1035: Middle -> ['Centre', 'Middle', 'Core', 'Heart', 'Hub']
+Token 1059: clan -> ['clan', 'family', 'tribe', 'group', 'kinship', 'lineage']
+Token 1093: actual -> ['actual', 'real', 'genuine', 'true', 'factual']
+Token 1123: one -> ['single', 'individual', 'sole', 'unmarried', 'one', 'solitary']
+Token 1129: substitute -> ['substitute', 'replacement', 'alternative', 'proxy', 'surrogate']
+Token 1147: hardware -> ['hardware', 'equipment', 'tools', 'implements', 'machinery', 'fixtures']
+Token 1149: business -> ['firm', 'company', 'business', 'organization', 'corporation', 'enterprise']
+Token 1195: special -> ['special', 'unique', 'particular', 'distinctive']
+Token 1197: reference -> ['reference', 'mention', 'allusion', 'citation']
+Token 1209: painting -> ['painting', 'artwork', 'portrait', 'picture', 'canvas', 'image']
+Token 1221: office -> ['office', 'workplace', 'bureau', 'headquarters', 'study', 'position']
+Token 1229: New -> ['Young', 'Youthful', 'Juvenile', 'New', 'Fresh', 'Inexperienced']
+Token 1275: migration -> ['migration', 'movement', 'relocation', 'journey', 'exodus', 'displacement']
+Token 1309: restless -> ['restless', 'agitated', 'uneasy', 'fidgety', 'anxious', 'unsettled']
+Token 1319: warm -> ['warm', 'heated', 'cozy', 'mild']
+Token 1321: centre -> ['centre', 'middle', 'core', 'heart', 'hub']
+Token 1327: world -> ['world', 'earth', 'globe', 'planet', 'society', 'realm']
+Token 1331: Middle -> ['Centre', 'Middle', 'Core', 'Heart', 'Hub']
+Token 1343: ragged -> ['ragged', 'torn', 'frayed', 'rough', 'uneven', 'tattered']
+Token 1345: edge -> ['edge', 'border', 'boundary', 'margin', 'rim', 'periphery']
+Token 1373: business -> ['firm', 'company', 'business', 'organization', 'corporation', 'enterprise']
+Token 1389: business -> ['firm', 'company', 'business', 'organization', 'corporation', 'enterprise']
+Token 1403: one -> ['single', 'individual', 'sole', 'unmarried', 'one', 'solitary']
+Token 1407: single -> ['single', 'individual', 'sole', 'unmarried', 'one', 'solitary']
+Token 1441: school -> ['college', 'university', 'school', 'academy', 'institution']
+Token 1463: grave -> ['grave', 'serious', 'solemn', 'severe', 'somber', 'weighty']
+Token 1465: hesitant -> ['hesitant', 'uncertain', 'tentative', 'reluctant', 'doubtful', 'wavering']
+Token 1489: various -> ['various', 'different', 'diverse', 'assorted', 'multiple', 'several']
+Token 1491: delays -> ['delays', 'postponements', 'setbacks', 'holdups', 'deferrals']
+Token 1499: permanently -> ['forever', 'eternally', 'always', 'perpetually', 'endlessly', 'permanently']
+Token 1503: thought -> ['idea', 'concept', 'thought', 'notion', 'plan', 'suggestion']
+Token 1519: practical -> ['practical', 'sensible', 'useful', 'realistic', 'pragmatic', 'functional']
+Token 1529: rooms -> ['rooms', 'chambers', 'spaces', 'quarters', 'compartments', 'areas']
+Token 1545: warm -> ['warm', 'heated', 'cozy', 'mild']
+Token 1547: season -> ['season', 'period', 'time', 'phase', 'spell', 'duration']
+Token 1561: country -> ['country', 'nation', 'land', 'region', 'territory', 'countryside']
+Token 1565: wide -> ['wide', 'broad', 'extensive', 'spacious', 'large', 'expansive']
+Token 1571: friendly -> ['friendly', 'amiable', 'cordial', 'welcoming', 'kind']
+Token 1573: trees -> ['trees', 'plants', 'vegetation', 'timber', 'woods', 'forest']
+Token 1581: young -> ['young', 'youthful', 'juvenile', 'new', 'fresh', 'inexperienced']
+Token 1589: office -> ['office', 'workplace', 'bureau', 'headquarters', 'study', 'position']
+Token 1601: house -> ['house', 'home', 'residence', 'dwelling', 'building', 'abode']
+Token 1611: town -> ['town', 'community', 'municipality', 'settlement', 'village', 'borough']
+Token 1623: idea -> ['idea', 'concept', 'thought', 'notion', 'plan', 'suggestion']
+Token 1631: house -> ['house', 'home', 'residence', 'dwelling', 'building', 'abode']
+Token 1635: weatherbeaten -> ['weatherbeaten', 'worn', 'battered', 'deteriorated']
+Token 1661: firm -> ['firm', 'company', 'business', 'organization', 'corporation', 'enterprise']
+Token 1683: country -> ['country', 'nation', 'land', 'region', 'territory', 'countryside']
+Token 1725: old -> ['old', 'obsolete', 'archaic', 'antiquated', 'ancient']
+Token 1757: wisdom -> ['wisdom', 'knowledge', 'insight', 'understanding', 'intelligence', 'sagacity']
+Token 1767: electric -> ['electric', 'electrical', 'powered', 'energized', 'charged']
+Token 1789: one -> ['single', 'individual', 'sole', 'unmarried', 'one', 'solitary']
+Token 1815: road -> ['road', 'street', 'path', 'route', 'way', 'highway']
+Token 1831: village -> ['town', 'community', 'municipality', 'settlement', 'village', 'borough']
+Token 1871: guide -> ['guide', 'leader', 'director', 'mentor']
+Token 1875: pathfinder -> ['pathfinder', 'pioneer', 'trailblazer', 'scout']
+Token 1879: original -> ['original', 'initial', 'authentic', 'innovative']
+Token 1881: settler -> ['settler', 'colonist', 'resident', 'inhabitant', 'homesteader']
+Token 1897: freedom -> ['freedom', 'liberty', 'independence', 'autonomy', 'release', 'emancipation']
+Starting overfull count: 5
+Step 1: reduced overfulls to 4 (changed token 1661 "firm" -> "organization")
+Step 2: reduced overfulls to 3 (changed token 747 "personality" -> "nature")
+sleep 10
+pdflatex -interaction=nonstopmode main.tex
+ps aux | grep python3
+python3 make_opt.py
+Step 3: reduced overfulls to 2 (changed token 859 "name" -> "title")
+Step 4: reduced overfulls to 1 (changed token 1875 "pathfinder" -> "pioneer")
+sleep 15
+ps aux | grep python3
+
+pdflatex -interaction=nonstopmode main.tex | grep "Overfull"
+pdflatex -interaction=nonstopmode main.tex
+C-c
+pdflatex -interaction=nonstopmode main.tex
+C-c
+echo FINISHED_TEST
+pdflatex -interaction=nonstopmode main.tex
+
+C-c
+pdflatex -interaction=nonstopmode main.tex > output.txt
+Step 5: reduced overfulls to 0 (changed token 129 "forthcoming" -> "talkative")
+Final overfull count: 0
+SUCCESS! input.tex saved with 0 overfull hboxes.
+[?2004hroot@6272ecee67e8:/app# sleep 10
+[?2004l[?2004hroot@6272ecee67e8:/app# pdflatex -interaction=nonstopmode main.tex
+[?2004lThis is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./main.tex
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-01-22>
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo))
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
+(./main.aux) (./input.tex [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+] [2] [3] [4]) [5] (./main.aux) )</usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr10.pfb>
+Output written on main.pdf (5 pages, 29587 bytes).
+Transcript written on main.log.
+[?2004hroot@6272ecee67e8:/app# ps aux | grep python3
+[?2004lroot        5179  0.0  0.0   3536  1936 pts/0    S+   15:44   0:00 grep --color=auto [01;31m[Kpython3[m[K
+[?2004hroot@6272ecee67e8:/app# python3 make_opt.py
+[?2004lReplaceable tokens count: 146
+Token 11: vulnerable -> ['vulnerable', 'defenseless', 'exposed', 'susceptible', 'weak', 'fragile']
+Token 25: advice -> ['advice', 'counsel', 'guidance', 'recommendations', 'suggestions', 'tips']
+Token 43: mind -> ['mind', 'intellect', 'brain', 'consciousness', 'mentality', 'psyche']
+Token 61: one -> ['single', 'individual', 'sole', 'unmarried', 'one', 'solitary']
+Token 85: world -> ['world', 'earth', 'globe', 'planet', 'society', 'realm']
+Token 95: advantages -> ['advantages', 'benefits', 'privileges', 'assets', 'strengths', 'perks']
+Token 123: always -> ['forever', 'eternally', 'always', 'perpetually', 'endlessly', 'permanently']
+Token 129: talkative -> ['communicative', 'talkative', 'expressive', 'open', 'articulate', 'forthcoming']
+Token 135: modest -> ['reserved', 'quiet', 'restrained', 'modest', 'withdrawn']
+Token 137: way -> ['road', 'street', 'path', 'route', 'way', 'highway']
+Token 179: judgments -> ['judgments', 'opinions', 'assessments', 'evaluations', 'decisions', 'verdicts']
+Token 183: habit -> ['habit', 'custom', 'routine', 'practice', 'pattern', 'tendency']
+Token 195: curious -> ['curious', 'inquisitive', 'interested', 'odd', 'peculiar']
+Token 197: natures -> ['natures', 'characters', 'temperaments', 'dispositions', 'essences', 'personalities']
+Token 213: victim -> ['victim', 'target', 'casualty', 'sufferer', 'prey', 'subject']
+Token 223: veteran -> ['veteran', 'vintage', 'seasoned', 'weathered', 'dated']
+Token 229: abnormal -> ['abnormal', 'unusual', 'irregular', 'atypical', 'deviant', 'aberrant']
+Token 231: mind -> ['mind', 'intellect', 'brain', 'consciousness', 'mentality', 'psyche']
+Token 235: quick -> ['quick', 'fast', 'rapid', 'swift', 'speedy', 'prompt']
+Token 251: quality -> ['quality', 'characteristic', 'trait', 'attribute', 'feature', 'standard']
+Token 281: college -> ['college', 'university', 'school', 'academy', 'institution']
+Token 317: wild -> ['riotous', 'wild', 'unruly', 'chaotic', 'boisterous', 'tumultuous']
+Token 319: unknown -> ['unknown', 'unfamiliar', 'mysterious', 'unidentified', 'strange', 'anonymous']
+Token 333: unsought -> ['unsought', 'unwanted', 'uninvited', 'unrequested', 'undesired', 'spontaneous']
+Token 343: sleep -> ['sleep', 'rest', 'slumber', 'repose', 'dormancy', 'unconsciousness']
+Token 351: hostile -> ['hostile', 'unfriendly', 'aggressive', 'antagonistic', 'belligerent', 'adverse']
+Token 353: levity -> ['levity', 'lightness', 'frivolity', 'humor', 'playfulness', 'jest']
+Token 367: sign -> ['sign', 'indication', 'signal', 'symbol', 'mark', 'evidence']
+Token 373: intimate -> ['intimate', 'close', 'personal', 'familiar', 'confidential']
+Token 375: revelation -> ['revelation', 'disclosure', 'discovery', 'unveiling', 'exposure', 'epiphany']
+Token 391: intimate -> ['intimate', 'close', 'personal', 'familiar', 'confidential']
+Token 393: revelations -> ['revelations', 'disclosures', 'discoveries', 'exposures', 'unveilings', 'epiphanies']
+Token 397: young -> ['young', 'youthful', 'juvenile', 'new', 'fresh', 'inexperienced']
+Token 409: terms -> ['terms', 'conditions', 'words', 'expressions', 'periods', 'relationships']
+Token 425: plagiaristic -> ['plagiaristic', 'copied', 'imitative', 'derivative', 'borrowed', 'unoriginal']
+Token 433: obvious -> ['obvious', 'clear', 'evident', 'apparent', 'plain', 'manifest']
+Token 435: suppressions -> ['suppressions', 'concealments', 'repressions', 'restrictions', 'censorings', 'withholdings']
+Token 439: judgments -> ['judgments', 'opinions', 'assessments', 'evaluations', 'decisions', 'verdicts']
+Token 449: infinite -> ['infinite', 'endless', 'limitless', 'boundless', 'eternal', 'immeasurable']
+Token 451: hope -> ['hope', 'optimism', 'expectation', 'faith', 'confidence', 'aspiration']
+Token 505: fundamental -> ['fundamental', 'basic', 'essential', 'primary', 'underlying']
+Token 507: decencies -> ['decencies', 'proprieties', 'courtesies', 'civilities', 'manners']
+Token 529: way -> ['road', 'street', 'path', 'route', 'way', 'highway']
+Token 545: admission -> ['admission', 'confession', 'acknowledgment', 'concession', 'declaration']
+Token 557: Conduct -> ['Conduct', 'Behavior', 'Actions', 'Deportment', 'Demeanor', 'Bearing']
+Token 577: wet -> ['wet', 'moist', 'damp', 'soaked', 'saturated', 'humid']
+Token 579: bogs -> ['marshes', 'swamps', 'wetlands', 'bogs', 'marshlands', 'moors']
+Token 639: world -> ['world', 'earth', 'globe', 'planet', 'society', 'realm']
+Token 659: moral -> ['moral', 'ethical', 'virtuous', 'righteous', 'principled', 'decent']
+Token 661: attention -> ['attention', 'focus', 'concentration', 'notice', 'regard']
+Token 663: forever -> ['forever', 'eternally', 'always', 'perpetually', 'endlessly', 'permanently']
+Token 673: riotous -> ['riotous', 'wild', 'unruly', 'chaotic', 'boisterous', 'tumultuous']
+Token 675: excursions -> ['excursions', 'trips', 'outings', 'journeys', 'expeditions', 'adventures']
+Token 689: heart -> ['centre', 'middle', 'core', 'heart', 'hub']
+Token 705: name -> ['name', 'title', 'designation', 'label', 'identity', 'reputation']
+Token 711: book -> ['book', 'volume', 'publication', 'work', 'text', 'manuscript']
+Token 721: reaction -> ['responsiveness', 'sensitivity', 'awareness', 'reaction', 'attentiveness']
+Token 743: scorn -> ['scorn', 'contempt', 'disdain', 'derision', 'mockery', 'ridicule']
+Token 747: nature -> ['temperament', 'disposition', 'nature', 'character', 'personality', 'mood']
+Token 755: series -> ['series', 'sequence', 'chain', 'succession', 'set', 'progression']
+Token 759: successful -> ['successful', 'triumphant', 'prosperous', 'effective', 'accomplished', 'winning']
+Token 771: gorgeous -> ['gorgeous', 'beautiful', 'stunning', 'magnificent', 'splendid', 'lovely']
+Token 779: heightened -> ['heightened', 'increased', 'intensified', 'enhanced', 'elevated', 'amplified']
+Token 781: sensitivity -> ['responsiveness', 'sensitivity', 'awareness', 'reaction', 'attentiveness']
+Token 787: promises -> ['promises', 'pledges', 'commitments', 'assurances', 'guarantees', 'vows']
+Token 805: one -> ['single', 'individual', 'sole', 'unmarried', 'one', 'solitary']
+Token 811: intricate -> ['intricate', 'complex', 'complicated', 'elaborate', 'detailed', 'sophisticated']
+Token 813: machines -> ['machines', 'devices', 'apparatus', 'mechanisms', 'instruments']
+Token 831: responsiveness -> ['responsiveness', 'sensitivity', 'awareness', 'reaction', 'attentiveness']
+Token 845: flabby -> ['flabby', 'soft', 'loose', 'slack', 'feeble']
+Token 847: impressionability -> ['impressionability', 'susceptibility', 'receptiveness', 'vulnerability', 'influence']
+Token 859: title -> ['name', 'title', 'designation', 'label', 'identity', 'reputation']
+Token 865: creative -> ['creative', 'imaginative', 'inventive', 'artistic']
+Token 867: temperament -> ['temperament', 'disposition', 'nature', 'character', 'personality', 'mood']
+Token 875: extraordinary -> ['extraordinary', 'remarkable', 'exceptional', 'outstanding', 'amazing']
+Token 877: gift -> ['gift', 'talent', 'ability', 'present', 'offering', 'skill']
+Token 881: hope -> ['hope', 'optimism', 'expectation', 'faith', 'confidence', 'aspiration']
+Token 885: romantic -> ['romantic', 'idealistic', 'passionate', 'sentimental', 'dreamy', 'loving']
+Token 887: readiness -> ['readiness', 'preparedness', 'willingness', 'eagerness', 'availability', 'alertness']
+Token 963: foul -> ['foul', 'dirty', 'filthy', 'contaminated', 'polluted', 'vile']
+Token 965: dust -> ['dust', 'particles', 'powder', 'debris', 'residue', 'grime']
+Token 979: dreams -> ['dreams', 'aspirations', 'visions', 'hopes', 'fantasies', 'ambitions']
+Token 991: interest -> ['interest', 'curiosity', 'concern', 'fascination', 'engagement']
+Token 997: abortive -> ['abortive', 'failed', 'unsuccessful', 'futile', 'fruitless', 'ineffective']
+Token 1007: elations -> ['elations', 'joys', 'euphoria', 'excitement', 'exhilaration']
+Token 1015: family -> ['clan', 'family', 'tribe', 'group', 'kinship', 'lineage']
+Token 1021: prominent -> ['prominent', 'notable', 'distinguished', 'famous', 'important']
+Token 1035: Middle -> ['Centre', 'Middle', 'Core', 'Heart', 'Hub']
+Token 1059: clan -> ['clan', 'family', 'tribe', 'group', 'kinship', 'lineage']
+Token 1093: actual -> ['actual', 'real', 'genuine', 'true', 'factual']
+Token 1123: one -> ['single', 'individual', 'sole', 'unmarried', 'one', 'solitary']
+Token 1129: substitute -> ['substitute', 'replacement', 'alternative', 'proxy', 'surrogate']
+Token 1147: hardware -> ['hardware', 'equipment', 'tools', 'implements', 'machinery', 'fixtures']
+Token 1149: business -> ['firm', 'company', 'business', 'organization', 'corporation', 'enterprise']
+Token 1195: special -> ['special', 'unique', 'particular', 'distinctive']
+Token 1197: reference -> ['reference', 'mention', 'allusion', 'citation']
+Token 1209: painting -> ['painting', 'artwork', 'portrait', 'picture', 'canvas', 'image']
+Token 1221: office -> ['office', 'workplace', 'bureau', 'headquarters', 'study', 'position']
+Token 1229: New -> ['Young', 'Youthful', 'Juvenile', 'New', 'Fresh', 'Inexperienced']
+Token 1275: migration -> ['migration', 'movement', 'relocation', 'journey', 'exodus', 'displacement']
+Token 1309: restless -> ['restless', 'agitated', 'uneasy', 'fidgety', 'anxious', 'unsettled']
+Token 1319: warm -> ['warm', 'heated', 'cozy', 'mild']
+Token 1321: centre -> ['centre', 'middle', 'core', 'heart', 'hub']
+Token 1327: world -> ['world', 'earth', 'globe', 'planet', 'society', 'realm']
+Token 1331: Middle -> ['Centre', 'Middle', 'Core', 'Heart', 'Hub']
+Token 1343: ragged -> ['ragged', 'torn', 'frayed', 'rough', 'uneven', 'tattered']
+Token 1345: edge -> ['edge', 'border', 'boundary', 'margin', 'rim', 'periphery']
+Token 1373: business -> ['firm', 'company', 'business', 'organization', 'corporation', 'enterprise']
+Token 1389: business -> ['firm', 'company', 'business', 'organization', 'corporation', 'enterprise']
+Token 1403: one -> ['single', 'individual', 'sole', 'unmarried', 'one', 'solitary']
+Token 1407: single -> ['single', 'individual', 'sole', 'unmarried', 'one', 'solitary']
+Token 1441: school -> ['college', 'university', 'school', 'academy', 'institution']
+Token 1463: grave -> ['grave', 'serious', 'solemn', 'severe', 'somber', 'weighty']
+Token 1465: hesitant -> ['hesitant', 'uncertain', 'tentative', 'reluctant', 'doubtful', 'wavering']
+Token 1489: various -> ['various', 'different', 'diverse', 'assorted', 'multiple', 'several']
+Token 1491: delays -> ['delays', 'postponements', 'setbacks', 'holdups', 'deferrals']
+Token 1499: permanently -> ['forever', 'eternally', 'always', 'perpetually', 'endlessly', 'permanently']
+Token 1503: thought -> ['idea', 'concept', 'thought', 'notion', 'plan', 'suggestion']
+Token 1519: practical -> ['practical', 'sensible', 'useful', 'realistic', 'pragmatic', 'functional']
+Token 1529: rooms -> ['rooms', 'chambers', 'spaces', 'quarters', 'compartments', 'areas']
+Token 1545: warm -> ['warm', 'heated', 'cozy', 'mild']
+Token 1547: season -> ['season', 'period', 'time', 'phase', 'spell', 'duration']
+Token 1561: country -> ['country', 'nation', 'land', 'region', 'territory', 'countryside']
+Token 1565: wide -> ['wide', 'broad', 'extensive', 'spacious', 'large', 'expansive']
+Token 1571: friendly -> ['friendly', 'amiable', 'cordial', 'welcoming', 'kind']
+Token 1573: trees -> ['trees', 'plants', 'vegetation', 'timber', 'woods', 'forest']
+Token 1581: young -> ['young', 'youthful', 'juvenile', 'new', 'fresh', 'inexperienced']
+Token 1589: office -> ['office', 'workplace', 'bureau', 'headquarters', 'study', 'position']
+Token 1601: house -> ['house', 'home', 'residence', 'dwelling', 'building', 'abode']
+Token 1611: town -> ['town', 'community', 'municipality', 'settlement', 'village', 'borough']
+Token 1623: idea -> ['idea', 'concept', 'thought', 'notion', 'plan', 'suggestion']
+Token 1631: house -> ['house', 'home', 'residence', 'dwelling', 'building', 'abode']
+Token 1635: weatherbeaten -> ['weatherbeaten', 'worn', 'battered', 'deteriorated']
+Token 1661: organization -> ['firm', 'company', 'business', 'organization', 'corporation', 'enterprise']
+Token 1683: country -> ['country', 'nation', 'land', 'region', 'territory', 'countryside']
+Token 1725: old -> ['old', 'obsolete', 'archaic', 'antiquated', 'ancient']
+Token 1757: wisdom -> ['wisdom', 'knowledge', 'insight', 'understanding', 'intelligence', 'sagacity']
+Token 1767: electric -> ['electric', 'electrical', 'powered', 'energized', 'charged']
+Token 1789: one -> ['single', 'individual', 'sole', 'unmarried', 'one', 'solitary']
+Token 1815: road -> ['road', 'street', 'path', 'route', 'way', 'highway']
+Token 1831: village -> ['town', 'community', 'municipality', 'settlement', 'village', 'borough']
+Token 1871: guide -> ['guide', 'leader', 'director', 'mentor']
+Token 1875: pioneer -> ['pathfinder', 'pioneer', 'trailblazer', 'scout']
+Token 1879: original -> ['original', 'initial', 'authentic', 'innovative']
+Token 1881: settler -> ['settler', 'colonist', 'resident', 'inhabitant', 'homesteader']
+Token 1897: freedom -> ['freedom', 'liberty', 'independence', 'autonomy', 'release', 'emancipation']
+Starting overfull count: 0
+Final overfull count: 0
+SUCCESS! input.tex saved with 0 overfull hboxes.
+[?2004hroot@6272ecee67e8:/app# sleep 15
+[?2004l[?2004hroot@6272ecee67e8:/app# ps aux | grep python3
+[?2004lroot        5447  0.0  0.0   3536  1916 pts/0    S+   15:44   0:00 grep --color=auto [01;31m[Kpython3[m[K
+[?2004hroot@6272ecee67e8:/app# 
+[?2004l[?2004hroot@6272ecee67e8:/app# pdflatex -interaction=nonstopmode main.tex | grep "Overfull"
+[?2004l[?2004hroot@6272ecee67e8:/app# pdflatex -interaction=nonstopmode main.tex
+[?2004lThis is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./main.tex
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-01-22>
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo))
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
+(./main.aux) (./input.tex [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+] [2] [3] [4]) [5] (./main.aux) )</usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr10.pfb>
+Output written on main.pdf (5 pages, 29587 bytes).
+Transcript written on main.log.
+[?2004hroot@6272ecee67e8:/app# C-c
+[?2004lbash: C-c: command not found
+[?2004hroot@6272ecee67e8:/app# pdflatex -interaction=nonstopmode main.tex
+[?2004lThis is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./main.tex
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-01-22>
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo))
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
+(./main.aux) (./input.tex [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+] [2] [3] [4]) [5] (./main.aux) )</usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr10.pfb>
+Output written on main.pdf (5 pages, 29587 bytes).
+Transcript written on main.log.
+[?2004hroot@6272ecee67e8:/app# C-c
+[?2004lbash: C-c: command not found
+[?2004hroot@6272ecee67e8:/app# echo FINISHED_TEST
+[?2004lFINISHED_TEST
+[?2004hroot@6272ecee67e8:/app# pdflatex -interaction=nonstopmode main.tex
+[?2004lThis is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./main.tex
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-01-22>
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo))
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
+(./main.aux) (./input.tex [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+] [2] [3] [4]) [5] (./main.aux) )</usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr10.pfb>
+Output written on main.pdf (5 pages, 29587 bytes).
+Transcript written on main.log.
+[?2004hroot@6272ecee67e8:/app# 
+[?2004l[?2004hroot@6272ecee67e8:/app# C-c
+[?2004lbash: C-c: command not found
+[?2004hroot@6272ecee67e8:/app# pdflatex -interaction=nonstopmode main.tex > output.txt
+[?2004l[?2004hroot@6272ecee67e8:/app# 

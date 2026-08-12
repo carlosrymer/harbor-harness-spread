@@ -1,0 +1,19 @@
+{
+  "schema_version": "ATIF-v1.2",
+  "session_id": "3f9476ac-e14f-4556-89d0-f7ad67d9d382",
+  "agent": {
+    "name": "goose",
+    "version": "1.45.0",
+    "model_name": "openai/bench-model"
+  },
+  "steps": [
+    {
+      "step_id": 1,
+      "source": "agent",
+      "message": "Loading recipe: harbor-task\nDescription: harbor task recipe\n\n\n    __( O)>  \u25cf new session \u00b7 openai bench-model\n   \\____)    20260812_1 \u00b7 /app\n     L L     goose is ready\n{\"type\":\"message\",\"message\":{\"id\":\"msg_a1de9f19-e1e0-49ea-851d-068f9a4a5616\",\"role\":\"assistant\",\"created\":1786550470,\"content\":[{\"type\":\"systemNotification\",\"notificationType\":\"creditsExhausted\",\"msg\":\"Please check your account with your provider to add more credits, then resend your message to continue.\",\"data\":{\"top_up_url\":null}}],\"metadata\":{\"userVisible\":true,\"agentVisible\":false}}}\n{\"type\":\"complete\",\"total_tokens\":0,\"input_tokens\":0,\"output_tokens\":0,\"cache_read_input_tokens\":0,\"cache_write_input_tokens\":0}"
+    }
+  ],
+  "final_metrics": {
+    "total_steps": 1
+  }
+}

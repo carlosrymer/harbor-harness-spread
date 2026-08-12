@@ -1,8 +1,8 @@
 {
   "all_in_spend": {
     "Google AI Studio (Gemini)": {
-      "cost_usd": 14.45,
-      "calls": 726
+      "cost_usd": 23.96,
+      "calls": 1161
     },
     "Moonshot (Kimi)": {
       "cost_usd": 1.7,
@@ -47,16 +47,16 @@
     "model": "gemini36",
     "model_label": "gemini-3.6-flash (Google AI Studio)",
     "basis": "common attempted subset",
-    "n_tasks": 4,
-    "pp_per_task": 25.0,
-    "best": "mini-swe-agent",
+    "n_tasks": 8,
+    "pp_per_task": 12.5,
+    "best": "terminus-2",
     "worst": "aider",
-    "max_rate": 0.75,
+    "max_rate": 0.625,
     "min_rate": 0.0,
-    "spread_pp": 75.0,
+    "spread_pp": 62.5,
     "ranking": [
-      "mini-swe-agent",
       "terminus-2",
+      "mini-swe-agent",
       "goose",
       "aider"
     ]
@@ -73,25 +73,25 @@
           "model": "gemini36",
           "model_label": "gemini-3.6-flash (Google AI Studio)",
           "harness": "terminus-2",
-          "n_tasks": 6,
+          "n_tasks": 11,
           "n_cells": 12,
-          "n_resolved": 4,
-          "resolve_rate": 0.6667,
-          "n_infra_errors": 6,
-          "n_timeouts": 1,
-          "tokens_total": 4419699,
-          "prompt_tokens": 4311228,
-          "cached_tokens": 2866328,
-          "completion_tokens": 108471,
-          "llm_calls": 257,
+          "n_resolved": 7,
+          "resolve_rate": 0.6364,
+          "n_infra_errors": 1,
+          "n_timeouts": 4,
+          "tokens_total": 9744913,
+          "prompt_tokens": 9511005,
+          "cached_tokens": 6634822,
+          "completion_tokens": 233908,
+          "llm_calls": 472,
           "llm_errors": 0,
           "llm_retries": 0,
-          "cost_usd": 4.0558,
-          "wall_s_total": 3390.4,
-          "steps_total": 251,
-          "parser_warnings": 160,
-          "resolved_per_mtok": 0.905,
-          "resolved_per_usd": 0.986,
+          "cost_usd": 8.5566,
+          "wall_s_total": 3286.5,
+          "steps_total": 342,
+          "parser_warnings": 192,
+          "resolved_per_mtok": 0.718,
+          "resolved_per_usd": 0.818,
           "reps": 1
         },
         {
@@ -142,7 +142,7 @@
           "parser_warnings": 0,
           "resolved_per_mtok": 0.952,
           "resolved_per_usd": 0.739,
-          "reps": 1
+          "reps": 2
         },
         {
           "model": "gemini36",
@@ -172,59 +172,63 @@
       ],
       "best": "terminus-2",
       "worst": "aider",
-      "max_rate": 0.6667,
+      "max_rate": 0.6364,
       "min_rate": 0.0,
-      "spread_pp": 66.7,
+      "spread_pp": 63.6,
       "ranking": [
         "terminus-2",
         "mini-swe-agent",
         "goose",
         "aider"
       ],
-      "cost_usd": 12.906,
-      "tokens_total": 10855179
+      "cost_usd": 17.4068,
+      "tokens_total": 16180393
     }
   },
   "common_subset": {
     "gemini36": {
       "model": "gemini36",
-      "n_common_tasks": 4,
+      "n_common_tasks": 8,
       "tasks": [
+        "adaptive-rejection-sampler",
         "db-wal-recovery",
         "fix-git",
         "log-summary-date-ranges",
-        "sparql-university"
+        "model-extraction-relu-logits",
+        "overfull-hbox",
+        "sparql-university",
+        "torch-pipeline-parallelism"
       ],
       "harnesses": [
         {
-          "harness": "mini-swe-agent",
-          "n": 4,
-          "resolved": 3,
-          "rate": 0.75
+          "harness": "terminus-2",
+          "n": 8,
+          "resolved": 5,
+          "rate": 0.625
         },
         {
-          "harness": "terminus-2",
-          "n": 4,
+          "harness": "mini-swe-agent",
+          "n": 8,
           "resolved": 3,
-          "rate": 0.75
+          "rate": 0.375
         },
         {
           "harness": "goose",
-          "n": 4,
+          "n": 8,
           "resolved": 2,
-          "rate": 0.5
+          "rate": 0.25
         },
         {
           "harness": "aider",
-          "n": 4,
+          "n": 8,
           "resolved": 0,
           "rate": 0.0
         }
       ],
-      "spread_pp": 75.0,
-      "best": "mini-swe-agent",
+      "spread_pp": 62.5,
+      "best": "terminus-2",
       "worst": "aider",
-      "pp_per_task": 25.0
+      "pp_per_task": 12.5
     }
   },
   "cross_model": null,
@@ -277,7 +281,7 @@
       "parser_warnings": 0,
       "resolved_per_mtok": 0.952,
       "resolved_per_usd": 0.739,
-      "reps": 1
+      "reps": 2
     },
     {
       "model": "gemini36",
@@ -308,25 +312,25 @@
       "model": "gemini36",
       "model_label": "gemini-3.6-flash (Google AI Studio)",
       "harness": "terminus-2",
-      "n_tasks": 6,
+      "n_tasks": 11,
       "n_cells": 12,
-      "n_resolved": 4,
-      "resolve_rate": 0.6667,
-      "n_infra_errors": 6,
-      "n_timeouts": 1,
-      "tokens_total": 4419699,
-      "prompt_tokens": 4311228,
-      "cached_tokens": 2866328,
-      "completion_tokens": 108471,
-      "llm_calls": 257,
+      "n_resolved": 7,
+      "resolve_rate": 0.6364,
+      "n_infra_errors": 1,
+      "n_timeouts": 4,
+      "tokens_total": 9744913,
+      "prompt_tokens": 9511005,
+      "cached_tokens": 6634822,
+      "completion_tokens": 233908,
+      "llm_calls": 472,
       "llm_errors": 0,
       "llm_retries": 0,
-      "cost_usd": 4.0558,
-      "wall_s_total": 3390.4,
-      "steps_total": 251,
-      "parser_warnings": 160,
-      "resolved_per_mtok": 0.905,
-      "resolved_per_usd": 0.986,
+      "cost_usd": 8.5566,
+      "wall_s_total": 3286.5,
+      "steps_total": 342,
+      "parser_warnings": 192,
+      "resolved_per_mtok": 0.718,
+      "resolved_per_usd": 0.818,
       "reps": 1
     }
   ],
@@ -451,21 +455,23 @@
         "gemini36__terminus-2": {
           "model": "gemini36",
           "harness": "terminus-2",
-          "resolved": false,
-          "reward": null,
-          "exception": "litellm.exceptions.APIError: litellm.APIError: APIError: OpenAIException - gateway budget of $4.0 exhausted (spent $4.03)",
-          "timed_out": false,
-          "infra_error": true,
-          "attempted": false,
-          "n_steps": 32,
-          "wall_s": 288.7,
-          "parser_warnings": 64
+          "resolved": true,
+          "reward": 1.0,
+          "exception": "harbor.trial.errors.AgentTimeoutError: Agent execution timed out after 300.0 seconds",
+          "timed_out": true,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 39,
+          "wall_s": 382.2,
+          "parser_warnings": 78
         }
       },
-      "n_solved_by": 0,
-      "n_attempted_by": 3,
-      "solved_by": [],
-      "disputed": false
+      "n_solved_by": 1,
+      "n_attempted_by": 4,
+      "solved_by": [
+        "gemini36__terminus-2"
+      ],
+      "disputed": true
     },
     {
       "task": "configure-git-webserver",
@@ -650,18 +656,18 @@
           "model": "gemini36",
           "harness": "terminus-2",
           "resolved": false,
-          "reward": null,
-          "exception": "harbor.trial.errors.VerifierTimeoutError: Verifier execution timed out after 900.0 seconds",
+          "reward": 0.0,
+          "exception": null,
           "timed_out": false,
-          "infra_error": true,
-          "attempted": false,
-          "n_steps": 9,
-          "wall_s": 1078.4,
-          "parser_warnings": 4
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 10,
+          "wall_s": 141.4,
+          "parser_warnings": 20
         }
       },
       "n_solved_by": 0,
-      "n_attempted_by": 3,
+      "n_attempted_by": 4,
       "solved_by": [],
       "disputed": false
     },
@@ -853,18 +859,18 @@
           "model": "gemini36",
           "harness": "terminus-2",
           "resolved": false,
-          "reward": null,
-          "exception": "litellm.exceptions.APIError: litellm.APIError: APIError: OpenAIException - gateway budget of $4.0 exhausted (spent $4.03)",
-          "timed_out": false,
-          "infra_error": true,
-          "attempted": false,
-          "n_steps": 0,
-          "wall_s": 74.4,
-          "parser_warnings": 0
+          "reward": 0.0,
+          "exception": "harbor.trial.errors.AgentTimeoutError: Agent execution timed out after 360.0 seconds",
+          "timed_out": true,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 55,
+          "wall_s": 512.8,
+          "parser_warnings": 2
         }
       },
       "n_solved_by": 0,
-      "n_attempted_by": 3,
+      "n_attempted_by": 4,
       "solved_by": [],
       "disputed": false
     },
@@ -918,21 +924,23 @@
         "gemini36__terminus-2": {
           "model": "gemini36",
           "harness": "terminus-2",
-          "resolved": false,
-          "reward": null,
-          "exception": "litellm.exceptions.APIError: litellm.APIError: APIError: OpenAIException - gateway budget of $4.0 exhausted (spent $4.03)",
-          "timed_out": false,
-          "infra_error": true,
-          "attempted": false,
-          "n_steps": 12,
-          "wall_s": 218.8,
+          "resolved": true,
+          "reward": 1.0,
+          "exception": "harbor.trial.errors.AgentTimeoutError: Agent execution timed out after 360.0 seconds",
+          "timed_out": true,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 32,
+          "wall_s": 413.6,
           "parser_warnings": 0
         }
       },
-      "n_solved_by": 0,
-      "n_attempted_by": 3,
-      "solved_by": [],
-      "disputed": false
+      "n_solved_by": 1,
+      "n_attempted_by": 4,
+      "solved_by": [
+        "gemini36__terminus-2"
+      ],
+      "disputed": true
     },
     {
       "task": "db-wal-recovery",
@@ -1122,24 +1130,62 @@
         "gemini36__terminus-2": {
           "model": "gemini36",
           "harness": "terminus-2",
-          "resolved": false,
-          "reward": null,
-          "exception": "litellm.exceptions.APIError: litellm.APIError: APIError: OpenAIException - gateway budget of $4.0 exhausted (spent $4.03)",
+          "resolved": true,
+          "reward": 1.0,
+          "exception": null,
           "timed_out": false,
-          "infra_error": true,
-          "attempted": false,
-          "n_steps": 24,
-          "wall_s": 228.9,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 32,
+          "wall_s": 335.3,
           "parser_warnings": 2
         }
       },
-      "n_solved_by": 0,
-      "n_attempted_by": 2,
-      "solved_by": [],
-      "disputed": false
+      "n_solved_by": 1,
+      "n_attempted_by": 3,
+      "solved_by": [
+        "gemini36__terminus-2"
+      ],
+      "disputed": true
     }
   ],
-  "variance": [],
+  "variance": [
+    {
+      "model": "gemini36",
+      "harness": "goose",
+      "model_label": "gemini-3.6-flash (Google AI Studio)",
+      "reps": [
+        {
+          "rep": 1,
+          "job": "run-gemini36--goose",
+          "n": 12,
+          "resolved": 2,
+          "rate": 0.1667
+        },
+        {
+          "rep": 2,
+          "job": "run-gemini36--goose--rep2",
+          "n": 12,
+          "resolved": 4,
+          "rate": 0.3333
+        }
+      ],
+      "flips": [
+        {
+          "task": "configure-git-webserver",
+          "rep1": false,
+          "rep2": true
+        },
+        {
+          "task": "fix-git",
+          "rep1": false,
+          "rep2": true
+        }
+      ],
+      "n_flips": 2,
+      "rate_range_pp": 16.7
+    }
+  ],
   "oracle": {
     "gcode-to-text": false,
     "gpt2-codegolf": true,

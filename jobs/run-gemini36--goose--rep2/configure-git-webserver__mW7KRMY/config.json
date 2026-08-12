@@ -1,0 +1,54 @@
+{
+    "task": {
+        "path": "/home/user/builds/harbor-harness-spread/terminal-bench/configure-git-webserver",
+        "source": "terminal-bench"
+    },
+    "trial_name": "configure-git-webserver__mW7KRMY",
+    "trials_dir": "/home/user/builds/harbor-harness-spread/jobs/run-gemini36--goose--rep2",
+    "agent_timeout_multiplier": 0.4,
+    "agent": {
+        "name": "goose",
+        "model_name": "openai/bench-model",
+        "env": {
+            "SSL_CERT_FILE": "/ccr-ca.crt",
+            "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+            "CURL_CA_BUNDLE": "/ccr-ca.crt",
+            "NODE_EXTRA_CA_CERTS": "/ccr-ca.crt",
+            "GIT_SSL_CAINFO": "/ccr-ca.crt",
+            "PIP_CERT": "/ccr-ca.crt",
+            "CARGO_HTTP_CAINFO": "/ccr-ca.crt",
+            "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+            "OPENAI_BASE_URL": "http://172.17.0.1:4010/v1",
+            "OPENAI_API_BASE": "http://172.17.0.1:4010/v1",
+            "OPENAI_HOST": "http://172.17.0.1:4010",
+            "OPENAI_BASE_PATH": "v1/chat/completions"
+        }
+    },
+    "environment": {
+        "type": "docker",
+        "mounts": [
+            {
+                "type": "bind",
+                "source": "/root/.ccr/ca-bundle.crt",
+                "target": "/ccr-ca.crt",
+                "read_only": true
+            },
+            {
+                "type": "bind",
+                "source": "/root/.local/bin/uv",
+                "target": "/usr/local/bin/uv",
+                "read_only": true
+            }
+        ]
+    },
+    "verifier": {
+        "env": {
+            "SSL_CERT_FILE": "/ccr-ca.crt",
+            "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+            "CURL_CA_BUNDLE": "/ccr-ca.crt",
+            "PIP_CERT": "/ccr-ca.crt",
+            "UV_NATIVE_TLS": "1"
+        }
+    },
+    "job_id": "42fd6dcd-831e-46ef-b629-8200b2806f08"
+}
