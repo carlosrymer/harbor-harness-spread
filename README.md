@@ -203,9 +203,9 @@ The gap between those two figures is the honest price of finding the verifier bu
 ### Variance: how much of the spread is real
 
 <!-- BEGIN:variance -->
-I re-ran **`goose`** over the same tasks, same model, same limits, changing nothing: **2/12 (16.7%) → 4/11 (36.4%)** — a swing of **19.7 percentage points** between identical runs, with 2 task(s) changing outcome (`configure-git-webserver`, `fix-git`).
+I re-ran **`goose`** over the same tasks, same model, same limits, changing nothing: **2/12 (16.7%) → 4/12 (33.3%)** — a swing of **16.7 percentage points** between identical runs, with 2 task(s) changing outcome (`configure-git-webserver`, `fix-git`).
 
-**What that means for the headline.** The measured spread is 62.5pp and the observed run-to-run swing on a single harness is 19.7pp. So the *extremes* of the ranking are separable — `terminus-2` at 62.5% versus `aider` at 0.0% is a gap several times larger than the noise I measured. The *middle* of the ranking is not: adjacent harnesses separated by less than 19.7pp cannot be ordered from this data, and I do not claim they can.
+**What that means for the headline.** The measured spread is 62.5pp and the observed run-to-run swing on a single harness is 16.7pp. So the *extremes* of the ranking are separable — `terminus-2` at 62.5% versus `aider` at 0.0% is a gap several times larger than the noise I measured. The *middle* of the ranking is not: adjacent harnesses separated by less than 16.7pp cannot be ordered from this data, and I do not claim they can.
 
 This is one repeated harness, not all four, so it is a floor on the variance rather than a full characterisation. Decoding is stochastic — Gemini is left at its provider default and Kimi K2.7 Code accepts only `temperature=1` — so some flipping between identical runs is expected. Anyone quoting a single-run agent benchmark number, mine included, should assume a swing of this order.
 <!-- END:variance -->
