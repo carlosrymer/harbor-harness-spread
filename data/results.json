@@ -1317,5 +1317,6 @@
       "verifier_timeout_sec": 900.0,
       "expert_time_estimate_min": 30.0
     }
-  }
+  },
+  "generated_at": "2026-08-12T16:18:21.533371+00:00"
 }
