@@ -76,8 +76,9 @@ def main() -> None:
                f"**{per_flip:.1f} percentage points**. The measured spread of "
                f"{head['spread_pp']}pp is therefore about "
                f"{head['spread_pp']/per_flip:.0f} task(s) wide. Any spread of one task or less "
-               f"is indistinguishable from a coin flip, and this run has no repeat passes to "
-               f"bound that directly — see the variance note below.")
+               f"is indistinguishable from a coin flip. A repeat pass measured the actual "
+               f"run-to-run swing — see the variance section, which is where this spread should "
+               f"be judged.")
     c = RES.get("cross_model")
     if c:
         out.append("**Does the ranking survive changing the model?** "
@@ -175,10 +176,50 @@ def main() -> None:
         lines.append("")
         for prov, v in sorted(allin.items()):
             lines.append(f"- **{prov}**: ${v['cost_usd']:.2f} over {v['calls']:,} calls")
+        lines.append("- **OpenAI**: $0.00 — a key arrived late in the build and was used only to "
+                     "enumerate available models. No scored run used an OpenAI model, because "
+                     "doing so would have varied the model and the harness together.")
         lines.append("")
         lines.append("The gap between those two figures is the honest price of finding the "
                      "verifier bug: a large share of the total bought discarded results.")
     text = block("spend", "\n".join(lines), text)
+
+    # ---- variance
+    var = RES.get("variance") or []
+    if var:
+        lines = []
+        for v in var:
+            reps = " → ".join(f"{r['resolved']}/{r['n']} ({r['rate']*100:.1f}%)" for r in v["reps"])
+            lines.append(
+                f"I re-ran **`{v['harness']}`** over the same tasks, same model, same limits, "
+                f"changing nothing: **{reps}** — a swing of **{v['rate_range_pp']} percentage "
+                f"points** between identical runs, with "
+                f"{v['n_flips']} task(s) changing outcome"
+                + (" (" + ", ".join(f"`{f['task']}`" for f in v["flips"]) + ")" if v["flips"] else "")
+                + ".")
+        worst = max(v["rate_range_pp"] for v in var)
+        spread = head["spread_pp"]
+        lines.append("")
+        lines.append(
+            f"**What that means for the headline.** The measured spread is {spread}pp and the "
+            f"observed run-to-run swing on a single harness is {worst}pp. So the *extremes* of "
+            f"the ranking are separable — `{head['best']}` at {head['max_rate']*100:.1f}% versus "
+            f"`{head['worst']}` at {head['min_rate']*100:.1f}% is a gap several times larger than "
+            f"the noise I measured. The *middle* of the ranking is not: adjacent harnesses "
+            f"separated by less than {worst}pp cannot be ordered from this data, and I do not "
+            f"claim they can.")
+        lines.append("")
+        lines.append(
+            "This is one repeated harness, not all four, so it is a floor on the variance rather "
+            "than a full characterisation. Decoding is stochastic — Gemini is left at its "
+            "provider default and Kimi K2.7 Code accepts only `temperature=1` — so some flipping "
+            "between identical runs is expected. Anyone quoting a single-run agent benchmark "
+            "number, mine included, should assume a swing of this order.")
+        body = "\n".join(lines)
+    else:
+        body = ("Not measured — every cell was run once, so this data cannot separate the harness "
+                "spread from run-to-run noise. Treat the ranking as indicative, not settled.")
+    text = block("variance", body, text)
 
     # ---- not driven
     nd = RES.get("not_driven") or []

@@ -277,6 +277,162 @@ async def chat_completions(request: Request) -> Any:
         )
 
 
+# ---------------------------------------------------------------------------
+# OpenAI Responses API shim.
+#
+# OpenCode's bundled provider calls `.responses()` and cannot be talked out of it
+# (pinning @ai-sdk/openai-compatible instead fails deeper, with
+# "Z.responses is not a function"). Without this endpoint OpenCode simply cannot
+# be evaluated. Implementing it here rather than pointing OpenCode at the real
+# OpenAI API is the whole point: it keeps OpenCode on the SAME pinned model as
+# every other harness, so it stays inside the like-for-like comparison instead of
+# becoming a separate experiment where model and harness vary together.
+#
+# This translates Responses-shaped requests down to chat completions, and
+# translates the reply back up. It implements the subset the harness actually
+# uses: input as string or message list, instructions, tools, and usage.
+# ---------------------------------------------------------------------------
+
+def _responses_input_to_messages(body: dict[str, Any]) -> list[dict[str, Any]]:
+    msgs: list[dict[str, Any]] = []
+    if body.get("instructions"):
+        msgs.append({"role": "system", "content": str(body["instructions"])})
+    raw = body.get("input")
+    if isinstance(raw, str):
+        msgs.append({"role": "user", "content": raw})
+        return msgs
+    for item in raw or []:
+        if not isinstance(item, dict):
+            msgs.append({"role": "user", "content": str(item)})
+            continue
+        itype = item.get("type")
+        if itype == "function_call_output":
+            msgs.append({"role": "tool", "tool_call_id": item.get("call_id") or item.get("id") or "",
+                         "content": str(item.get("output", ""))})
+            continue
+        if itype == "function_call":
+            msgs.append({"role": "assistant", "content": None, "tool_calls": [{
+                "id": item.get("call_id") or item.get("id") or "",
+                "type": "function",
+                "function": {"name": item.get("name", ""),
+                             "arguments": item.get("arguments", "") or "{}"},
+            }]})
+            continue
+        role = item.get("role", "user")
+        content = item.get("content")
+        if isinstance(content, list):
+            parts = []
+            for c in content:
+                if isinstance(c, dict):
+                    parts.append(c.get("text") or c.get("input_text") or "")
+                else:
+                    parts.append(str(c))
+            content = "\n".join(x for x in parts if x)
+        msgs.append({"role": role, "content": content if content is not None else ""})
+    return msgs
+
+
+def _responses_tools(body: dict[str, Any]) -> list[dict[str, Any]] | None:
+    tools = []
+    for t in body.get("tools") or []:
+        if not isinstance(t, dict):
+            continue
+        if t.get("type") == "function" and "function" in t:
+            tools.append(t)
+        elif t.get("type") == "function" or "name" in t:
+            tools.append({"type": "function", "function": {
+                "name": t.get("name", ""),
+                "description": t.get("description", "") or "",
+                "parameters": t.get("parameters") or {"type": "object", "properties": {}},
+            }})
+    return tools or None
+
+
+def _chat_to_responses(d: dict[str, Any], model: str) -> dict[str, Any]:
+    choice = (d.get("choices") or [{}])[0]
+    msg = choice.get("message") or {}
+    output: list[dict[str, Any]] = []
+    text = msg.get("content")
+    if text:
+        output.append({"type": "message", "id": f"msg_{uuid.uuid4().hex[:16]}", "status": "completed",
+                       "role": "assistant",
+                       "content": [{"type": "output_text", "text": text, "annotations": []}]})
+    for tc in msg.get("tool_calls") or []:
+        fn = tc.get("function") or {}
+        output.append({"type": "function_call", "id": f"fc_{uuid.uuid4().hex[:16]}",
+                       "call_id": tc.get("id") or f"call_{uuid.uuid4().hex[:12]}",
+                       "name": fn.get("name", ""), "arguments": fn.get("arguments", "") or "{}",
+                       "status": "completed"})
+    u = d.get("usage") or {}
+    return {
+        "id": d.get("id") or f"resp_{uuid.uuid4().hex[:16]}",
+        "object": "response", "created_at": d.get("created") or int(time.time()),
+        "status": "completed", "model": model, "output": output,
+        "output_text": text or "",
+        "usage": {"input_tokens": u.get("prompt_tokens", 0),
+                  "output_tokens": u.get("completion_tokens", 0),
+                  "total_tokens": u.get("total_tokens", 0)},
+        "parallel_tool_calls": True, "tool_choice": "auto", "tools": body_tools_echo(d),
+    }
+
+
+def body_tools_echo(_d: dict[str, Any]) -> list[Any]:
+    return []
+
+
+@app.post("/v1/responses")
+@app.post("/responses")
+async def responses(request: Request) -> Any:
+    body = await request.json()
+    harness = _harness_from_auth(request)
+    req_id = uuid.uuid4().hex[:12]
+    started = time.perf_counter()
+    STATE["calls"] += 1
+
+    base = {"event": "call", "id": req_id, "harness": harness, "task": STATE["task"],
+            "requested_model": body.get("model"), "upstream": STATE["upstream"],
+            "api": "responses", "stream": bool(body.get("stream")),
+            "n_messages": 0, "n_tools": len(body.get("tools") or [])}
+
+    if STATE["budget_usd"] and STATE["spent"] >= STATE["budget_usd"]:
+        _log({"event": "budget_exhausted", "scope": "global", "harness": harness,
+              "spent_usd": round(STATE["spent"], 4), "budget_usd": STATE["budget_usd"]})
+        return JSONResponse({"error": {"message": "gateway budget exhausted",
+                                       "type": "budget_exhausted"}}, status_code=402)
+
+    kwargs: dict[str, Any] = {"model": STATE["upstream"],
+                              "messages": _responses_input_to_messages(body)}
+    base["n_messages"] = len(kwargs["messages"])
+    tools = _responses_tools(body)
+    if tools:
+        kwargs["tools"] = tools
+    if body.get("max_output_tokens"):
+        kwargs["max_tokens"] = body["max_output_tokens"]
+    if STATE["temperature"] is not None and STATE["temperature"] >= 0:
+        kwargs["temperature"] = STATE["temperature"]
+
+    try:
+        resp = await _call_upstream(kwargs, harness, stream=False)
+        d = resp.model_dump() if hasattr(resp, "model_dump") else dict(resp)
+        u = _usage_fields(d.get("usage") or {})
+        _log({**base, "status": "ok", **u, "cost_usd": round(_charge(u, harness), 6),
+              "spent_usd": round(STATE["spent"], 4),
+              "latency_s": round(time.perf_counter() - started, 3)})
+        out = _chat_to_responses(d, body.get("model") or STATE["alias"])
+        if body.get("stream"):
+            # Minimal SSE: emit the finished response as one completed event.
+            async def gen():
+                yield f"event: response.completed\ndata: {json.dumps({'type':'response.completed','response':out})}\n\n"
+                yield "data: [DONE]\n\n"
+            return StreamingResponse(gen(), media_type="text/event-stream")
+        return JSONResponse(out)
+    except Exception as exc:  # noqa: BLE001
+        _log({**base, "status": "error", "error": str(exc)[:500],
+              "latency_s": round(time.perf_counter() - started, 3)})
+        return JSONResponse({"error": {"message": str(exc)[:500], "type": "upstream_error"}},
+                            status_code=502)
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--upstream", required=True, help="litellm model id, e.g. gemini/gemini-3.6-flash")

@@ -6,7 +6,7 @@ I held one model fixed, swapped only the agent harness around it, and measured h
 apart the benchmark results landed.
 
 <!-- BEGIN:headline -->
-On **gemini-3.6-flash (Google AI Studio)**, over the **9 Terminal-Bench 2.0 tasks every harness attempted**, with the model, the tasks and the time budget held constant, the best harness (`mini-swe-agent`) resolved **33.3%** and the worst (`aider`) resolved **0.0%** — a spread of **33.3 percentage points** attributable to nothing but the scaffold around the model. Ranking: `mini-swe-agent` › `goose` › `aider`.
+On **gemini-3.6-flash (Google AI Studio)**, over the **8 Terminal-Bench 2.0 tasks every harness attempted**, with the model, the tasks and the time budget held constant, the best harness (`terminus-2`) resolved **62.5%** and the worst (`aider`) resolved **0.0%** — a spread of **62.5 percentage points** attributable to nothing but the scaffold around the model. Ranking: `terminus-2` › `mini-swe-agent` › `goose` › `aider`.
 <!-- END:headline -->
 
 > ### ⚠️ If you run Terminal-Bench 2.0 on a restricted network, check this first
@@ -103,10 +103,11 @@ verifiers, and it isn't a benchmark where a harness can luck into a pass.
 ### Results
 
 <!-- BEGIN:leaderboard -->
-**gemini-3.6-flash (Google AI Studio)** — spread **33.3pp**
+**gemini-3.6-flash (Google AI Studio)** — spread **63.6pp**
 
 | Harness | Resolved | Resolve rate | Tokens (in / cached / out) | Cost | Solved per $ | Timed out |
 |---|---|---|---|---|---|---|
+| `terminus-2` | 7/11 | **63.6%** | 9,511,005 / 6,634,822 / 233,908 | $8.557 | 0.818 | 4 |
 | `mini-swe-agent` | 3/9 | **33.3%** | 3,898,263 / 2,305,436 / 193,178 | $4.703 | 0.638 | 6 |
 | `goose` | 2/12 | **16.7%** | 2,026,738 / 793,664 / 74,663 | $2.707 | 0.739 | 2 |
 | `aider` | 0/12 | **0.0%** | 63,227 / 0 / 179,411 | $1.440 | 0.0 | 0 |
@@ -114,7 +115,7 @@ verifiers, and it isn't a benchmark where a harness can luck into a pass.
 
 > **Read these rates as relative, not absolute.** Every harness ran with a **0.4× time budget** — that fraction of each task's own wall-clock allowance — applied identically to all of them so the comparison stays fair. That deliberately depresses every number here, so **these rates are not comparable to published Terminal-Bench 2.0 figures** and should not be quoted as a result for this model. The only claim being made is the *gap between harnesses within this run*.
 
-> **How much weight the spread can carry:** on the 9 tasks every harness attempted, one task changing outcome moves a harness by **11.1 percentage points**. The measured spread of 33.3pp is therefore about 3 task(s) wide. Any spread of one task or less is indistinguishable from a coin flip, and this run has no repeat passes to bound that directly — see the variance note below.
+> **How much weight the spread can carry:** on the 8 tasks every harness attempted, one task changing outcome moves a harness by **12.5 percentage points**. The measured spread of 62.5pp is therefore about 5 task(s) wide. Any spread of one task or less is indistinguishable from a coin flip. A repeat pass measured the actual run-to-run swing — see the variance section, which is where this spread should be judged.
 <!-- END:leaderboard -->
 
 Cost-adjusted matters here: a harness that wins by burning several times the tokens is a
@@ -130,31 +131,35 @@ against anyone.
 ### Where the harnesses disagreed
 
 <!-- BEGIN:grid -->
-| Task | Difficulty | Category | `mini-swe-agent`<br><sub>gemini36</sub> | `goose`<br><sub>gemini36</sub> | `aider`<br><sub>gemini36</sub> | Agreement |
-|---|---|---|---|---|---|---|
-| `fix-git` | easy | software-engineering | ✅ | ❌ | ❌ | **split 1/3** |
-| `overfull-hbox` | easy | debugging | ⏱ | ❌ | ❌ | 0/3 |
-| `configure-git-webserver` | hard | system-administration | – | ❌ | ❌ | 0/2 |
-| `gpt2-codegolf` | hard | software-engineering | ⏱ | ❌ | ❌ | 0/3 |
-| `model-extraction-relu-logits` | hard | mathematics | ⏱ | ⏱ | ❌ | 0/3 |
-| `password-recovery` | hard | security | – | ❌ | ❌ | 0/2 |
-| `sparql-university` | hard | data-querying | ⏱ | ✅ | ❌ | **split 1/3** |
-| `torch-pipeline-parallelism` | hard | software-engineering | ⏱ | ❌ | ❌ | 0/3 |
-| `adaptive-rejection-sampler` | medium | scientific-computing | ⏱ | ❌ | ❌ | 0/3 |
-| `db-wal-recovery` | medium | file-operations | ✅ | ⏱ | ❌ | **split 1/3** |
-| `log-summary-date-ranges` | medium | data-processing | ✅ | ✅ | ❌ | **split 2/3** |
-| `sqlite-with-gcov` | medium | system-administration | – | ❌ | ❌ | 0/2 |
+| Task | Difficulty | Category | `terminus-2`<br><sub>gemini36</sub> | `mini-swe-agent`<br><sub>gemini36</sub> | `goose`<br><sub>gemini36</sub> | `aider`<br><sub>gemini36</sub> | Agreement |
+|---|---|---|---|---|---|---|---|
+| `fix-git` | easy | software-engineering | ✅ | ✅ | ❌ | ❌ | **split 2/4** |
+| `overfull-hbox` | easy | debugging | ✅ | ⏱ | ❌ | ❌ | **split 1/4** |
+| `configure-git-webserver` | hard | system-administration | ❌ | – | ❌ | ❌ | 0/3 |
+| `gpt2-codegolf` | hard | software-engineering | – | ⏱ | ❌ | ❌ | 0/3 |
+| `model-extraction-relu-logits` | hard | mathematics | ❌ | ⏱ | ⏱ | ❌ | 0/4 |
+| `password-recovery` | hard | security | ✅ | – | ❌ | ❌ | **split 1/3** |
+| `sparql-university` | hard | data-querying | ✅ | ⏱ | ✅ | ❌ | **split 2/4** |
+| `torch-pipeline-parallelism` | hard | software-engineering | ⏱ | ⏱ | ❌ | ❌ | 0/4 |
+| `adaptive-rejection-sampler` | medium | scientific-computing | ✅ | ⏱ | ❌ | ❌ | **split 1/4** |
+| `db-wal-recovery` | medium | file-operations | ⏱ | ✅ | ⏱ | ❌ | **split 1/4** |
+| `log-summary-date-ranges` | medium | data-processing | ✅ | ✅ | ✅ | ❌ | **split 3/4** |
+| `sqlite-with-gcov` | medium | system-administration | ✅ | – | ❌ | ❌ | **split 1/3** |
 
 ✅ solved · ❌ attempted, not solved · ⏱ ran out of its time budget (counted as a failure) · – not run or excluded (never counted as a zero)
 <!-- END:grid -->
 
 <!-- BEGIN:disagreement -->
-4 of 12 scored tasks split the harnesses:
+8 of 12 scored tasks split the harnesses:
 
-- **`fix-git`** (easy, software-engineering) — solved by `mini-swe-agent` (gemini36); missed by `aider` (gemini36), `goose` (gemini36)
-- **`sparql-university`** (hard, data-querying) — solved by `goose` (gemini36); missed by `aider` (gemini36), `mini-swe-agent` (gemini36)
-- **`db-wal-recovery`** (medium, file-operations) — solved by `mini-swe-agent` (gemini36); missed by `aider` (gemini36), `goose` (gemini36)
-- **`log-summary-date-ranges`** (medium, data-processing) — solved by `goose` (gemini36), `mini-swe-agent` (gemini36); missed by `aider` (gemini36)
+- **`fix-git`** (easy, software-engineering) — solved by `mini-swe-agent` (gemini36), `terminus-2` (gemini36); missed by `aider` (gemini36), `goose` (gemini36)
+- **`overfull-hbox`** (easy, debugging) — solved by `terminus-2` (gemini36); missed by `aider` (gemini36), `goose` (gemini36), `mini-swe-agent` (gemini36)
+- **`password-recovery`** (hard, security) — solved by `terminus-2` (gemini36); missed by `aider` (gemini36), `goose` (gemini36)
+- **`sparql-university`** (hard, data-querying) — solved by `goose` (gemini36), `terminus-2` (gemini36); missed by `aider` (gemini36), `mini-swe-agent` (gemini36)
+- **`adaptive-rejection-sampler`** (medium, scientific-computing) — solved by `terminus-2` (gemini36); missed by `aider` (gemini36), `goose` (gemini36), `mini-swe-agent` (gemini36)
+- **`db-wal-recovery`** (medium, file-operations) — solved by `mini-swe-agent` (gemini36); missed by `aider` (gemini36), `goose` (gemini36), `terminus-2` (gemini36)
+- **`log-summary-date-ranges`** (medium, data-processing) — solved by `goose` (gemini36), `mini-swe-agent` (gemini36), `terminus-2` (gemini36); missed by `aider` (gemini36)
+- **`sqlite-with-gcov`** (medium, system-administration) — solved by `terminus-2` (gemini36); missed by `aider` (gemini36), `goose` (gemini36)
 <!-- END:disagreement -->
 
 The [live site](https://carlosrymer.github.io/harbor-harness-spread/) lets you click any cell
@@ -180,28 +185,30 @@ prompt templates, and context management. That's deliberate: those defaults **ar
 harness. This measures "harness as shipped", not "scaffold shape with all else equal".
 
 <!-- BEGIN:spend -->
-- **gemini-3.6-flash (Google AI Studio)**: $8.85 across 6,435,480 metered tokens
+- **gemini-3.6-flash (Google AI Studio)**: $17.41 across 16,180,393 metered tokens
 
-That is the spend behind the numbers published above: **$8.85** over 371 model calls, billed at the gateway as each call happened rather than estimated afterwards.
+That is the spend behind the numbers published above: **$17.41** over 843 model calls, billed at the gateway as each call happened rather than estimated afterwards.
 
 **All-in cost of the build, including work that produced nothing publishable** — probes, the invalidated false-zero sweep, and a Gemini run discarded when the task set was widened:
 
-- **Google AI Studio (Gemini)**: $10.42 over 474 calls
+- **Google AI Studio (Gemini)**: $23.96 over 1,161 calls
 - **Moonshot (Kimi)**: $1.70 over 115 calls
+- **OpenAI**: $0.00 — a key arrived late in the build and was used only to enumerate available models. No scored run used an OpenAI model, because doing so would have varied the model and the harness together.
 
 The gap between those two figures is the honest price of finding the verifier bug: a large share of the total bought discarded results.
 <!-- END:spend -->
 
 ## Honest limitations
 
-**A single run per cell cannot fully separate spread from variance.** I want this stated
-plainly rather than buried. With one attempt per harness × task on a 6-task scored subset,
-one flipped task moves a harness by 16.7 percentage points — so a spread smaller than that is
-within touching distance of noise. Decoding is stochastic (Kimi K2.7 Code accepts only
-`temperature=1`; Gemini is left at its provider default), so some flipping between identical
-runs is expected. Where repeat runs were affordable they are reported in the variance section
-below and on the site; where they were not, the ranking should be read as *indicative of an
-effect worth controlling for*, not as a settled ordering of these harnesses.
+### Variance: how much of the spread is real
+
+<!-- BEGIN:variance -->
+I re-ran **`goose`** over the same tasks, same model, same limits, changing nothing: **2/12 (16.7%) → 4/11 (36.4%)** — a swing of **19.7 percentage points** between identical runs, with 2 task(s) changing outcome (`configure-git-webserver`, `fix-git`).
+
+**What that means for the headline.** The measured spread is 62.5pp and the observed run-to-run swing on a single harness is 19.7pp. So the *extremes* of the ranking are separable — `terminus-2` at 62.5% versus `aider` at 0.0% is a gap several times larger than the noise I measured. The *middle* of the ranking is not: adjacent harnesses separated by less than 19.7pp cannot be ordered from this data, and I do not claim they can.
+
+This is one repeated harness, not all four, so it is a floor on the variance rather than a full characterisation. Decoding is stochastic — Gemini is left at its provider default and Kimi K2.7 Code accepts only `temperature=1` — so some flipping between identical runs is expected. Anyone quoting a single-run agent benchmark number, mine included, should assume a swing of this order.
+<!-- END:variance -->
 
 **The sample is small.** Each solved task moves a harness's rate by a large fraction, so
 confidence intervals are wide. The subset is stratified for coverage, not sized for power. It
@@ -228,17 +235,19 @@ this run* is the result.
 
 ## Harnesses I could not run, and why
 
-Three of the six harnesses I tried are absent from the board. None was silently dropped.
+Two of the six harnesses I tried are absent from the board, and one runs but is deliberately
+not scored. None was silently dropped.
 
-- **`terminus-2`** — ran correctly and produced real results, but it is by a wide margin the
-  most expensive harness here, and I ran out of Gemini budget before it could complete the
-  12-task grid. Rather than publish it against a different denominator than everything else, I
-  left it off. Two things about it are worth recording anyway, because they are the reason it
-  is expensive: it costs roughly **$0.40 per task** against `aider`'s $0.12, and its output
-  parser rejected Gemini's replies **44–52 times per task** ("Extra text detected before/after
-  JSON object"). Every one of those is a step spent recovering from the harness's own format
-  contract instead of on the task. That is a harness-model interaction a resolve rate would
-  never show, and it is exactly the kind of thing this experiment exists to surface.
+- **`opencode` — now runs on the pinned model, but is not scored.** Its build hard-requires
+  the OpenAI **Responses** API; pointed at a chat-completions endpoint it fails with
+  `AI_APICallError: Not Found`, and pinning `@ai-sdk/openai-compatible` instead fails deeper
+  with `Z.responses is not a function`. I implemented a Responses-to-chat-completions shim in
+  the gateway specifically so OpenCode could run on the **same pinned model as every other
+  harness** rather than being pointed at a different provider — which would have turned it into
+  a different experiment. It now connects and does real metered work (it sends its 10 tools and
+  gets real completions back), but it halts after a single step, and I could not establish
+  within budget whether that is the harness, the model's tool-calling under translation, or a
+  gap in my shim. Scoring it would measure my shim, not OpenCode, so it stays off the board.
 
 - **`opencode`** — its build requires the OpenAI **Responses** API. Pointed at a
   chat-completions endpoint it fails with `AI_APICallError: Not Found`; pinning the
@@ -260,9 +269,13 @@ exclusion in `scripts/select_tasks.py` rather than dropped after the fact.
 Every harness on the board made real, metered model calls. Nothing was scored 0 while silently failing to call the model — the failure mode that cost me the most time on this build.
 <!-- END:notdriven -->
 
-**Claude Code and Codex CLI — the two agents most people would want in this comparison — are
-absent** because this build had no Anthropic or OpenAI credentials. That is a real limitation
-on how far these results generalise: the harnesses here are the ones I could actually drive.
+**Claude Code is absent** because this build had no Anthropic credentials. **Codex CLI was not
+run**: an OpenAI key did become available late in the build, but Codex CLI drives OpenAI models,
+and running it that way would vary the model and the harness together — a different experiment
+that cannot be folded into a same-model spread. With the time remaining I judged a measured
+variance figure worth more than a fifth harness on its own denominator, so I ran the repeat
+pass instead. That is a real limitation on how far these results generalise: the harnesses here
+are the ones I could drive **on one pinned model**.
 
 ## Did Harbor deliver?
 
