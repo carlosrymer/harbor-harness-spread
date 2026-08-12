@@ -1,0 +1,13 @@
+{
+ "harness": "aider",
+ "task": "overfull-hbox",
+ "n_agent_steps": null,
+ "summary": "No structured trajectory from this harness \u2014 showing its own transcript (aider.txt, 21 lines).",
+ "steps": [
+  {
+   "source": "agent",
+   "n": null,
+   "text": "Warning: Input is not a terminal (fd=0).\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nWarning for openai/bench-model: Unknown context window size and costs, using\nsane defaults.\nYou can skip this check with --no-show-model-warnings\n\nhttps://aider.chat/docs/llms/warnings.html\n\nAider v0.86.2\nModel: openai/bench-model with whole edit format\nGit repo: none\nRepo-map: disabled\n\n\nhttps://aider.chat/HISTORY.html#release-notes\n\nPlease provide the contents of main.tex, input.tex, and synonyms.txt so I can\nanalyze the text, evaluate line breaks/box widths, and make the necessary\nsynonym replacements in input.tex.\n\nTokens: 651 sent, 44 received."
+  }
+ ]
+}

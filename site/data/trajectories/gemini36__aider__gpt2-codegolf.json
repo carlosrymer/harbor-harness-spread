@@ -1,0 +1,23 @@
+{
+ "harness": "aider",
+ "task": "gpt2-codegolf",
+ "n_agent_steps": null,
+ "summary": "No structured trajectory from this harness \u2014 showing its own transcript (aider.txt, 619 lines).",
+ "steps": [
+  {
+   "source": "agent",
+   "n": null,
+   "text": "Warning: Input is not a terminal (fd=0).\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nWarning for openai/bench-model: Unknown context window size and costs, using\nsane defaults.\nYou can skip this check with --no-show-model-warnings\n\nhttps://aider.chat/docs/llms/warnings.html\n\nAider v0.86.2\nModel: openai/bench-model with whole edit format\nGit repo: none\nRepo-map: disabled\n\n\nhttps://aider.chat/HISTORY.html#release-notes\n\nI have created /app/gpt2.c, a dependency-free C program that reads the\nTensorFlow GPT-2 checkpoint (.ckpt) and BPE vocabulary file (vocab.bpe),\ntokenizes the input string, and continues generation for the next 20 tokens\nusing arg-max sampling.\n\nFeatures & Implementation Details\n\n \u2022 Dependency-free: Uses standard POSIX memory mapping (mmap) and C library\n   functions (-lm).\n \u2022 Checkpoint Parsing: Locates tensor offsets dynamically within TensorFlow V2\n   checkpoint formats (.ckpt, .ckpt.index, .ckpt.data-00000-of-00001) with\n   automatic fallback to flat float arrays.\n \u2022 BPE Tokenizer: Full BPE byte-encoding and pair-merging implementation to\n   tokenize input strings and decode generated token IDs back to UTF-8 text."
+  },
+  {
+   "source": "note",
+   "n": null,
+   "text": "\u2026 519 lines omitted \u2026"
+  },
+  {
+   "source": "agent",
+   "n": null,
+   "text": "layers[l].attn_b = GET_T(name, 2304);\n\n        snprintf(name, sizeof(name), \"model/h%d/attn/c_proj/w\", l);\nlayers[l].proj_w = GET_T(name, 768 * 768);\n\n        snprintf(name, sizeof(name), \"model/h%d/attn/c_proj/b\", l);\nlayers[l].proj_b = GET_T(name, 768);\n\n        snprintf(name, sizeof(name), \"model/h%d/ln_2/g\", l); layers[l].ln2_g =\nGET_T(name, 768);\n\n        snprintf(name, sizeof(name), \"model/h%d/ln_2/b\", l); layers[l].ln2_b =\nGET_T(name, 768);\n\n        snprintf(name, sizeof(name), \"model/h%d/mlp/c_fc/w\", l); layers[l].fc_w\n= GET_T(name, 768 * 3072);\n\n        snprintf(name, sizeof(name), \"model/h%d/mlp/c_fc/b\", l); layers[l].fc_b\n= GET_T(name, 3072);\n\n        snprintf(name, sizeof(name), \"model/h%d/mlp/c_proj/w\", l);\nlayers[l].mlp_proj_w = GET_T(name, 3072 * 768);\n\n        snprintf(name, sizeof(name), \"model/h%d/mlp/c_proj/b\", l);\nlayers[l].mlp_proj_b = GET_T(name, 768);\n\n    }\n\n    ln_f_g = GET_T(\"model/ln_f/g\", 768);\n\n    ln_f_b = GET_T(\"model/ln_f/b\", 768);\n\n\n\n    init_vocab(argv[2]);\n\n    int tokens[1024];\n\n    int prompt_len = tokenize(argv[3], tokens);\n\n    for (int i = 0; i < prompt_len; i++) forward(tokens[i], i);\n\n    printf(\"%s\", argv[3]); fflush(stdout);\n\n    int cur_tok = argmax(logits, MAX_TOKENS);\n\n    int cur_pos = prompt_len;\n\n    for (int step = 0; step < 20; step++) {\n\n        print_token(cur_tok); fflush(stdout);\n\n        forward(cur_tok, cur_pos++);\n\n        cur_tok = argmax(logits, MAX_TOKENS);\n\n    }\n\n    return 0;\n\n}\n\n\nTokens: 700 sent, 4.0k received.\n\n/app/gpt2.c\nApplied edit to /app/gpt2.c\nSummarization failed for model openai/bench-model: cannot schedule new futures after shutdown\nSummarization failed for model openai/bench-model: cannot schedule new futures after shutdown\nsummarizer unexpectedly failed for all models"
+  }
+ ]
+}

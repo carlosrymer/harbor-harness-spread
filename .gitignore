@@ -6,3 +6,6 @@ __pycache__/
 # Task definitions come from the Harbor registry (`harbor download terminal-bench@2.0`)
 # and carry the benchmark's canary strings; they are not redistributed here.
 terminal-bench/
+
+# Built site emitted at the repo root for GitHub Pages (source of truth is site/)
+# is intentionally COMMITTED, not ignored — Pages builds from main here.

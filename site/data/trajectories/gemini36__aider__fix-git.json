@@ -1,0 +1,23 @@
+{
+ "harness": "aider",
+ "task": "fix-git",
+ "n_agent_steps": null,
+ "summary": "No structured trajectory from this harness \u2014 showing its own transcript (aider.txt, 123 lines).",
+ "steps": [
+  {
+   "source": "agent",
+   "n": null,
+   "text": "Warning: Input is not a terminal (fd=0).\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nYou can skip this check with --no-gitignore\nAdded .aider* to .gitignore\nWarning for openai/bench-model: Unknown context window size and costs, using\nsane defaults.\nYou can skip this check with --no-show-model-warnings\n\nhttps://aider.chat/docs/llms/warnings.html\n\nAider v0.86.2\nModel: openai/bench-model with whole edit format\nGit repo: .git with 84 files\nRepo-map: using 1024 tokens, auto refresh\n\n\nhttps://aider.chat/HISTORY.html#release-notes\n\nNo code changes are needed in your repository files to find and recover your\nchanges. This can be resolved using Git commands in your terminal.\n\nHere is how you can find and merge your changes:\n\n1. Check if your changes are in Git Stash\n\nIf you stashed your changes before checking out master:\n\n\ngit stash list\n"
+  },
+  {
+   "source": "note",
+   "n": null,
+   "text": "\u2026 23 lines omitted \u2026"
+  },
+  {
+   "source": "agent",
+   "n": null,
+   "text": "git branch\n\n\nIf you find the branch containing your changes:\n\n\n# Merge that branch into master\n\ngit merge <branch-name>\n\n\n--------------------------------------------------------------------------------\n\n3. Check git reflog for detached HEAD or lost commits\n\nIf you made commits while not on a named branch (detached HEAD) or lost track of\nwhere you committed:\n\n\ngit reflog\n\n\nLook through the commit history log. Find the commit hash (e.g. a1b2c3d) where\nyour work was committed.\n\nOnce you find the commit hash:\n\n\n# Preview what changes were in that commit\n\ngit show <commit-hash>\n\n\n\n# Merge those changes into master\n\ngit merge <commit-hash>\n\n\n--------------------------------------------------------------------------------\n\nRun these commands in your terminal to see where your changes are located. If\nyou run into any issues or need help with a specific output from these commands,\npaste the output here!\n\nTokens: 1.8k sent, 358 received.\n\nIf you stashed your changes before checking out `master\n\nIf you see your work listed (e.g., `stash@{0}`), you can inspect it or apply it\nto `master\n\nList all local branches to see if you created or modified a branch\n\nIf you find the branch containing your changes\n\nIf you made commits while not on a named branch (detached HEAD) or lost track of\nwhere you committed\n\nOnce you find the commit hash\nApplied edit to If you see your work listed (e.g., `stash@{0}`), you can inspect\nit or apply it to `master\nApplied edit to If you made commits while not on a named branch (detached HEAD)\nor lost track of where you committed\nApplied edit to If you find the branch containing your changes\nApplied edit to List all local branches to see if you created or modified a\nbranch\nApplied edit to Once you find the commit hash\nApplied edit to If you stashed your changes before checking out `master\nCommit 5a489c1 docs: add guide to recover uncommitted or lost git changes"
+  }
+ ]
+}

@@ -1,0 +1,83 @@
+{
+ "harness": "mini-swe-agent",
+ "task": "db-wal-recovery",
+ "summary": "24 agent steps \u00b7 462,442 prompt / 18,257 completion tokens as reported by the harness itself",
+ "n_agent_steps": 24,
+ "steps": [
+  {
+   "source": "agent",
+   "n": 3,
+   "text": "I will start by checking the contents of the `/app/` directory to inspect the database and WAL file.\n$ [tool] {\"command\": \"ls -la /app\"}"
+  },
+  {
+   "source": "agent",
+   "n": 4,
+   "text": "I will create a backup of `main.db` and `main.db-wal` to `/tmp/backup/` so we can safely analyze and experiment with them.\n$ [tool] {\"command\": \"mkdir -p /tmp/backup && cp /app/main.db /app/main.db-wal /tmp/backup/\"}"
+  },
+  {
+   "source": "agent",
+   "n": 5,
+   "text": "I will run a Python script to inspect the SQLite database header and the structure of the WAL file.\n$ [tool] {\"command\": \"python3 -c '\\nwith open(\\\"/tmp/backup/main.db\\\", \\\"rb\\\") as f:\\n    db_data = f.read()\\n\\nprint(f\\\"DB size: {len(db_data)}\\\")\\nprint(f\\\"DB magic: {db_data[:16]}\\\")\\npage_size = int.from_bytes(db_data[16:18], \\\"big\\\")\\nif page_size == 1: page_size = 65536\\nprint(f\\\"Page size: {page_size}\\\")\\n\\nwith open(\\\"/tmp/backup/main.db-wal\\\", \\\"rb\\\") as f:\\n    wal_data = f.read()\\n\\nprint(f\\\"WAL size: {len(wal_data)}\\\")\\nprint(\\\"WAL header (32 bytes):\\\", wal_data[:32].hex())\\n'\"}"
+  },
+  {
+   "source": "agent",
+   "n": 6,
+   "text": "I will run a script to analyze `main.db-wal` and compare it with expected SQLite WAL file formats.\n$ [tool] {\"command\": \"python3 -c '\\nwith open(\\\"/tmp/backup/main.db-wal\\\", \\\"rb\\\") as f:\\n    wal = f.read()\\n\\nmagic_be = 0x377f0682\\nmagic_le = 0x377f0683\\n\\nhdr_magic = int.from_bytes(wal[:4], \\\"big\\\")\\nprint(f\\\"Header magic uint32: {hex(hdr_magic)}\\\")\\n\\nxor_be = hdr_magic ^ magic_be\\nxor_le = hdr_magic ^ magic_le\\nprint(f\\\"XOR with 0x377f0682: {hex(xor_be)}\\\")\\nprint(f\\\"XOR with 0x377f0683: {hex(xor_le)}\\\")\\n\\n# Let us check first few bytes of wal\\nprint(\\\"WAL header bytes:\\\", list(wal[:32]))\\n'\"}"
+  },
+  {
+   "source": "note",
+   "n": null,
+   "text": "\u2026 10 intermediate steps omitted \u2026"
+  },
+  {
+   "source": "agent",
+   "n": 17,
+   "text": "I will run `sqlite3` CLI on `/app/main.db` to ensure SQLite reads all 11 records.\n$ [tool] {\"command\": \"sqlite3 /app/main.db \\\"SELECT * FROM items ORDER BY id;\\\"\"}"
+  },
+  {
+   "source": "agent",
+   "n": 18,
+   "text": "I will check the directory contents and file permissions of `/app/`.\n$ [tool] {\"command\": \"ls -la /app\"}"
+  },
+  {
+   "source": "agent",
+   "n": 19,
+   "text": "I will test restoring the base `main.db` from backup and keeping the fixed `main.db-wal` file present, to verify how SQLite behaves without automatic checkpointing.\n$ [tool] {\"command\": \"mkdir -p /tmp/test_restore\\ncp /tmp/backup/main.db /tmp/test_restore/main.db\\npython3 -c '\\nwith open(\\\"/tmp/backup/main.db-wal\\\", \\\"rb\\\") as f:\\n    wal = f.read()\\nfixed_wal = bytes([b ^ 0x42 for b in wal])\\nwith open(\\\"/tmp/test_restore/main.db-wal\\\", \\\"wb\\\") as f:\\n    f.write(fixed_wal)\\n'\\n# Test opening with uri=True and mode=ro or query\\npython3 -c '\\nimport sqlite3\\nconn = sqlite3.connect(\\\"file:/tmp/test_restore/main.db?mode=ro\\\", uri=True)\\nc = conn.cursor()\\nc.execute(\\\"\n\u2026 [122 more chars]"
+  },
+  {
+   "source": "agent",
+   "n": 20,
+   "text": "I will restore `/app/main.db` from backup, write the decrypted `/app/main.db-wal`, and ensure `/app/recovered.json` is properly created.\n$ [tool] {\"command\": \"python3 -c '\\nimport sqlite3\\nimport json\\nimport shutil\\nimport os\\n\\n# Restore main.db from backup\\nshutil.copy(\\\"/tmp/backup/main.db\\\", \\\"/app/main.db\\\")\\n\\n# Read corrupted WAL and decrypt (XOR 0x42)\\nwith open(\\\"/tmp/backup/main.db-wal\\\", \\\"rb\\\") as f:\\n    wal_bytes = f.read()\\n\\nfixed_wal = bytes([b ^ 0x42 for b in wal_bytes])\\n\\nwith open(\\\"/app/main.db-wal\\\", \\\"wb\\\") as f:\\n    f.write(fixed_wal)\\n\\n# Remove any shm file if present\\nif os.path.exists(\\\"/app/main.db-shm\\\"):\\\n\u2026 [628 more chars]"
+  },
+  {
+   "source": "agent",
+   "n": 21,
+   "text": "I will check the `/app` directory listing and verify file sizes and contents.\n$ [tool] {\"command\": \"ls -la /app\"}"
+  },
+  {
+   "source": "agent",
+   "n": 22,
+   "text": "I will verify that SQLite can read all 11 records from `/app/main.db` and validate the format of `/app/recovered.json`.\n$ [tool] {\"command\": \"python3 -c '\\nimport sqlite3\\nimport json\\n\\n# Check DB query\\nconn = sqlite3.connect(\\\"file:/app/main.db?mode=ro\\\", uri=True)\\nc = conn.cursor()\\nc.execute(\\\"SELECT count(*) FROM items;\\\")\\ncnt = c.fetchone()[0]\\nconn.close()\\n\\nassert cnt == 11, f\\\"Expected 11 records, got {cnt}\\\"\\n\\n# Check JSON\\nwith open(\\\"/app/recovered.json\\\", \\\"r\\\") as f:\\n    data = json.load(f)\\n\\nassert len(data) == 11, f\\\"Expected 11 JSON items, got {len(data)}\\\"\\nassert data[0] == {\\\"id\\\": 1, \\\"name\\\":\n\u2026 [139 more chars]"
+  },
+  {
+   "source": "agent",
+   "n": 23,
+   "text": "I will clean up the temporary test directories created in `/tmp`.\n$ [tool] {\"command\": \"rm -rf /tmp/backup /tmp/test_dir /tmp/test_restore\"}"
+  },
+  {
+   "source": "agent",
+   "n": 24,
+   "text": "I will check `/app` directory once more to make sure everything is in place.\n$ [tool] {\"command\": \"ls -la /app\"}"
+  },
+  {
+   "source": "agent",
+   "n": 25,
+   "text": "I will remove the temporary `main.db-shm` file so `/app` remains clean.\n$ [tool] {\"command\": \"rm -f /app/main.db-shm && ls -la /app\"}"
+  },
+  {
+   "source": "agent",
+   "n": 26,
+   "text": "I have fixed the corrupted/encrypted WAL file, verified SQLite can read all 11 records, and created `/app/recovered.json`. I am now submitting the final output.\n$ [tool] {\"command\": \"echo COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT\"}"
+  }
+ ]
+}
