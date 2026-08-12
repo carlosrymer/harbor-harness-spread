@@ -1,0 +1,7 @@
+{
+ "harness": "terminus-2",
+ "task": "gpt2-codegolf",
+ "summary": "0 agent steps \u00b7 0 prompt / 0 completion tokens as reported by the harness itself",
+ "n_agent_steps": 0,
+ "steps": []
+}

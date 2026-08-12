@@ -1,0 +1,6 @@
+Unknown Error in LLM interaction: litellm.APIError: APIError: OpenAIException - gateway budget of $4.0 exhausted (spent $4.03)
+Unknown Error in LLM interaction: litellm.APIError: APIError: OpenAIException - gateway budget of $4.0 exhausted (spent $4.03)
+Unknown Error in LLM interaction: litellm.APIError: APIError: OpenAIException - gateway budget of $4.0 exhausted (spent $4.03)
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/torch-pipeline-parallelism__g2ejXhp/agent/trajectory.json
+Trial torch-pipeline-parallelism__g2ejXhp failed: litellm.APIError: APIError: OpenAIException - gateway budget of $4.0 exhausted (spent $4.03)
+Collecting main service artifacts

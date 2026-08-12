@@ -1,0 +1,1028 @@
+[?2004hroot@2e7664a3668f:/app# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@2e7664a3668f:/app# clear
+[?2004l[H[J[3J[?2004hroot@2e7664a3668f:/app# head -n 50 /app/university_graph.ttl
+[?2004l@prefix uni: <http://university.org/ontology/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# ---------------------------
+# Universities
+# ---------------------------
+uni:ETHZurich a uni:University ;
+    uni:hasName "ETH Zurich" ;
+    uni:locatedInCountry "CH" .
+
+uni:UPM a uni:University ;
+    uni:hasName "Universidad Politécnica de Madrid" ;
+    uni:locatedInCountry "ES" .
+
+uni:IST a uni:University ;
+    uni:hasName "Instituto Superior Técnico" ;
+    uni:locatedInCountry "PT" .
+
+uni:NTUA a uni:University ;
+    uni:hasName "National Technical University of Athens" ;
+    uni:locatedInCountry "GR" .
+
+uni:NKUA a uni:University ;
+    uni:hasName "National and Kapodistrian University of Athens" ;
+    uni:locatedInCountry "GR" .
+
+uni:Sorbonne a uni:University ;
+    uni:hasName "Sorbonne University" ;
+    uni:locatedInCountry "FR" .
+
+uni:MIT a uni:University ;
+    uni:hasName "Massachusetts Institute of Technology" ;
+    uni:locatedInCountry "US" .
+
+uni:Berkeley a uni:University ;
+    uni:hasName "University of California, Berkeley" ;
+    uni:locatedInCountry "US" .
+
+uni:LMU a uni:University ;
+    uni:hasName "Ludwig Maximilian University of Munich" ;
+    uni:locatedInCountry "DE" .
+
+# ---------------------------
+# Departments
+# ---------------------------
+uni:ComputerScience_NTUA a uni:Department ;
+    uni:belongsTo uni:NTUA .
+
+uni:MechEngineering_NTUA a uni:Department ;
+    uni:belongsTo uni:NTUA .
+[?2004hroot@2e7664a3668f:/app# python3 -c "import rdflib; print('rdflib available')"
+[?2004lTraceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'rdflib'
+[?2004hroot@2e7664a3668f:/app# pip install rdflib 2>/dev/null || python3 -m pip install rdflib 2>/dev/null || true
+[?2004l[?2004hroot@2e7664a3668f:/app# cat /app/university_graph.ttl
+[?2004l@prefix uni: <http://university.org/ontology/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# ---------------------------
+# Universities
+# ---------------------------
+uni:ETHZurich a uni:University ;
+    uni:hasName "ETH Zurich" ;
+    uni:locatedInCountry "CH" .
+
+uni:UPM a uni:University ;
+    uni:hasName "Universidad Politécnica de Madrid" ;
+    uni:locatedInCountry "ES" .
+
+uni:IST a uni:University ;
+    uni:hasName "Instituto Superior Técnico" ;
+    uni:locatedInCountry "PT" .
+
+uni:NTUA a uni:University ;
+    uni:hasName "National Technical University of Athens" ;
+    uni:locatedInCountry "GR" .
+
+uni:NKUA a uni:University ;
+    uni:hasName "National and Kapodistrian University of Athens" ;
+    uni:locatedInCountry "GR" .
+
+uni:Sorbonne a uni:University ;
+    uni:hasName "Sorbonne University" ;
+    uni:locatedInCountry "FR" .
+
+uni:MIT a uni:University ;
+    uni:hasName "Massachusetts Institute of Technology" ;
+    uni:locatedInCountry "US" .
+
+uni:Berkeley a uni:University ;
+    uni:hasName "University of California, Berkeley" ;
+    uni:locatedInCountry "US" .
+
+uni:LMU a uni:University ;
+    uni:hasName "Ludwig Maximilian University of Munich" ;
+    uni:locatedInCountry "DE" .
+
+# ---------------------------
+# Departments
+# ---------------------------
+uni:ComputerScience_NTUA a uni:Department ;
+    uni:belongsTo uni:NTUA .
+
+uni:MechEngineering_NTUA a uni:Department ;
+    uni:belongsTo uni:NTUA .
+
+uni:Mathematics_IST a uni:Department ;
+    uni:belongsTo uni:IST .
+
+uni:Mathematics_Sorbonne a uni:Department ;
+    uni:belongsTo uni:Sorbonne .
+
+uni:Physics_ETH a uni:Department ;
+    uni:belongsTo uni:ETHZurich .
+
+uni:Biology_MIT a uni:Department ;
+    uni:belongsTo uni:MIT .
+
+uni:Sloan_MIT a uni:Department ;
+    uni:belongsTo uni:MIT .
+
+uni:Engineering_LMU a uni:Department ;
+    uni:belongsTo uni:LMU .
+
+uni:Engineering_Berkeley a uni:Department ;
+    uni:belongsTo uni:Berkeley .
+
+uni:Robotics_UPM a uni:Department ;
+    uni:belongsTo uni:UPM .
+
+uni:HistoryAndPhilosophy_NKUA a uni:Department ;
+    uni:belongsTo uni:NKUA .
+
+# ---------------------------
+# Courses
+# ---------------------------
+uni:CS101 a uni:Course ;
+    uni:isTaughtIn uni:ComputerScience_NTUA .
+
+uni:AI101 a uni:Course ;
+    uni:isTaughtIn uni:ComputerScience_NTUA .
+
+uni:Math101 a uni:Course ;
+    uni:isTaughtIn uni:Mathematics_IST .
+
+uni:Math201 a uni:Course ;
+    uni:isTaughtIn uni:Mathematics_Sorbonne .
+
+uni:Physics301 a uni:Course ;
+    uni:isTaughtIn uni:Physics_ETH .
+
+uni:Bio101 a uni:Course ;
+    uni:isTaughtIn uni:Biology_MIT .
+
+uni:Eng202 a uni:Course ;
+    uni:isTaughtIn uni:Engineering_LMU .
+
+uni:EngUS302 a uni:Course ;
+    uni:isTaughtIn uni:Engineering_Berkeley .
+
+uni:STS101 a uni:Course ;
+    uni:isTaughtIn uni:HistoryAndPhilosophy_NKUA .
+# ---------------------------
+# Professors 
+# ---------------------------
+
+uni:Orfeas_Menis a uni:Person ;
+    uni:hasName "Orfeas Menis" ;
+    uni:role "Professor of Computer Science" ;
+    uni:teaches uni:CS101 ;
+    uni:worksIn uni:ComputerScience_NTUA , uni:Sloan_MIT .
+
+uni:Athanasios_Voulodimos a uni:Person ;
+    uni:hasName "Athanasios Voulodimos" ;
+    uni:role "Assistant Professor of Computer Science" ;
+    uni:teaches uni:CS101 ;
+    uni:worksIn uni:ComputerScience_NTUA .
+
+uni:Pepe_Attanasio a uni:Person ;
+    uni:hasName "Pepe Attanasio" ;
+    uni:role "Professor of Mathematics" ;
+    uni:teaches uni:Math101 , uni:AI101 ;
+    uni:worksIn uni:Mathematics_IST , uni:ComputerScience_NTUA .
+
+uni:Aristotle_Tympas a uni:Person ;
+    uni:hasName "Aristotle Tympas" ;
+    uni:role "Professor of History of Scienceand Technology" ;
+    uni:teaches uni:STS101 ;
+    uni:worksIn uni:HistoryAndPhilosophy_NKUA .
+
+uni:John_Smith a uni:Person ;
+    uni:hasName "John Smith" ;
+    uni:role "Professor of Biology" ;
+    uni:teaches uni:Bio101 ;
+    uni:worksIn uni:Biology_MIT .
+
+uni:Marie_Dubois a uni:Person ;
+    uni:hasName "Marie Dubois" ;
+    uni:role "Professor of Mathematics" ;
+    uni:teaches uni:Math201 ;
+    uni:worksIn uni:Mathematics_Sorbonne .
+
+uni:Stefan_Mueller a uni:Person ;
+    uni:hasName "Stefan Mueller" ;
+    uni:role "Assistant Professor of Engineering" ;
+    uni:teaches uni:Eng202 ;
+    uni:worksIn uni:Engineering_LMU .
+
+# ---------------------------
+# Students 
+# ---------------------------
+
+uni:Student1 a uni:Person ;
+    uni:hasName "Sophia Müller" ;
+    uni:role "Student" .
+
+uni:Student2 a uni:Person ;
+    uni:hasName "Luca Rossi" ;
+    uni:role "Student" .
+
+uni:Student3 a uni:Person ;
+    uni:hasName "Emma García" ;
+    uni:role "Student" .
+
+uni:Student4 a uni:Person ;
+    uni:hasName "Hugo Dubois" ;
+    uni:role "Student" .
+
+uni:Student5 a uni:Person ;
+    uni:hasName "Nina Papadopoulos" ;
+    uni:role "Student" .
+
+uni:Student6 a uni:Person ;
+    uni:hasName "Oliver Smith" ;
+    uni:role "Student" .
+
+uni:Student7 a uni:Person ;
+    uni:hasName "Isabella Fernández" ;
+    uni:role "Student" .
+
+uni:Student8 a uni:Person ;
+    uni:hasName "Maximilian Bauer" ;
+    uni:role "Student" .
+
+uni:Student9 a uni:Person ;
+    uni:hasName "Sofia Conti" ;
+    uni:role "Student" .
+
+uni:Student10 a uni:Person ;
+    uni:hasName "Elias Jensen" ;
+    uni:role "Student" .
+
+uni:Student11 a uni:Person ;
+    uni:hasName "Clara Novak" ;
+    uni:role "Student" .
+
+uni:Student12 a uni:Person ;
+    uni:hasName "Liam Schneider" ;
+    uni:role "Student" .
+
+uni:Student13 a uni:Person ;
+    uni:hasName "Mia Laurent" ;
+    uni:role "Student" .
+
+uni:Student14 a uni:Person ;
+    uni:hasName "Noah Cohen" ;
+    uni:role "Student" .
+
+uni:Student15 a uni:Person ;
+    uni:hasName "Chloe Moreau" ;
+    uni:role "Student" .
+
+uni:Student16 a uni:Person ;
+    uni:hasName "Ethan Dubois" ;
+    uni:role "Student" .
+
+uni:Student17 a uni:Person ;
+    uni:hasName "Ava Rossi" ;
+    uni:role "Student" .
+
+uni:Student18 a uni:Person ;
+    uni:hasName "Lucas García" ;
+    uni:role "Student" .
+
+uni:Student19 a uni:Person ;
+    uni:hasName "Emily Schmidt" ;
+    uni:role "Student" .
+
+uni:Student20 a uni:Person ;
+    uni:hasName "Alexander Popov" ;
+    uni:role "Student" .
+
+uni:Student21 a uni:Person ;
+    uni:hasName "Sofia Romano" ;
+    uni:role "Student" .
+
+uni:Student22 a uni:Person ;
+    uni:hasName "Benjamin Weber" ;
+    uni:role "Student" .
+
+uni:Student23 a uni:Person ;
+    uni:hasName "Lily Martín" ;
+    uni:role "Student" .
+
+uni:Student24 a uni:Person ;
+    uni:hasName "Daniel Hoffmann" ;
+    uni:role "Student" .
+
+uni:Student25 a uni:Person ;
+    uni:hasName "Olivia Costa" ;
+    uni:role "Student" .
+
+uni:Student26 a uni:Person ;
+    uni:hasName "Matthew Lefevre" ;
+    uni:role "Student" .
+
+uni:Student27 a uni:Person ;
+    uni:hasName "Hannah Klein" ;
+    uni:role "Student" .
+
+uni:Student28 a uni:Person ;
+    uni:hasName "Sebastian Ortiz" ;
+    uni:role "Student" .
+
+uni:Student29 a uni:Person ;
+    uni:hasName "Amelia Novak" ;
+    uni:role "Student" .
+
+uni:Student30 a uni:Person ;
+    uni:hasName "Jacob Wagner" ;
+    uni:role "Student" .
+
+uni:Student1 uni:isEnrolledIn uni:CS101, uni:Bio101, uni:STS101, uni:EngUS302 ; uni:hasEnrollmentDate "2024-01-10"^^xsd:date .
+uni:Student2 uni:isEnrolledIn uni:CS101, uni:Bio101, uni:EngUS302 ; uni:hasEnrollmentDate "2024-01-11"^^xsd:date .
+uni:Student3 uni:isEnrolledIn uni:CS101, uni:Bio101, uni:EngUS302 ; uni:hasEnrollmentDate "2024-01-12"^^xsd:date .
+uni:Student4 uni:isEnrolledIn uni:CS101, uni:EngUS302, uni:STS101 ; uni:hasEnrollmentDate "2024-01-13"^^xsd:date .
+uni:Student5 uni:isEnrolledIn uni:CS101, uni:Bio10, uni:EngUS302, uni:STS101 ; uni:hasEnrollmentDate "2024-01-14"^^xsd:date .
+uni:Student6 uni:isEnrolledIn uni:CS101, uni:EngUS302 ; uni:hasEnrollmentDate "2024-01-15"^^xsd:date .
+uni:Student7 uni:isEnrolledIn uni:CS101, uni:Bio101 ; uni:hasEnrollmentDate "2024-01-16"^^xsd:date .
+uni:Student8 uni:isEnrolledIn uni:CS101, uni:STS101; uni:hasEnrollmentDate "2024-01-17"^^xsd:date .
+uni:Student9 uni:isEnrolledIn uni:CS101, uni:Bio101 ; uni:hasEnrollmentDate "2024-01-18"^^xsd:date .
+uni:Student10 uni:isEnrolledIn uni:CS101, uni:Bio101, uni:EngUS302, uni:STS101 ; uni:hasEnrollmentDate "2024-01-19"^^xsd:date .
+uni:Student11 uni:isEnrolledIn uni:CS101, uni:Bio101, uni:EngUS302, uni:STS101 ; uni:hasEnrollmentDate "2024-01-20"^^xsd:date .
+uni:Student12 uni:isEnrolledIn uni:CS101, uni:STS101; uni:hasEnrollmentDate "2024-01-21"^^xsd:date .
+
+uni:Student13 uni:isEnrolledIn uni:Math201, uni:EngUS302, uni:STS101 ; uni:hasEnrollmentDate "2024-01-10"^^xsd:date .
+uni:Student14 uni:isEnrolledIn uni:Math201, uni:EngUS302, uni:STS101 ; uni:hasEnrollmentDate "2024-01-11"^^xsd:date .
+uni:Student15 uni:isEnrolledIn uni:Math201, uni:EngUS302, uni:STS101 ; uni:hasEnrollmentDate "2024-01-12"^^xsd:date .
+uni:Student16 uni:isEnrolledIn uni:Math201, uni:STS101 ; uni:hasEnrollmentDate "2024-01-12"^^xsd:date .
+uni:Student17 uni:isEnrolledIn uni:Math201 ; uni:hasEnrollmentDate "2024-01-12"^^xsd:date ; uni:hasGraduationDate "2026-06-12"^^xsd:date.
+uni:Student18 uni:isEnrolledIn uni:Math201 ; uni:hasEnrollmentDate "2024-01-12"^^xsd:date ; uni:hasGraduationDate "2025-07-12"^^xsd:date.
+uni:Student19 uni:isEnrolledIn uni:Math201 ; uni:hasEnrollmentDate "2024-01-12"^^xsd:date ; uni:hasGraduationDate "2025-06-12"^^xsd:date.
+uni:Student20 uni:isEnrolledIn uni:Math201 ; uni:hasEnrollmentDate "2024-01-12"^^xsd:date ; uni:hasGraduationDate "2025-06-15"^^xsd:date.
+uni:Student21 uni:isEnrolledIn uni:Math201, uni:STS101 ; uni:hasEnrollmentDate "2024-01-12"^^xsd:date ; uni:hasGraduationDate "2025-06-12"^^xsd:date.
+uni:Student22 uni:isEnrolledIn uni:Math201 ; uni:hasEnrollmentDate "2024-01-12"^^xsd:date ; uni:hasGraduationDate "2025-06-12"^^xsd:date.
+uni:Student23 uni:isEnrolledIn uni:Math201 ; uni:hasEnrollmentDate "2024-01-12"^^xsd:date ; uni:hasGraduationDate "2025-06-11"^^xsd:date.
+uni:Student24 uni:isEnrolledIn uni:Math201, uni:STS101 ; uni:hasEnrollmentDate "2024-01-12"^^xsd:date ; uni:hasGraduationDate "2026-06-12"^^xsd:date.
+uni:Student25 uni:isEnrolledIn uni:Math201 ; uni:hasEnrollmentDate "2024-01-12"^^xsd:date ; uni:hasGraduationDate "2025-06-12"^^xsd:date.
+uni:Student26 uni:isEnrolledIn uni:Math201 ; uni:hasEnrollmentDate "2024-01-12"^^xsd:date ; uni:hasGraduationDate "2025-06-02"^^xsd:date.
+
+[?2004hroot@2e7664a3668f:/app# apt-get update && apt-get install -y python3-rdflib python3-pip Jena arq 2>/dev/null || apt-get install -y python3-rdflib
+[?2004l0% [Working]            Hit:1 http://security.ubuntu.com/ubuntu noble-security InRelease
+0% [Waiting for headers]0% [Waiting for headers]                        Hit:2 http://archive.ubuntu.com/ubuntu noble InRelease
+                        0% [Working]0% [Waiting for headers]                        Hit:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease
+0% [Waiting for headers]0% [Waiting for headers]                        Hit:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
+                        0% [Working]20% [Working]             Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 5%Reading package lists... 5%Reading package lists... 62%Reading package lists... 62%Reading package lists... 62%Reading package lists... 62%Reading package lists... 63%Reading package lists... 63%Reading package lists... 63%Reading package lists... 68%Reading package lists... 68%Reading package lists... 76%Reading package lists... 76%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 87%Reading package lists... 87%Reading package lists... 93%Reading package lists... 93%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... Done
+Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 5%Reading package lists... 5%Reading package lists... 62%Reading package lists... 62%Reading package lists... 62%Reading package lists... 62%Reading package lists... 63%Reading package lists... 63%Reading package lists... 68%Reading package lists... 68%Reading package lists... 68%Reading package lists... 76%Reading package lists... 76%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 87%Reading package lists... 87%Reading package lists... 93%Reading package lists... 93%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree... Done
+Reading state information... 0% Reading state information... 4%Reading state information... Done
+Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 5%Reading package lists... 5%Reading package lists... 62%Reading package lists... 62%Reading package lists... 62%Reading package lists... 62%Reading package lists... 63%Reading package lists... 63%Reading package lists... 68%Reading package lists... 68%Reading package lists... 69%Reading package lists... 76%Reading package lists... 76%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 87%Reading package lists... 87%Reading package lists... 93%Reading package lists... 93%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree... Done
+Reading state information... 0% Reading state information... 4%Reading state information... Done
+The following additional packages will be installed:
+  python3-html5lib python3-isodate python3-pyparsing python3-six python3-sparqlwrapper python3-webencodings
+Suggested packages:
+  python3-genshi python3-lxml python-pyparsing-doc python-rdflib-doc
+The following NEW packages will be installed:
+  python3-html5lib python3-isodate python3-pyparsing python3-rdflib python3-six python3-sparqlwrapper python3-webencodings
+0 upgraded, 7 newly installed, 0 to remove and 35 not upgraded.
+Need to get 619 kB of archives.
+After this operation, 3234 kB of additional disk space will be used.
+0% [Working]            Get:1 http://archive.ubuntu.com/ubuntu noble/main amd64 python3-six all 1.16.0-4 [12.4 kB]
+2% [1 python3-six 12.4 kB/12.4 kB 100%]                                       4% [Waiting for headers]                        Get:2 http://archive.ubuntu.com/ubuntu noble/main amd64 python3-webencodings all 0.5.1-5 [11.5 kB]
+6% [2 python3-webencodings 11.5 kB/11.5 kB 100%]                                                9% [Waiting for headers]                        Get:3 http://archive.ubuntu.com/ubuntu noble/main amd64 python3-html5lib all 1.1-6 [88.8 kB]
+12% [3 python3-html5lib 26.7 kB/88.8 kB 30%]                                            23% [Waiting for headers]                         Get:4 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-isodate all 0.6.1-2 [24.3 kB]
+25% [4 python3-isodate 17.2 kB/24.3 kB 71%]                                           29% [Waiting for headers]                         Get:5 http://archive.ubuntu.com/ubuntu noble/main amd64 python3-pyparsing all 3.1.1-1 [86.2 kB]
+33% [5 python3-pyparsing 32.1 kB/86.2 kB 37%]                                             43% [Waiting for headers]                         Get:6 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-rdflib all 6.1.1-3 [362 kB]
+48% [6 python3-rdflib 37.2 kB/362 kB 10%]                                         93% [Waiting for headers]                         Get:7 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-sparqlwrapper all 1.8.5-2 [33.6 kB]
+97% [7 python3-sparqlwrapper 33.6 kB/33.6 kB 100%]                                                  100% [Working]              Fetched 619 kB in 1s (713 kB/s)
+debconf: delaying package configuration, since apt-utils is not installed
+Selecting previously unselected package python3-six.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6312 files and directories currently installed.)
+Preparing to unpack .../0-python3-six_1.16.0-4_all.deb ...
+Unpacking python3-six (1.16.0-4) ...
+Selecting previously unselected package python3-webencodings.
+Preparing to unpack .../1-python3-webencodings_0.5.1-5_all.deb ...
+Unpacking python3-webencodings (0.5.1-5) ...
+Selecting previously unselected package python3-html5lib.
+Preparing to unpack .../2-python3-html5lib_1.1-6_all.deb ...
+Unpacking python3-html5lib (1.1-6) ...
+Selecting previously unselected package python3-isodate.
+Preparing to unpack .../3-python3-isodate_0.6.1-2_all.deb ...
+Unpacking python3-isodate (0.6.1-2) ...
+Selecting previously unselected package python3-pyparsing.
+Preparing to unpack .../4-python3-pyparsing_3.1.1-1_all.deb ...
+Unpacking python3-pyparsing (3.1.1-1) ...
+Selecting previously unselected package python3-rdflib.
+Preparing to unpack .../5-python3-rdflib_6.1.1-3_all.deb ...
+Unpacking python3-rdflib (6.1.1-3) ...
+Selecting previously unselected package python3-sparqlwrapper.
+Preparing to unpack .../6-python3-sparqlwrapper_1.8.5-2_all.deb ...
+Unpacking python3-sparqlwrapper (1.8.5-2) ...
+Setting up python3-webencodings (0.5.1-5) ...
+Setting up python3-six (1.16.0-4) ...
+Setting up python3-isodate (0.6.1-2) ...
+Setting up python3-pyparsing (3.1.1-1) ...
+Setting up python3-html5lib (1.1-6) ...
+Setting up python3-rdflib (6.1.1-3) ...
+/usr/lib/python3/dist-packages/rdflib/extras/external_graph_libs.py:75: SyntaxWarning: invalid escape sequence '\*'
+  """Converts the given graph into a networkx.MultiDiGraph.
+/usr/lib/python3/dist-packages/rdflib/extras/external_graph_libs.py:132: SyntaxWarning: invalid escape sequence '\*'
+  """Converts the given graph into a networkx.DiGraph.
+/usr/lib/python3/dist-packages/rdflib/extras/external_graph_libs.py:195: SyntaxWarning: invalid escape sequence '\*'
+  """Converts the given graph into a networkx.Graph.
+Setting up python3-sparqlwrapper (1.8.5-2) ...
+[?2004hroot@2e7664a3668f:/app# python3 -c "import rdflib; g=rdflib.Graph(); g.parse('/app/university_graph.ttl', format='turtle'); print('Triples:', len(g))"
+[?2004lTriples: 289
+[?2004hroot@2e7664a3668f:/app# python3 -c "import rdflib; g=rdflib.Graph(); g.parse('/app/university_graph.ttl', format='turtle'); [print(s, p, o) for s, p, o in sorted(g)]"
+[?2004lhttp://university.org/ontology/AI101 http://university.org/ontology/isTaughtIn http://university.org/ontology/ComputerScience_NTUA
+http://university.org/ontology/AI101 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Course
+http://university.org/ontology/Aristotle_Tympas http://university.org/ontology/hasName Aristotle Tympas
+http://university.org/ontology/Aristotle_Tympas http://university.org/ontology/role Professor of History of Scienceand Technology
+http://university.org/ontology/Aristotle_Tympas http://university.org/ontology/teaches http://university.org/ontology/STS101
+http://university.org/ontology/Aristotle_Tympas http://university.org/ontology/worksIn http://university.org/ontology/HistoryAndPhilosophy_NKUA
+http://university.org/ontology/Aristotle_Tympas http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Athanasios_Voulodimos http://university.org/ontology/hasName Athanasios Voulodimos
+http://university.org/ontology/Athanasios_Voulodimos http://university.org/ontology/role Assistant Professor of Computer Science
+http://university.org/ontology/Athanasios_Voulodimos http://university.org/ontology/teaches http://university.org/ontology/CS101
+http://university.org/ontology/Athanasios_Voulodimos http://university.org/ontology/worksIn http://university.org/ontology/ComputerScience_NTUA
+http://university.org/ontology/Athanasios_Voulodimos http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Berkeley http://university.org/ontology/hasName University of California, Berkeley
+http://university.org/ontology/Berkeley http://university.org/ontology/locatedInCountry US
+http://university.org/ontology/Berkeley http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/University
+http://university.org/ontology/Bio101 http://university.org/ontology/isTaughtIn http://university.org/ontology/Biology_MIT
+http://university.org/ontology/Bio101 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Course
+http://university.org/ontology/Biology_MIT http://university.org/ontology/belongsTo http://university.org/ontology/MIT
+http://university.org/ontology/Biology_MIT http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Department
+http://university.org/ontology/CS101 http://university.org/ontology/isTaughtIn http://university.org/ontology/ComputerScience_NTUA
+http://university.org/ontology/CS101 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Course
+http://university.org/ontology/ComputerScience_NTUA http://university.org/ontology/belongsTo http://university.org/ontology/NTUA
+http://university.org/ontology/ComputerScience_NTUA http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Department
+http://university.org/ontology/ETHZurich http://university.org/ontology/hasName ETH Zurich
+http://university.org/ontology/ETHZurich http://university.org/ontology/locatedInCountry CH
+http://university.org/ontology/ETHZurich http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/University
+http://university.org/ontology/Eng202 http://university.org/ontology/isTaughtIn http://university.org/ontology/Engineering_LMU
+http://university.org/ontology/Eng202 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Course
+http://university.org/ontology/EngUS302 http://university.org/ontology/isTaughtIn http://university.org/ontology/Engineering_Berkeley
+http://university.org/ontology/EngUS302 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Course
+http://university.org/ontology/Engineering_Berkeley http://university.org/ontology/belongsTo http://university.org/ontology/Berkeley
+http://university.org/ontology/Engineering_Berkeley http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Department
+http://university.org/ontology/Engineering_LMU http://university.org/ontology/belongsTo http://university.org/ontology/LMU
+http://university.org/ontology/Engineering_LMU http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Department
+http://university.org/ontology/HistoryAndPhilosophy_NKUA http://university.org/ontology/belongsTo http://university.org/ontology/NKUA
+http://university.org/ontology/HistoryAndPhilosophy_NKUA http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Department
+http://university.org/ontology/IST http://university.org/ontology/hasName Instituto Superior Técnico
+http://university.org/ontology/IST http://university.org/ontology/locatedInCountry PT
+http://university.org/ontology/IST http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/University
+http://university.org/ontology/John_Smith http://university.org/ontology/hasName John Smith
+http://university.org/ontology/John_Smith http://university.org/ontology/role Professor of Biology
+http://university.org/ontology/John_Smith http://university.org/ontology/teaches http://university.org/ontology/Bio101
+http://university.org/ontology/John_Smith http://university.org/ontology/worksIn http://university.org/ontology/Biology_MIT
+http://university.org/ontology/John_Smith http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/LMU http://university.org/ontology/hasName Ludwig Maximilian University of Munich
+http://university.org/ontology/LMU http://university.org/ontology/locatedInCountry DE
+http://university.org/ontology/LMU http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/University
+http://university.org/ontology/MIT http://university.org/ontology/hasName Massachusetts Institute of Technology
+http://university.org/ontology/MIT http://university.org/ontology/locatedInCountry US
+http://university.org/ontology/MIT http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/University
+http://university.org/ontology/Marie_Dubois http://university.org/ontology/hasName Marie Dubois
+http://university.org/ontology/Marie_Dubois http://university.org/ontology/role Professor of Mathematics
+http://university.org/ontology/Marie_Dubois http://university.org/ontology/teaches http://university.org/ontology/Math201
+http://university.org/ontology/Marie_Dubois http://university.org/ontology/worksIn http://university.org/ontology/Mathematics_Sorbonne
+http://university.org/ontology/Marie_Dubois http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Math101 http://university.org/ontology/isTaughtIn http://university.org/ontology/Mathematics_IST
+http://university.org/ontology/Math101 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Course
+http://university.org/ontology/Math201 http://university.org/ontology/isTaughtIn http://university.org/ontology/Mathematics_Sorbonne
+http://university.org/ontology/Math201 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Course
+http://university.org/ontology/Mathematics_IST http://university.org/ontology/belongsTo http://university.org/ontology/IST
+http://university.org/ontology/Mathematics_IST http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Department
+http://university.org/ontology/Mathematics_Sorbonne http://university.org/ontology/belongsTo http://university.org/ontology/Sorbonne
+http://university.org/ontology/Mathematics_Sorbonne http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Department
+http://university.org/ontology/MechEngineering_NTUA http://university.org/ontology/belongsTo http://university.org/ontology/NTUA
+http://university.org/ontology/MechEngineering_NTUA http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Department
+http://university.org/ontology/NKUA http://university.org/ontology/hasName National and Kapodistrian University of Athens
+http://university.org/ontology/NKUA http://university.org/ontology/locatedInCountry GR
+http://university.org/ontology/NKUA http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/University
+http://university.org/ontology/NTUA http://university.org/ontology/hasName National Technical University of Athens
+http://university.org/ontology/NTUA http://university.org/ontology/locatedInCountry GR
+http://university.org/ontology/NTUA http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/University
+http://university.org/ontology/Orfeas_Menis http://university.org/ontology/hasName Orfeas Menis
+http://university.org/ontology/Orfeas_Menis http://university.org/ontology/role Professor of Computer Science
+http://university.org/ontology/Orfeas_Menis http://university.org/ontology/teaches http://university.org/ontology/CS101
+http://university.org/ontology/Orfeas_Menis http://university.org/ontology/worksIn http://university.org/ontology/ComputerScience_NTUA
+http://university.org/ontology/Orfeas_Menis http://university.org/ontology/worksIn http://university.org/ontology/Sloan_MIT
+http://university.org/ontology/Orfeas_Menis http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Pepe_Attanasio http://university.org/ontology/hasName Pepe Attanasio
+http://university.org/ontology/Pepe_Attanasio http://university.org/ontology/role Professor of Mathematics
+http://university.org/ontology/Pepe_Attanasio http://university.org/ontology/teaches http://university.org/ontology/AI101
+http://university.org/ontology/Pepe_Attanasio http://university.org/ontology/teaches http://university.org/ontology/Math101
+http://university.org/ontology/Pepe_Attanasio http://university.org/ontology/worksIn http://university.org/ontology/ComputerScience_NTUA
+http://university.org/ontology/Pepe_Attanasio http://university.org/ontology/worksIn http://university.org/ontology/Mathematics_IST
+http://university.org/ontology/Pepe_Attanasio http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Physics301 http://university.org/ontology/isTaughtIn http://university.org/ontology/Physics_ETH
+http://university.org/ontology/Physics301 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Course
+http://university.org/ontology/Physics_ETH http://university.org/ontology/belongsTo http://university.org/ontology/ETHZurich
+http://university.org/ontology/Physics_ETH http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Department
+http://university.org/ontology/Robotics_UPM http://university.org/ontology/belongsTo http://university.org/ontology/UPM
+http://university.org/ontology/Robotics_UPM http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Department
+http://university.org/ontology/STS101 http://university.org/ontology/isTaughtIn http://university.org/ontology/HistoryAndPhilosophy_NKUA
+http://university.org/ontology/STS101 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Course
+http://university.org/ontology/Sloan_MIT http://university.org/ontology/belongsTo http://university.org/ontology/MIT
+http://university.org/ontology/Sloan_MIT http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Department
+http://university.org/ontology/Sorbonne http://university.org/ontology/hasName Sorbonne University
+http://university.org/ontology/Sorbonne http://university.org/ontology/locatedInCountry FR
+http://university.org/ontology/Sorbonne http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/University
+http://university.org/ontology/Stefan_Mueller http://university.org/ontology/hasName Stefan Mueller
+http://university.org/ontology/Stefan_Mueller http://university.org/ontology/role Assistant Professor of Engineering
+http://university.org/ontology/Stefan_Mueller http://university.org/ontology/teaches http://university.org/ontology/Eng202
+http://university.org/ontology/Stefan_Mueller http://university.org/ontology/worksIn http://university.org/ontology/Engineering_LMU
+http://university.org/ontology/Stefan_Mueller http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student1 http://university.org/ontology/hasEnrollmentDate 2024-01-10
+http://university.org/ontology/Student1 http://university.org/ontology/hasName Sophia Müller
+http://university.org/ontology/Student1 http://university.org/ontology/isEnrolledIn http://university.org/ontology/Bio101
+http://university.org/ontology/Student1 http://university.org/ontology/isEnrolledIn http://university.org/ontology/CS101
+http://university.org/ontology/Student1 http://university.org/ontology/isEnrolledIn http://university.org/ontology/EngUS302
+http://university.org/ontology/Student1 http://university.org/ontology/isEnrolledIn http://university.org/ontology/STS101
+http://university.org/ontology/Student1 http://university.org/ontology/role Student
+http://university.org/ontology/Student1 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student10 http://university.org/ontology/hasEnrollmentDate 2024-01-19
+http://university.org/ontology/Student10 http://university.org/ontology/hasName Elias Jensen
+http://university.org/ontology/Student10 http://university.org/ontology/isEnrolledIn http://university.org/ontology/Bio101
+http://university.org/ontology/Student10 http://university.org/ontology/isEnrolledIn http://university.org/ontology/CS101
+http://university.org/ontology/Student10 http://university.org/ontology/isEnrolledIn http://university.org/ontology/EngUS302
+http://university.org/ontology/Student10 http://university.org/ontology/isEnrolledIn http://university.org/ontology/STS101
+http://university.org/ontology/Student10 http://university.org/ontology/role Student
+http://university.org/ontology/Student10 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student11 http://university.org/ontology/hasEnrollmentDate 2024-01-20
+http://university.org/ontology/Student11 http://university.org/ontology/hasName Clara Novak
+http://university.org/ontology/Student11 http://university.org/ontology/isEnrolledIn http://university.org/ontology/Bio101
+http://university.org/ontology/Student11 http://university.org/ontology/isEnrolledIn http://university.org/ontology/CS101
+http://university.org/ontology/Student11 http://university.org/ontology/isEnrolledIn http://university.org/ontology/EngUS302
+http://university.org/ontology/Student11 http://university.org/ontology/isEnrolledIn http://university.org/ontology/STS101
+http://university.org/ontology/Student11 http://university.org/ontology/role Student
+http://university.org/ontology/Student11 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student12 http://university.org/ontology/hasEnrollmentDate 2024-01-21
+http://university.org/ontology/Student12 http://university.org/ontology/hasName Liam Schneider
+http://university.org/ontology/Student12 http://university.org/ontology/isEnrolledIn http://university.org/ontology/CS101
+http://university.org/ontology/Student12 http://university.org/ontology/isEnrolledIn http://university.org/ontology/STS101
+http://university.org/ontology/Student12 http://university.org/ontology/role Student
+http://university.org/ontology/Student12 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student13 http://university.org/ontology/hasEnrollmentDate 2024-01-10
+http://university.org/ontology/Student13 http://university.org/ontology/hasName Mia Laurent
+http://university.org/ontology/Student13 http://university.org/ontology/isEnrolledIn http://university.org/ontology/EngUS302
+http://university.org/ontology/Student13 http://university.org/ontology/isEnrolledIn http://university.org/ontology/Math201
+http://university.org/ontology/Student13 http://university.org/ontology/isEnrolledIn http://university.org/ontology/STS101
+http://university.org/ontology/Student13 http://university.org/ontology/role Student
+http://university.org/ontology/Student13 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student14 http://university.org/ontology/hasEnrollmentDate 2024-01-11
+http://university.org/ontology/Student14 http://university.org/ontology/hasName Noah Cohen
+http://university.org/ontology/Student14 http://university.org/ontology/isEnrolledIn http://university.org/ontology/EngUS302
+http://university.org/ontology/Student14 http://university.org/ontology/isEnrolledIn http://university.org/ontology/Math201
+http://university.org/ontology/Student14 http://university.org/ontology/isEnrolledIn http://university.org/ontology/STS101
+http://university.org/ontology/Student14 http://university.org/ontology/role Student
+http://university.org/ontology/Student14 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student15 http://university.org/ontology/hasEnrollmentDate 2024-01-12
+http://university.org/ontology/Student15 http://university.org/ontology/hasName Chloe Moreau
+http://university.org/ontology/Student15 http://university.org/ontology/isEnrolledIn http://university.org/ontology/EngUS302
+http://university.org/ontology/Student15 http://university.org/ontology/isEnrolledIn http://university.org/ontology/Math201
+http://university.org/ontology/Student15 http://university.org/ontology/isEnrolledIn http://university.org/ontology/STS101
+http://university.org/ontology/Student15 http://university.org/ontology/role Student
+http://university.org/ontology/Student15 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student16 http://university.org/ontology/hasEnrollmentDate 2024-01-12
+http://university.org/ontology/Student16 http://university.org/ontology/hasName Ethan Dubois
+http://university.org/ontology/Student16 http://university.org/ontology/isEnrolledIn http://university.org/ontology/Math201
+http://university.org/ontology/Student16 http://university.org/ontology/isEnrolledIn http://university.org/ontology/STS101
+http://university.org/ontology/Student16 http://university.org/ontology/role Student
+http://university.org/ontology/Student16 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student17 http://university.org/ontology/hasEnrollmentDate 2024-01-12
+http://university.org/ontology/Student17 http://university.org/ontology/hasGraduationDate 2026-06-12
+http://university.org/ontology/Student17 http://university.org/ontology/hasName Ava Rossi
+http://university.org/ontology/Student17 http://university.org/ontology/isEnrolledIn http://university.org/ontology/Math201
+http://university.org/ontology/Student17 http://university.org/ontology/role Student
+http://university.org/ontology/Student17 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student18 http://university.org/ontology/hasEnrollmentDate 2024-01-12
+http://university.org/ontology/Student18 http://university.org/ontology/hasGraduationDate 2025-07-12
+http://university.org/ontology/Student18 http://university.org/ontology/hasName Lucas García
+http://university.org/ontology/Student18 http://university.org/ontology/isEnrolledIn http://university.org/ontology/Math201
+http://university.org/ontology/Student18 http://university.org/ontology/role Student
+http://university.org/ontology/Student18 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student19 http://university.org/ontology/hasEnrollmentDate 2024-01-12
+http://university.org/ontology/Student19 http://university.org/ontology/hasGraduationDate 2025-06-12
+http://university.org/ontology/Student19 http://university.org/ontology/hasName Emily Schmidt
+http://university.org/ontology/Student19 http://university.org/ontology/isEnrolledIn http://university.org/ontology/Math201
+http://university.org/ontology/Student19 http://university.org/ontology/role Student
+http://university.org/ontology/Student19 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student2 http://university.org/ontology/hasEnrollmentDate 2024-01-11
+http://university.org/ontology/Student2 http://university.org/ontology/hasName Luca Rossi
+http://university.org/ontology/Student2 http://university.org/ontology/isEnrolledIn http://university.org/ontology/Bio101
+http://university.org/ontology/Student2 http://university.org/ontology/isEnrolledIn http://university.org/ontology/CS101
+http://university.org/ontology/Student2 http://university.org/ontology/isEnrolledIn http://university.org/ontology/EngUS302
+http://university.org/ontology/Student2 http://university.org/ontology/role Student
+http://university.org/ontology/Student2 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student20 http://university.org/ontology/hasEnrollmentDate 2024-01-12
+http://university.org/ontology/Student20 http://university.org/ontology/hasGraduationDate 2025-06-15
+http://university.org/ontology/Student20 http://university.org/ontology/hasName Alexander Popov
+http://university.org/ontology/Student20 http://university.org/ontology/isEnrolledIn http://university.org/ontology/Math201
+http://university.org/ontology/Student20 http://university.org/ontology/role Student
+http://university.org/ontology/Student20 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student21 http://university.org/ontology/hasEnrollmentDate 2024-01-12
+http://university.org/ontology/Student21 http://university.org/ontology/hasGraduationDate 2025-06-12
+http://university.org/ontology/Student21 http://university.org/ontology/hasName Sofia Romano
+http://university.org/ontology/Student21 http://university.org/ontology/isEnrolledIn http://university.org/ontology/Math201
+http://university.org/ontology/Student21 http://university.org/ontology/isEnrolledIn http://university.org/ontology/STS101
+http://university.org/ontology/Student21 http://university.org/ontology/role Student
+http://university.org/ontology/Student21 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student22 http://university.org/ontology/hasEnrollmentDate 2024-01-12
+http://university.org/ontology/Student22 http://university.org/ontology/hasGraduationDate 2025-06-12
+http://university.org/ontology/Student22 http://university.org/ontology/hasName Benjamin Weber
+http://university.org/ontology/Student22 http://university.org/ontology/isEnrolledIn http://university.org/ontology/Math201
+http://university.org/ontology/Student22 http://university.org/ontology/role Student
+http://university.org/ontology/Student22 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student23 http://university.org/ontology/hasEnrollmentDate 2024-01-12
+http://university.org/ontology/Student23 http://university.org/ontology/hasGraduationDate 2025-06-11
+http://university.org/ontology/Student23 http://university.org/ontology/hasName Lily Martín
+http://university.org/ontology/Student23 http://university.org/ontology/isEnrolledIn http://university.org/ontology/Math201
+http://university.org/ontology/Student23 http://university.org/ontology/role Student
+http://university.org/ontology/Student23 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student24 http://university.org/ontology/hasEnrollmentDate 2024-01-12
+http://university.org/ontology/Student24 http://university.org/ontology/hasGraduationDate 2026-06-12
+http://university.org/ontology/Student24 http://university.org/ontology/hasName Daniel Hoffmann
+http://university.org/ontology/Student24 http://university.org/ontology/isEnrolledIn http://university.org/ontology/Math201
+http://university.org/ontology/Student24 http://university.org/ontology/isEnrolledIn http://university.org/ontology/STS101
+http://university.org/ontology/Student24 http://university.org/ontology/role Student
+http://university.org/ontology/Student24 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student25 http://university.org/ontology/hasEnrollmentDate 2024-01-12
+http://university.org/ontology/Student25 http://university.org/ontology/hasGraduationDate 2025-06-12
+http://university.org/ontology/Student25 http://university.org/ontology/hasName Olivia Costa
+http://university.org/ontology/Student25 http://university.org/ontology/isEnrolledIn http://university.org/ontology/Math201
+http://university.org/ontology/Student25 http://university.org/ontology/role Student
+http://university.org/ontology/Student25 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student26 http://university.org/ontology/hasEnrollmentDate 2024-01-12
+http://university.org/ontology/Student26 http://university.org/ontology/hasGraduationDate 2025-06-02
+http://university.org/ontology/Student26 http://university.org/ontology/hasName Matthew Lefevre
+http://university.org/ontology/Student26 http://university.org/ontology/isEnrolledIn http://university.org/ontology/Math201
+http://university.org/ontology/Student26 http://university.org/ontology/role Student
+http://university.org/ontology/Student26 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student27 http://university.org/ontology/hasName Hannah Klein
+http://university.org/ontology/Student27 http://university.org/ontology/role Student
+http://university.org/ontology/Student27 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student28 http://university.org/ontology/hasName Sebastian Ortiz
+http://university.org/ontology/Student28 http://university.org/ontology/role Student
+http://university.org/ontology/Student28 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student29 http://university.org/ontology/hasName Amelia Novak
+http://university.org/ontology/Student29 http://university.org/ontology/role Student
+http://university.org/ontology/Student29 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student3 http://university.org/ontology/hasEnrollmentDate 2024-01-12
+http://university.org/ontology/Student3 http://university.org/ontology/hasName Emma García
+http://university.org/ontology/Student3 http://university.org/ontology/isEnrolledIn http://university.org/ontology/Bio101
+http://university.org/ontology/Student3 http://university.org/ontology/isEnrolledIn http://university.org/ontology/CS101
+http://university.org/ontology/Student3 http://university.org/ontology/isEnrolledIn http://university.org/ontology/EngUS302
+http://university.org/ontology/Student3 http://university.org/ontology/role Student
+http://university.org/ontology/Student3 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student30 http://university.org/ontology/hasName Jacob Wagner
+http://university.org/ontology/Student30 http://university.org/ontology/role Student
+http://university.org/ontology/Student30 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student4 http://university.org/ontology/hasEnrollmentDate 2024-01-13
+http://university.org/ontology/Student4 http://university.org/ontology/hasName Hugo Dubois
+http://university.org/ontology/Student4 http://university.org/ontology/isEnrolledIn http://university.org/ontology/CS101
+http://university.org/ontology/Student4 http://university.org/ontology/isEnrolledIn http://university.org/ontology/EngUS302
+http://university.org/ontology/Student4 http://university.org/ontology/isEnrolledIn http://university.org/ontology/STS101
+http://university.org/ontology/Student4 http://university.org/ontology/role Student
+http://university.org/ontology/Student4 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student5 http://university.org/ontology/hasEnrollmentDate 2024-01-14
+http://university.org/ontology/Student5 http://university.org/ontology/hasName Nina Papadopoulos
+http://university.org/ontology/Student5 http://university.org/ontology/isEnrolledIn http://university.org/ontology/Bio10
+http://university.org/ontology/Student5 http://university.org/ontology/isEnrolledIn http://university.org/ontology/CS101
+http://university.org/ontology/Student5 http://university.org/ontology/isEnrolledIn http://university.org/ontology/EngUS302
+http://university.org/ontology/Student5 http://university.org/ontology/isEnrolledIn http://university.org/ontology/STS101
+http://university.org/ontology/Student5 http://university.org/ontology/role Student
+http://university.org/ontology/Student5 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student6 http://university.org/ontology/hasEnrollmentDate 2024-01-15
+http://university.org/ontology/Student6 http://university.org/ontology/hasName Oliver Smith
+http://university.org/ontology/Student6 http://university.org/ontology/isEnrolledIn http://university.org/ontology/CS101
+http://university.org/ontology/Student6 http://university.org/ontology/isEnrolledIn http://university.org/ontology/EngUS302
+http://university.org/ontology/Student6 http://university.org/ontology/role Student
+http://university.org/ontology/Student6 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student7 http://university.org/ontology/hasEnrollmentDate 2024-01-16
+http://university.org/ontology/Student7 http://university.org/ontology/hasName Isabella Fernández
+http://university.org/ontology/Student7 http://university.org/ontology/isEnrolledIn http://university.org/ontology/Bio101
+http://university.org/ontology/Student7 http://university.org/ontology/isEnrolledIn http://university.org/ontology/CS101
+http://university.org/ontology/Student7 http://university.org/ontology/role Student
+http://university.org/ontology/Student7 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student8 http://university.org/ontology/hasEnrollmentDate 2024-01-17
+http://university.org/ontology/Student8 http://university.org/ontology/hasName Maximilian Bauer
+http://university.org/ontology/Student8 http://university.org/ontology/isEnrolledIn http://university.org/ontology/CS101
+http://university.org/ontology/Student8 http://university.org/ontology/isEnrolledIn http://university.org/ontology/STS101
+http://university.org/ontology/Student8 http://university.org/ontology/role Student
+http://university.org/ontology/Student8 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/Student9 http://university.org/ontology/hasEnrollmentDate 2024-01-18
+http://university.org/ontology/Student9 http://university.org/ontology/hasName Sofia Conti
+http://university.org/ontology/Student9 http://university.org/ontology/isEnrolledIn http://university.org/ontology/Bio101
+http://university.org/ontology/Student9 http://university.org/ontology/isEnrolledIn http://university.org/ontology/CS101
+http://university.org/ontology/Student9 http://university.org/ontology/role Student
+http://university.org/ontology/Student9 http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/Person
+http://university.org/ontology/UPM http://university.org/ontology/hasName Universidad Politécnica de Madrid
+http://university.org/ontology/UPM http://university.org/ontology/locatedInCountry ES
+http://university.org/ontology/UPM http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://university.org/ontology/University
+[?2004hroot@2e7664a3668f:/app# python3 -c "import rdflib; g=rdflib.Graph(); g.parse('/app/university_graph.ttl', format='turtle'); print('ROLES:'); [print(s, o) for s,p,o in g.triples((None, rdflib.URIRef('http://university.org/ontology/role'), None)) if 'Professor' in o]"
+[?2004lROLES:
+http://university.org/ontology/Orfeas_Menis Professor of Computer Science
+http://university.org/ontology/Athanasios_Voulodimos Assistant Professor of Computer Science
+http://university.org/ontology/Pepe_Attanasio Professor of Mathematics
+http://university.org/ontology/Marie_Dubois Professor of Mathematics
+http://university.org/ontology/Aristotle_Tympas Professor of History of Scienceand Technology
+http://university.org/ontology/John_Smith Professor of Biology
+http://university.org/ontology/Stefan_Mueller Assistant Professor of Engineering
+[?2004hroot@2e7664a3668f:/app# python3 -c "import rdflib; g=rdflib.Graph(); g.parse('/app/university_graph.ttl', format='turtle'); print(set(g.objects(None, rdflib.URIRef('http://university.org/ontology/role'))))"
+[?2004l{rdflib.term.Literal('Assistant Professor of Engineering'), rdflib.term.Literal('Assistant Professor of Computer Science'), rdflib.term.Literal('Professor of Mathematics'), rdflib.term.Literal('Professor of Biology'), rdflib.term.Literal('Professor of Computer Science'), rdflib.term.Literal('Professor of History of Scienceand Technology'), rdflib.term.Literal('Student')}
+[?2004hroot@2e7664a3668f:/app# python3 -c "import rdflib; g=rdflib.Graph(); g.parse('/app/university_graph.ttl', format='turtle'); [print(s, list(g.objects(s, rdflib.URIRef('http://university.org/ontology/hasName')))[0], list(g.objects(s, rdflib.URIRef('http://university.org/ontology/locatedInCountry')))[0]) for s in g.subjects(rdflib.RDF.type, rdflib.URIRef('http://university.org/ontology/University'))]"
+[?2004lhttp://university.org/ontology/ETHZurich ETH Zurich CH
+http://university.org/ontology/UPM Universidad Politécnica de Madrid ES
+http://university.org/ontology/IST Instituto Superior Técnico PT
+http://university.org/ontology/NTUA National Technical University of Athens GR
+http://university.org/ontology/NKUA National and Kapodistrian University of Athens GR
+http://university.org/ontology/Sorbonne Sorbonne University FR
+http://university.org/ontology/MIT Massachusetts Institute of Technology US
+http://university.org/ontology/Berkeley University of California, Berkeley US
+http://university.org/ontology/LMU Ludwig Maximilian University of Munich DE
+[?2004hroot@2e7664a3668f:/app# python3 test_professors.py
+[?2004lpython3: can't open file '/app/test_professors.py': [Errno 2] No such file or directory
+[?2004hroot@2e7664a3668f:/app# python3 -c "import rdflib
+[?2004l[?2004h> g = rdflib.Graph()
+[?2004l[?2004h> g.parse('/app/university_graph.ttl', format='turtle')
+[?2004l[?2004h> UNI = rdflib.Namespace('http://university.org/ontology/')
+[?2004l[?2004h> for prof in g.subjects(UNI.role, None):
+[?2004l[?2004h>     role = list(g.objects(prof, UNI.role))[0]
+[?2004l[?2004h>     if 'Student' in str(role):
+[?2004l[?2004h>         continue
+[?2004l[?2004h>     name = list(g.objects(prof, UNI.hasName))[0]
+[?2004l[?2004h>     print(f'\nProfessor: {name} - Role: {role}')
+[?2004l[?2004h>     depts = list(g.objects(prof, UNI.worksIn))
+[?2004l[?2004h>     for dept in depts:
+[?2004l[?2004h>         unis = list(g.objects(dept, UNI.belongsTo))
+[?2004l[?2004h>         for uni in unis:
+[?2004l[?2004h>             countries = list(g.objects(uni, UNI.locatedInCountry))
+[?2004l[?2004h>             print(f'  Dept: {dept} | Uni: {uni} | Country: {countries}')
+[?2004l[?2004h>     courses = list(g.objects(prof, UNI.teaches))
+[?2004l[?2004h>     print(f'  Teaches: {courses}')
+[?2004l[?2004h> "
+[?2004l
+Professor: Orfeas Menis - Role: Professor of Computer Science
+  Dept: http://university.org/ontology/ComputerScience_NTUA | Uni: http://university.org/ontology/NTUA | Country: [rdflib.term.Literal('GR')]
+  Dept: http://university.org/ontology/Sloan_MIT | Uni: http://university.org/ontology/MIT | Country: [rdflib.term.Literal('US')]
+  Teaches: [rdflib.term.URIRef('http://university.org/ontology/CS101')]
+
+Professor: Athanasios Voulodimos - Role: Assistant Professor of Computer Science
+  Dept: http://university.org/ontology/ComputerScience_NTUA | Uni: http://university.org/ontology/NTUA | Country: [rdflib.term.Literal('GR')]
+  Teaches: [rdflib.term.URIRef('http://university.org/ontology/CS101')]
+
+Professor: Pepe Attanasio - Role: Professor of Mathematics
+  Dept: http://university.org/ontology/Mathematics_IST | Uni: http://university.org/ontology/IST | Country: [rdflib.term.Literal('PT')]
+  Dept: http://university.org/ontology/ComputerScience_NTUA | Uni: http://university.org/ontology/NTUA | Country: [rdflib.term.Literal('GR')]
+  Teaches: [rdflib.term.URIRef('http://university.org/ontology/Math101'), rdflib.term.URIRef('http://university.org/ontology/AI101')]
+
+Professor: Marie Dubois - Role: Professor of Mathematics
+  Dept: http://university.org/ontology/Mathematics_Sorbonne | Uni: http://university.org/ontology/Sorbonne | Country: [rdflib.term.Literal('FR')]
+  Teaches: [rdflib.term.URIRef('http://university.org/ontology/Math201')]
+
+Professor: Aristotle Tympas - Role: Professor of History of Scienceand Technology
+  Dept: http://university.org/ontology/HistoryAndPhilosophy_NKUA | Uni: http://university.org/ontology/NKUA | Country: [rdflib.term.Literal('GR')]
+  Teaches: [rdflib.term.URIRef('http://university.org/ontology/STS101')]
+
+Professor: John Smith - Role: Professor of Biology
+  Dept: http://university.org/ontology/Biology_MIT | Uni: http://university.org/ontology/MIT | Country: [rdflib.term.Literal('US')]
+  Teaches: [rdflib.term.URIRef('http://university.org/ontology/Bio101')]
+
+Professor: Stefan Mueller - Role: Assistant Professor of Engineering
+  Dept: http://university.org/ontology/Engineering_LMU | Uni: http://university.org/ontology/LMU | Country: [rdflib.term.Literal('DE')]
+  Teaches: [rdflib.term.URIRef('http://university.org/ontology/Eng202')]
+[?2004hroot@2e7664a3668f:/app# python3 -c "import rdflib
+[?2004l[?2004h> g = rdflib.Graph()
+[?2004l[?2004h> g.parse('/app/university_graph.ttl', format='turtle')
+[?2004l[?2004h> UNI = rdflib.Namespace('http://university.org/ontology/')
+[?2004l[?2004h> 
+[?2004l[?2004h> for s in sorted(g.subjects(UNI.role, rdflib.Literal('Student'))):
+[?2004l[?2004h>     enrolled_in = list(g.objects(s, UNI.isEnrolledIn))
+[?2004l[?2004h>     enr_date = list(g.objects(s, UNI.hasEnrollmentDate))
+[?2004l[?2004h>     grad_date = list(g.objects(s, UNI.hasGraduationDate))
+[?2004l[?2004h>     print(s, 'Enrolled in:', [str(x).split('/')[-1] for x in enrolled_in], 'Enr:', enr_date, 'Grad:', grad_date)
+[?2004l[?2004h> "
+[?2004lhttp://university.org/ontology/Student1 Enrolled in: ['CS101', 'Bio101', 'STS101', 'EngUS302'] Enr: [rdflib.term.Literal('2024-01-10', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))] Grad: []
+http://university.org/ontology/Student10 Enrolled in: ['CS101', 'Bio101', 'EngUS302', 'STS101'] Enr: [rdflib.term.Literal('2024-01-19', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))] Grad: []
+http://university.org/ontology/Student11 Enrolled in: ['CS101', 'Bio101', 'EngUS302', 'STS101'] Enr: [rdflib.term.Literal('2024-01-20', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))] Grad: []
+http://university.org/ontology/Student12 Enrolled in: ['CS101', 'STS101'] Enr: [rdflib.term.Literal('2024-01-21', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))] Grad: []
+http://university.org/ontology/Student13 Enrolled in: ['Math201', 'EngUS302', 'STS101'] Enr: [rdflib.term.Literal('2024-01-10', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))] Grad: []
+http://university.org/ontology/Student14 Enrolled in: ['Math201', 'EngUS302', 'STS101'] Enr: [rdflib.term.Literal('2024-01-11', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))] Grad: []
+http://university.org/ontology/Student15 Enrolled in: ['Math201', 'EngUS302', 'STS101'] Enr: [rdflib.term.Literal('2024-01-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))] Grad: []
+http://university.org/ontology/Student16 Enrolled in: ['Math201', 'STS101'] Enr: [rdflib.term.Literal('2024-01-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))] Grad: []
+http://university.org/ontology/Student17 Enrolled in: ['Math201'] Enr: [rdflib.term.Literal('2024-01-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))] Grad: [rdflib.term.Literal('2026-06-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))]
+http://university.org/ontology/Student18 Enrolled in: ['Math201'] Enr: [rdflib.term.Literal('2024-01-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))] Grad: [rdflib.term.Literal('2025-07-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))]
+http://university.org/ontology/Student19 Enrolled in: ['Math201'] Enr: [rdflib.term.Literal('2024-01-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))] Grad: [rdflib.term.Literal('2025-06-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))]
+http://university.org/ontology/Student2 Enrolled in: ['CS101', 'Bio101', 'EngUS302'] Enr: [rdflib.term.Literal('2024-01-11', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))] Grad: []
+http://university.org/ontology/Student20 Enrolled in: ['Math201'] Enr: [rdflib.term.Literal('2024-01-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))] Grad: [rdflib.term.Literal('2025-06-15', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))]
+http://university.org/ontology/Student21 Enrolled in: ['Math201', 'STS101'] Enr: [rdflib.term.Literal('2024-01-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))] Grad: [rdflib.term.Literal('2025-06-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))]
+http://university.org/ontology/Student22 Enrolled in: ['Math201'] Enr: [rdflib.term.Literal('2024-01-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))] Grad: [rdflib.term.Literal('2025-06-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))]
+http://university.org/ontology/Student23 Enrolled in: ['Math201'] Enr: [rdflib.term.Literal('2024-01-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))] Grad: [rdflib.term.Literal('2025-06-11', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))]
+http://university.org/ontology/Student24 Enrolled in: ['Math201', 'STS101'] Enr: [rdflib.term.Literal('2024-01-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))] Grad: [rdflib.term.Literal('2026-06-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))]
+http://university.org/ontology/Student25 Enrolled in: ['Math201'] Enr: [rdflib.term.Literal('2024-01-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))] Grad: [rdflib.term.Literal('2025-06-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))]
+http://university.org/ontology/Student26 Enrolled in: ['Math201'] Enr: [rdflib.term.Literal('2024-01-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))] Grad: [rdflib.term.Literal('2025-06-02', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))]
+http://university.org/ontology/Student27 Enrolled in: [] Enr: [] Grad: []
+http://university.org/ontology/Student28 Enrolled in: [] Enr: [] Grad: []
+http://university.org/ontology/Student29 Enrolled in: [] Enr: [] Grad: []
+http://university.org/ontology/Student3 Enrolled in: ['CS101', 'Bio101', 'EngUS302'] Enr: [rdflib.term.Literal('2024-01-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))] Grad: []
+http://university.org/ontology/Student30 Enrolled in: [] Enr: [] Grad: []
+http://university.org/ontology/Student4 Enrolled in: ['CS101', 'EngUS302', 'STS101'] Enr: [rdflib.term.Literal('2024-01-13', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))] Grad: []
+http://university.org/ontology/Student5 Enrolled in: ['CS101', 'Bio10', 'EngUS302', 'STS101'] Enr: [rdflib.term.Literal('2024-01-14', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))] Grad: []
+http://university.org/ontology/Student6 Enrolled in: ['CS101', 'EngUS302'] Enr: [rdflib.term.Literal('2024-01-15', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))] Grad: []
+http://university.org/ontology/Student7 Enrolled in: ['CS101', 'Bio101'] Enr: [rdflib.term.Literal('2024-01-16', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))] Grad: []
+http://university.org/ontology/Student8 Enrolled in: ['CS101', 'STS101'] Enr: [rdflib.term.Literal('2024-01-17', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))] Grad: []
+http://university.org/ontology/Student9 Enrolled in: ['CS101', 'Bio101'] Enr: [rdflib.term.Literal('2024-01-18', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))] Grad: []
+[?2004hroot@2e7664a3668f:/app# python3 -c "import rdflib; g=rdflib.Graph(); g.parse('/app/university_graph.ttl', format='turtle'); UNI=rdflib.Namespace('http://university.org/ontology/'); ref='2025-08-16'; [print(str(c).split('/')[-1], str(list(g.objects(c, UNI.isTaughtIn))[0]).split('/')[-1], len(list(g.subjects(UNI.isEnrolledIn, c))), len([s for s in g.subjects(UNI.isEnrolledIn, c) if (not list(g.objects(s, UNI.hasGraduationDate)) or str(list(g.objects(s, UNI.hasGraduationDate))[0]) > ref)])) for c in sorted(g.subjects(rdflib.RDF.type, UNI.Course))]"
+[?2004lAI101 ComputerScience_NTUA 0 0
+Bio101 Biology_MIT 7 7
+CS101 ComputerScience_NTUA 12 12
+Eng202 Engineering_LMU 0 0
+EngUS302 Engineering_Berkeley 11 11
+Math101 Mathematics_IST 0 0
+Math201 Mathematics_Sorbonne 14 6
+Physics301 Physics_ETH 0 0
+STS101 HistoryAndPhilosophy_NKUA 13 12
+[?2004hroot@2e7664a3668f:/app# python3 -c "import rdflib; g=rdflib.Graph(); g.parse('/app/university_graph.ttl', format='turtle'); UNI=rdflib.Namespace('http://university.org/ontology/'); ref='2025-08-16';
+[?2004l[?2004h> for dept in sorted(set(g.objects(None, UNI.isTaughtIn))):
+[?2004l[?2004h>     courses = list(g.subjects(UNI.isTaughtIn, dept))
+[?2004l[?2004h>     students_active = set()
+[?2004l[?2004h>     students_total = set()
+[?2004l[?2004h>     for c in courses:
+[?2004l[?2004h>         for s in g.subjects(UNI.isEnrolledIn, c):
+[?2004l[?2004h>             students_total.add(s)
+[?2004l[?2004h>             enr = list(g.objects(s, UNI.hasEnrollmentDate))
+[?2004l[?2004h>             grad = list(g.objects(s, UNI.hasGraduationDate))
+[?2004l[?2004h>             enr_ok = enr and str(enr[0]) <= ref
+[?2004l[?2004h>             grad_ok = not grad or str(grad[0]) > ref
+[?2004l[?2004h>             if enr_ok and grad_ok:
+[?2004l[?2004h>                 students_active.add(s)
+[?2004l[?2004h>     print(str(dept).split('/')[-1], 'Total distinct students:', len(students_total), 'Active distinct students:', len(students_active))
+[?2004l[?2004h> "
+[?2004lBiology_MIT Total distinct students: 7 Active distinct students: 7
+ComputerScience_NTUA Total distinct students: 12 Active distinct students: 12
+Engineering_Berkeley Total distinct students: 11 Active distinct students: 11
+Engineering_LMU Total distinct students: 0 Active distinct students: 0
+HistoryAndPhilosophy_NKUA Total distinct students: 13 Active distinct students: 12
+Mathematics_IST Total distinct students: 0 Active distinct students: 0
+Mathematics_Sorbonne Total distinct students: 14 Active distinct students: 6
+Physics_ETH Total distinct students: 0 Active distinct students: 0
+[?2004hroot@2e7664a3668f:/app# python3 -c 'import base64; b = b"import rdflib\n\ng = rdflib.Graph()\ng.parse(\"/app/university_graph.ttl\", format=\"turtle\")\n\nq = \"\"\"\nPREFIX uni: <http://university.org/ontology/>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n\nSELECT ?professorName (GROUP_CONCAT(DISTINCT ?country; separator=\", \") AS ?countries)\nWHERE {\n    ?professor a uni:Person ;\n               uni:hasName ?professorName ;\n               uni:role ?role .\n    \n    FILTER (STRSTARTS(?role, \"Professor\"))\n    \n    ?professor uni:worksIn ?dept .\n    ?dept uni:belongsTo ?uni .\n    ?uni uni:locatedInCountry ?country .\n    \n    FILTER EXISTS {\n        ?professor uni:worksIn ?euDept .\n        ?euDept uni:belongsTo ?euUni .\n        ?euUni uni:locatedInCountry ?euCountry .\n        FILTER(?euCountry IN (\"AT\", \"BE\", \"BG\", \"HR\", \"CY\", \"CZ\", \"DK\", \"EE\", \"FI\", \"FR\", \"DE\", \"GR\", \"HU\", \"IE\", \"IT\", \"LV\", \"LT\", \"LU\", \"MT\", \"NL\", \"PL\", \"PT\", \"RO\", \"SK\", \"SI\", \"ES\", \"SE\"))\n    }\n    \n    FILTER EXISTS {\n        ?professor uni:worksIn ?bigDept .\n        {\n            SELECT ?bigDept (COUNT(DISTINCT ?student) AS ?studentCount)\n            WHERE {\n                ?course uni:isTaughtIn ?bigDept .\n                ?student uni:isEnrolledIn ?course .\n                OPTIONAL { ?student uni:hasEnrollmentDate ?enrDate }\n                OPTIONAL { ?student uni:hasGraduationDate ?gradDate }\n                FILTER (!BOUND(?enrDate) || ?enrDate <= \"2025-08-16\"^^xsd:date)\n                FILTER (!BOUND(?gradDate) || ?gradDate > \"2025-08-16\"^^xsd:date)\n            }\n            GROUP BY ?bigDept\n            HAVING (?studentCount > 10)\n        }\n    }\n}\nGROUP BY ?professorName\n\"\"\"\n\nfor r in g.query(q):\n    print(f\"{r[0]} --> {r[1]}\")\n"; open("/app/run_test.py", "wb").write(b)'
+[?2004l[?2004hroot@2e7664a3668f:/app# python3 /app/run_test.py
+[?2004l[?2004hroot@2e7664a3668f:/app# python3 -c "import rdflib; g=rdflib.Graph(); g.parse('/app/university_graph.ttl', format='turtle'); q='''PREFIX uni: <http://university.org/ontology/>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nSELECT ?bigDept (COUNT(DISTINCT ?student) AS ?sc) WHERE { ?course uni:isTaughtIn ?bigDept . ?student uni:isEnrolledIn ?course . OPTIONAL { ?student uni:hasEnrollmentDate ?enrDate } OPTIONAL { ?student uni:hasGraduationDate ?gradDate } FILTER (!BOUND(?enrDate) || ?enrDate <= '2025-08-16'^^xsd:date) FILTER (!BOUND(?gradDate) || ?gradDate > '2025-08-16'^^xsd:date) } GROUP BY ?bigDept HAVING (?sc > 10)'''; [print(r[0], r[1]) for r in g.query(q)]"
+[?2004lbash: !BOUND: event not found
+[?2004hroot@2e7664a3668f:/app# python3 -c "import base64; code = base64.b64decode('aW1wb3J0IHJkZmxpYgoKZyA9IHJkZmxpYi5HcmFwaCgpCmdwYXJzZSgiL2FwcC91bml2ZXJzaXR5X2dyYXBoLnR0bCIsIGZvcm1hdD0idHVydGxlIikKCnEgPSAiIiIsClBSRUZJWCB1bmk6IDxodHRwOi8vdW5pdmVyc2l0eS5vcmcvb250b2xvZ3kvPgpQUkVGSVggeHNkOiA8aHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEjPgoKU0VMRUNUICBwcpropertyO3Byb2Zlc3Nvck5hbWUgKEdST1VQX0NPTkNBVChESVNUSU5DVCBAY291bnRyeTsgc2VwYXJhdG9yPSIsICIpIEFTID9jb3VudHJpZXMpCldIRVJFIHsKICAgID9wcm9mZXNzb3IgYSB1bmk6UGVyc29uIDsKICAgICAgICAgICAgICAgdW5pOmhhc05hbWUgP3Byb2Zlc3Nvck5hbWUgOwogICAgICAgICAgICAgICB1bmk6cm9sZSA/cm9sZSAuCiAgICAKICAgIEZJTFRFUiAoU1RSU1RBUlRTKD9yb2xlLCAiUHJvZmVzc29yIikpCiAgICAKICAgID9wcm9mZXNzb3IgdW5pOndvcmtzSW4gP2RlcHQgLgogICAgP2RlcHQgdW5pOmJlbG9uZ3NUbyA/dW5pIC4KICAgID91bmkgdW5pOmxvY2F0ZWRJbkNvdW50cnkgP2NvdW50cnkgLgogICAgCiAgICBGSUxURVIgRVhJU1RTIHsKICAgICAgICA/cHJvZmVzc29yIHVuaTp3b3Jrc0luID9ldURlcHQgLgogICAgICAgID9ldURlcHQgdW5pOmJlbG9uZ3NUbyA/ZXVVbmkgLgogICAgICAgID9ldVVuaSB1bmk6bG9jYXRlZEluQ291bnRyeSA/ZXVDb3VudHJ5IC4KICAgICAgICBGSUxURVIoP2V1Q291bnRyeSBJTiAoIkFUIiwgIkJFIiwgIkJHIiwgIkhSIiwgIkNZIiwgIkNaIiwgIkRLIiwgIkVFIiwgIkZJIiwgIkZSIiwgIkRFIiwgIkdSIiwgIkhVIiwgIklFIiwgIklUIiwgIkxWIiwgIkxUIiwgIkxVIiwgIk1UIiwgIk5MIiwgIlBMIiwgIlBUIiwgIlJPIiwgIlNLIiwgIlNJIiwgIkVTIiwgIlNFIikpCiAgICB9CiAgICAKICAgIEZJTFRFUiBFWElTVFMgewogICAgICAgID9wcm9mZXNzb3IgdW5pOndvcmtzSW4gP2JpZ0RlcHQgLgogICAgICAgIHsKICAgICAgICAgICAgU0VMRUNUID9iaWdEZXB0IChDT1VOVChESVNUSU5DVCA/c3R1ZGVudCkgQVMgP3N0dWRlbnRDb3VudCkKICAgICAgICAgICAgV0hFUkUgewogICAgICAgICAgICAgICAgP2NvdXJzZSB1bmk6aXNUYXVnaHRJbiA/YmlnRGVwdCAuCiAgICAgICAgICAgICAgICA/c3R1ZGVudCB1bmk6aXNFbnJvbGxlZEluID9jb3Vyc2UgLgogICAgICAgICAgICAgICAgT1BUSU9OQUwgeyA/c3R1ZGVudCB1bmk6aGFzRW5yb2xsbWVudERhdGUgP2VuckRhdGUgfQogICAgICAgICAgICAgICAgT1BUSU9OQUwgeyA/c3R1ZGVudCB1bmk6aGFzR3JhZHVhdGlvbkRhdGUgP2dyYWREYXRlIH0KICAgICAgICAgICAgICAgIEZJTFRFUiAoIUJPVU5EKD9lbnJEYXRlKSB8fCA/ZW5yRGF0ZSA8PSAiMjAyNS0wOC0xNiJeXnhzZDpkYXRlKQogICAgICAgICAgICAgICAgRklMVEVSICghQk9VTkQoP2dyYWREYXRlKSB8fCA/Z3JhZERhdGUgPiAiMjAyNS0wOC0xNiJeXnhzZDpkYXRlKQogICAgICAgICAgICB9CiAgICAgICAgICAgIEdST1VQIEJZID9iaWdEZXB0CiAgICAgICAgICAgIEhBVklORyAoP3N0dWRlbnRDb3VudCA+IDEwKQogICAgICAgIH0KICAgIH0KfQpHUk9VUCBCWSA/cHJvZmVzc29yTmFtZQoiIiIKCmZvciByIGluIGcucXVlcnkocSk6CiAgICBwcmludChyWzBdLCAiLS0+IiwgclsxXSkK').decode(); open('/app/run_query.py', 'w').write(code)"
+[?2004lTraceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/usr/lib/python3.12/base64.py", line 88, in b64decode
+    return binascii.a2b_base64(s, strict_mode=validate)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+binascii.Error: Invalid base64-encoded string: number of data characters (2221) cannot be 1 more than a multiple of 4
+[?2004hroot@2e7664a3668f:/app# python3 /app/run_query.py
+[?2004lpython3: can't open file '/app/run_query.py': [Errno 2] No such file or directory
+[?2004hroot@2e7664a3668f:/app# python3 -c "import base64; open('/app/run_test.py', 'w').write(base64.b64decode('aW1wb3J0IHJkZmxpYgoKZyA9IHJkZmxpYi5HcmFwaCgpCmdwYXJzZSgiL2FwcC91bml2ZXJzaXR5X2dyYXBoLnR0bCIsIGZvcm1hdD0idHVydGxlIikKCnEgPSAiIiIsClBSRUZJWCB1bmk6IDxodHRwOi8vdW5pdmVyc2l0eS5vcmcvb250b2xvZ3kvPgpQUkVGSVggeHNkOiA8aHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEjPgoKU0VMRUNUICBwcpropertyO3Byb2Zlc3Nvck5hbWUgKEdST1VQX0NPTkNBVChESVNUSU5DVCBAY291bnRyeTsgc2VwYXJhdG9yPSIsICIpIEFTID9jb3VudHJpZXMpCldIRVJFIHsKICAgID9wcm9mZXNzb3IgYSB1bmk6UGVyc29uIDsKICAgICAgICAgICAgICAgdW5pOmhhc05hbWUgP3Byb2Zlc3Nvck5hbWUgOwogICAgICAgICAgICAgICB1bmk6cm9sZSA/cm9sZSAuCiAgICAKICAgIEZJTFRFUiAoU1RSU1RBUlRTKD9yb2xlLCAiUHJvZmVzc29yIikpCiAgICAKICAgID9wcm9mZXNzb3IgdW5pOndvcmtzSW4gP2RlcHQgLgogICAgP2RlcHQgdW5pOmJlbG9uZ3NUbyA/dW5pIC4KICAgID91bmkgdW5pOmxvY2F0ZWRJbkNvdW50cnkgP2NvdW50cnkgLgogICAgCiAgICBGSUxURVIgRVhJU1RTIHsKICAgICAgICA/cHJvZmVzc29yIHVuaTp3b3Jrc0luID9ldURlcHQgLgogICAgICAgID9ldURlcHQgdW5pOmJlbG9uZ3NUbyA/ZXVVbmkgLgogICAgICAgID9ldVVuaSB1bmk6bG9jYXRlZEluQ291bnRyeSA/ZXVDb3VudHJ5IC4KICAgICAgICBGSUxURVIoP2V1Q291bnRyeSBJTiAoIkFUIiwgIkJFIiwgIkJHIiwgIkhSIiwgIkNZIiwgIkNaIiwgIkRLIiwgIkVFIiwgIkZJIiwgIkZSIiwgIkRFIiwgIkdSIiwgIkhVIiwgIklFIiwgIklUIiwgIkxWIiwgIkxUIiwgIkxVIiwgIk1UIiwgIk5MIiwgIlBMIiwgIlBUIiwgIlJPIiwgIlNLIiwgIlNJIiwgIkVTIiwgIlNFIikpCiAgICB9CiAgICAKICAgIEZJTFRFUiBFWElTVFMgewogICAgICAgID9wcm9mZXNzb3IgdW5pOndvcmtzSW4gP2JpZ0RlcHQgLgogICAgICAgIHsKICAgICAgICAgICAgU0VMRUNUID9iaWdEZXB0IChDT1VOVChESVNUSU5DVCA/c3R1ZGVudCkgQVMgP3N0dWRlbnRDb3VudCkKICAgICAgICAgICAgV0hFUkUgewogICAgICAgICAgICAgICAgP2NvdXJzZSB1bmk6aXNUYXVnaHRJbiA/YmlnRGVwdCAuCiAgICAgICAgICAgICAgICA/c3R1ZGVudCB1bmk6aXNFbnJvbGxlZEluID9jb3Vyc2UgLgogICAgICAgICAgICAgICAgT1BUSU9OQUwgeyA/c3R1ZGVudCB1bmk6aGFzRW5yb2xsbWVudERhdGUgP2VuckRhdGUgfQogICAgICAgICAgICAgICAgT1BUSU9OQUwgeyA/c3R1ZGVudCB1bmk6aGFzR3JhZHVhdGlvbkRhdGUgP2dyYWREYXRlIH0KICAgICAgICAgICAgICAgIEZJTFRFUiAoIUJPVU5EKD9lbnJEYXRlKSB8fCA/ZW5yRGF0ZSA8PSAiMjAyNS0wOC0xNiJeXnhzZDpkYXRlKQogICAgICAgICAgICAgICAgRklMVEVSICghQk9VTkQoP2dyYWREYXRlKSB8fCA/Z3JhZERhdGUgPiAiMjAyNS0wOC0xNiJeXnhzZDpkYXRlKQogICAgICAgICAgICB9CiAgICAgICAgICAgIEdST1VQIEJZID9iaWdEZXB0CiAgICAgICAgICAgIEhBVklORyAoP3N0dWRlbnRDb3VudCA+IDEwKQogICAgICAgIH0KICAgIH0KfQpHUk9VUCBCWSA/cHJvZmVzc29yTmFtZQoiIiIKCmZvciByIGluIGcucXVlcnkocSk6CiAgICBwcmludChyWzBdLCAiLS0+IiwgclsxXSkK' + '===').decode('utf-8'))"
+[?2004lTraceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/usr/lib/python3.12/base64.py", line 88, in b64decode
+    return binascii.a2b_base64(s, strict_mode=validate)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+binascii.Error: Invalid base64-encoded string: number of data characters (2221) cannot be 1 more than a multiple of 4
+[?2004hroot@2e7664a3668f:/app# python3 -c "with open('/app/run_test.py', 'w') as f:
+[?2004l[?2004h>  f.write('''import rdflib\n\ng = rdflib.Graph()\ng.parse(\"/app/university_graph.ttl\", format=\"turtle\")\n\nq = \"\"\"\nPREFIX uni: <http://university.org/ontology/>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n\nSELECT ?professorName (GROUP_CONCAT(DISTINCT ?country; separator=\", \") AS ?countries)\nWHERE {\n    ?professor a uni:Person ;\n               uni:hasName ?professorName ;\n               uni:role ?role .\n    \n    FILTER (STRSTARTS(?role, \"Professor\"))\n    \n    ?professor uni:worksIn ?dept .\n    ?dept uni:belongsTo ?uni .\n    ?uni uni:locatedInCountry ?country .\n    \n    FILTER EXISTS {\n        ?professor uni:worksIn ?euDept .\n        ?euDept uni:belongsTo ?euUni .\n        ?euUni uni:locatedInCountry ?euCountry .\n        FILTER(?euCountry IN (\"AT\", \"BE\", \"BG\", \"HR\", \"CY\", \"CZ\", \"DK\", \"EE\", \"FI\", \"FR\", \"DE\", \"GR\", \"HU\", \"IE\", \"IT\", \"LV\", \"LT\", \"LU\", \"MT\", \"NL\", \"PL\", \"PT\", \"RO\", \"SK\", \"SI\", \"ES\", \"SE\"))\n    }\n    \n    FILTER EXISTS {\n        ?professor uni:worksIn ?bigDept .\n        {\n            SELECT ?bigDept (COUNT(DISTINCT ?student) AS ?studentCount)\n            WHERE {\n                ?course uni:isTaughtIn ?bigDept .\n                ?student uni:isEnrolledIn ?course .\n                OPTIONAL { ?student uni:hasEnrollmentDate ?enrDate }\n                OPTIONAL { ?student uni:hasGraduationDate ?gradDate }\n                FILTER (!BOUND(?enrDate) || ?enrDate <= \"2025-08-16\"^^xsd:date)\n                FILTER (!BOUND(?gradDate) || ?gradDate > \"2025-08-16\"^^xsd:date)\n            }\n            GROUP BY ?bigDept\n            HAVING (?studentCount > 10)\n        }\n    }\n}\nGROUP BY ?professorName\n\"\"\"\n\nfor r in g.query(q):\n    print(r[0], \"-->\", r[1])\n''')"
+[?2004l[?2004hroot@2e7664a3668f:/app# python3 /app/run_test.py
+[?2004l[?2004hroot@2e7664a3668f:/app# cat /app/run_test.py
+[?2004limport rdflib
+
+g = rdflib.Graph()
+g.parse("/app/university_graph.ttl", format="turtle")
+
+q = """
+PREFIX uni: <http://university.org/ontology/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?professorName (GROUP_CONCAT(DISTINCT ?country; separator=", ") AS ?countries)
+WHERE {
+    ?professor a uni:Person ;
+               uni:hasName ?professorName ;
+               uni:role ?role .
+    
+    FILTER (STRSTARTS(?role, "Professor"))
+    
+    ?professor uni:worksIn ?dept .
+    ?dept uni:belongsTo ?uni .
+    ?uni uni:locatedInCountry ?country .
+    
+    FILTER EXISTS {
+        ?professor uni:worksIn ?euDept .
+        ?euDept uni:belongsTo ?euUni .
+        ?euUni uni:locatedInCountry ?euCountry .
+        FILTER(?euCountry IN ("AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE"))
+    }
+    
+    FILTER EXISTS {
+        ?professor uni:worksIn ?bigDept .
+        {
+            SELECT ?bigDept (COUNT(DISTINCT ?student) AS ?studentCount)
+            WHERE {
+                ?course uni:isTaughtIn ?bigDept .
+                ?student uni:isEnrolledIn ?course .
+                OPTIONAL { ?student uni:hasEnrollmentDate ?enrDate }
+                OPTIONAL { ?student uni:hasGraduationDate ?gradDate }
+                FILTER (!BOUND(?enrDate) || ?enrDate <= "2025-08-16"^^xsd:date)
+                FILTER (!BOUND(?gradDate) || ?gradDate > "2025-08-16"^^xsd:date)
+            }
+            GROUP BY ?bigDept
+            HAVING (?studentCount > 10)
+        }
+    }
+}
+GROUP BY ?professorName
+"""
+
+for r in g.query(q):
+    print(r[0], "-->", r[1])
+[?2004hroot@2e7664a3668f:/app# python3 -c "import rdflib; g = rdflib.Graph(); g.parse('/app/university_graph.ttl'); print(len(g.query('PREFIX uni: <http://university.org/ontology/> SELECT ?p WHERE { ?p a uni:Person ; uni:role ?r . FILTER(STRSTARTS(?r, \"Professor\")) }')))"
+[?2004l5
+[?2004hroot@2e7664a3668f:/app# python3 -c "import rdflib; g = rdflib.Graph(); g.parse('/app/university_graph.ttl'); q = '''PREFIX uni: <http://university.org/ontology/> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> SELECT ?dept (COUNT(DISTINCT ?student) AS ?cnt) WHERE { ?course uni:isTaughtIn ?dept . ?student uni:isEnrolledIn ?course . OPTIONAL { ?student uni:hasEnrollmentDate ?enrDate } OPTIONAL { ?student uni:hasGraduationDate ?gradDate } FILTER (!BOUND(?enrDate) || ?enrDate <= '2025-08-16'^^xsd:date) FILTER (!BOUND(?gradDate) || ?gradDate > '2025-08-16'^^xsd:date) } GROUP BY ?dept HAVING (?cnt > 10)'''; [print(r[0], r[1]) for r in g.query(q)]"
+[?2004lbash: !BOUND: event not found
+[?2004hroot@2e7664a3668f:/app# set +H
+[?2004l[?2004hroot@2e7664a3668f:/app# python3 -c "import rdflib; g=rdflib.Graph(); g.parse('/app/university_graph.ttl'); q='''PREFIX uni: <http://university.org/ontology/>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nSELECT ?dept (COUNT(DISTINCT ?student) AS ?cnt) WHERE { ?course uni:isTaughtIn ?dept . ?student uni:isEnrolledIn ?course . OPTIONAL { ?student uni:hasEnrollmentDate ?enrDate } OPTIONAL { ?student uni:hasGraduationDate ?gradDate } FILTER (!BOUND(?enrDate) || ?enrDate <= '2025-08-16'^^xsd:date) FILTER (!BOUND(?gradDate) || ?gradDate > '2025-08-16'^^xsd:date) } GROUP BY ?dept HAVING (?cnt > 10)'''; [print(r[0], r[1]) for r in g.query(q)]"
+[?2004l[?2004hroot@2e7664a3668f:/app# python3 -c "import rdflib; g=rdflib.Graph(); g.parse('/app/university_graph.ttl'); q='''PREFIX uni: <http://university.org/ontology/> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> SELECT ?s ?enr ?grad WHERE { ?s uni:isEnrolledIn ?c . OPTIONAL { ?s uni:hasEnrollmentDate ?enr } OPTIONAL { ?s uni:hasGraduationDate ?grad } } LIMIT 5'''; [print(r[0], r[1], r[2]) for r in g.query(q)]"
+[?2004lhttp://university.org/ontology/Student1 2024-01-10 None
+http://university.org/ontology/Student2 2024-01-11 None
+http://university.org/ontology/Student3 2024-01-12 None
+http://university.org/ontology/Student4 2024-01-13 None
+http://university.org/ontology/Student5 2024-01-14 None
+[?2004hroot@2e7664a3668f:/app# python3 -c "import rdflib; g=rdflib.Graph(); g.parse('/app/university_graph.ttl'); q='''PREFIX uni: <http://university.org/ontology/> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> SELECT (COUNT(?s) as ?c) WHERE { ?s uni:isEnrolledIn ?course . OPTIONAL { ?s uni:hasGraduationDate ?gradDate } FILTER (!BOUND(?gradDate) || ?gradDate > \"2025-08-16\"^^xsd:date) }'''; [print(r[0]) for r in g.query(q)]"
+[?2004l49
+[?2004hroot@2e7664a3668f:/app# python3 -c "import rdflib; g=rdflib.Graph(); g.parse('/app/university_graph.ttl'); q='''PREFIX uni: <http://university.org/ontology/> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> SELECT ?dept (COUNT(DISTINCT ?s) as ?c) WHERE { ?course uni:isTaughtIn ?dept . ?s uni:isEnrolledIn ?course . OPTIONAL { ?s uni:hasGraduationDate ?gradDate } FILTER (!BOUND(?gradDate) || ?gradDate > \"2025-08-16\"^^xsd:date) } GROUP BY ?dept HAVING (COUNT(DISTINCT ?s) > 10)'''; [print(r[0], r[1]) for r in g.query(q)]"
+[?2004lhttp://university.org/ontology/ComputerScience_NTUA 12
+http://university.org/ontology/Engineering_Berkeley 11
+http://university.org/ontology/HistoryAndPhilosophy_NKUA 12
+[?2004hroot@2e7664a3668f:/app# python3 -c "import rdflib; g=rdflib.Graph(); g.parse('/app/university_graph.ttl'); q='''PREFIX uni: <http://university.org/ontology/> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> SELECT ?professorName (GROUP_CONCAT(DISTINCT ?country; separator=\", \") AS ?countries) WHERE { ?professor a uni:Person ; uni:hasName ?professorName ; uni:role ?role . FILTER (STRSTARTS(?role, \"Professor\")) ?professor uni:worksIn ?dept . ?dept uni:belongsTo ?uni . ?uni uni:locatedInCountry ?country . FILTER EXISTS { ?professor uni:worksIn ?euDept . ?euDept uni:belongsTo ?euUni . ?euUni uni:locatedInCountry ?euCountry . FILTER(?euCountry IN (\"AT\", \"BE\", \"BG\", \"HR\", \"CY\", \"CZ\", \"DK\", \"EE\", \"FI\", \"FR\", \"DE\", \"GR\", \"HU\", \"IE\", \"IT\", \"LV\", \"LT\", \"LU\", \"MT\", \"NL\", \"PL\", \"PT\", \"RO\", \"SK\", \"SI\", \"ES\", \"SE\")) } FILTER EXISTS { ?professor uni:worksIn ?bigDept . { SELECT ?bigDept WHERE { ?course uni:isTaughtIn ?bigDept . ?student uni:isEnrolledIn ?course . OPTIONAL { ?student uni:hasEnrollmentDate ?enrDate } OPTIONAL { ?student uni:hasGraduationDate ?gradDate } FILTER (!BOUND(?enrDate) || ?enrDate <= \"2025-08-16\"^^xsd:date) FILTER (!BOUND(?gradDate) || ?gradDate > \"2025-08-16\"^^xsd:date) } GROUP BY ?bigDept HAVING (COUNT(DISTINCT ?student) > 10) } } } GROUP BY ?professorName'''; [print(r[0], '-->', r[1]) for r in g.query(q)]"
+[?2004lOrfeas Menis --> GR, US
+Pepe Attanasio --> PT, GR
+Aristotle Tympas --> GR
+[?2004hroot@2e7664a3668f:/app# python3 -c "import rdflib; g=rdflib.Graph(); g.parse('/app/university_graph.ttl'); print('Loaded graph successfully')"
+[?2004lLoaded graph successfully
+[?2004hroot@2e7664a3668f:/app# python3 -c "import rdflib; g=rdflib.Graph(); g.parse('/app/university_graph.ttl'); UNI=rdflib.Namespace('http://university.org/ontology/'); print([(s, [str(c) for c in g.objects(s, UNI.locatedInCountry)]) for s in g.subjects(rdflib.RDF.type, UNI.University)])"
+[?2004l[(rdflib.term.URIRef('http://university.org/ontology/ETHZurich'), ['CH']), (rdflib.term.URIRef('http://university.org/ontology/UPM'), ['ES']), (rdflib.term.URIRef('http://university.org/ontology/IST'), ['PT']), (rdflib.term.URIRef('http://university.org/ontology/NTUA'), ['GR']), (rdflib.term.URIRef('http://university.org/ontology/NKUA'), ['GR']), (rdflib.term.URIRef('http://university.org/ontology/Sorbonne'), ['FR']), (rdflib.term.URIRef('http://university.org/ontology/MIT'), ['US']), (rdflib.term.URIRef('http://university.org/ontology/Berkeley'), ['US']), (rdflib.term.URIRef('http://university.org/ontology/LMU'), ['DE'])]
+[?2004hroot@2e7664a3668f:/app# python3 -c "import rdflib; g=rdflib.Graph(); g.parse('/app/university_graph.ttl'); UNI=rdflib.Namespace('http://university.org/ontology/'); print([(s, list(g.objects(s, UNI.hasEnrollmentDate)), list(g.objects(s, UNI.hasGraduationDate))) for s in g.subjects(UNI.role, rdflib.Literal('Student')) if list(g.objects(s, UNI.isEnrolledIn))])"
+[?2004l[(rdflib.term.URIRef('http://university.org/ontology/Student1'), [rdflib.term.Literal('2024-01-10', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))], []), (rdflib.term.URIRef('http://university.org/ontology/Student2'), [rdflib.term.Literal('2024-01-11', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))], []), (rdflib.term.URIRef('http://university.org/ontology/Student3'), [rdflib.term.Literal('2024-01-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))], []), (rdflib.term.URIRef('http://university.org/ontology/Student4'), [rdflib.term.Literal('2024-01-13', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))], []), (rdflib.term.URIRef('http://university.org/ontology/Student5'), [rdflib.term.Literal('2024-01-14', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))], []), (rdflib.term.URIRef('http://university.org/ontology/Student6'), [rdflib.term.Literal('2024-01-15', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))], []), (rdflib.term.URIRef('http://university.org/ontology/Student7'), [rdflib.term.Literal('2024-01-16', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))], []), (rdflib.term.URIRef('http://university.org/ontology/Student8'), [rdflib.term.Literal('2024-01-17', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))], []), (rdflib.term.URIRef('http://university.org/ontology/Student9'), [rdflib.term.Literal('2024-01-18', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))], []), (rdflib.term.URIRef('http://university.org/ontology/Student10'), [rdflib.term.Literal('2024-01-19', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))], []), (rdflib.term.URIRef('http://university.org/ontology/Student11'), [rdflib.term.Literal('2024-01-20', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))], []), (rdflib.term.URIRef('http://university.org/ontology/Student12'), [rdflib.term.Literal('2024-01-21', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))], []), (rdflib.term.URIRef('http://university.org/ontology/Student13'), [rdflib.term.Literal('2024-01-10', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))], []), (rdflib.term.URIRef('http://university.org/ontology/Student14'), [rdflib.term.Literal('2024-01-11', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))], []), (rdflib.term.URIRef('http://university.org/ontology/Student15'), [rdflib.term.Literal('2024-01-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))], []), (rdflib.term.URIRef('http://university.org/ontology/Student16'), [rdflib.term.Literal('2024-01-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))], []), (rdflib.term.URIRef('http://university.org/ontology/Student17'), [rdflib.term.Literal('2024-01-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))], [rdflib.term.Literal('2026-06-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))]), (rdflib.term.URIRef('http://university.org/ontology/Student18'), [rdflib.term.Literal('2024-01-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))], [rdflib.term.Literal('2025-07-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))]), (rdflib.term.URIRef('http://university.org/ontology/Student19'), [rdflib.term.Literal('2024-01-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))], [rdflib.term.Literal('2025-06-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))]), (rdflib.term.URIRef('http://university.org/ontology/Student20'), [rdflib.term.Literal('2024-01-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))], [rdflib.term.Literal('2025-06-15', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))]), (rdflib.term.URIRef('http://university.org/ontology/Student21'), [rdflib.term.Literal('2024-01-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))], [rdflib.term.Literal('2025-06-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))]), (rdflib.term.URIRef('http://university.org/ontology/Student22'), [rdflib.term.Literal('2024-01-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))], [rdflib.term.Literal('2025-06-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))]), (rdflib.term.URIRef('http://university.org/ontology/Student23'), [rdflib.term.Literal('2024-01-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))], [rdflib.term.Literal('2025-06-11', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))]), (rdflib.term.URIRef('http://university.org/ontology/Student24'), [rdflib.term.Literal('2024-01-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))], [rdflib.term.Literal('2026-06-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))]), (rdflib.term.URIRef('http://university.org/ontology/Student25'), [rdflib.term.Literal('2024-01-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))], [rdflib.term.Literal('2025-06-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))]), (rdflib.term.URIRef('http://university.org/ontology/Student26'), [rdflib.term.Literal('2024-01-12', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))], [rdflib.term.Literal('2025-06-02', datatype=rdflib.term.URIRef('http://www.w3.org/2001/XMLSchema#date'))])]
+[?2004hroot@2e7664a3668f:/app# python3 -c "open('/app/solution.sparql', 'w').write('PREFIX uni: <http://university.org/ontology/>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n\nSELECT ?professorName (GROUP_CONCAT(DISTINCT ?country; separator=\", \") AS ?countries)\nWHERE {\n    ?professor a uni:Person ;\n               uni:hasName ?professorName ;\n               uni:role ?role .\n    \n    FILTER (STRSTARTS(?role, \"Professor\"))\n    \n    ?professor uni:worksIn ?dept .\n    ?dept uni:belongsTo ?uni .\n    ?uni uni:locatedInCountry ?country .\n    \n    FILTER EXISTS {\n        ?professor uni:worksIn ?euDept .\n        ?euDept uni:belongsTo ?euUni .\n        ?euUni uni:locatedInCountry ?euCountry .\n        FILTER (?euCountry IN (\"AT\", \"BE\", \"BG\", \"HR\", \"CY\", \"CZ\", \"DK\", \"EE\", \"FI\", \"FR\", \"DE\", \"GR\", \"HU\", \"IE\", \"IT\", \"LV\", \"LT\", \"LU\", \"MT\", \"NL\", \"PL\", \"PT\", \"RO\", \"SK\", \"SI\", \"ES\", \"SE\"))\n    }\n    \n    FILTER EXISTS {\n        ?professor uni:worksIn ?bigDept .\n        {\n            SELECT ?bigDept\n            WHERE {\n                ?course uni:isTaughtIn ?bigDept .\n                ?student uni:isEnrolledIn ?course .\n                \n                OPTIONAL { ?student uni:hasEnrollmentDate ?enrDate }\n                OPTIONAL { ?student uni:hasGraduationDate ?gradDate }\n                FILTER (!BOUND(?enrDate) || ?enrDate <= \"2025-08-16\"^^xsd:date)\n                FILTER (!BOUND(?gradDate) || ?gradDate > \"2025-08-16\"^^xsd:date)\n            }\n            GROUP BY ?bigDept\n            HAVING (COUNT(DISTINCT ?student) > 10)\n        }\n    }\n}\nGROUP BY ?professorName\nORDER BY ?professorName\n')"
+[?2004l[?2004hroot@2e7664a3668f:/app# cat /app/solution.sparql
+[?2004lPREFIX uni: <http://university.org/ontology/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?professorName (GROUP_CONCAT(DISTINCT ?country; separator=", ") AS ?countries)
+WHERE {
+    ?professor a uni:Person ;
+               uni:hasName ?professorName ;
+               uni:role ?role .
+    
+    FILTER (STRSTARTS(?role, "Professor"))
+    
+    ?professor uni:worksIn ?dept .
+    ?dept uni:belongsTo ?uni .
+    ?uni uni:locatedInCountry ?country .
+    
+    FILTER EXISTS {
+        ?professor uni:worksIn ?euDept .
+        ?euDept uni:belongsTo ?euUni .
+        ?euUni uni:locatedInCountry ?euCountry .
+        FILTER (?euCountry IN ("AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE"))
+    }
+    
+    FILTER EXISTS {
+        ?professor uni:worksIn ?bigDept .
+        {
+            SELECT ?bigDept
+            WHERE {
+                ?course uni:isTaughtIn ?bigDept .
+                ?student uni:isEnrolledIn ?course .
+                
+                OPTIONAL { ?student uni:hasEnrollmentDate ?enrDate }
+                OPTIONAL { ?student uni:hasGraduationDate ?gradDate }
+                FILTER (!BOUND(?enrDate) || ?enrDate <= "2025-08-16"^^xsd:date)
+                FILTER (!BOUND(?gradDate) || ?gradDate > "2025-08-16"^^xsd:date)
+            }
+            GROUP BY ?bigDept
+            HAVING (COUNT(DISTINCT ?student) > 10)
+        }
+    }
+}
+GROUP BY ?professorName
+ORDER BY ?professorName
+[?2004hroot@2e7664a3668f:/app# python3 -c "import rdflib; g=rdflib.Graph(); g.parse('/app/university_graph.ttl'); q=open('/app/solution.sparql').read(); [print(r[0], ':', r[1]) for r in g.query(q)]"
+[?2004lAristotle Tympas : GR
+Orfeas Menis : GR, US
+Pepe Attanasio : PT, GR
+[?2004hroot@2e7664a3668f:/app# rm -f /app/run_test.py /app/run_query.py /app/test_sparql.py /app/test_professors.py /app/inspect_ttl.py /app/analyze.py /tmp/test.py /tmp/gen.py
+[?2004l[?2004hroot@2e7664a3668f:/app# ls -la /app
+[?2004ltotal 24
+drwxr-xr-x 1 root root  4096 Aug 12 15:24 [0m[01;34m.[0m
+drwxr-xr-x 1 root root  4096 Aug 12 15:20 [01;34m..[0m
+-rw-r--r-- 1 root root  1514 Aug 12 15:24 solution.sparql
+-rw-r--r-- 1 root root 10481 Oct 24  2025 university_graph.ttl
+[?2004hroot@2e7664a3668f:/app# 

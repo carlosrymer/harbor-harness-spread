@@ -1,8 +1,8 @@
 {
   "all_in_spend": {
     "Google AI Studio (Gemini)": {
-      "cost_usd": 10.42,
-      "calls": 474
+      "cost_usd": 14.45,
+      "calls": 726
     },
     "Moonshot (Kimi)": {
       "cost_usd": 1.7,
@@ -47,15 +47,16 @@
     "model": "gemini36",
     "model_label": "gemini-3.6-flash (Google AI Studio)",
     "basis": "common attempted subset",
-    "n_tasks": 9,
-    "pp_per_task": 11.1,
+    "n_tasks": 4,
+    "pp_per_task": 25.0,
     "best": "mini-swe-agent",
     "worst": "aider",
-    "max_rate": 0.3333,
+    "max_rate": 0.75,
     "min_rate": 0.0,
-    "spread_pp": 33.3,
+    "spread_pp": 75.0,
     "ranking": [
       "mini-swe-agent",
+      "terminus-2",
       "goose",
       "aider"
     ]
@@ -68,6 +69,31 @@
       "model": "gemini36",
       "model_label": "gemini-3.6-flash (Google AI Studio)",
       "harnesses": [
+        {
+          "model": "gemini36",
+          "model_label": "gemini-3.6-flash (Google AI Studio)",
+          "harness": "terminus-2",
+          "n_tasks": 6,
+          "n_cells": 12,
+          "n_resolved": 4,
+          "resolve_rate": 0.6667,
+          "n_infra_errors": 6,
+          "n_timeouts": 1,
+          "tokens_total": 4419699,
+          "prompt_tokens": 4311228,
+          "cached_tokens": 2866328,
+          "completion_tokens": 108471,
+          "llm_calls": 257,
+          "llm_errors": 0,
+          "llm_retries": 0,
+          "cost_usd": 4.0558,
+          "wall_s_total": 3390.4,
+          "steps_total": 251,
+          "parser_warnings": 160,
+          "resolved_per_mtok": 0.905,
+          "resolved_per_usd": 0.986,
+          "reps": 1
+        },
         {
           "model": "gemini36",
           "model_label": "gemini-3.6-flash (Google AI Studio)",
@@ -144,59 +170,61 @@
           "reps": 1
         }
       ],
-      "best": "mini-swe-agent",
+      "best": "terminus-2",
       "worst": "aider",
-      "max_rate": 0.3333,
+      "max_rate": 0.6667,
       "min_rate": 0.0,
-      "spread_pp": 33.3,
+      "spread_pp": 66.7,
       "ranking": [
+        "terminus-2",
         "mini-swe-agent",
         "goose",
         "aider"
       ],
-      "cost_usd": 8.8502,
-      "tokens_total": 6435480
+      "cost_usd": 12.906,
+      "tokens_total": 10855179
     }
   },
   "common_subset": {
     "gemini36": {
       "model": "gemini36",
-      "n_common_tasks": 9,
+      "n_common_tasks": 4,
       "tasks": [
-        "adaptive-rejection-sampler",
         "db-wal-recovery",
         "fix-git",
-        "gpt2-codegolf",
         "log-summary-date-ranges",
-        "model-extraction-relu-logits",
-        "overfull-hbox",
-        "sparql-university",
-        "torch-pipeline-parallelism"
+        "sparql-university"
       ],
       "harnesses": [
         {
           "harness": "mini-swe-agent",
-          "n": 9,
+          "n": 4,
           "resolved": 3,
-          "rate": 0.3333
+          "rate": 0.75
+        },
+        {
+          "harness": "terminus-2",
+          "n": 4,
+          "resolved": 3,
+          "rate": 0.75
         },
         {
           "harness": "goose",
-          "n": 9,
+          "n": 4,
           "resolved": 2,
-          "rate": 0.2222
+          "rate": 0.5
         },
         {
           "harness": "aider",
-          "n": 9,
+          "n": 4,
           "resolved": 0,
           "rate": 0.0
         }
       ],
-      "spread_pp": 33.3,
+      "spread_pp": 75.0,
       "best": "mini-swe-agent",
       "worst": "aider",
-      "pp_per_task": 11.1
+      "pp_per_task": 25.0
     }
   },
   "cross_model": null,
@@ -275,6 +303,31 @@
       "resolved_per_mtok": 0.733,
       "resolved_per_usd": 0.638,
       "reps": 1
+    },
+    {
+      "model": "gemini36",
+      "model_label": "gemini-3.6-flash (Google AI Studio)",
+      "harness": "terminus-2",
+      "n_tasks": 6,
+      "n_cells": 12,
+      "n_resolved": 4,
+      "resolve_rate": 0.6667,
+      "n_infra_errors": 6,
+      "n_timeouts": 1,
+      "tokens_total": 4419699,
+      "prompt_tokens": 4311228,
+      "cached_tokens": 2866328,
+      "completion_tokens": 108471,
+      "llm_calls": 257,
+      "llm_errors": 0,
+      "llm_retries": 0,
+      "cost_usd": 4.0558,
+      "wall_s_total": 3390.4,
+      "steps_total": 251,
+      "parser_warnings": 160,
+      "resolved_per_mtok": 0.905,
+      "resolved_per_usd": 0.986,
+      "reps": 1
     }
   ],
   "not_driven": [],
@@ -325,12 +378,26 @@
           "n_steps": 13,
           "wall_s": 106.5,
           "parser_warnings": 0
+        },
+        "gemini36__terminus-2": {
+          "model": "gemini36",
+          "harness": "terminus-2",
+          "resolved": true,
+          "reward": 1.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 11,
+          "wall_s": 86.1,
+          "parser_warnings": 2
         }
       },
-      "n_solved_by": 1,
-      "n_attempted_by": 3,
+      "n_solved_by": 2,
+      "n_attempted_by": 4,
       "solved_by": [
-        "gemini36__mini-swe-agent"
+        "gemini36__mini-swe-agent",
+        "gemini36__terminus-2"
       ],
       "disputed": true
     },
@@ -380,6 +447,19 @@
           "n_steps": 30,
           "wall_s": 429.9,
           "parser_warnings": 0
+        },
+        "gemini36__terminus-2": {
+          "model": "gemini36",
+          "harness": "terminus-2",
+          "resolved": false,
+          "reward": null,
+          "exception": "litellm.exceptions.APIError: litellm.APIError: APIError: OpenAIException - gateway budget of $4.0 exhausted (spent $4.03)",
+          "timed_out": false,
+          "infra_error": true,
+          "attempted": false,
+          "n_steps": 32,
+          "wall_s": 288.7,
+          "parser_warnings": 64
         }
       },
       "n_solved_by": 0,
@@ -433,10 +513,23 @@
           "n_steps": 0,
           "wall_s": 364.9,
           "parser_warnings": 0
+        },
+        "gemini36__terminus-2": {
+          "model": "gemini36",
+          "harness": "terminus-2",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 17,
+          "wall_s": 171.3,
+          "parser_warnings": 34
         }
       },
       "n_solved_by": 0,
-      "n_attempted_by": 2,
+      "n_attempted_by": 3,
       "solved_by": [],
       "disputed": false
     },
@@ -485,6 +578,19 @@
           "attempted": true,
           "n_steps": 31,
           "wall_s": 433.6,
+          "parser_warnings": 0
+        },
+        "gemini36__terminus-2": {
+          "model": "gemini36",
+          "harness": "terminus-2",
+          "resolved": false,
+          "reward": null,
+          "exception": "litellm.exceptions.APIError: litellm.APIError: APIError: OpenAIException - gateway budget of $4.0 exhausted (spent $4.03)",
+          "timed_out": false,
+          "infra_error": true,
+          "attempted": false,
+          "n_steps": 0,
+          "wall_s": 69.4,
           "parser_warnings": 0
         }
       },
@@ -539,6 +645,19 @@
           "n_steps": 20,
           "wall_s": 461.8,
           "parser_warnings": 0
+        },
+        "gemini36__terminus-2": {
+          "model": "gemini36",
+          "harness": "terminus-2",
+          "resolved": false,
+          "reward": null,
+          "exception": "harbor.trial.errors.VerifierTimeoutError: Verifier execution timed out after 900.0 seconds",
+          "timed_out": false,
+          "infra_error": true,
+          "attempted": false,
+          "n_steps": 9,
+          "wall_s": 1078.4,
+          "parser_warnings": 4
         }
       },
       "n_solved_by": 0,
@@ -592,12 +711,27 @@
           "n_steps": 0,
           "wall_s": 356.2,
           "parser_warnings": 0
+        },
+        "gemini36__terminus-2": {
+          "model": "gemini36",
+          "harness": "terminus-2",
+          "resolved": true,
+          "reward": 1.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 26,
+          "wall_s": 280.1,
+          "parser_warnings": 52
         }
       },
-      "n_solved_by": 0,
-      "n_attempted_by": 2,
-      "solved_by": [],
-      "disputed": false
+      "n_solved_by": 1,
+      "n_attempted_by": 3,
+      "solved_by": [
+        "gemini36__terminus-2"
+      ],
+      "disputed": true
     },
     {
       "task": "sparql-university",
@@ -645,12 +779,26 @@
           "n_steps": 27,
           "wall_s": 463.3,
           "parser_warnings": 0
+        },
+        "gemini36__terminus-2": {
+          "model": "gemini36",
+          "harness": "terminus-2",
+          "resolved": true,
+          "reward": 1.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 54,
+          "wall_s": 325.8,
+          "parser_warnings": 0
         }
       },
-      "n_solved_by": 1,
-      "n_attempted_by": 3,
+      "n_solved_by": 2,
+      "n_attempted_by": 4,
       "solved_by": [
-        "gemini36__goose"
+        "gemini36__goose",
+        "gemini36__terminus-2"
       ],
       "disputed": true
     },
@@ -699,6 +847,19 @@
           "attempted": true,
           "n_steps": 44,
           "wall_s": 545.2,
+          "parser_warnings": 0
+        },
+        "gemini36__terminus-2": {
+          "model": "gemini36",
+          "harness": "terminus-2",
+          "resolved": false,
+          "reward": null,
+          "exception": "litellm.exceptions.APIError: litellm.APIError: APIError: OpenAIException - gateway budget of $4.0 exhausted (spent $4.03)",
+          "timed_out": false,
+          "infra_error": true,
+          "attempted": false,
+          "n_steps": 0,
+          "wall_s": 74.4,
           "parser_warnings": 0
         }
       },
@@ -753,6 +914,19 @@
           "n_steps": 18,
           "wall_s": 460.4,
           "parser_warnings": 0
+        },
+        "gemini36__terminus-2": {
+          "model": "gemini36",
+          "harness": "terminus-2",
+          "resolved": false,
+          "reward": null,
+          "exception": "litellm.exceptions.APIError: litellm.APIError: APIError: OpenAIException - gateway budget of $4.0 exhausted (spent $4.03)",
+          "timed_out": false,
+          "infra_error": true,
+          "attempted": false,
+          "n_steps": 12,
+          "wall_s": 218.8,
+          "parser_warnings": 0
         }
       },
       "n_solved_by": 0,
@@ -806,10 +980,23 @@
           "n_steps": 24,
           "wall_s": 246.8,
           "parser_warnings": 0
+        },
+        "gemini36__terminus-2": {
+          "model": "gemini36",
+          "harness": "terminus-2",
+          "resolved": false,
+          "reward": 0.0,
+          "exception": "harbor.trial.errors.AgentTimeoutError: Agent execution timed out after 360.0 seconds",
+          "timed_out": true,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 52,
+          "wall_s": 432.8,
+          "parser_warnings": 2
         }
       },
       "n_solved_by": 1,
-      "n_attempted_by": 3,
+      "n_attempted_by": 4,
       "solved_by": [
         "gemini36__mini-swe-agent"
       ],
@@ -861,13 +1048,27 @@
           "n_steps": 18,
           "wall_s": 249.0,
           "parser_warnings": 0
+        },
+        "gemini36__terminus-2": {
+          "model": "gemini36",
+          "harness": "terminus-2",
+          "resolved": true,
+          "reward": 1.0,
+          "exception": null,
+          "timed_out": false,
+          "infra_error": false,
+          "attempted": true,
+          "n_steps": 14,
+          "wall_s": 135.7,
+          "parser_warnings": 0
         }
       },
-      "n_solved_by": 2,
-      "n_attempted_by": 3,
+      "n_solved_by": 3,
+      "n_attempted_by": 4,
       "solved_by": [
         "gemini36__goose",
-        "gemini36__mini-swe-agent"
+        "gemini36__mini-swe-agent",
+        "gemini36__terminus-2"
       ],
       "disputed": true
     },
@@ -917,6 +1118,19 @@
           "n_steps": null,
           "wall_s": 19.6,
           "parser_warnings": 0
+        },
+        "gemini36__terminus-2": {
+          "model": "gemini36",
+          "harness": "terminus-2",
+          "resolved": false,
+          "reward": null,
+          "exception": "litellm.exceptions.APIError: litellm.APIError: APIError: OpenAIException - gateway budget of $4.0 exhausted (spent $4.03)",
+          "timed_out": false,
+          "infra_error": true,
+          "attempted": false,
+          "n_steps": 24,
+          "wall_s": 228.9,
+          "parser_warnings": 2
         }
       },
       "n_solved_by": 0,

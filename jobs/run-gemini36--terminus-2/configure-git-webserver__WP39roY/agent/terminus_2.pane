@@ -1,0 +1,429 @@
+[?2004hroot@f5c7992944bb:/app# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@f5c7992944bb:/app# clear
+[?2004l[H[J[3J[?2004hroot@f5c7992944bb:/app# mkdir -p /git && ls -la /git; ps aux; ss -tlpn || netstat -tlpn
+[?2004ltotal 8
+drwxr-xr-x 2 root root 4096 Aug 12 15:25 [0m[01;34m.[0m
+drwxr-xr-x 1 root root 4096 Aug 12 15:25 [01;34m..[0m
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root           1  0.1  0.0   2808  1976 ?        Ss   15:25   0:00 sh -c sleep infinity
+root           7  0.0  0.0   2704  1608 ?        S    15:25   0:00 sleep infinity
+root         505  0.1  0.0   9792  4400 ?        Ss   15:25   0:00 tmux new-session -e SSL_CERT_FILE=/ccr-ca.crt -e REQUESTS_CA_BUNDLE=/ccr-ca.crt -e CURL_CA_BU
+root         506  0.0  0.0   4596  3988 pts/0    Ss   15:25   0:00 bash --login
+root         508  0.0  0.0   2808  1816 ?        S    15:25   0:00 sh -c cat > /logs/agent/terminus_2.pane
+root         509  0.0  0.0   2848  1572 ?        S    15:25   0:00 cat
+root         525  1.4  0.1 103332 23092 pts/0    Sl+  15:25   0:00 /usr/bin/python3 /usr/bin/asciinema rec --stdin /logs/agent/recording.cast
+root         526  0.0  0.0  29568 15824 pts/0    S+   15:25   0:00 /usr/bin/python3 /usr/bin/asciinema rec --stdin /logs/agent/recording.cast
+root         527  0.0  0.0  29580 16376 pts/0    S+   15:25   0:00 /usr/bin/python3 /usr/bin/asciinema rec --stdin /logs/agent/recording.cast
+root         528  0.0  0.0   2808  1876 pts/1    Ss   15:25   0:00 sh -c /bin/bash
+root         529  0.0  0.0   4980  4240 pts/1    S    15:25   0:00 /bin/bash
+root         566  0.0  0.0   8280  4284 pts/1    R+   15:25   0:00 ps aux
+bash: ss: command not found
+bash: netstat: command not found
+[?2004hroot@f5c7992944bb:/app# which git nginx apache2 python3; python3 -m http.server --help >/dev/null && echo 'python http.server available'
+[?2004l/usr/bin/python3
+python http.server available
+[?2004hroot@f5c7992944bb:/app# git --version || apt-get update && apt-get install -y git nginx python3 lighttpd caddy
+[?2004lbash: git: command not found
+0% [Working]            Hit:1 http://security.ubuntu.com/ubuntu noble-security InRelease
+0% [Waiting for headers]                        Hit:2 http://archive.ubuntu.com/ubuntu noble InRelease
+0% [Waiting for headers]                        Hit:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease
+0% [Waiting for headers]                        Hit:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
+                        0% [Working]0% [Working]0% [Working]0% [Working]0% [Working]0% [Working]0% [Working]0% [Working]20% [Working]             Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 5%Reading package lists... 5%Reading package lists... 18%Reading package lists... 36%Reading package lists... 58%Reading package lists... 62%Reading package lists... 62%Reading package lists... 62%Reading package lists... 62%Reading package lists... 63%Reading package lists... 63%Reading package lists... 68%Reading package lists... 68%Reading package lists... 72%Reading package lists... 76%Reading package lists... 76%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 87%Reading package lists... 87%Reading package lists... 93%Reading package lists... 93%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... Done
+Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 5%Reading package lists... 5%Reading package lists... 35%Reading package lists... 62%Reading package lists... 62%Reading package lists... 62%Reading package lists... 62%Reading package lists... 63%Reading package lists... 63%Reading package lists... 68%Reading package lists... 68%Reading package lists... 76%Reading package lists... 76%Reading package lists... 77%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 87%Reading package lists... 87%Reading package lists... 93%Reading package lists... 93%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree... Done
+Reading state information... 0% Reading state information... 2%Reading state information... Done
+python3 is already the newest version (3.12.3-0ubuntu2.1).
+python3 set to manually installed.
+The following additional packages will be installed:
+  adduser curl git-man iproute2 less libatm1t64 libbpf1 libbsd0 libcap2 libcap2-bin libcbor0.10 libcurl3t64-gnutls libcurl4t64 libdeflate0 libedit2 libelf1t64
+  liberror-perl libfido2-1 libgdbm-compat4t64 libgdbm6t64 libmnl0 libnspr4 libnss3 libnss3-tools libpam-cap libperl5.38t64 libx11-6 libx11-data libxau6
+  libxcb1 libxdmcp6 libxext6 libxmuu1 libxtables12 lighttpd-mod-deflate lighttpd-mod-openssl nginx-common openssh-client patch perl perl-base
+  perl-modules-5.38 spawn-fcgi xauth
+Suggested packages:
+  liblocale-gettext-perl cron quota ecryptfs-utils gettext-base git-daemon-run | git-daemon-sysvinit git-doc git-email git-gui gitk gitweb git-cvs
+  git-mediawiki git-svn iproute2-doc gdbm-l10n php-cgi php-fpm apache2-utils lighttpd-doc lighttpd-mod-webdav lighttpd-modules-dbi lighttpd-modules-lua ufw
+  fcgiwrap nginx-doc ssl-cert keychain libpam-ssh monkeysphere ssh-askpass ed diffutils-doc perl-doc libterm-readline-gnu-perl | libterm-readline-perl-perl
+  make libtap-harness-archive-perl
+The following NEW packages will be installed:
+  adduser caddy git git-man iproute2 less libatm1t64 libbpf1 libbsd0 libcap2-bin libcbor0.10 libcurl3t64-gnutls libdeflate0 libedit2 libelf1t64 liberror-perl
+  libfido2-1 libgdbm-compat4t64 libgdbm6t64 libmnl0 libnspr4 libnss3 libnss3-tools libpam-cap libperl5.38t64 libx11-6 libx11-data libxau6 libxcb1 libxdmcp6
+  libxext6 libxmuu1 libxtables12 lighttpd lighttpd-mod-deflate lighttpd-mod-openssl nginx nginx-common openssh-client patch perl perl-modules-5.38 spawn-fcgi
+  xauth
+The following packages will be upgraded:
+  curl libcap2 libcurl4t64 perl-base
+4 upgraded, 44 newly installed, 0 to remove and 45 not upgraded.
+Need to get 33.5 MB of archives.
+After this operation, 137 MB of additional disk space will be used.
+0% [Working]            Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 perl-base amd64 5.38.2-3.2ubuntu0.3 [1827 kB]
+0% [1 perl-base 0 B/1827 kB 0%]0% [1 perl-base 181 kB/1827 kB 10%]                                   5% [Waiting for headers]                        Get:2 http://archive.ubuntu.com/ubuntu noble/universe amd64 lighttpd amd64 1.4.74-1ubuntu3 [393 kB]
+5% [2 lighttpd 40.5 kB/393 kB 10%]                                  6% [Waiting for headers]                        Get:3 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 perl-modules-5.38 all 5.38.2-3.2ubuntu0.3 [3110 kB]
+6% [3 perl-modules-5.38 60.2 kB/3110 kB 2%]                                           14% [Waiting for headers]                         Get:4 http://archive.ubuntu.com/ubuntu noble/main amd64 libgdbm6t64 amd64 1.23-5.1build1 [34.4 kB]
+14% [4 libgdbm6t64 34.4 kB/34.4 kB 100%]                                        14% [Waiting for headers]                         Get:5 http://archive.ubuntu.com/ubuntu noble/main amd64 libgdbm-compat4t64 amd64 1.23-5.1build1 [6710 B]
+15% [5 libgdbm-compat4t64 6710 B/6710 B 100%]                                             15% [Waiting for headers]                         Get:6 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libperl5.38t64 amd64 5.38.2-3.2ubuntu0.3 [4876 kB]
+15% [6 libperl5.38t64 41.9 kB/4876 kB 1%]                                         27% [Waiting for headers]                         Get:7 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 perl amd64 5.38.2-3.2ubuntu0.3 [231 kB]
+27% [7 perl 39.5 kB/231 kB 17%]                               28% [Waiting for headers]                         Get:8 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libcap2 amd64 1:2.66-5ubuntu2.4 [30.5 kB]
+28% [8 libcap2 30.5 kB/30.5 kB 100%]                                    28% [Waiting for headers]                         Get:9 http://archive.ubuntu.com/ubuntu noble/main amd64 adduser all 3.137ubuntu1 [101 kB]
+29% [9 adduser 39.1 kB/101 kB 39%]                                  29% [Waiting for headers]                         Get:10 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libelf1t64 amd64 0.190-1.1ubuntu0.1 [57.8 kB]
+29% [10 libelf1t64 49.0 kB/57.8 kB 85%]                                       30% [Working]             Get:11 http://archive.ubuntu.com/ubuntu noble/main amd64 libbpf1 amd64 1:1.3.0-2build2 [166 kB]
+30% [11 libbpf1 10.9 kB/166 kB 7%]                                  30% [Working]             Get:12 http://archive.ubuntu.com/ubuntu noble/main amd64 libmnl0 amd64 1.0.5-2build1 [12.3 kB]
+31% [12 libmnl0 12.3 kB/12.3 kB 100%]                                     31% [Waiting for headers]                         Get:13 http://archive.ubuntu.com/ubuntu noble/main amd64 libxtables12 amd64 1.8.10-3ubuntu2 [35.7 kB]
+31% [13 libxtables12 8158 B/35.7 kB 23%]                                        31% [Waiting for headers]                         Get:14 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libcap2-bin amd64 1:2.66-5ubuntu2.4 [34.1 kB]
+32% [14 libcap2-bin 34.1 kB/34.1 kB 100%]                                         32% [Waiting for headers]                         Get:15 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 iproute2 amd64 6.1.0-1ubuntu6.4 [1120 kB]
+32% [15 iproute2 65.2 kB/1120 kB 6%]                                    35% [Waiting for headers]                         Get:16 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 less amd64 590-2ubuntu2.1 [142 kB]
+35% [16 less 49.0 kB/142 kB 35%]                                36% [Waiting for headers]                         Get:17 http://archive.ubuntu.com/ubuntu noble/main amd64 libatm1t64 amd64 1:2.5.1-5.1build1 [22.9 kB]
+36% [Waiting for headers]                         Get:18 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libbsd0 amd64 0.12.1-1build1.1 [41.2 kB]
+36% [18 libbsd0 40.5 kB/41.2 kB 98%]                                    37% [Waiting for headers]                         Get:19 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libpam-cap amd64 1:2.66-5ubuntu2.4 [12.5 kB]
+37% [19 libpam-cap 12.5 kB/12.5 kB 100%]                                        37% [Working]             Get:20 http://archive.ubuntu.com/ubuntu noble/main amd64 libcbor0.10 amd64 0.10.2-1.2ubuntu2 [25.8 kB]
+37% [20 libcbor0.10 25.8 kB/25.8 kB 100%]                                         38% [Waiting for headers]                         Get:21 http://archive.ubuntu.com/ubuntu noble/main amd64 libedit2 amd64 3.1-20230828-1build1 [97.6 kB]
+38% [21 libedit2 0 B/97.6 kB 0%]                                38% [Working]             Get:22 http://archive.ubuntu.com/ubuntu noble/main amd64 libfido2-1 amd64 1.14.0-1build3 [83.5 kB]
+38% [22 libfido2-1 0 B/83.5 kB 0%]                                  39% [Working]             Get:23 http://archive.ubuntu.com/ubuntu noble/main amd64 libxau6 amd64 1:1.0.9-1build6 [7160 B]
+39% [23 libxau6 0 B/7160 B 0%]                              39% [Working]             Get:24 http://archive.ubuntu.com/ubuntu noble/main amd64 libxdmcp6 amd64 1:1.1.3-0ubuntu6 [10.3 kB]
+40% [Waiting for headers]                         Get:25 http://archive.ubuntu.com/ubuntu noble/main amd64 libxcb1 amd64 1.15-1ubuntu2 [47.7 kB]
+40% [25 libxcb1 31.6 kB/47.7 kB 66%]                                    40% [Waiting for headers]                         Get:26 http://archive.ubuntu.com/ubuntu noble/main amd64 libx11-data all 2:1.8.7-1build1 [115 kB]
+40% [26 libx11-data 49.2 kB/115 kB 43%]                                       41% [Working]             Get:27 http://archive.ubuntu.com/ubuntu noble/main amd64 libx11-6 amd64 2:1.8.7-1build1 [650 kB]
+41% [27 libx11-6 64.5 kB/650 kB 10%]                                    43% [Waiting for headers]                         Get:28 http://archive.ubuntu.com/ubuntu noble/main amd64 libxext6 amd64 2:1.3.4-1build2 [30.4 kB]
+44% [Waiting for headers]                         Get:29 http://archive.ubuntu.com/ubuntu noble/main amd64 libxmuu1 amd64 2:1.1.3-3build2 [8958 B]
+44% [Waiting for headers]                         Get:30 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 openssh-client amd64 1:9.6p1-3ubuntu13.18 [908 kB]
+44% [30 openssh-client 29.8 kB/908 kB 3%]                                         47% [Waiting for headers]                         Get:31 http://archive.ubuntu.com/ubuntu noble/main amd64 xauth amd64 1:1.1.2-1build1 [25.6 kB]
+47% [31 xauth 25.6 kB/25.6 kB 100%]                                   47% [Working]             Get:32 http://archive.ubuntu.com/ubuntu noble/main amd64 libnspr4 amd64 2:4.35-1.1build1 [117 kB]
+47% [32 libnspr4 41.0 kB/117 kB 35%]                                    48% [Waiting for headers]                         Get:33 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libnss3 amd64 2:3.98-1ubuntu0.2 [1445 kB]
+48% [33 libnss3 49.0 kB/1445 kB 3%]                                                                                                                2371 kB/s 8s52% [Waiting for headers]                                                                                                                          2371 kB/s 7s                                                                                                                                                               Get:34 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libnss3-tools amd64 2:3.98-1ubuntu0.2 [615 kB]
+52% [34 libnss3-tools 23.1 kB/615 kB 4%]                                                                                                           2371 kB/s 7s53% [Waiting for headers]                                                                                                                          2371 kB/s 7s                                                                                                                                                               Get:35 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 caddy amd64 2.6.2-6ubuntu0.24.04.3 [10.5 MB]
+54% [35 caddy 63.0 kB/10.5 MB 1%]                                                                                                                  2371 kB/s 7s73% [35 caddy 8347 kB/10.5 MB 79%]                                                                                                                 2371 kB/s 3s79% [Waiting for headers]                                                                                                                          2371 kB/s 2s                                                                                                                                                               Get:36 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 curl amd64 8.5.0-2ubuntu10.11 [226 kB]
+79% [36 curl 39.1 kB/226 kB 17%]                                                                                                                   2371 kB/s 2s80% [Waiting for headers]                                                                                                                          2371 kB/s 2s                                                                                                                                                               Get:37 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libcurl4t64 amd64 8.5.0-2ubuntu10.11 [342 kB]
+80% [37 libcurl4t64 23.6 kB/342 kB 7%]                                                                                                             2371 kB/s 2s81% [Waiting for headers]                                                                                                                          2371 kB/s 2s                                                                                                                                                               Get:38 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libcurl3t64-gnutls amd64 8.5.0-2ubuntu10.11 [334 kB]
+81% [38 libcurl3t64-gnutls 22.5 kB/334 kB 7%]                                                                                                      2371 kB/s 2s83% [Waiting for headers]                                                                                                                          2371 kB/s 2s                                                                                                                                                               Get:39 http://archive.ubuntu.com/ubuntu noble/main amd64 liberror-perl all 0.17029-2 [25.6 kB]
+83% [39 liberror-perl 15.4 kB/25.6 kB 60%]                                                                                                         2371 kB/s 2s83% [Working]                                                                                                                                      2371 kB/s 2s                                                                                                                                                               Get:40 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 git-man all 1:2.43.0-1ubuntu7.3 [1100 kB]
+83% [40 git-man 23.6 kB/1100 kB 2%]                                                                                                                2371 kB/s 2s86% [Waiting for headers]                                                                                                                          2371 kB/s 1s                                                                                                                                                               Get:41 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 git amd64 1:2.43.0-1ubuntu7.3 [3680 kB]
+86% [41 git 39.1 kB/3680 kB 1%]                                                                                                                    2371 kB/s 1s95% [Waiting for headers]                                                                                                                          2371 kB/s 0s                                                                                                                                                               Get:42 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libdeflate0 amd64 1.19-1build1.1 [43.9 kB]
+95% [42 libdeflate0 23.6 kB/43.9 kB 54%]                                                                                                           2371 kB/s 0s96% [Waiting for headers]                                                                                                                          2371 kB/s 0s                                                                                                                                                               Get:43 http://archive.ubuntu.com/ubuntu noble/universe amd64 lighttpd-mod-deflate amd64 1.4.74-1ubuntu3 [13.3 kB]
+96% [43 lighttpd-mod-deflate 13.3 kB/13.3 kB 100%]                                                                                                 2371 kB/s 0s96% [Waiting for headers]                                                                                                                          2371 kB/s 0s                                                                                                                                                               Get:44 http://archive.ubuntu.com/ubuntu noble/universe amd64 lighttpd-mod-openssl amd64 1.4.74-1ubuntu3 [20.4 kB]
+96% [44 lighttpd-mod-openssl 19.4 kB/20.4 kB 95%]                                                                                                  2371 kB/s 0s97% [Waiting for headers]                                                                                                                          2371 kB/s 0s                                                                                                                                                               Get:45 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 nginx-common all 1.24.0-2ubuntu7.15 [44.9 kB]
+97% [45 nginx-common 23.6 kB/44.9 kB 53%]                                                                                                          2371 kB/s 0s97% [Waiting for headers]                                                                                                                          2371 kB/s 0s                                                                                                                                                               Get:46 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 nginx amd64 1.24.0-2ubuntu7.15 [523 kB]
+97% [46 nginx 23.6 kB/523 kB 5%]                                                                                                                   2371 kB/s 0s99% [Waiting for headers]                                                                                                                          2371 kB/s 0s                                                                                                                                                               Get:47 http://archive.ubuntu.com/ubuntu noble/main amd64 patch amd64 2.7.6-7build3 [104 kB]
+99% [47 patch 34.9 kB/104 kB 34%]                                                                                                                  2371 kB/s 0s100% [Waiting for headers]                                                                                                                         2371 kB/s 0s                                                                                                                                                               Get:48 http://archive.ubuntu.com/ubuntu noble/universe amd64 spawn-fcgi amd64 1.6.4-2 [14.9 kB]
+100% [48 spawn-fcgi 14.9 kB/14.9 kB 100%]                                                                                                          2371 kB/s 0s100% [Working]                                                                                                                                     2371 kB/s 0s                                                                                                                                                               Fetched 33.5 MB in 9s (3651 kB/s)
+debconf: delaying package configuration, since apt-utils is not installed
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6489 files and directories currently installed.)
+Preparing to unpack .../perl-base_5.38.2-3.2ubuntu0.3_amd64.deb ...
+Unpacking perl-base (5.38.2-3.2ubuntu0.3) over (5.38.2-3.2ubuntu0.2) ...
+Setting up perl-base (5.38.2-3.2ubuntu0.3) ...
+Selecting previously unselected package lighttpd.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6489 files and directories currently installed.)
+Preparing to unpack .../0-lighttpd_1.4.74-1ubuntu3_amd64.deb ...
+Unpacking lighttpd (1.4.74-1ubuntu3) ...
+Selecting previously unselected package perl-modules-5.38.
+Preparing to unpack .../1-perl-modules-5.38_5.38.2-3.2ubuntu0.3_all.deb ...
+Unpacking perl-modules-5.38 (5.38.2-3.2ubuntu0.3) ...
+Selecting previously unselected package libgdbm6t64:amd64.
+Preparing to unpack .../2-libgdbm6t64_1.23-5.1build1_amd64.deb ...
+Unpacking libgdbm6t64:amd64 (1.23-5.1build1) ...
+Selecting previously unselected package libgdbm-compat4t64:amd64.
+Preparing to unpack .../3-libgdbm-compat4t64_1.23-5.1build1_amd64.deb ...
+Unpacking libgdbm-compat4t64:amd64 (1.23-5.1build1) ...
+Selecting previously unselected package libperl5.38t64:amd64.
+Preparing to unpack .../4-libperl5.38t64_5.38.2-3.2ubuntu0.3_amd64.deb ...
+Unpacking libperl5.38t64:amd64 (5.38.2-3.2ubuntu0.3) ...
+Selecting previously unselected package perl.
+Preparing to unpack .../5-perl_5.38.2-3.2ubuntu0.3_amd64.deb ...
+Unpacking perl (5.38.2-3.2ubuntu0.3) ...
+Preparing to unpack .../6-libcap2_1%3a2.66-5ubuntu2.4_amd64.deb ...
+Unpacking libcap2:amd64 (1:2.66-5ubuntu2.4) over (1:2.66-5ubuntu2.2) ...
+Setting up libcap2:amd64 (1:2.66-5ubuntu2.4) ...
+Selecting previously unselected package adduser.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 8590 files and directories currently installed.)
+Preparing to unpack .../adduser_3.137ubuntu1_all.deb ...
+Unpacking adduser (3.137ubuntu1) ...
+Setting up adduser (3.137ubuntu1) ...
+Selecting previously unselected package libelf1t64:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 8638 files and directories currently installed.)
+Preparing to unpack .../00-libelf1t64_0.190-1.1ubuntu0.1_amd64.deb ...
+Unpacking libelf1t64:amd64 (0.190-1.1ubuntu0.1) ...
+Selecting previously unselected package libbpf1:amd64.
+Preparing to unpack .../01-libbpf1_1%3a1.3.0-2build2_amd64.deb ...
+Unpacking libbpf1:amd64 (1:1.3.0-2build2) ...
+Selecting previously unselected package libmnl0:amd64.
+Preparing to unpack .../02-libmnl0_1.0.5-2build1_amd64.deb ...
+Unpacking libmnl0:amd64 (1.0.5-2build1) ...
+Selecting previously unselected package libxtables12:amd64.
+Preparing to unpack .../03-libxtables12_1.8.10-3ubuntu2_amd64.deb ...
+Unpacking libxtables12:amd64 (1.8.10-3ubuntu2) ...
+Selecting previously unselected package libcap2-bin.
+Preparing to unpack .../04-libcap2-bin_1%3a2.66-5ubuntu2.4_amd64.deb ...
+Unpacking libcap2-bin (1:2.66-5ubuntu2.4) ...
+Selecting previously unselected package iproute2.
+Preparing to unpack .../05-iproute2_6.1.0-1ubuntu6.4_amd64.deb ...
+Unpacking iproute2 (6.1.0-1ubuntu6.4) ...
+Selecting previously unselected package less.
+Preparing to unpack .../06-less_590-2ubuntu2.1_amd64.deb ...
+Unpacking less (590-2ubuntu2.1) ...
+Selecting previously unselected package libatm1t64:amd64.
+Preparing to unpack .../07-libatm1t64_1%3a2.5.1-5.1build1_amd64.deb ...
+Unpacking libatm1t64:amd64 (1:2.5.1-5.1build1) ...
+Selecting previously unselected package libbsd0:amd64.
+Preparing to unpack .../08-libbsd0_0.12.1-1build1.1_amd64.deb ...
+Unpacking libbsd0:amd64 (0.12.1-1build1.1) ...
+Selecting previously unselected package libpam-cap:amd64.
+Preparing to unpack .../09-libpam-cap_1%3a2.66-5ubuntu2.4_amd64.deb ...
+Unpacking libpam-cap:amd64 (1:2.66-5ubuntu2.4) ...
+Selecting previously unselected package libcbor0.10:amd64.
+Preparing to unpack .../10-libcbor0.10_0.10.2-1.2ubuntu2_amd64.deb ...
+Unpacking libcbor0.10:amd64 (0.10.2-1.2ubuntu2) ...
+Selecting previously unselected package libedit2:amd64.
+Preparing to unpack .../11-libedit2_3.1-20230828-1build1_amd64.deb ...
+Unpacking libedit2:amd64 (3.1-20230828-1build1) ...
+Selecting previously unselected package libfido2-1:amd64.
+Preparing to unpack .../12-libfido2-1_1.14.0-1build3_amd64.deb ...
+Unpacking libfido2-1:amd64 (1.14.0-1build3) ...
+Selecting previously unselected package libxau6:amd64.
+Preparing to unpack .../13-libxau6_1%3a1.0.9-1build6_amd64.deb ...
+Unpacking libxau6:amd64 (1:1.0.9-1build6) ...
+Selecting previously unselected package libxdmcp6:amd64.
+Preparing to unpack .../14-libxdmcp6_1%3a1.1.3-0ubuntu6_amd64.deb ...
+Unpacking libxdmcp6:amd64 (1:1.1.3-0ubuntu6) ...
+Selecting previously unselected package libxcb1:amd64.
+Preparing to unpack .../15-libxcb1_1.15-1ubuntu2_amd64.deb ...
+Unpacking libxcb1:amd64 (1.15-1ubuntu2) ...
+Selecting previously unselected package libx11-data.
+Preparing to unpack .../16-libx11-data_2%3a1.8.7-1build1_all.deb ...
+Unpacking libx11-data (2:1.8.7-1build1) ...
+Selecting previously unselected package libx11-6:amd64.
+Preparing to unpack .../17-libx11-6_2%3a1.8.7-1build1_amd64.deb ...
+Unpacking libx11-6:amd64 (2:1.8.7-1build1) ...
+Selecting previously unselected package libxext6:amd64.
+Preparing to unpack .../18-libxext6_2%3a1.3.4-1build2_amd64.deb ...
+Unpacking libxext6:amd64 (2:1.3.4-1build2) ...
+Selecting previously unselected package libxmuu1:amd64.
+Preparing to unpack .../19-libxmuu1_2%3a1.1.3-3build2_amd64.deb ...
+Unpacking libxmuu1:amd64 (2:1.1.3-3build2) ...
+Selecting previously unselected package openssh-client.
+Preparing to unpack .../20-openssh-client_1%3a9.6p1-3ubuntu13.18_amd64.deb ...
+Unpacking openssh-client (1:9.6p1-3ubuntu13.18) ...
+Selecting previously unselected package xauth.
+Preparing to unpack .../21-xauth_1%3a1.1.2-1build1_amd64.deb ...
+Unpacking xauth (1:1.1.2-1build1) ...
+Selecting previously unselected package libnspr4:amd64.
+Preparing to unpack .../22-libnspr4_2%3a4.35-1.1build1_amd64.deb ...
+Unpacking libnspr4:amd64 (2:4.35-1.1build1) ...
+Selecting previously unselected package libnss3:amd64.
+Preparing to unpack .../23-libnss3_2%3a3.98-1ubuntu0.2_amd64.deb ...
+Unpacking libnss3:amd64 (2:3.98-1ubuntu0.2) ...
+Selecting previously unselected package libnss3-tools.
+Preparing to unpack .../24-libnss3-tools_2%3a3.98-1ubuntu0.2_amd64.deb ...
+Unpacking libnss3-tools (2:3.98-1ubuntu0.2) ...
+Selecting previously unselected package caddy.
+Preparing to unpack .../25-caddy_2.6.2-6ubuntu0.24.04.3_amd64.deb ...
+Unpacking caddy (2.6.2-6ubuntu0.24.04.3) ...
+Preparing to unpack .../26-curl_8.5.0-2ubuntu10.11_amd64.deb ...
+Unpacking curl (8.5.0-2ubuntu10.11) over (8.5.0-2ubuntu10.6) ...
+Preparing to unpack .../27-libcurl4t64_8.5.0-2ubuntu10.11_amd64.deb ...
+Unpacking libcurl4t64:amd64 (8.5.0-2ubuntu10.11) over (8.5.0-2ubuntu10.6) ...
+Selecting previously unselected package libcurl3t64-gnutls:amd64.
+Preparing to unpack .../28-libcurl3t64-gnutls_8.5.0-2ubuntu10.11_amd64.deb ...
+Unpacking libcurl3t64-gnutls:amd64 (8.5.0-2ubuntu10.11) ...
+Selecting previously unselected package liberror-perl.
+Preparing to unpack .../29-liberror-perl_0.17029-2_all.deb ...
+Unpacking liberror-perl (0.17029-2) ...
+Selecting previously unselected package git-man.
+Preparing to unpack .../30-git-man_1%3a2.43.0-1ubuntu7.3_all.deb ...
+Unpacking git-man (1:2.43.0-1ubuntu7.3) ...
+Selecting previously unselected package git.
+Preparing to unpack .../31-git_1%3a2.43.0-1ubuntu7.3_amd64.deb ...
+Unpacking git (1:2.43.0-1ubuntu7.3) ...
+Selecting previously unselected package libdeflate0:amd64.
+Preparing to unpack .../32-libdeflate0_1.19-1build1.1_amd64.deb ...
+Unpacking libdeflate0:amd64 (1.19-1build1.1) ...
+Selecting previously unselected package lighttpd-mod-deflate.
+Preparing to unpack .../33-lighttpd-mod-deflate_1.4.74-1ubuntu3_amd64.deb ...
+Unpacking lighttpd-mod-deflate (1.4.74-1ubuntu3) ...
+Selecting previously unselected package lighttpd-mod-openssl.
+Preparing to unpack .../34-lighttpd-mod-openssl_1.4.74-1ubuntu3_amd64.deb ...
+Unpacking lighttpd-mod-openssl (1.4.74-1ubuntu3) ...
+Selecting previously unselected package nginx-common.
+Preparing to unpack .../35-nginx-common_1.24.0-2ubuntu7.15_all.deb ...
+Unpacking nginx-common (1.24.0-2ubuntu7.15) ...
+Selecting previously unselected package nginx.
+Preparing to unpack .../36-nginx_1.24.0-2ubuntu7.15_amd64.deb ...
+Unpacking nginx (1.24.0-2ubuntu7.15) ...
+Selecting previously unselected package patch.
+Preparing to unpack .../37-patch_2.7.6-7build3_amd64.deb ...
+Unpacking patch (2.7.6-7build3) ...
+Selecting previously unselected package spawn-fcgi.
+Preparing to unpack .../38-spawn-fcgi_1.6.4-2_amd64.deb ...
+Unpacking spawn-fcgi (1.6.4-2) ...
+Setting up lighttpd (1.4.74-1ubuntu3) ...
+Enabling unconfigured: ok
+Run "service lighttpd force-reload" to enable changes
+invoke-rc.d: could not determine current runlevel
+invoke-rc.d: policy-rc.d denied execution of start.
+Setting up lighttpd-mod-openssl (1.4.74-1ubuntu3) ...
+Setting up libxau6:amd64 (1:1.0.9-1build6) ...
+Setting up libatm1t64:amd64 (1:2.5.1-5.1build1) ...
+Setting up libgdbm6t64:amd64 (1.23-5.1build1) ...
+Setting up libcurl4t64:amd64 (8.5.0-2ubuntu10.11) ...
+Setting up libgdbm-compat4t64:amd64 (1.23-5.1build1) ...
+Setting up libcbor0.10:amd64 (0.10.2-1.2ubuntu2) ...
+Setting up libdeflate0:amd64 (1.19-1build1.1) ...
+Setting up libcurl3t64-gnutls:amd64 (8.5.0-2ubuntu10.11) ...
+Setting up less (590-2ubuntu2.1) ...
+Setting up nginx-common (1.24.0-2ubuntu7.15) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (No usable dialog-like program is installed, so the dialog based frontend cannot be used. at /usr/share/perl5/Debconf/FrontEnd/Dialog.pm line 79.)
+debconf: falling back to frontend: Readline
+Setting up libelf1t64:amd64 (0.190-1.1ubuntu0.1) ...
+Setting up libcap2-bin (1:2.66-5ubuntu2.4) ...
+Setting up libx11-data (2:1.8.7-1build1) ...
+Setting up libnspr4:amd64 (2:4.35-1.1build1) ...
+Setting up perl-modules-5.38 (5.38.2-3.2ubuntu0.3) ...
+Setting up libmnl0:amd64 (1.0.5-2build1) ...
+Setting up patch (2.7.6-7build3) ...
+Setting up libxtables12:amd64 (1.8.10-3ubuntu2) ...
+Setting up git-man (1:2.43.0-1ubuntu7.3) ...
+Setting up curl (8.5.0-2ubuntu10.11) ...
+Setting up spawn-fcgi (1.6.4-2) ...
+Setting up libperl5.38t64:amd64 (5.38.2-3.2ubuntu0.3) ...
+Setting up libfido2-1:amd64 (1.14.0-1build3) ...
+Setting up libbsd0:amd64 (0.12.1-1build1.1) ...
+Setting up libpam-cap:amd64 (1:2.66-5ubuntu2.4) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (No usable dialog-like program is installed, so the dialog based frontend cannot be used. at /usr/share/perl5/Debconf/FrontEnd/Dialog.pm line 79.)
+debconf: falling back to frontend: Readline
+Setting up libbpf1:amd64 (1:1.3.0-2build2) ...
+Setting up lighttpd-mod-deflate (1.4.74-1ubuntu3) ...
+Setting up libxdmcp6:amd64 (1:1.1.3-0ubuntu6) ...
+Setting up libxcb1:amd64 (1.15-1ubuntu2) ...
+Setting up iproute2 (6.1.0-1ubuntu6.4) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (No usable dialog-like program is installed, so the dialog based frontend cannot be used. at /usr/share/perl5/Debconf/FrontEnd/Dialog.pm line 79.)
+debconf: falling back to frontend: Readline
+Setting up libedit2:amd64 (3.1-20230828-1build1) ...
+Setting up libnss3:amd64 (2:3.98-1ubuntu0.2) ...
+Setting up perl (5.38.2-3.2ubuntu0.3) ...
+Setting up libx11-6:amd64 (2:1.8.7-1build1) ...
+Setting up libxmuu1:amd64 (2:1.1.3-3build2) ...
+Setting up libnss3-tools (2:3.98-1ubuntu0.2) ...
+Setting up nginx (1.24.0-2ubuntu7.15) ...
+invoke-rc.d: could not determine current runlevel
+invoke-rc.d: policy-rc.d denied execution of start.
+Setting up openssh-client (1:9.6p1-3ubuntu13.18) ...
+Setting up libxext6:amd64 (2:1.3.4-1build2) ...
+Setting up liberror-perl (0.17029-2) ...
+Setting up git (1:2.43.0-1ubuntu7.3) ...
+Setting up xauth (1:1.1.2-1build1) ...
+Setting up caddy (2.6.2-6ubuntu0.24.04.3) ...
+/usr/sbin/policy-rc.d returned 101, not running 'start caddy.service'
+Processing triggers for libc-bin (2.39-0ubuntu8.6) ...
+[?2004hroot@f5c7992944bb:/app# mkdir -p /git/server /var/www/html
+[?2004l[?2004hroot@f5c7992944bb:/app# git init --bare /git/server
+[?2004l[33mhint: Using 'master' as the name for the initial branch. This default branch name[m
+[33mhint: is subject to change. To configure the initial branch name to use in all[m
+[33mhint: of your new repositories, which will suppress this warning, call:[m
+[33mhint: [m
+[33mhint: 	git config --global init.defaultBranch <name>[m
+[33mhint: [m
+[33mhint: Names commonly chosen instead of 'master' are 'main', 'trunk' and[m
+[33mhint: 'development'. The just-created branch can be renamed via this command:[m
+[33mhint: [m
+[33mhint: 	git branch -m <name>[m
+Initialized empty Git repository in /git/server/
+[?2004hroot@f5c7992944bb:/app# chmod -R 777 /git /var/www/html
+[?2004l[?2004hroot@f5c7992944bb:/app# git --git-dir=/git/server symbolic-ref HEAD refs/heads/master
+[?2004l[?2004hroot@f5c7992944bb:/app# printf '#!/bin/sh\nGIT_WORK_TREE=/var/www/html git checkout -f master\nchmod -R 755 /var/www/html\n' > /git/server/hooks/post-receive
+[?2004l[?2004hroot@f5c7992944bb:/app# chmod +x /git/server/hooks/post-receive
+[?2004l[?2004hroot@f5c7992944bb:/app# cat << 'EOF' > /etc/nginx/sites-available/default
+[?2004l[?2004h> server {
+[?2004l[?2004h>     listen 8080 default_server;
+[?2004l[?2004h>     listen [::]:8080 default_server;
+[?2004l[?2004h>     root /var/www/html;
+[?2004l[?2004h>     index index.html;
+[?2004l[?2004h>     server_name _;
+[?2004l[?2004h>     location / {
+[?2004l[?2004h>         try_files $uri $uri/ =404;
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@f5c7992944bb:/app# nginx -t
+[?2004lnginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: [emerg] socket() [::]:8080 failed (97: Address family not supported by protocol)
+nginx: configuration file /etc/nginx/nginx.conf test failed
+[?2004hroot@f5c7992944bb:/app# service nginx restart || nginx
+[?2004l * Restarting nginx nginx       [160G [154G[[31mfail[0m]
+nginx: [emerg] socket() [::]:8080 failed (97: Address family not supported by protocol)
+[?2004hroot@f5c7992944bb:/app# cat << 'EOF' > /etc/nginx/sites-available/default
+[?2004l[?2004h> server {
+[?2004l[?2004h>     listen 8080 default_server;
+[?2004l[?2004h>     root /var/www/html;
+[?2004l[?2004h>     index index.html;
+[?2004l[?2004h>     server_name _;
+[?2004l[?2004h>     location / {
+[?2004l[?2004h>         try_files $uri $uri/ =404;
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@f5c7992944bb:/app# nginx -t && nginx
+[?2004lnginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+[?2004hroot@f5c7992944bb:/app# cd /tmp && git clone /git/server test-repo && cd test-repo && echo "hello world" > hello.html && git add hello.html && git commit -m "add hello.html" && git push origin master
+[?2004lCloning into 'test-repo'...
+warning: You appear to have cloned an empty repository.
+done.
+Author identity unknown
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: unable to auto-detect email address (got 'root@f5c7992944bb.(none)')
+[?2004hroot@f5c7992944bb:/tmp/test-repo# git config --global user.email "test@example.com"
+[?2004l[?2004hroot@f5c7992944bb:/tmp/test-repo# git config --global user.name "Test User"
+[?2004l[?2004hroot@f5c7992944bb:/tmp/test-repo# git commit -m "add hello.html"
+[?2004l[master (root-commit) f16ee2b] add hello.html
+ 1 file changed, 1 insertion(+)
+ create mode 100644 hello.html
+[?2004hroot@f5c7992944bb:/tmp/test-repo# git push origin master
+[?2004lEnumerating objects: 3, done.
+Counting objects:  33% (1/3)Counting objects:  66% (2/3)Counting objects: 100% (3/3)Counting objects: 100% (3/3), done.
+Writing objects:  33% (1/3)Writing objects:  66% (2/3)Writing objects: 100% (3/3)Writing objects: 100% (3/3), 224 bytes | 224.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+remote: Already on 'master'[K
+To /git/server
+ * [new branch]      master -> master
+[?2004hroot@f5c7992944bb:/tmp/test-repo# curl http://localhost:8080/hello.html
+[?2004lhello world
+[?2004hroot@f5c7992944bb:/tmp/test-repo# cd /app && rm -rf /tmp/test-repo /var/www/html/* /git/server/*
+[?2004l[?2004hroot@f5c7992944bb:/app# git init --bare /git/server
+[?2004l[33mhint: Using 'master' as the name for the initial branch. This default branch name[m
+[33mhint: is subject to change. To configure the initial branch name to use in all[m
+[33mhint: of your new repositories, which will suppress this warning, call:[m
+[33mhint: [m
+[33mhint: 	git config --global init.defaultBranch <name>[m
+[33mhint: [m
+[33mhint: Names commonly chosen instead of 'master' are 'main', 'trunk' and[m
+[33mhint: 'development'. The just-created branch can be renamed via this command:[m
+[33mhint: [m
+[33mhint: 	git branch -m <name>[m
+Initialized empty Git repository in /git/server/
+[?2004hroot@f5c7992944bb:/app# git --git-dir=/git/server symbolic-ref HEAD refs/heads/master
+[?2004l[?2004hroot@f5c7992944bb:/app# printf '#!/bin/sh\nGIT_WORK_TREE=/var/www/html git checkout -f master\nchmod -R 755 /var/www/html\n' > /git/server/hooks/post-receive
+[?2004l[?2004hroot@f5c7992944bb:/app# chmod +x /git/server/hooks/post-receive
+[?2004l[?2004hroot@f5c7992944bb:/app# chmod -R 777 /git /var/www/html
+[?2004l[?2004hroot@f5c7992944bb:/app# ls -la /git/server/hooks/post-receive && cat /git/server/hooks/post-receive && ps aux | grep nginx
+[?2004l-rwxrwxrwx 1 root root 88 Aug 12 15:27 [0m[01;32m/git/server/hooks/post-receive[0m
+#!/bin/sh
+GIT_WORK_TREE=/var/www/html git checkout -f master
+chmod -R 755 /var/www/html
+root        1554  0.0  0.0  11164  1864 ?        Ss   15:26   0:00 [01;31m[Knginx[m[K: master process [01;31m[Knginx[m[K
+www-data    1555  0.0  0.0  11536  3440 ?        S    15:26   0:00 [01;31m[Knginx[m[K: worker process
+www-data    1556  0.0  0.0  11536  3052 ?        S    15:26   0:00 [01;31m[Knginx[m[K: worker process
+www-data    1557  0.0  0.0  11536  3052 ?        S    15:26   0:00 [01;31m[Knginx[m[K: worker process
+www-data    1558  0.0  0.0  11536  2956 ?        S    15:26   0:00 [01;31m[Knginx[m[K: worker process
+root        1665  0.0  0.0   3920  2168 pts/1    S+   15:27   0:00 grep --color=auto [01;31m[Knginx[m[K
+[?2004hroot@f5c7992944bb:/app# 

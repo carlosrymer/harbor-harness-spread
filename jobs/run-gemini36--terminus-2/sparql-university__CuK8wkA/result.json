@@ -1,0 +1,206 @@
+{
+    "id": "7b6fcd76-c13d-47f8-a98d-f71516b4d0cf",
+    "task_name": "sparql-university",
+    "trial_name": "sparql-university__CuK8wkA",
+    "trial_uri": "file:///home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/sparql-university__CuK8wkA",
+    "task_id": {
+        "path": "/home/user/builds/harbor-harness-spread/terminal-bench/sparql-university"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "5f84ab8191b8b921e3adeae2fa11f7a1f5fc2549627cce7218ae0046f66d450b",
+    "config": {
+        "task": {
+            "path": "/home/user/builds/harbor-harness-spread/terminal-bench/sparql-university",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "sparql-university__CuK8wkA",
+        "trials_dir": "/home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": 0.4,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "terminus-2",
+            "import_path": null,
+            "model_name": "openai/bench-model",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "env": {
+                "SSL_CERT_FILE": "/ccr-ca.crt",
+                "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                "NODE_EXTRA_CA_CERTS": "/ccr-ca.crt",
+                "GIT_SSL_CAINFO": "/ccr-ca.crt",
+                "PIP_CERT": "/ccr-ca.crt",
+                "CARGO_HTTP_CAINFO": "/ccr-ca.crt",
+                "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+                "OPENAI_BASE_URL": "http://172.17.0.1:4010/v1",
+                "OPENAI_API_BASE": "http://172.17.0.1:4010/v1",
+                "OPENAI_HOST": "http://172.17.0.1:4010",
+                "OPENAI_BASE_PATH": "v1/chat/completions"
+            },
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/.ccr/ca-bundle.crt",
+                    "target": "/ccr-ca.crt",
+                    "read_only": true
+                },
+                {
+                    "type": "bind",
+                    "source": "/root/.local/bin/uv",
+                    "target": "/usr/local/bin/uv",
+                    "read_only": true
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {
+                "SSL_CERT_FILE": "/ccr-ca.crt",
+                "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                "PIP_CERT": "/ccr-ca.crt",
+                "UV_NATIVE_TLS": "1"
+            },
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "job_id": "67b0cbc1-9165-4143-9447-4aa6543671fc"
+    },
+    "agent_info": {
+        "name": "terminus-2",
+        "version": "2.0.0",
+        "model_info": {
+            "name": "bench-model",
+            "provider": "openai"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 1678227,
+        "n_cache_tokens": 1307850,
+        "n_output_tokens": 29493,
+        "cost_usd": null,
+        "rollout_details": [],
+        "metadata": {
+            "n_episodes": 54,
+            "api_request_times_msec": [
+                4143.054008483887,
+                2414.9577617645264,
+                2173.2547283172607,
+                1193.1962966918945,
+                2077.5856971740723,
+                1472.3517894744873,
+                1516.6664123535156,
+                3280.4300785064697,
+                1618.9093589782715,
+                2776.225805282593,
+                3503.523588180542,
+                1776.6366004943848,
+                3448.0793476104736,
+                1285.3734493255615,
+                2234.3358993530273,
+                4079.34832572937,
+                5166.95761680603,
+                2207.3867321014404,
+                4161.473035812378,
+                7867.858409881592,
+                3538.830041885376,
+                3783.44988822937,
+                4174.1578578948975,
+                3870.706558227539,
+                4314.884901046753,
+                2488.0664348602295,
+                2126.880407333374,
+                3891.8752670288086,
+                9395.4598903656,
+                3792.377471923828,
+                7585.291385650635,
+                4541.1365032196045,
+                4463.303565979004,
+                1861.0656261444092,
+                2371.5317249298096,
+                2455.7652473449707,
+                2664.2277240753174,
+                2157.3922634124756,
+                2395.8001136779785,
+                2735.348701477051,
+                2615.4158115386963,
+                2269.1280841827393,
+                4438.642263412476,
+                3046.0455417633057,
+                1460.2372646331787,
+                6429.0313720703125,
+                3523.6458778381348,
+                6691.2841796875,
+                3916.045665740967,
+                4589.670419692993,
+                3871.9701766967773,
+                2599.838972091675,
+                1298.5179424285889,
+                1504.1139125823975
+            ],
+            "summarization_count": 0
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-08-12T15:19:36.499861Z",
+    "finished_at": "2026-08-12T15:25:02.278095Z",
+    "environment_setup": {
+        "started_at": "2026-08-12T15:19:39.850264Z",
+        "finished_at": "2026-08-12T15:19:49.674471Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-08-12T15:19:49.674619Z",
+        "finished_at": "2026-08-12T15:20:33.297432Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-08-12T15:20:33.297542Z",
+        "finished_at": "2026-08-12T15:24:36.752952Z"
+    },
+    "verifier": {
+        "started_at": "2026-08-12T15:24:37.237179Z",
+        "finished_at": "2026-08-12T15:24:51.171704Z"
+    },
+    "step_results": null
+}

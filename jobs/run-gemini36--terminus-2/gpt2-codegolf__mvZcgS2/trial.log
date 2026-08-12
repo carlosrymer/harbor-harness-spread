@@ -1,0 +1,6 @@
+Unknown Error in LLM interaction: litellm.APIError: APIError: OpenAIException - gateway budget of $4.0 exhausted (spent $4.03)
+Unknown Error in LLM interaction: litellm.APIError: APIError: OpenAIException - gateway budget of $4.0 exhausted (spent $4.03)
+Unknown Error in LLM interaction: litellm.APIError: APIError: OpenAIException - gateway budget of $4.0 exhausted (spent $4.03)
+Trajectory dumped to /home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/gpt2-codegolf__mvZcgS2/agent/trajectory.json
+Trial gpt2-codegolf__mvZcgS2 failed: litellm.APIError: APIError: OpenAIException - gateway budget of $4.0 exhausted (spent $4.03)
+Collecting main service artifacts

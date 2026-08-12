@@ -1,0 +1,303 @@
+[?2004hroot@7f8b352ade79:/app# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@7f8b352ade79:/app# clear
+[?2004l[H[J[3J[?2004hroot@7f8b352ade79:/app# ls -la /app/logs | head -n 20 && python3 --version
+[?2004ltotal 6132
+drwxr-xr-x 2 root root 12288 Sep 13  2025 .
+drwxr-xr-x 1 root root  4096 Sep 13  2025 ..
+-rw-r--r-- 1 root root 39171 Sep 13  2025 2025-07-03_api.log
+-rw-r--r-- 1 root root 19494 Sep 13  2025 2025-07-03_app.log
+-rw-r--r-- 1 root root 39495 Sep 13  2025 2025-07-03_auth.log
+-rw-r--r-- 1 root root 33616 Sep 13  2025 2025-07-03_db.log
+-rw-r--r-- 1 root root 37149 Sep 13  2025 2025-07-04_api.log
+-rw-r--r-- 1 root root 39495 Sep 13  2025 2025-07-04_app.log
+-rw-r--r-- 1 root root 39171 Sep 13  2025 2025-07-04_auth.log
+-rw-r--r-- 1 root root 19494 Sep 13  2025 2025-07-04_db.log
+-rw-r--r-- 1 root root 42580 Sep 13  2025 2025-07-05_api.log
+-rw-r--r-- 1 root root 39171 Sep 13  2025 2025-07-05_app.log
+-rw-r--r-- 1 root root 37149 Sep 13  2025 2025-07-05_auth.log
+-rw-r--r-- 1 root root 39495 Sep 13  2025 2025-07-05_db.log
+-rw-r--r-- 1 root root 38074 Sep 13  2025 2025-07-06_api.log
+-rw-r--r-- 1 root root 37149 Sep 13  2025 2025-07-06_app.log
+-rw-r--r-- 1 root root 42580 Sep 13  2025 2025-07-06_auth.log
+-rw-r--r-- 1 root root 39171 Sep 13  2025 2025-07-06_db.log
+-rw-r--r-- 1 root root 58725 Sep 13  2025 2025-07-07_api.log
+Python 3.13.7
+[?2004hroot@7f8b352ade79:/app# head -n 20 /app/logs/2025-07-03_api.log /app/logs/2025-08-12_*.log
+[?2004l==> /app/logs/2025-07-03_api.log <==
+2025-07-03 09:24:57 [ERROR] Unhandled exception: FileNotFoundError
+2025-07-03 13:59:02 [INFO] Service auth started
+2025-07-03 05:34:40 [INFO] Service notification started
+2025-07-03 05:08:45 [INFO] Scheduled backup completed successfully
+2025-07-03 21:53:22 [INFO] File uploaded: config.yml
+2025-07-03 02:11:24 [INFO] Scheduled backup completed successfully
+2025-07-03 17:16:41 [INFO] Scheduled backup completed successfully
+2025-07-03 15:23:34 [DEBUG] Variable x has value: 2170
+2025-07-03 16:28:49 [INFO] Service payment started
+2025-07-03 14:32:01 [INFO] Cache cleared successfully
+2025-07-03 23:29:37 [INFO] Database connection established
+2025-07-03 01:13:03 [INFO] User login successful for user: diana
+2025-07-03 01:04:21 [INFO] User login successful for user: alice
+2025-07-03 06:04:13 [ERROR] Service inventory crashed
+2025-07-03 08:55:35 [INFO] User login successful for user: charlie
+2025-07-03 07:52:40 [INFO] Service inventory started
+2025-07-03 22:11:17 [INFO] Scheduled backup completed successfully
+2025-07-03 16:54:43 [INFO] Service payment started
+2025-07-03 03:37:07 [WARNING] API response time exceeded threshold
+2025-07-03 06:18:45 [INFO] Scheduled backup completed successfully
+
+==> /app/logs/2025-08-12_api.log <==
+2025-08-12 14:19:56 [WARNING] Disk space low: 2740 remaining
+2025-08-12 10:47:49 [INFO] Scheduled backup completed successfully
+2025-08-12 08:56:53 [INFO] Database connection established
+2025-08-12 06:31:19 [INFO] Scheduled backup completed successfully
+2025-08-12 04:26:16 [ERROR] Deadlock detected in transaction ID 4839
+2025-08-12 09:53:13 [INFO] Service notification started
+2025-08-12 02:05:52 [WARNING] API response time exceeded threshold
+2025-08-12 10:42:29 [INFO] Database connection established
+2025-08-12 16:00:56 [ERROR] Deadlock detected in transaction ID 1209
+2025-08-12 02:56:16 [ERROR] Unhandled exception: TimeoutError
+2025-08-12 15:34:29 [INFO] User login successful for user: charlie
+2025-08-12 17:24:37 [WARNING] Disk space low: 3064 remaining
+2025-08-12 03:27:10 [DEBUG] Session token generated for user: alice
+2025-08-12 00:07:45 [WARNING] Slow query detected: execution time 2559ms
+2025-08-12 23:07:34 [WARNING] API response time exceeded threshold
+2025-08-12 15:31:09 [INFO] User login successful for user: eve
+2025-08-12 15:49:37 [INFO] File uploaded: backup.zip
+2025-08-12 10:52:54 [INFO] Cache cleared successfully
+2025-08-12 10:17:05 [WARNING] High memory usage detected
+2025-08-12 23:21:53 [ERROR] Database connection lost
+
+==> /app/logs/2025-08-12_app.log <==
+2025-08-12 22:23:45 [ERROR] Database connection lost
+2025-08-12 08:30:53 [WARNING] Second failed login attempt for user: bob. Next attempt will ERROR. Retrying...
+2025-08-12 20:15:37 [INFO] Cache cleared successfully
+2025-08-12 15:54:29 [INFO] File uploaded: backup.zip
+2025-08-12 05:19:25 [WARNING] Slow query detected: execution time 351ms
+2025-08-12 09:02:26 [INFO] Cache cleared successfully
+2025-08-12 21:08:35 [WARNING] Configuration file deprecated: report.pdf
+2025-08-12 00:51:14 [INFO] User login successful for user: charlie
+2025-08-12 01:52:18 [INFO] Scheduled backup completed successfully
+2025-08-12 11:16:37 [INFO] Database connection established
+2025-08-12 10:06:01 [WARNING] Failed login attempt for user: bob. Retrying...
+2025-08-12 01:43:14 [WARNING] Second failed login attempt for user: bob. Next attempt will ERROR. Retrying...
+2025-08-12 02:14:54 [ERROR] Deadlock detected in transaction ID 3999
+2025-08-12 08:14:40 [ERROR] Deadlock detected in transaction ID 1135
+2025-08-12 21:02:53 [INFO] Service notification started
+2025-08-12 21:10:28 [INFO] Scheduled backup completed successfully
+2025-08-12 14:50:06 [INFO] Scheduled backup completed successfully
+2025-08-12 17:43:32 [DEBUG] Session token generated for user: charlie
+2025-08-12 16:21:45 [INFO] Service auth started
+2025-08-12 05:12:32 [INFO] User login successful for user: charlie
+
+==> /app/logs/2025-08-12_auth.log <==
+2025-08-12 12:21:15 [INFO] Database connection established
+2025-08-12 17:03:36 [WARNING] Second failed login attempt for user: alice. Next attempt will ERROR. Retrying...
+2025-08-12 17:26:30 [INFO] Database connection established
+2025-08-12 14:12:49 [WARNING] API response time exceeded threshold
+2025-08-12 18:28:26 [WARNING] Disk space low: 2536 remaining
+2025-08-12 02:20:01 [ERROR] Deadlock detected in transaction ID 4837
+2025-08-12 15:32:31 [INFO] Service notification started
+2025-08-12 15:58:39 [INFO] User login successful for user: alice
+2025-08-12 20:59:08 [WARNING] Configuration file deprecated: report.pdf
+2025-08-12 17:35:58 [ERROR] Database connection lost
+2025-08-12 10:32:39 [INFO] Scheduled backup completed successfully
+2025-08-12 03:18:36 [ERROR] Email sending failed to recipient: support@amazon.com
+2025-08-12 20:42:11 [WARNING] Disk space low: 394 remaining
+2025-08-12 21:47:28 [INFO] Database connection established
+2025-08-12 04:25:18 [WARNING] Slow query detected: execution time 2822ms
+2025-08-12 23:04:28 [INFO] Scheduled backup completed successfully
+2025-08-12 06:40:48 [INFO] Database connection established
+2025-08-12 05:44:10 [ERROR] Email sending failed to recipient: admin@google.com
+2025-08-12 08:29:38 [WARNING] Failed login attempt for user: bob. Retrying...
+2025-08-12 23:43:42 [INFO] Service auth started
+
+==> /app/logs/2025-08-12_db.log <==
+2025-08-12 05:46:38 [INFO] Cache cleared successfully
+2025-08-12 10:45:18 [INFO] Scheduled backup completed successfully
+2025-08-12 09:07:16 [DEBUG] Query executed: SELECT * FROM users
+2025-08-12 06:44:31 [INFO] User login successful for user: eve
+2025-08-12 14:13:16 [INFO] Cache cleared successfully
+2025-08-12 13:31:43 [INFO] Service auth started
+2025-08-12 15:54:51 [WARNING] Slow query detected: execution time 40ms
+2025-08-12 18:15:37 [WARNING] Disk space low: 4183 remaining
+2025-08-12 15:12:45 [INFO] File uploaded: data.csv
+2025-08-12 09:53:19 [INFO] Scheduled backup completed successfully
+2025-08-12 06:33:24 [ERROR] Service auth crashed
+2025-08-12 12:23:01 [INFO] Cache cleared successfully
+2025-08-12 06:06:32 [ERROR] File write failed: report.pdf
+2025-08-12 10:12:53 [INFO] Scheduled backup completed successfully
+2025-08-12 05:29:16 [INFO] Service notification started
+2025-08-12 05:06:29 [WARNING] Failed login attempt for user: eve. Retrying...
+2025-08-12 07:08:15 [INFO] Database connection established
+2025-08-12 08:38:01 [INFO] Cache cleared successfully
+2025-08-12 11:23:20 [INFO] Database connection established
+2025-08-12 09:12:40 [INFO] File uploaded: backup.zip
+[?2004hroot@7f8b352ade79:/app# cat << 'EOF' > test_check.py
+[?2004l[?2004h> import os
+[?2004l[?2004h> 
+[?2004l[?2004h> log_dir = '/app/logs'
+[?2004l[?2004h> files = os.listdir(log_dir)
+[?2004l[?2004h> mismatched_dates = 0
+[?2004l[?2004h> total_lines = 0
+[?2004l[?2004h> for f in files:
+[?2004l[?2004h>     if not f.endswith('.log'): continue
+[?2004l[?2004h>     file_date = f.split('_')[0]
+[?2004l[?2004h>     with open(os.path.join(log_dir, f)) as fp:
+[?2004l[?2004h>         for line in fp:
+[?2004l[?2004h>             total_lines += 1
+[?2004l[?2004h>             line_date = line[:10]
+[?2004l[?2004h>             if line_date != file_date:
+[?2004l[?2004h>                 mismatched_dates += 1
+[?2004l[?2004h> print(f'Total lines: {total_lines}, Mismatched date lines: {mismatched_dates}')
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@7f8b352ade79:/app# python3 test_check.py
+[?2004lTotal lines: 94547, Mismatched date lines: 0
+[?2004hroot@7f8b352ade79:/app# rm test_check.py
+[?2004l[?2004hroot@7f8b352ade79:/app# cat << 'EOF' > test_severity.py
+[?2004l[?2004h> import os, re
+[?2004l[?2004h> from collections import Counter
+[?2004l[?2004h> 
+[?2004l[?2004h> log_dir = '/app/logs'
+[?2004l[?2004h> files = os.listdir(log_dir)
+[?2004l[?2004h> bracket_patterns = Counter()
+[?2004l[?2004h> 
+[?2004l[?2004h> for f in files:
+[?2004l[?2004h>     if not f.endswith('.log'): continue
+[?2004l[?2004h>     with open(os.path.join(log_dir, f)) as fp:
+[?2004l[?2004h>         for line in fp:
+[?2004l[?2004h>             b = re.search(r'\[([^\]]+)\]', line)
+[?2004l[?2004h>             if b:
+[?2004l[?2004h>                 bracket_patterns[b.group(1)] += 1
+[?2004l[?2004h> 
+[?2004l[?2004h> print('Bracket occurrences:', bracket_patterns)
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@7f8b352ade79:/app# python3 test_severity.py
+[?2004lBracket occurrences: Counter({'INFO': 56621, 'WARNING': 18772, 'ERROR': 14160, 'DEBUG': 4994})
+[?2004hroot@7f8b352ade79:/app# rm test_severity.py
+[?2004l[?2004hroot@7f8b352ade79:/app# cat << 'EOF' > test_dates.py
+[?2004l[?2004h> import os
+[?2004l[?2004h> 
+[?2004l[?2004h> log_dir = '/app/logs'
+[?2004l[?2004h> files = os.listdir(log_dir)
+[?2004l[?2004h> dates = set()
+[?2004l[?2004h> for f in files:
+[?2004l[?2004h>     if f.endswith('.log'):
+[?2004l[?2004h>         dates.add(f.split('_')[0])
+[?2004l[?2004h> 
+[?2004l[?2004h> sorted_dates = sorted(list(dates))
+[?2004l[?2004h> print('Min date:', sorted_dates[0])
+[?2004l[?2004h> print('Max date:', sorted_dates[-1])
+[?2004l[?2004h> print('All dates count:', len(sorted_dates))
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@7f8b352ade79:/app# python3 test_dates.py
+[?2004lMin date: 2025-07-03
+Max date: 2025-08-12
+All dates count: 41
+[?2004hroot@7f8b352ade79:/app# rm test_dates.py
+[?2004l[?2004hroot@7f8b352ade79:/app# cat << 'EOF' > generate_summary.py
+[?2004l[?2004h> import os
+[?2004l[?2004h> import re
+[?2004l[?2004h> from datetime import datetime, date, timedelta
+[?2004l[?2004h> import csv
+[?2004l[?2004h> 
+[?2004l[?2004h> REF_DATE = date(2025, 8, 12)
+[?2004l[?2004h> 
+[?2004l[?2004h> def is_today(d):
+[?2004l[?2004h>     return d == REF_DATE
+[?2004l[?2004h> 
+[?2004l[?2004h> def is_last_7_days(d):
+[?2004l[?2004h>     return (REF_DATE - timedelta(days=6)) <= d <= REF_DATE
+[?2004l[?2004h> 
+[?2004l[?2004h> def is_last_30_days(d):
+[?2004l[?2004h>     return (REF_DATE - timedelta(days=29)) <= d <= REF_DATE
+[?2004l[?2004h> 
+[?2004l[?2004h> def is_month_to_date(d):
+[?2004l[?2004h>     return date(REF_DATE.year, REF_DATE.month, 1) <= d <= REF_DATE
+[?2004l[?2004h> 
+[?2004l[?2004h> def is_total(d):
+[?2004l[?2004h>     return True
+[?2004l[?2004h> 
+[?2004l[?2004h> periods = [
+[?2004l[?2004h>     ('today', is_today),
+[?2004l[?2004h>     ('last_7_days', is_last_7_days),
+[?2004l[?2004h>     ('last_30_days', is_last_30_days),
+[?2004l[?2004h>     ('month_to_date', is_month_to_date),
+[?2004l[?2004h>     ('total', is_total),
+[?2004l[?2004h> ]
+[?2004l[?2004h> 
+[?2004l[?2004h> severities = ['ERROR', 'WARNING', 'INFO']
+[?2004l[?2004h> 
+[?2004l[?2004h> counts = {p_name: {s: 0 for s in severities} for p_name, _ in periods}
+[?2004l[?2004h> 
+[?2004l[?2004h> log_dir = '/app/logs'
+[?2004l[?2004h> for fname in os.listdir(log_dir):
+[?2004l[?2004h>     if not fname.endswith('.log'):
+[?2004l[?2004h>         continue
+[?2004l[?2004h>     file_date_str = fname.split('_')[0]
+[?2004l[?2004h>     try:
+[?2004l[?2004h>         fdate = datetime.strptime(file_date_str, '%Y-%m-%d').date()
+[?2004l[?2004h>     except ValueError:
+[?2004l[?2004h>         continue
+[?2004l[?2004h>     
+[?2004l[?2004h>     filepath = os.path.join(log_dir, fname)
+[?2004l[?2004h>     with open(filepath, 'r', encoding='utf-8') as f:
+[?2004l[?2004h>         for line in f:
+[?2004l[?2004h>             m = re.search(r'\[(ERROR|WARNING|INFO)\]', line)
+[?2004l[?2004h>             if m:
+[?2004l[?2004h>                 sev = m.group(1)
+[?2004l[?2004h>                 for p_name, p_filter in periods:
+[?2004l[?2004h>                     if p_filter(fdate):
+[?2004l[?2004h>                         counts[p_name][sev] += 1
+[?2004l[?2004h> 
+[?2004l[?2004h> output_file = '/app/summary.csv'
+[?2004l[?2004h> with open(output_file, 'w', newline='', encoding='utf-8') as csvfile:
+[?2004l[?2004h>     writer = csv.writer(csvfile)
+[?2004l[?2004h>     writer.writerow(['period', 'severity', 'count'])
+[?2004l[?2004h>     for p_name, _ in periods:
+[?2004l[?2004h>         for sev in severities:
+[?2004l[?2004h>             writer.writerow([p_name, sev, counts[p_name][sev]])
+[?2004l[?2004h> 
+[?2004l[?2004h> print('Summary generated successfully:')
+[?2004l[?2004h> with open(output_file, 'r') as csvfile:
+[?2004l[?2004h>     print(csvfile.read())
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@7f8b352ade79:/app# python3 generate_summary.py
+[?2004lSummary generated successfully:
+period,severity,count
+today,ERROR,370
+today,WARNING,463
+today,INFO,1433
+last_7_days,ERROR,2969
+last_7_days,WARNING,4020
+last_7_days,INFO,12203
+last_30_days,ERROR,9594
+last_30_days,WARNING,12847
+last_30_days,INFO,38702
+month_to_date,ERROR,4682
+month_to_date,WARNING,6327
+month_to_date,INFO,19420
+total,ERROR,14160
+total,WARNING,18772
+total,INFO,56621
+
+[?2004hroot@7f8b352ade79:/app# rm generate_summary.py
+[?2004l[?2004hroot@7f8b352ade79:/app# cat /app/summary.csv
+[?2004lperiod,severity,count
+today,ERROR,370
+today,WARNING,463
+today,INFO,1433
+last_7_days,ERROR,2969
+last_7_days,WARNING,4020
+last_7_days,INFO,12203
+last_30_days,ERROR,9594
+last_30_days,WARNING,12847
+last_30_days,INFO,38702
+month_to_date,ERROR,4682
+month_to_date,WARNING,6327
+month_to_date,INFO,19420
+total,ERROR,14160
+total,WARNING,18772
+total,INFO,56621
+[?2004hroot@7f8b352ade79:/app# 

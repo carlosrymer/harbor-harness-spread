@@ -1,0 +1,882 @@
+[?2004hroot@c06727b15e26:/app# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@c06727b15e26:/app# clear
+[?2004l[H[J[3J[?2004hroot@c06727b15e26:/app# ls -la /app /app/vendor gcc --version gcov --version
+[?2004lls (GNU coreutils) 9.4
+Copyright (C) 2023 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Written by Richard M. Stallman and David MacKenzie.
+[?2004hroot@c06727b15e26:/app# ls -la /app; ls -la /app/vendor
+[?2004ltotal 12
+drwxr-xr-x 1 root root 4096 Oct 31  2025 [0m[01;34m.[0m
+drwxr-xr-x 1 root root 4096 Aug 12 15:28 [01;34m..[0m
+drwxr-xr-x 2 root root 4096 Oct 24  2025 [01;34mvendor[0m
+total 12360
+drwxr-xr-x 2 root root     4096 Oct 24  2025 [0m[01;34m.[0m
+drwxr-xr-x 1 root root     4096 Oct 31  2025 [01;34m..[0m
+-rw-r--r-- 1 root root 12640606 Oct 24  2025 [01;31msqlite-fossil-release.tar.gz[0m
+-rw-r--r-- 1 root root      102 Oct 24  2025 sqlite-fossil-release.tar.gz.sha256
+[?2004hroot@c06727b15e26:/app# tar -tf /app/vendor/sqlite-fossil-release.tar.gz | head -n 20; echo "PATH=$PATH"
+[?2004lsqlite
+sqlite/manifest
+sqlite/manifest.uuid
+sqlite/.fossil-settings
+sqlite/.fossil-settings/binary-glob
+sqlite/.fossil-settings/empty-dirs
+sqlite/.fossil-settings/ignore-glob
+sqlite/LICENSE.md
+sqlite/Makefile.in
+sqlite/Makefile.linux-generic
+sqlite/Makefile.msc
+sqlite/README.md
+sqlite/VERSION
+sqlite/art
+sqlite/art/icon-243x273.gif
+sqlite/art/icon-80x90.gif
+sqlite/art/sqlite370.eps
+sqlite/art/sqlite370.ico
+sqlite/art/sqlite370.jpg
+sqlite/art/sqlite370.svg
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+[?2004hroot@c06727b15e26:/app# tar -xzf /app/vendor/sqlite-fossil-release.tar.gz -C /app && cd /app/sqlite && ls -la
+[?2004ltotal 524
+drwxr-xr-x 13 nobody root   4096 Jul 30  2025 [0m[01;34m.[0m
+drwxr-xr-x  1 root   root   4096 Aug 12 15:28 [01;34m..[0m
+drwxr-xr-x  2 nobody root   4096 Jul 30  2025 [01;34m.fossil-settings[0m
+-rw-r--r--  1 nobody root   3864 Jul 30  2025 LICENSE.md
+-rw-r--r--  1 nobody root  10767 Jul 30  2025 Makefile.in
+-rw-r--r--  1 nobody root   2016 Jul 30  2025 Makefile.linux-generic
+-rw-r--r--  1 nobody root  89525 Jul 30  2025 Makefile.msc
+-rw-r--r--  1 nobody root  21506 Jul 30  2025 README.md
+-rw-r--r--  1 nobody root      7 Jul 30  2025 VERSION
+drwxr-xr-x  2 nobody root   4096 Jul 30  2025 [01;34mart[0m
+-rw-r--r--  1 nobody root   2399 Jul 30  2025 auto.def
+drwxr-xr-x  3 nobody root   4096 Jul 30  2025 [01;34mautoconf[0m
+drwxr-xr-x  3 nobody root   4096 Jul 30  2025 [01;34mautosetup[0m
+-rwxr-xr-x  1 nobody root    146 Jul 30  2025 [01;32mconfigure[0m
+drwxr-xr-x  2 nobody root   4096 Jul 30  2025 [01;34mcontrib[0m
+drwxr-xr-x  2 nobody root   4096 Jul 30  2025 [01;34mdoc[0m
+drwxr-xr-x 16 nobody root   4096 Jul 30  2025 [01;34mext[0m
+-rw-r--r--  1 nobody root   1562 Jul 30  2025 magic.txt
+-rw-r--r--  1 nobody root  82843 Jul 30  2025 main.mk
+-rw-r--r--  1 nobody root 184489 Jul 30  2025 manifest
+-rw-r--r--  1 nobody root     65 Jul 30  2025 manifest.uuid
+drwxr-xr-x  2 nobody root   4096 Jul 30  2025 [01;34mmptest[0m
+-rw-r--r--  1 nobody root    258 Jul 30  2025 sqlite.pc.in
+-rw-r--r--  1 nobody root   4340 Jul 30  2025 sqlite3.1
+-rw-r--r--  1 nobody root    339 Jul 30  2025 sqlite3.pc.in
+drwxr-xr-x  2 nobody root   4096 Jul 30  2025 [01;34msrc[0m
+drwxr-xr-x  3 nobody root  40960 Jul 30  2025 [01;34mtest[0m
+drwxr-xr-x  3 nobody root   4096 Jul 30  2025 [01;34mtool[0m
+[?2004hroot@c06727b15e26:/app/sqlite# ./configure --help
+[?2004lNo installed jimsh or tclsh, building local bootstrap jimsh0
+No working C compiler found. Tried cc and gcc.
+[?2004hroot@c06727b15e26:/app/sqlite# which gcc cc clang make; gcc --version
+[?2004lbash: gcc: command not found
+[?2004hroot@c06727b15e26:/app/sqlite# find /usr /bin /sbin /opt -name gcc -o -name gcov -o -name make 2>/dev/null; apt-get update && apt-get install -y gcc gcovr make tcl sqlite3
+[?2004l/usr/share/gcc
+0% [Working]            Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
+0% [Waiting for headers]                        Hit:2 http://security.ubuntu.com/ubuntu noble-security InRelease
+0% [Waiting for headers]0% [Waiting for headers]                        Hit:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease
+0% [Waiting for headers]0% [Waiting for headers]                        Hit:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
+                        0% [Working]0% [Working]20% [Working]             Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 5%Reading package lists... 5%Reading package lists... 58%Reading package lists... 62%Reading package lists... 62%Reading package lists... 62%Reading package lists... 62%Reading package lists... 63%Reading package lists... 63%Reading package lists... 68%Reading package lists... 68%Reading package lists... 76%Reading package lists... 76%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 87%Reading package lists... 87%Reading package lists... 93%Reading package lists... 93%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... Done
+Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 5%Reading package lists... 5%Reading package lists... 61%Reading package lists... 62%Reading package lists... 62%Reading package lists... 62%Reading package lists... 62%Reading package lists... 63%Reading package lists... 63%Reading package lists... 68%Reading package lists... 68%Reading package lists... 76%Reading package lists... 76%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 83%Reading package lists... 87%Reading package lists... 87%Reading package lists... 93%Reading package lists... 93%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree... Done
+Reading state information... 0% Reading state information... 4%Reading state information... Done
+The following additional packages will be installed:
+  binutils binutils-common binutils-x86-64-linux-gnu cpp cpp-13 cpp-13-x86-64-linux-gnu cpp-x86-64-linux-gnu fontconfig-config fonts-dejavu-core
+  fonts-dejavu-mono gcc-13 gcc-13-base gcc-13-x86-64-linux-gnu gcc-14-base gcc-x86-64-linux-gnu libaom3 libasan8 libatomic1 libbinutils libbrotli1 libbsd0
+  libc-bin libc-dev-bin libc-devtools libc6 libc6-dev libcc1-0 libcrypt-dev libctf-nobfd0 libctf0 libdeflate0 libfontconfig1 libfreetype6 libgcc-13-dev
+  libgcc-s1 libgd3 libgomp1 libgprofng0 libheif-plugin-aomdec libheif-plugin-aomenc libheif1 libhwasan0 libicu74 libisl23 libitm1 libjansson4 libjbig0
+  libjpeg-turbo8 libjpeg8 liblerc4 liblsan0 libmpc3 libmpfr6 libpng16-16t64 libquadmath0 libsframe1 libsharpyuv0 libstdc++6 libtcl8.6 libtiff6 libtsan2
+  libubsan1 libwebp7 libx11-6 libx11-data libxau6 libxcb1 libxdmcp6 libxml2 libxpm4 libxslt1.1 linux-libc-dev manpages manpages-dev python-babel-localedata
+  python3-babel python3-bs4 python3-chardet python3-cssselect python3-html5lib python3-jinja2 python3-lxml python3-markupsafe python3-pygments python3-six
+  python3-soupsieve python3-tz python3-webencodings rpcsvc-proto tcl8.6
+Suggested packages:
+  binutils-doc gprofng-gui cpp-doc gcc-13-locales cpp-13-doc gcc-multilib autoconf automake libtool flex bison gdb gcc-doc gcc-13-multilib gcc-13-doc
+  gdb-x86-64-linux-gnu glibc-doc locales libnss-nis libnss-nisplus libgd-tools libheif-plugin-libde265 libheif-plugin-x265 libheif-plugin-ffmpegdec
+  libheif-plugin-jpegdec libheif-plugin-jpegenc libheif-plugin-j2kdec libheif-plugin-j2kenc libheif-plugin-rav1e libheif-plugin-svtenc make-doc man-browser
+  python3-genshi python-jinja2-doc python-lxml-doc python-pygments-doc ttf-bitstream-vera sqlite3-doc tcl-tclreadline
+The following NEW packages will be installed:
+  binutils binutils-common binutils-x86-64-linux-gnu cpp cpp-13 cpp-13-x86-64-linux-gnu cpp-x86-64-linux-gnu fontconfig-config fonts-dejavu-core
+  fonts-dejavu-mono gcc gcc-13 gcc-13-base gcc-13-x86-64-linux-gnu gcc-x86-64-linux-gnu gcovr libaom3 libasan8 libatomic1 libbinutils libbrotli1 libbsd0
+  libc-dev-bin libc-devtools libc6-dev libcc1-0 libcrypt-dev libctf-nobfd0 libctf0 libdeflate0 libfontconfig1 libfreetype6 libgcc-13-dev libgd3 libgomp1
+  libgprofng0 libheif-plugin-aomdec libheif-plugin-aomenc libheif1 libhwasan0 libicu74 libisl23 libitm1 libjansson4 libjbig0 libjpeg-turbo8 libjpeg8 liblerc4
+  liblsan0 libmpc3 libmpfr6 libpng16-16t64 libquadmath0 libsframe1 libsharpyuv0 libtcl8.6 libtiff6 libtsan2 libubsan1 libwebp7 libx11-6 libx11-data libxau6
+  libxcb1 libxdmcp6 libxml2 libxpm4 libxslt1.1 linux-libc-dev make manpages manpages-dev python-babel-localedata python3-babel python3-bs4 python3-chardet
+  python3-cssselect python3-html5lib python3-jinja2 python3-lxml python3-markupsafe python3-pygments python3-six python3-soupsieve python3-tz
+  python3-webencodings rpcsvc-proto sqlite3 tcl tcl8.6
+The following packages will be upgraded:
+  gcc-14-base libc-bin libc6 libgcc-s1 libstdc++6
+5 upgraded, 90 newly installed, 0 to remove and 30 not upgraded.
+Need to get 91.9 MB of archives.
+After this operation, 304 MB of additional disk space will be used.
+0% [Working]            Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 gcc-14-base amd64 14.2.0-4ubuntu2~24.04.1 [51.0 kB]
+0% [1 gcc-14-base 13.2 kB/51.0 kB 26%]                                      0% [Waiting for headers]                        Get:2 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libgcc-s1 amd64 14.2.0-4ubuntu2~24.04.1 [78.4 kB]
+0% [2 libgcc-s1 0 B/78.4 kB 0%]                               1% [Waiting for headers]                        Get:3 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libstdc++6 amd64 14.2.0-4ubuntu2~24.04.1 [792 kB]
+1% [3 libstdc++6 2524 B/792 kB 0%]                                  1% [Working]            Get:4 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libc6 amd64 2.39-0ubuntu8.8 [3262 kB]
+2% [4 libc6 126 kB/3262 kB 4%]                              4% [Working]            Get:5 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libc-bin amd64 2.39-0ubuntu8.8 [682 kB]
+4% [5 libc-bin 0 B/682 kB 0%]                             5% [Working]            Get:6 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libbsd0 amd64 0.12.1-1build1.1 [41.2 kB]
+5% [6 libbsd0 16.6 kB/41.2 kB 40%]                                  6% [Waiting for headers]                        Get:7 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libicu74 amd64 74.2-1ubuntu3.1 [10.9 MB]
+6% [7 libicu74 40.5 kB/10.9 MB 0%]                                  15% [Working]             Get:8 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libxml2 amd64 2.9.14+dfsg-1.3ubuntu3.8 [764 kB]
+15% [8 libxml2 222 kB/764 kB 29%]                                 16% [Working]             Get:9 http://archive.ubuntu.com/ubuntu noble/main amd64 python3-pygments all 2.17.2+dfsg-1 [819 kB]
+16% [9 python3-pygments 0 B/819 kB 0%]                                      17% [Working]             Get:10 http://archive.ubuntu.com/ubuntu noble/main amd64 libjansson4 amd64 2.14-2build2 [32.8 kB]
+17% [10 libjansson4 0 B/32.8 kB 0%]                                   17% [Working]             Get:11 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libpng16-16t64 amd64 1.6.43-5ubuntu0.6 [189 kB]
+17% [11 libpng16-16t64 189 kB/189 kB 100%]                                          18% [Working]             Get:12 http://archive.ubuntu.com/ubuntu noble/main amd64 libxau6 amd64 1:1.0.9-1build6 [7160 B]
+18% [12 libxau6 0 B/7160 B 0%]                              18% [Working]             Get:13 http://archive.ubuntu.com/ubuntu noble/main amd64 libxdmcp6 amd64 1:1.1.3-0ubuntu6 [10.3 kB]
+18% [13 libxdmcp6 0 B/10.3 kB 0%]                                 18% [Waiting for headers]                         Get:14 http://archive.ubuntu.com/ubuntu noble/main amd64 libxcb1 amd64 1.15-1ubuntu2 [47.7 kB]
+18% [Waiting for headers]                         Get:15 http://archive.ubuntu.com/ubuntu noble/main amd64 libx11-data all 2:1.8.7-1build1 [115 kB]
+18% [15 libx11-data 0 B/115 kB 0%]                                  19% [Working]             Get:16 http://archive.ubuntu.com/ubuntu noble/main amd64 libx11-6 amd64 2:1.8.7-1build1 [650 kB]
+19% [16 libx11-6 0 B/650 kB 0%]                               19% [Working]             Get:17 http://archive.ubuntu.com/ubuntu noble/main amd64 manpages all 6.7-2 [1384 kB]
+19% [17 manpages 0 B/1384 kB 0%]                                21% [Working]             Get:18 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 binutils-common amd64 2.42-4ubuntu2.10 [240 kB]
+21% [Waiting for headers]                         Get:19 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libsframe1 amd64 2.42-4ubuntu2.10 [15.7 kB]
+21% [19 libsframe1 0 B/15.7 kB 0%]                                  21% [Working]             Get:20 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libbinutils amd64 2.42-4ubuntu2.10 [577 kB]
+21% [20 libbinutils 0 B/577 kB 0%]                                  22% [Working]             Get:21 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libctf-nobfd0 amd64 2.42-4ubuntu2.10 [98.0 kB]
+22% [21 libctf-nobfd0 0 B/98.0 kB 0%]                                     22% [Working]             Get:22 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libctf0 amd64 2.42-4ubuntu2.10 [94.5 kB]
+22% [22 libctf0 0 B/94.5 kB 0%]                               23% [Waiting for headers]                         Get:23 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libgprofng0 amd64 2.42-4ubuntu2.10 [849 kB]
+23% [23 libgprofng0 115 kB/849 kB 14%]                                      24% [Working]             Get:24 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 binutils-x86-64-linux-gnu amd64 2.42-4ubuntu2.10 [2463 kB]
+24% [24 binutils-x86-64-linux-gnu 0 B/2463 kB 0%]                                                 26% [Working]             Get:25 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 binutils amd64 2.42-4ubuntu2.10 [18.2 kB]
+26% [25 binutils 0 B/18.2 kB 0%]                                26% [Waiting for headers]                         Get:26 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 gcc-13-base amd64 13.3.0-6ubuntu2~24.04.1 [51.6 kB]
+26% [26 gcc-13-base 0 B/51.6 kB 0%]                                   27% [Waiting for headers]                         Get:27 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libisl23 amd64 0.26-3build1.1 [680 kB]
+27% [27 libisl23 0 B/680 kB 0%]                               27% [Working]             Get:28 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libmpfr6 amd64 4.2.1-1build1.1 [353 kB]
+28% [28 libmpfr6 254 kB/353 kB 72%]                                   28% [Working]             Get:29 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libmpc3 amd64 1.3.1-1build1.1 [54.6 kB]
+28% [29 libmpc3 0 B/54.6 kB 0%]                               28% [Working]             Get:30 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 cpp-13-x86-64-linux-gnu amd64 13.3.0-6ubuntu2~24.04.1 [10.7 MB]
+28% [30 cpp-13-x86-64-linux-gnu 0 B/10.7 MB 0%]                                               38% [Working]             Get:31 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 cpp-13 amd64 13.3.0-6ubuntu2~24.04.1 [1042 B]
+38% [31 cpp-13 1042 B/1042 B 100%]                                  38% [Working]             Get:32 http://archive.ubuntu.com/ubuntu noble/main amd64 cpp-x86-64-linux-gnu amd64 4:13.2.0-7ubuntu1 [5326 B]
+38% [Waiting for headers]                         Get:33 http://archive.ubuntu.com/ubuntu noble/main amd64 cpp amd64 4:13.2.0-7ubuntu1 [22.4 kB]
+38% [33 cpp 22.4 kB/22.4 kB 100%]                                 38% [Waiting for headers]                         Get:34 http://archive.ubuntu.com/ubuntu noble/main amd64 fonts-dejavu-mono all 2.37-8 [502 kB]
+38% [34 fonts-dejavu-mono 0 B/502 kB 0%]                                        39% [Working]             Get:35 http://archive.ubuntu.com/ubuntu noble/main amd64 fonts-dejavu-core all 2.37-8 [835 kB]
+39% [35 fonts-dejavu-core 246 kB/835 kB 29%]                                            40% [Working]             Get:36 http://archive.ubuntu.com/ubuntu noble/main amd64 fontconfig-config amd64 2.15.0-1.1ubuntu2 [37.3 kB]
+40% [36 fontconfig-config 0 B/37.3 kB 0%]                                                                                                          6125 kB/s 8s40% [Working]                                                                                                                                      6125 kB/s 8s                                                                                                                                                               Get:37 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libcc1-0 amd64 14.2.0-4ubuntu2~24.04.1 [48.0 kB]
+40% [37 libcc1-0 0 B/48.0 kB 0%]                                                                                                                   6125 kB/s 8s40% [Working]                                                                                                                                      6125 kB/s 8s                                                                                                                                                               Get:38 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libgomp1 amd64 14.2.0-4ubuntu2~24.04.1 [148 kB]
+40% [38 libgomp1 0 B/148 kB 0%]                                                                                                                    6125 kB/s 8s41% [Working]                                                                                                                                      6125 kB/s 8s                                                                                                                                                               Get:39 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libitm1 amd64 14.2.0-4ubuntu2~24.04.1 [29.7 kB]
+41% [39 libitm1 0 B/29.7 kB 0%]                                                                                                                    6125 kB/s 8s41% [Working]                                                                                                                                      6125 kB/s 8s                                                                                                                                                               Get:40 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libatomic1 amd64 14.2.0-4ubuntu2~24.04.1 [10.5 kB]
+41% [40 libatomic1 0 B/10.5 kB 0%]                                                                                                                 6125 kB/s 8s41% [Working]                                                                                                                                      6125 kB/s 8s                                                                                                                                                               Get:41 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libasan8 amd64 14.2.0-4ubuntu2~24.04.1 [3027 kB]
+41% [41 libasan8 13.8 kB/3027 kB 0%]                                                                                                               6125 kB/s 8s41% [41 libasan8 171 kB/3027 kB 6%]                                                                                                                6125 kB/s 8s43% [41 libasan8 2478 kB/3027 kB 82%]                                                                                                              6125 kB/s 8s44% [Working]                                                                                                                                      6125 kB/s 8s                                                                                                                                                               Get:42 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 liblsan0 amd64 14.2.0-4ubuntu2~24.04.1 [1322 kB]
+44% [42 liblsan0 0 B/1322 kB 0%]                                                                                                                   6125 kB/s 8s45% [Working]                                                                                                                                      6125 kB/s 8s                                                                                                                                                               Get:43 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libtsan2 amd64 14.2.0-4ubuntu2~24.04.1 [2772 kB]
+45% [43 libtsan2 32.8 kB/2772 kB 1%]                                                                                                               6125 kB/s 8s48% [Waiting for headers]                                                                                                                          6125 kB/s 7s                                                                                                                                                               Get:44 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libubsan1 amd64 14.2.0-4ubuntu2~24.04.1 [1184 kB]
+48% [44 libubsan1 64.5 kB/1184 kB 5%]                                                                                                              6125 kB/s 7s49% [Working]                                                                                                                                      6125 kB/s 7s                                                                                                                                                               Get:45 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libhwasan0 amd64 14.2.0-4ubuntu2~24.04.1 [1641 kB]
+49% [45 libhwasan0 0 B/1641 kB 0%]                                                                                                                 6125 kB/s 7s51% [Working]                                                                                                                                      6125 kB/s 7s                                                                                                                                                               Get:46 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libquadmath0 amd64 14.2.0-4ubuntu2~24.04.1 [153 kB]
+51% [46 libquadmath0 49.0 kB/153 kB 32%]                                                                                                           6125 kB/s 7s51% [Working]                                                                                                                                      6125 kB/s 7s                                                                                                                                                               Get:47 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libgcc-13-dev amd64 13.3.0-6ubuntu2~24.04.1 [2681 kB]
+51% [47 libgcc-13-dev 0 B/2681 kB 0%]                                                                                                              6125 kB/s 7s54% [Waiting for headers]                                                                                                                          6125 kB/s 6s                                                                                                                                                               Get:48 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 gcc-13-x86-64-linux-gnu amd64 13.3.0-6ubuntu2~24.04.1 [21.1 MB]
+54% [48 gcc-13-x86-64-linux-gnu 32.8 kB/21.1 MB 0%]                                                                                                6125 kB/s 6s68% [48 gcc-13-x86-64-linux-gnu 16.2 MB/21.1 MB 77%]                                                                                               6125 kB/s 4s72% [Waiting for headers]                                                                                                                          6125 kB/s 3s                                                                                                                                                               Get:49 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 gcc-13 amd64 13.3.0-6ubuntu2~24.04.1 [494 kB]
+72% [49 gcc-13 23.6 kB/494 kB 5%]                                                                                                                  6125 kB/s 3s73% [Waiting for headers]                                                                                                                          6125 kB/s 3s                                                                                                                                                               Get:50 http://archive.ubuntu.com/ubuntu noble/main amd64 gcc-x86-64-linux-gnu amd64 4:13.2.0-7ubuntu1 [1212 B]
+73% [50 gcc-x86-64-linux-gnu 1212 B/1212 B 100%]                                                                                                   6125 kB/s 3s73% [Waiting for headers]                                                                                                                          6125 kB/s 3s                                                                                                                                                               Get:51 http://archive.ubuntu.com/ubuntu noble/main amd64 gcc amd64 4:13.2.0-7ubuntu1 [5018 B]
+73% [51 gcc 5018 B/5018 B 100%]                                                                                                                    6125 kB/s 3s73% [Working]                                                                                                                                      6125 kB/s 3s                                                                                                                                                               Get:52 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libaom3 amd64 3.8.2-2ubuntu0.1 [1941 kB]
+73% [52 libaom3 11.0 kB/1941 kB 1%]                                                                                                                6125 kB/s 3s75% [Waiting for headers]                                                                                                                          6125 kB/s 2s                                                                                                                                                               Get:53 http://archive.ubuntu.com/ubuntu noble/main amd64 libbrotli1 amd64 1.1.0-2build2 [331 kB]
+76% [53 libbrotli1 259 kB/331 kB 78%]                                                                                                              6125 kB/s 2s76% [Waiting for headers]                                                                                                                          6125 kB/s 2s                                                                                                                                                               Get:54 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libc-dev-bin amd64 2.39-0ubuntu8.8 [20.4 kB]
+76% [Waiting for headers]                                                                                                                          6125 kB/s 2s                                                                                                                                                               Get:55 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libfreetype6 amd64 2.13.2+dfsg-1ubuntu0.1 [402 kB]
+76% [55 libfreetype6 16.4 kB/402 kB 4%]                                                                                                            6125 kB/s 2s77% [Working]                                                                                                                                      6125 kB/s 2s                                                                                                                                                               Get:56 http://archive.ubuntu.com/ubuntu noble/main amd64 libfontconfig1 amd64 2.15.0-1.1ubuntu2 [139 kB]
+77% [Waiting for headers]                                                                                                                          6125 kB/s 2s                                                                                                                                                               Get:57 http://archive.ubuntu.com/ubuntu noble/main amd64 libsharpyuv0 amd64 1.3.2-0.4build3 [15.8 kB]
+77% [57 libsharpyuv0 15.8 kB/15.8 kB 100%]                                                                                                         6125 kB/s 2s77% [Waiting for headers]                                                                                                                          6125 kB/s 2s                                                                                                                                                               Get:58 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libheif-plugin-aomdec amd64 1.17.6-1ubuntu4.6 [11.3 kB]
+77% [Waiting for headers]                                                                                                                          6125 kB/s 2s                                                                                                                                                               Get:59 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libheif1 amd64 1.17.6-1ubuntu4.6 [276 kB]
+77% [59 libheif1 0 B/276 kB 0%]                                                                                                                    6125 kB/s 2s78% [Waiting for headers]                                                                                                                          6125 kB/s 2s                                                                                                                                                               Get:60 http://archive.ubuntu.com/ubuntu noble/main amd64 libjpeg-turbo8 amd64 2.1.5-2ubuntu2 [150 kB]
+78% [60 libjpeg-turbo8 18.5 kB/150 kB 12%]                                                                                                         6125 kB/s 2s78% [Waiting for headers]                                                                                                                          6125 kB/s 2s                                                                                                                                                               Get:61 http://archive.ubuntu.com/ubuntu noble/main amd64 libjpeg8 amd64 8c-2ubuntu11 [2148 B]
+78% [61 libjpeg8 2148 B/2148 B 100%]                                                                                                               6125 kB/s 2s78% [Working]                                                                                                                                      6125 kB/s 2s                                                                                                                                                               Get:62 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libdeflate0 amd64 1.19-1build1.1 [43.9 kB]
+78% [62 libdeflate0 40.5 kB/43.9 kB 92%]                                                                                                           6125 kB/s 2s79% [Working]                                                                                                                                      6125 kB/s 2s                                                                                                                                                               Get:63 http://archive.ubuntu.com/ubuntu noble/main amd64 libjbig0 amd64 2.1-6.1ubuntu2 [29.7 kB]
+79% [63 libjbig0 0 B/29.7 kB 0%]                                                                                                                   6125 kB/s 2s79% [Working]                                                                                                                                      6125 kB/s 2s                                                                                                                                                               Get:64 http://archive.ubuntu.com/ubuntu noble/main amd64 liblerc4 amd64 4.0.0+ds-4ubuntu2 [179 kB]
+79% [64 liblerc4 0 B/179 kB 0%]                                                                                                                    6125 kB/s 2s79% [Working]                                                                                                                                      6125 kB/s 2s                                                                                                                                                               Get:65 http://archive.ubuntu.com/ubuntu noble/main amd64 libwebp7 amd64 1.3.2-0.4build3 [230 kB]
+79% [65 libwebp7 0 B/230 kB 0%]                                                                                                                    6308 kB/s 2s80% [Waiting for headers]                                                                                                                          6308 kB/s 2s                                                                                                                                                               Get:66 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libtiff6 amd64 4.5.1+git230720-4ubuntu2.5 [200 kB]
+80% [66 libtiff6 0 B/200 kB 0%]                                                                                                                    6308 kB/s 2s80% [Waiting for headers]                                                                                                                          6308 kB/s 2s                                                                                                                                                               Get:67 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libxpm4 amd64 1:3.5.17-1ubuntu0.24.04.1 [36.7 kB]
+80% [Waiting for headers]                                                                                                                          6308 kB/s 2s                                                                                                                                                               Get:68 http://archive.ubuntu.com/ubuntu noble/main amd64 libgd3 amd64 2.3.3-9ubuntu5 [128 kB]
+80% [68 libgd3 56.0 kB/128 kB 44%]                                                                                                                 6308 kB/s 2s81% [Waiting for headers]                                                                                                                          6308 kB/s 2s                                                                                                                                                               Get:69 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libc-devtools amd64 2.39-0ubuntu8.8 [29.3 kB]
+81% [Waiting for headers]                                                                                                                          6308 kB/s 2s                                                                                                                                                               Get:70 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 linux-libc-dev amd64 6.8.0-137.137 [1522 kB]
+81% [70 linux-libc-dev 0 B/1522 kB 0%]                                                                                                             6308 kB/s 2s82% [Working]                                                                                                                                      6308 kB/s 2s                                                                                                                                                               Get:71 http://archive.ubuntu.com/ubuntu noble/main amd64 libcrypt-dev amd64 1:4.4.36-4build1 [112 kB]
+82% [71 libcrypt-dev 20.6 kB/112 kB 18%]                                                                                                           6308 kB/s 2s83% [Working]                                                                                                                                      6308 kB/s 2s                                                                                                                                                               Get:72 http://archive.ubuntu.com/ubuntu noble/main amd64 rpcsvc-proto amd64 1.4.2-0ubuntu7 [67.4 kB]
+83% [72 rpcsvc-proto 39.6 kB/67.4 kB 59%]                                                                                                          6308 kB/s 2s83% [Working]                                                                                                                                      6308 kB/s 2s                                                                                                                                                               Get:73 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libc6-dev amd64 2.39-0ubuntu8.8 [2125 kB]
+83% [73 libc6-dev 37.4 kB/2125 kB 2%]                                                                                                              6308 kB/s 2s85% [Waiting for headers]                                                                                                                          6308 kB/s 1s                                                                                                                                                               Get:74 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libheif-plugin-aomenc amd64 1.17.6-1ubuntu4.6 [14.7 kB]
+85% [74 libheif-plugin-aomenc 8192 B/14.7 kB 56%]                                                                                                  6308 kB/s 1s85% [Waiting for headers]                                                                                                                          6308 kB/s 1s                                                                                                                                                               Get:75 http://archive.ubuntu.com/ubuntu noble/main amd64 libtcl8.6 amd64 8.6.14+dfsg-1build1 [988 kB]
+85% [75 libtcl8.6 32.8 kB/988 kB 3%]                                                                                                               6308 kB/s 1s86% [Waiting for headers]                                                                                                                          6308 kB/s 1s                                                                                                                                                               Get:76 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libxslt1.1 amd64 1.1.39-0exp1ubuntu0.24.04.3 [168 kB]
+86% [76 libxslt1.1 54.6 kB/168 kB 33%]                                                                                                             6308 kB/s 1s87% [Waiting for headers]                                                                                                                          6308 kB/s 1s                                                                                                                                                               Get:77 http://archive.ubuntu.com/ubuntu noble/main amd64 make amd64 4.3-4.1build2 [180 kB]
+87% [77 make 65.2 kB/180 kB 36%]                                                                                                                   6308 kB/s 1s87% [Working]                                                                                                                                      6308 kB/s 1s                                                                                                                                                               Get:78 http://archive.ubuntu.com/ubuntu noble/main amd64 manpages-dev all 6.7-2 [2013 kB]
+87% [78 manpages-dev 0 B/2013 kB 0%]                                                                                                               6308 kB/s 1s89% [Waiting for headers]                                                                                                                          6308 kB/s 1s                                                                                                                                                               Get:79 http://archive.ubuntu.com/ubuntu noble/main amd64 python-babel-localedata all 2.10.3-3build1 [6357 kB]
+89% [79 python-babel-localedata 44.8 kB/6357 kB 1%]                                                                                                6308 kB/s 1s95% [Waiting for headers]                                                                                                                          6308 kB/s 0s                                                                                                                                                               Get:80 http://archive.ubuntu.com/ubuntu noble/main amd64 python3-tz all 2024.1-2 [31.4 kB]
+95% [Waiting for headers]                                                                                                                          6308 kB/s 0s                                                                                                                                                               Get:81 http://archive.ubuntu.com/ubuntu noble/main amd64 python3-babel all 2.10.3-3build1 [87.5 kB]
+95% [81 python3-babel 21.3 kB/87.5 kB 24%]                                                                                                         6308 kB/s 0s95% [Working]                                                                                                                                      6308 kB/s 0s                                                                                                                                                               Get:82 http://archive.ubuntu.com/ubuntu noble/main amd64 python3-soupsieve all 2.5-1 [33.0 kB]
+95% [82 python3-soupsieve 32.1 kB/33.0 kB 97%]                                                                                                     6308 kB/s 0s96% [Waiting for headers]                                                                                                                          6308 kB/s 0s                                                                                                                                                               Get:83 http://archive.ubuntu.com/ubuntu noble/main amd64 python3-bs4 all 4.12.3-1 [109 kB]
+96% [83 python3-bs4 108 kB/109 kB 99%]                                                                                                             6308 kB/s 0s96% [Working]                                                                                                                                      6308 kB/s 0s                                                                                                                                                               Get:84 http://archive.ubuntu.com/ubuntu noble/main amd64 python3-chardet all 5.2.0+dfsg-1 [117 kB]
+96% [84 python3-chardet 52.7 kB/117 kB 45%]                                                                                                        6308 kB/s 0s96% [Waiting for headers]                                                                                                                          6308 kB/s 0s                                                                                                                                                               Get:85 http://archive.ubuntu.com/ubuntu noble/main amd64 python3-six all 1.16.0-4 [12.4 kB]
+96% [85 python3-six 12.4 kB/12.4 kB 100%]                                                                                                          6308 kB/s 0s96% [Waiting for headers]                                                                                                                          6308 kB/s 0s                                                                                                                                                               Get:86 http://archive.ubuntu.com/ubuntu noble/main amd64 python3-webencodings all 0.5.1-5 [11.5 kB]
+97% [Waiting for headers]                                                                                                                          6308 kB/s 0s                                                                                                                                                               Get:87 http://archive.ubuntu.com/ubuntu noble/main amd64 python3-html5lib all 1.1-6 [88.8 kB]
+97% [87 python3-html5lib 32.8 kB/88.8 kB 37%]                                                                                                      6308 kB/s 0s97% [Waiting for headers]                                                                                                                          6308 kB/s 0s                                                                                                                                                               Get:88 http://archive.ubuntu.com/ubuntu noble/main amd64 python3-markupsafe amd64 2.1.5-1build2 [12.7 kB]
+97% [88 python3-markupsafe 8192 B/12.7 kB 65%]                                                                                                     6308 kB/s 0s97% [Waiting for headers]                                                                                                                          6308 kB/s 0s                                                                                                                                                               Get:89 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3-jinja2 all 3.1.2-1ubuntu1.3 [108 kB]
+97% [89 python3-jinja2 8192 B/108 kB 8%]                                                                                                           6308 kB/s 0s97% [Waiting for headers]                                                                                                                          6308 kB/s 0s                                                                                                                                                               Get:90 http://archive.ubuntu.com/ubuntu noble/main amd64 python3-lxml amd64 5.2.1-1 [1243 kB]
+97% [90 python3-lxml 49.2 kB/1243 kB 4%]                                                                                                           6308 kB/s 0s99% [Waiting for headers]                                                                                                                          6308 kB/s 0s                                                                                                                                                               Get:91 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 sqlite3 amd64 3.45.1-1ubuntu2.7 [144 kB]
+99% [91 sqlite3 29.6 kB/144 kB 21%]                                                                                                                6308 kB/s 0s99% [Working]                                                                                                                                      6308 kB/s 0s                                                                                                                                                               Get:92 http://archive.ubuntu.com/ubuntu noble/main amd64 tcl8.6 amd64 8.6.14+dfsg-1build1 [14.7 kB]
+99% [92 tcl8.6 14.7 kB/14.7 kB 100%]                                                                                                               6308 kB/s 0s99% [Waiting for headers]                                                                                                                          6308 kB/s 0s                                                                                                                                                               Get:93 http://archive.ubuntu.com/ubuntu noble/main amd64 tcl amd64 8.6.14build1 [4124 B]
+99% [Waiting for headers]                                                                                                                          6308 kB/s 0s                                                                                                                                                               Get:94 http://archive.ubuntu.com/ubuntu noble/universe amd64 gcovr all 7.0-1 [127 kB]
+99% [94 gcovr 44.8 kB/127 kB 35%]                                                                                                                  6308 kB/s 0s100% [Waiting for headers]                                                                                                                         6308 kB/s 0s                                                                                                                                                               Get:95 http://archive.ubuntu.com/ubuntu noble/main amd64 python3-cssselect all 1.2.0-2 [18.5 kB]
+100% [Working]                                                                                                                                     6308 kB/s 0s                                                                                                                                                               Fetched 91.9 MB in 16s (5656 kB/s)
+debconf: delaying package configuration, since apt-utils is not installed
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6312 files and directories currently installed.)
+Preparing to unpack .../gcc-14-base_14.2.0-4ubuntu2~24.04.1_amd64.deb ...
+Unpacking gcc-14-base:amd64 (14.2.0-4ubuntu2~24.04.1) over (14.2.0-4ubuntu2~24.04) ...
+Setting up gcc-14-base:amd64 (14.2.0-4ubuntu2~24.04.1) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6312 files and directories currently installed.)
+Preparing to unpack .../libgcc-s1_14.2.0-4ubuntu2~24.04.1_amd64.deb ...
+Unpacking libgcc-s1:amd64 (14.2.0-4ubuntu2~24.04.1) over (14.2.0-4ubuntu2~24.04) ...
+Setting up libgcc-s1:amd64 (14.2.0-4ubuntu2~24.04.1) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6312 files and directories currently installed.)
+Preparing to unpack .../libstdc++6_14.2.0-4ubuntu2~24.04.1_amd64.deb ...
+Unpacking libstdc++6:amd64 (14.2.0-4ubuntu2~24.04.1) over (14.2.0-4ubuntu2~24.04) ...
+Setting up libstdc++6:amd64 (14.2.0-4ubuntu2~24.04.1) ...
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6312 files and directories currently installed.)
+Preparing to unpack .../libc6_2.39-0ubuntu8.8_amd64.deb ...
+debconf: unable to initialize frontend: Dialog
+debconf: (No usable dialog-like program is installed, so the dialog based frontend cannot be used. at /usr/share/perl5/Debconf/FrontEnd/Dialog.pm line 79.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.38.2 /usr/local/share/perl/5.38.2 /usr/lib/x86_64-linux-gnu/perl5/5.38 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.38 /usr/share/perl/5.38 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 8.)
+debconf: falling back to frontend: Teletype
+Unpacking libc6:amd64 (2.39-0ubuntu8.8) over (2.39-0ubuntu8.6) ...
+Setting up libc6:amd64 (2.39-0ubuntu8.8) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (No usable dialog-like program is installed, so the dialog based frontend cannot be used. at /usr/share/perl5/Debconf/FrontEnd/Dialog.pm line 79.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.38.2 /usr/local/share/perl/5.38.2 /usr/lib/x86_64-linux-gnu/perl5/5.38 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.38 /usr/share/perl/5.38 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 8.)
+debconf: falling back to frontend: Teletype
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6312 files and directories currently installed.)
+Preparing to unpack .../libc-bin_2.39-0ubuntu8.8_amd64.deb ...
+Unpacking libc-bin (2.39-0ubuntu8.8) over (2.39-0ubuntu8.6) ...
+Setting up libc-bin (2.39-0ubuntu8.8) ...
+Selecting previously unselected package libbsd0:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6312 files and directories currently installed.)
+Preparing to unpack .../00-libbsd0_0.12.1-1build1.1_amd64.deb ...
+Unpacking libbsd0:amd64 (0.12.1-1build1.1) ...
+Selecting previously unselected package libicu74:amd64.
+Preparing to unpack .../01-libicu74_74.2-1ubuntu3.1_amd64.deb ...
+Unpacking libicu74:amd64 (74.2-1ubuntu3.1) ...
+Selecting previously unselected package libxml2:amd64.
+Preparing to unpack .../02-libxml2_2.9.14+dfsg-1.3ubuntu3.8_amd64.deb ...
+Unpacking libxml2:amd64 (2.9.14+dfsg-1.3ubuntu3.8) ...
+Selecting previously unselected package python3-pygments.
+Preparing to unpack .../03-python3-pygments_2.17.2+dfsg-1_all.deb ...
+Unpacking python3-pygments (2.17.2+dfsg-1) ...
+Selecting previously unselected package libjansson4:amd64.
+Preparing to unpack .../04-libjansson4_2.14-2build2_amd64.deb ...
+Unpacking libjansson4:amd64 (2.14-2build2) ...
+Selecting previously unselected package libpng16-16t64:amd64.
+Preparing to unpack .../05-libpng16-16t64_1.6.43-5ubuntu0.6_amd64.deb ...
+Unpacking libpng16-16t64:amd64 (1.6.43-5ubuntu0.6) ...
+Selecting previously unselected package libxau6:amd64.
+Preparing to unpack .../06-libxau6_1%3a1.0.9-1build6_amd64.deb ...
+Unpacking libxau6:amd64 (1:1.0.9-1build6) ...
+Selecting previously unselected package libxdmcp6:amd64.
+Preparing to unpack .../07-libxdmcp6_1%3a1.1.3-0ubuntu6_amd64.deb ...
+Unpacking libxdmcp6:amd64 (1:1.1.3-0ubuntu6) ...
+Selecting previously unselected package libxcb1:amd64.
+Preparing to unpack .../08-libxcb1_1.15-1ubuntu2_amd64.deb ...
+Unpacking libxcb1:amd64 (1.15-1ubuntu2) ...
+Selecting previously unselected package libx11-data.
+Preparing to unpack .../09-libx11-data_2%3a1.8.7-1build1_all.deb ...
+Unpacking libx11-data (2:1.8.7-1build1) ...
+Selecting previously unselected package libx11-6:amd64.
+Preparing to unpack .../10-libx11-6_2%3a1.8.7-1build1_amd64.deb ...
+Unpacking libx11-6:amd64 (2:1.8.7-1build1) ...
+Selecting previously unselected package manpages.
+Preparing to unpack .../11-manpages_6.7-2_all.deb ...
+Unpacking manpages (6.7-2) ...
+Selecting previously unselected package binutils-common:amd64.
+Preparing to unpack .../12-binutils-common_2.42-4ubuntu2.10_amd64.deb ...
+Unpacking binutils-common:amd64 (2.42-4ubuntu2.10) ...
+Selecting previously unselected package libsframe1:amd64.
+Preparing to unpack .../13-libsframe1_2.42-4ubuntu2.10_amd64.deb ...
+Unpacking libsframe1:amd64 (2.42-4ubuntu2.10) ...
+Selecting previously unselected package libbinutils:amd64.
+Preparing to unpack .../14-libbinutils_2.42-4ubuntu2.10_amd64.deb ...
+Unpacking libbinutils:amd64 (2.42-4ubuntu2.10) ...
+Selecting previously unselected package libctf-nobfd0:amd64.
+Preparing to unpack .../15-libctf-nobfd0_2.42-4ubuntu2.10_amd64.deb ...
+Unpacking libctf-nobfd0:amd64 (2.42-4ubuntu2.10) ...
+Selecting previously unselected package libctf0:amd64.
+Preparing to unpack .../16-libctf0_2.42-4ubuntu2.10_amd64.deb ...
+Unpacking libctf0:amd64 (2.42-4ubuntu2.10) ...
+Selecting previously unselected package libgprofng0:amd64.
+Preparing to unpack .../17-libgprofng0_2.42-4ubuntu2.10_amd64.deb ...
+Unpacking libgprofng0:amd64 (2.42-4ubuntu2.10) ...
+Selecting previously unselected package binutils-x86-64-linux-gnu.
+Preparing to unpack .../18-binutils-x86-64-linux-gnu_2.42-4ubuntu2.10_amd64.deb ...
+Unpacking binutils-x86-64-linux-gnu (2.42-4ubuntu2.10) ...
+Selecting previously unselected package binutils.
+Preparing to unpack .../19-binutils_2.42-4ubuntu2.10_amd64.deb ...
+Unpacking binutils (2.42-4ubuntu2.10) ...
+Selecting previously unselected package gcc-13-base:amd64.
+Preparing to unpack .../20-gcc-13-base_13.3.0-6ubuntu2~24.04.1_amd64.deb ...
+Unpacking gcc-13-base:amd64 (13.3.0-6ubuntu2~24.04.1) ...
+Selecting previously unselected package libisl23:amd64.
+Preparing to unpack .../21-libisl23_0.26-3build1.1_amd64.deb ...
+Unpacking libisl23:amd64 (0.26-3build1.1) ...
+Selecting previously unselected package libmpfr6:amd64.
+Preparing to unpack .../22-libmpfr6_4.2.1-1build1.1_amd64.deb ...
+Unpacking libmpfr6:amd64 (4.2.1-1build1.1) ...
+Selecting previously unselected package libmpc3:amd64.
+Preparing to unpack .../23-libmpc3_1.3.1-1build1.1_amd64.deb ...
+Unpacking libmpc3:amd64 (1.3.1-1build1.1) ...
+Selecting previously unselected package cpp-13-x86-64-linux-gnu.
+Preparing to unpack .../24-cpp-13-x86-64-linux-gnu_13.3.0-6ubuntu2~24.04.1_amd64.deb ...
+Unpacking cpp-13-x86-64-linux-gnu (13.3.0-6ubuntu2~24.04.1) ...
+Selecting previously unselected package cpp-13.
+Preparing to unpack .../25-cpp-13_13.3.0-6ubuntu2~24.04.1_amd64.deb ...
+Unpacking cpp-13 (13.3.0-6ubuntu2~24.04.1) ...
+Selecting previously unselected package cpp-x86-64-linux-gnu.
+Preparing to unpack .../26-cpp-x86-64-linux-gnu_4%3a13.2.0-7ubuntu1_amd64.deb ...
+Unpacking cpp-x86-64-linux-gnu (4:13.2.0-7ubuntu1) ...
+Selecting previously unselected package cpp.
+Preparing to unpack .../27-cpp_4%3a13.2.0-7ubuntu1_amd64.deb ...
+Unpacking cpp (4:13.2.0-7ubuntu1) ...
+Selecting previously unselected package fonts-dejavu-mono.
+Preparing to unpack .../28-fonts-dejavu-mono_2.37-8_all.deb ...
+Unpacking fonts-dejavu-mono (2.37-8) ...
+Selecting previously unselected package fonts-dejavu-core.
+Preparing to unpack .../29-fonts-dejavu-core_2.37-8_all.deb ...
+Unpacking fonts-dejavu-core (2.37-8) ...
+Selecting previously unselected package fontconfig-config.
+Preparing to unpack .../30-fontconfig-config_2.15.0-1.1ubuntu2_amd64.deb ...
+Unpacking fontconfig-config (2.15.0-1.1ubuntu2) ...
+Selecting previously unselected package libcc1-0:amd64.
+Preparing to unpack .../31-libcc1-0_14.2.0-4ubuntu2~24.04.1_amd64.deb ...
+Unpacking libcc1-0:amd64 (14.2.0-4ubuntu2~24.04.1) ...
+Selecting previously unselected package libgomp1:amd64.
+Preparing to unpack .../32-libgomp1_14.2.0-4ubuntu2~24.04.1_amd64.deb ...
+Unpacking libgomp1:amd64 (14.2.0-4ubuntu2~24.04.1) ...
+Selecting previously unselected package libitm1:amd64.
+Preparing to unpack .../33-libitm1_14.2.0-4ubuntu2~24.04.1_amd64.deb ...
+Unpacking libitm1:amd64 (14.2.0-4ubuntu2~24.04.1) ...
+Selecting previously unselected package libatomic1:amd64.
+Preparing to unpack .../34-libatomic1_14.2.0-4ubuntu2~24.04.1_amd64.deb ...
+Unpacking libatomic1:amd64 (14.2.0-4ubuntu2~24.04.1) ...
+Selecting previously unselected package libasan8:amd64.
+Preparing to unpack .../35-libasan8_14.2.0-4ubuntu2~24.04.1_amd64.deb ...
+Unpacking libasan8:amd64 (14.2.0-4ubuntu2~24.04.1) ...
+Selecting previously unselected package liblsan0:amd64.
+Preparing to unpack .../36-liblsan0_14.2.0-4ubuntu2~24.04.1_amd64.deb ...
+Unpacking liblsan0:amd64 (14.2.0-4ubuntu2~24.04.1) ...
+Selecting previously unselected package libtsan2:amd64.
+Preparing to unpack .../37-libtsan2_14.2.0-4ubuntu2~24.04.1_amd64.deb ...
+Unpacking libtsan2:amd64 (14.2.0-4ubuntu2~24.04.1) ...
+Selecting previously unselected package libubsan1:amd64.
+Preparing to unpack .../38-libubsan1_14.2.0-4ubuntu2~24.04.1_amd64.deb ...
+Unpacking libubsan1:amd64 (14.2.0-4ubuntu2~24.04.1) ...
+Selecting previously unselected package libhwasan0:amd64.
+Preparing to unpack .../39-libhwasan0_14.2.0-4ubuntu2~24.04.1_amd64.deb ...
+Unpacking libhwasan0:amd64 (14.2.0-4ubuntu2~24.04.1) ...
+Selecting previously unselected package libquadmath0:amd64.
+Preparing to unpack .../40-libquadmath0_14.2.0-4ubuntu2~24.04.1_amd64.deb ...
+Unpacking libquadmath0:amd64 (14.2.0-4ubuntu2~24.04.1) ...
+Selecting previously unselected package libgcc-13-dev:amd64.
+Preparing to unpack .../41-libgcc-13-dev_13.3.0-6ubuntu2~24.04.1_amd64.deb ...
+Unpacking libgcc-13-dev:amd64 (13.3.0-6ubuntu2~24.04.1) ...
+Selecting previously unselected package gcc-13-x86-64-linux-gnu.
+Preparing to unpack .../42-gcc-13-x86-64-linux-gnu_13.3.0-6ubuntu2~24.04.1_amd64.deb ...
+Unpacking gcc-13-x86-64-linux-gnu (13.3.0-6ubuntu2~24.04.1) ...
+Selecting previously unselected package gcc-13.
+Preparing to unpack .../43-gcc-13_13.3.0-6ubuntu2~24.04.1_amd64.deb ...
+Unpacking gcc-13 (13.3.0-6ubuntu2~24.04.1) ...
+Selecting previously unselected package gcc-x86-64-linux-gnu.
+Preparing to unpack .../44-gcc-x86-64-linux-gnu_4%3a13.2.0-7ubuntu1_amd64.deb ...
+Unpacking gcc-x86-64-linux-gnu (4:13.2.0-7ubuntu1) ...
+Selecting previously unselected package gcc.
+Preparing to unpack .../45-gcc_4%3a13.2.0-7ubuntu1_amd64.deb ...
+Unpacking gcc (4:13.2.0-7ubuntu1) ...
+Selecting previously unselected package libaom3:amd64.
+Preparing to unpack .../46-libaom3_3.8.2-2ubuntu0.1_amd64.deb ...
+Unpacking libaom3:amd64 (3.8.2-2ubuntu0.1) ...
+Selecting previously unselected package libbrotli1:amd64.
+Preparing to unpack .../47-libbrotli1_1.1.0-2build2_amd64.deb ...
+Unpacking libbrotli1:amd64 (1.1.0-2build2) ...
+Selecting previously unselected package libc-dev-bin.
+Preparing to unpack .../48-libc-dev-bin_2.39-0ubuntu8.8_amd64.deb ...
+Unpacking libc-dev-bin (2.39-0ubuntu8.8) ...
+Selecting previously unselected package libfreetype6:amd64.
+Preparing to unpack .../49-libfreetype6_2.13.2+dfsg-1ubuntu0.1_amd64.deb ...
+Unpacking libfreetype6:amd64 (2.13.2+dfsg-1ubuntu0.1) ...
+Selecting previously unselected package libfontconfig1:amd64.
+Preparing to unpack .../50-libfontconfig1_2.15.0-1.1ubuntu2_amd64.deb ...
+Unpacking libfontconfig1:amd64 (2.15.0-1.1ubuntu2) ...
+Selecting previously unselected package libsharpyuv0:amd64.
+Preparing to unpack .../51-libsharpyuv0_1.3.2-0.4build3_amd64.deb ...
+Unpacking libsharpyuv0:amd64 (1.3.2-0.4build3) ...
+Selecting previously unselected package libheif-plugin-aomdec:amd64.
+Preparing to unpack .../52-libheif-plugin-aomdec_1.17.6-1ubuntu4.6_amd64.deb ...
+Unpacking libheif-plugin-aomdec:amd64 (1.17.6-1ubuntu4.6) ...
+Selecting previously unselected package libheif1:amd64.
+Preparing to unpack .../53-libheif1_1.17.6-1ubuntu4.6_amd64.deb ...
+Unpacking libheif1:amd64 (1.17.6-1ubuntu4.6) ...
+Selecting previously unselected package libjpeg-turbo8:amd64.
+Preparing to unpack .../54-libjpeg-turbo8_2.1.5-2ubuntu2_amd64.deb ...
+Unpacking libjpeg-turbo8:amd64 (2.1.5-2ubuntu2) ...
+Selecting previously unselected package libjpeg8:amd64.
+Preparing to unpack .../55-libjpeg8_8c-2ubuntu11_amd64.deb ...
+Unpacking libjpeg8:amd64 (8c-2ubuntu11) ...
+Selecting previously unselected package libdeflate0:amd64.
+Preparing to unpack .../56-libdeflate0_1.19-1build1.1_amd64.deb ...
+Unpacking libdeflate0:amd64 (1.19-1build1.1) ...
+Selecting previously unselected package libjbig0:amd64.
+Preparing to unpack .../57-libjbig0_2.1-6.1ubuntu2_amd64.deb ...
+Unpacking libjbig0:amd64 (2.1-6.1ubuntu2) ...
+Selecting previously unselected package liblerc4:amd64.
+Preparing to unpack .../58-liblerc4_4.0.0+ds-4ubuntu2_amd64.deb ...
+Unpacking liblerc4:amd64 (4.0.0+ds-4ubuntu2) ...
+Selecting previously unselected package libwebp7:amd64.
+Preparing to unpack .../59-libwebp7_1.3.2-0.4build3_amd64.deb ...
+Unpacking libwebp7:amd64 (1.3.2-0.4build3) ...
+Selecting previously unselected package libtiff6:amd64.
+Preparing to unpack .../60-libtiff6_4.5.1+git230720-4ubuntu2.5_amd64.deb ...
+Unpacking libtiff6:amd64 (4.5.1+git230720-4ubuntu2.5) ...
+Selecting previously unselected package libxpm4:amd64.
+Preparing to unpack .../61-libxpm4_1%3a3.5.17-1ubuntu0.24.04.1_amd64.deb ...
+Unpacking libxpm4:amd64 (1:3.5.17-1ubuntu0.24.04.1) ...
+Selecting previously unselected package libgd3:amd64.
+Preparing to unpack .../62-libgd3_2.3.3-9ubuntu5_amd64.deb ...
+Unpacking libgd3:amd64 (2.3.3-9ubuntu5) ...
+Selecting previously unselected package libc-devtools.
+Preparing to unpack .../63-libc-devtools_2.39-0ubuntu8.8_amd64.deb ...
+Unpacking libc-devtools (2.39-0ubuntu8.8) ...
+Selecting previously unselected package linux-libc-dev:amd64.
+Preparing to unpack .../64-linux-libc-dev_6.8.0-137.137_amd64.deb ...
+Unpacking linux-libc-dev:amd64 (6.8.0-137.137) ...
+Selecting previously unselected package libcrypt-dev:amd64.
+Preparing to unpack .../65-libcrypt-dev_1%3a4.4.36-4build1_amd64.deb ...
+Unpacking libcrypt-dev:amd64 (1:4.4.36-4build1) ...
+Selecting previously unselected package rpcsvc-proto.
+Preparing to unpack .../66-rpcsvc-proto_1.4.2-0ubuntu7_amd64.deb ...
+Unpacking rpcsvc-proto (1.4.2-0ubuntu7) ...
+Selecting previously unselected package libc6-dev:amd64.
+Preparing to unpack .../67-libc6-dev_2.39-0ubuntu8.8_amd64.deb ...
+Unpacking libc6-dev:amd64 (2.39-0ubuntu8.8) ...
+Selecting previously unselected package libheif-plugin-aomenc:amd64.
+Preparing to unpack .../68-libheif-plugin-aomenc_1.17.6-1ubuntu4.6_amd64.deb ...
+Unpacking libheif-plugin-aomenc:amd64 (1.17.6-1ubuntu4.6) ...
+Selecting previously unselected package libtcl8.6:amd64.
+Preparing to unpack .../69-libtcl8.6_8.6.14+dfsg-1build1_amd64.deb ...
+Unpacking libtcl8.6:amd64 (8.6.14+dfsg-1build1) ...
+Selecting previously unselected package libxslt1.1:amd64.
+Preparing to unpack .../70-libxslt1.1_1.1.39-0exp1ubuntu0.24.04.3_amd64.deb ...
+Unpacking libxslt1.1:amd64 (1.1.39-0exp1ubuntu0.24.04.3) ...
+Selecting previously unselected package make.
+Preparing to unpack .../71-make_4.3-4.1build2_amd64.deb ...
+Unpacking make (4.3-4.1build2) ...
+Selecting previously unselected package manpages-dev.
+Preparing to unpack .../72-manpages-dev_6.7-2_all.deb ...
+Unpacking manpages-dev (6.7-2) ...
+Selecting previously unselected package python-babel-localedata.
+Preparing to unpack .../73-python-babel-localedata_2.10.3-3build1_all.deb ...
+Unpacking python-babel-localedata (2.10.3-3build1) ...
+Selecting previously unselected package python3-tz.
+Preparing to unpack .../74-python3-tz_2024.1-2_all.deb ...
+Unpacking python3-tz (2024.1-2) ...
+Selecting previously unselected package python3-babel.
+Preparing to unpack .../75-python3-babel_2.10.3-3build1_all.deb ...
+Unpacking python3-babel (2.10.3-3build1) ...
+Selecting previously unselected package python3-soupsieve.
+Preparing to unpack .../76-python3-soupsieve_2.5-1_all.deb ...
+Unpacking python3-soupsieve (2.5-1) ...
+Selecting previously unselected package python3-bs4.
+Preparing to unpack .../77-python3-bs4_4.12.3-1_all.deb ...
+Unpacking python3-bs4 (4.12.3-1) ...
+Selecting previously unselected package python3-chardet.
+Preparing to unpack .../78-python3-chardet_5.2.0+dfsg-1_all.deb ...
+Unpacking python3-chardet (5.2.0+dfsg-1) ...
+Selecting previously unselected package python3-six.
+Preparing to unpack .../79-python3-six_1.16.0-4_all.deb ...
+Unpacking python3-six (1.16.0-4) ...
+Selecting previously unselected package python3-webencodings.
+Preparing to unpack .../80-python3-webencodings_0.5.1-5_all.deb ...
+Unpacking python3-webencodings (0.5.1-5) ...
+Selecting previously unselected package python3-html5lib.
+Preparing to unpack .../81-python3-html5lib_1.1-6_all.deb ...
+Unpacking python3-html5lib (1.1-6) ...
+Selecting previously unselected package python3-markupsafe.
+Preparing to unpack .../82-python3-markupsafe_2.1.5-1build2_amd64.deb ...
+Unpacking python3-markupsafe (2.1.5-1build2) ...
+Selecting previously unselected package python3-jinja2.
+Preparing to unpack .../83-python3-jinja2_3.1.2-1ubuntu1.3_all.deb ...
+Unpacking python3-jinja2 (3.1.2-1ubuntu1.3) ...
+Selecting previously unselected package python3-lxml:amd64.
+Preparing to unpack .../84-python3-lxml_5.2.1-1_amd64.deb ...
+Unpacking python3-lxml:amd64 (5.2.1-1) ...
+Selecting previously unselected package sqlite3.
+Preparing to unpack .../85-sqlite3_3.45.1-1ubuntu2.7_amd64.deb ...
+Unpacking sqlite3 (3.45.1-1ubuntu2.7) ...
+Selecting previously unselected package tcl8.6.
+Preparing to unpack .../86-tcl8.6_8.6.14+dfsg-1build1_amd64.deb ...
+Unpacking tcl8.6 (8.6.14+dfsg-1build1) ...
+Selecting previously unselected package tcl.
+Preparing to unpack .../87-tcl_8.6.14build1_amd64.deb ...
+Unpacking tcl (8.6.14build1) ...
+Selecting previously unselected package gcovr.
+Preparing to unpack .../88-gcovr_7.0-1_all.deb ...
+Unpacking gcovr (7.0-1) ...
+Selecting previously unselected package python3-cssselect.
+Preparing to unpack .../89-python3-cssselect_1.2.0-2_all.deb ...
+Unpacking python3-cssselect (1.2.0-2) ...
+Setting up libsharpyuv0:amd64 (1.3.2-0.4build3) ...
+Setting up libaom3:amd64 (3.8.2-2ubuntu0.1) ...
+Setting up libxau6:amd64 (1:1.0.9-1build6) ...
+Setting up liblerc4:amd64 (4.0.0+ds-4ubuntu2) ...
+Setting up manpages (6.7-2) ...
+Setting up libbrotli1:amd64 (1.1.0-2build2) ...
+Setting up binutils-common:amd64 (2.42-4ubuntu2.10) ...
+Setting up libdeflate0:amd64 (1.19-1build1.1) ...
+Setting up linux-libc-dev:amd64 (6.8.0-137.137) ...
+Setting up libctf-nobfd0:amd64 (2.42-4ubuntu2.10) ...
+Setting up libgomp1:amd64 (14.2.0-4ubuntu2~24.04.1) ...
+Setting up python3-markupsafe (2.1.5-1build2) ...
+Setting up libjbig0:amd64 (2.1-6.1ubuntu2) ...
+Setting up python3-webencodings (0.5.1-5) ...
+Setting up libsframe1:amd64 (2.42-4ubuntu2.10) ...
+Setting up python3-tz (2024.1-2) ...
+Setting up python-babel-localedata (2.10.3-3build1) ...
+Setting up libjansson4:amd64 (2.14-2build2) ...
+Setting up python3-six (1.16.0-4) ...
+Setting up python3-jinja2 (3.1.2-1ubuntu1.3) ...
+Setting up python3-pygments (2.17.2+dfsg-1) ...
+Setting up rpcsvc-proto (1.4.2-0ubuntu7) ...
+Setting up python3-chardet (5.2.0+dfsg-1) ...
+Setting up gcc-13-base:amd64 (13.3.0-6ubuntu2~24.04.1) ...
+Setting up libx11-data (2:1.8.7-1build1) ...
+Setting up make (4.3-4.1build2) ...
+Setting up libmpfr6:amd64 (4.2.1-1build1.1) ...
+Setting up libquadmath0:amd64 (14.2.0-4ubuntu2~24.04.1) ...
+Setting up fonts-dejavu-mono (2.37-8) ...
+Setting up libpng16-16t64:amd64 (1.6.43-5ubuntu0.6) ...
+Setting up libmpc3:amd64 (1.3.1-1build1.1) ...
+Setting up libatomic1:amd64 (14.2.0-4ubuntu2~24.04.1) ...
+Setting up libtcl8.6:amd64 (8.6.14+dfsg-1build1) ...
+Setting up fonts-dejavu-core (2.37-8) ...
+Setting up libjpeg-turbo8:amd64 (2.1.5-2ubuntu2) ...
+Setting up python3-html5lib (1.1-6) ...
+Setting up libwebp7:amd64 (1.3.2-0.4build3) ...
+Setting up libubsan1:amd64 (14.2.0-4ubuntu2~24.04.1) ...
+Setting up libicu74:amd64 (74.2-1ubuntu3.1) ...
+Setting up libhwasan0:amd64 (14.2.0-4ubuntu2~24.04.1) ...
+Setting up libcrypt-dev:amd64 (1:4.4.36-4build1) ...
+Setting up libasan8:amd64 (14.2.0-4ubuntu2~24.04.1) ...
+Setting up libtsan2:amd64 (14.2.0-4ubuntu2~24.04.1) ...
+Setting up libbinutils:amd64 (2.42-4ubuntu2.10) ...
+Setting up libisl23:amd64 (0.26-3build1.1) ...
+Setting up libc-dev-bin (2.39-0ubuntu8.8) ...
+Setting up python3-cssselect (1.2.0-2) ...
+Setting up libbsd0:amd64 (0.12.1-1build1.1) ...
+Setting up libxml2:amd64 (2.9.14+dfsg-1.3ubuntu3.8) ...
+Setting up python3-soupsieve (2.5-1) ...
+Setting up libcc1-0:amd64 (14.2.0-4ubuntu2~24.04.1) ...
+Setting up sqlite3 (3.45.1-1ubuntu2.7) ...
+Setting up liblsan0:amd64 (14.2.0-4ubuntu2~24.04.1) ...
+Setting up libitm1:amd64 (14.2.0-4ubuntu2~24.04.1) ...
+Setting up libctf0:amd64 (2.42-4ubuntu2.10) ...
+Setting up libjpeg8:amd64 (8c-2ubuntu11) ...
+Setting up manpages-dev (6.7-2) ...
+Setting up libxdmcp6:amd64 (1:1.1.3-0ubuntu6) ...
+Setting up tcl8.6 (8.6.14+dfsg-1build1) ...
+Setting up libxcb1:amd64 (1.15-1ubuntu2) ...
+Setting up python3-babel (2.10.3-3build1) ...
+update-alternatives: using /usr/bin/pybabel-python3 to provide /usr/bin/pybabel (pybabel) in auto mode
+Setting up cpp-13-x86-64-linux-gnu (13.3.0-6ubuntu2~24.04.1) ...
+Setting up fontconfig-config (2.15.0-1.1ubuntu2) ...
+Setting up python3-bs4 (4.12.3-1) ...
+Setting up libgprofng0:amd64 (2.42-4ubuntu2.10) ...
+Setting up libfreetype6:amd64 (2.13.2+dfsg-1ubuntu0.1) ...
+Setting up libgcc-13-dev:amd64 (13.3.0-6ubuntu2~24.04.1) ...
+Setting up libtiff6:amd64 (4.5.1+git230720-4ubuntu2.5) ...
+Setting up tcl (8.6.14build1) ...
+Setting up libxslt1.1:amd64 (1.1.39-0exp1ubuntu0.24.04.3) ...
+Setting up libc6-dev:amd64 (2.39-0ubuntu8.8) ...
+Setting up libx11-6:amd64 (2:1.8.7-1build1) ...
+Setting up libfontconfig1:amd64 (2.15.0-1.1ubuntu2) ...
+Setting up binutils-x86-64-linux-gnu (2.42-4ubuntu2.10) ...
+Setting up cpp-x86-64-linux-gnu (4:13.2.0-7ubuntu1) ...
+Setting up libxpm4:amd64 (1:3.5.17-1ubuntu0.24.04.1) ...
+Setting up cpp-13 (13.3.0-6ubuntu2~24.04.1) ...
+Setting up gcc-13-x86-64-linux-gnu (13.3.0-6ubuntu2~24.04.1) ...
+Setting up binutils (2.42-4ubuntu2.10) ...
+Setting up gcc-13 (13.3.0-6ubuntu2~24.04.1) ...
+Setting up python3-lxml:amd64 (5.2.1-1) ...
+Setting up cpp (4:13.2.0-7ubuntu1) ...
+Setting up gcc-x86-64-linux-gnu (4:13.2.0-7ubuntu1) ...
+Setting up gcovr (7.0-1) ...
+Setting up gcc (4:13.2.0-7ubuntu1) ...
+Setting up libheif-plugin-aomdec:amd64 (1.17.6-1ubuntu4.6) ...
+Setting up libheif1:amd64 (1.17.6-1ubuntu4.6) ...
+Setting up libgd3:amd64 (2.3.3-9ubuntu5) ...
+Setting up libc-devtools (2.39-0ubuntu8.8) ...
+Setting up libheif-plugin-aomenc:amd64 (1.17.6-1ubuntu4.6) ...
+Processing triggers for libc-bin (2.39-0ubuntu8.8) ...
+[?2004hroot@c06727b15e26:/app/sqlite# ./configure --help
+[?2004lUsage: configure [options] [settings]
+
+This is autosetup v0.7.2, a build environment "autoconfigurator"
+See the documentation online at https://msteveb.github.io/autosetup/
+
+  --help?=all?                     display help and options. Optional: module name, such as --help=system
+  --license                        display the autosetup license
+  --version                        display the version of autosetup
+  --reference?=text?               display the autosetup command reference. 'text', 'wiki', 'asciidoc' or 'markdown'
+  --autosetup-debug                display debugging output as autosetup runs
+  --install?=.?                    install autosetup to the current or given directory
+  --init?=help?                    create initial auto.def, etc. Use --init=help for known types
+  --host=host-alias                a complete or partial cpu-vendor-opsys for the system where the application will run (defaults to the same value as
+                                   --build)
+  --build=build-alias              a complete or partial cpu-vendor-opsys for the system where the application will be built (defaults to the result of
+                                   running config.guess)
+  --prefix=dir                     the target directory for the build (default: '/usr/local')
+Local Options:
+  --disable-shared                 Disable build of shared library
+  --disable-static                 Disable build of static library
+  --disable-amalgamation           Disable the amalgamation and instead build all files separately
+  --disable-threadsafe             Disable mutexing
+  --with-tempstore?=no?            Use an in-RAM database for temporary tables: never,no,yes,always
+  --disable-load-extension         Disable loading of external extensions
+  --disable-math                   Disable math functions
+  --disable-json                   Disable JSON functions
+  --memsys5                        Enable MEMSYS5
+  --memsys3                        Enable MEMSYS3
+  --fts3                           Enable the FTS3 extension
+  --fts4                           Enable the FTS4 extension
+  --fts5                           Enable the FTS5 extension
+  --update-limit                   Enable the UPDATE/DELETE LIMIT clause
+  --geopoly                        Enable the GEOPOLY extension
+  --rtree                          Enable the RTREE extension
+  --session                        Enable the SESSION extension
+  --all                            Enable these extensions: fts4 fts5 rtree geopoly session
+  --disable-largefile              This legacy flag has no effect on the library but may influence the generated sqlite_cfg.h by adding #define HAVE_LFS
+  --disable-tcl                    Disable components which require TCL, including all tests. This tree requires TCL for code generation but can use the
+                                   in-tree copy of autosetup/jimsh0.c for that. The SQLite TCL extension and the test code require a canonical tclsh.
+  --with-tcl=DIR                   Directory containing tclConfig.sh or a directory one level up from that, from which we can derive a directory containing
+                                   tclConfig.sh. A dir name of "prefix" is equivalent to the directory specified by the --prefix flag.
+  --with-tclsh=PATH                Full pathname of tclsh to use. It is used for (A) trying to find tclConfig.sh and (B) all TCL-based code generation.
+                                   Warning: if its containing dir has multiple tclsh versions, it may select the wrong tclConfig.sh!
+  --static-tclsqlite3              Statically-link tclsqlite3. This only works if TCL support is enabled and all requisite libraries are available in static
+                                   form. Note that glibc is unable to fully statically link certain libraries required by tclsqlite3, so this won't work on
+                                   most Linux environments.
+  --disable-readline               Disable readline support
+  --with-readline-ldflags?=auto?   Readline LDFLAGS, e.g. -lreadline -lncurses
+  --with-readline-cflags?=auto?    Readline CFLAGS, e.g. -I/path/to/includes
+  --with-readline-header=PATH      Full path to readline.h, from which --with-readline-cflags will be derived
+  --with-linenoise=DIR             Source directory for linenoise.c and linenoise.h
+  --editline                       Enable BSD editline support
+  --with-icu-ldflags=LDFLAGS       Enable SQLITE_ENABLE_ICU and add the given linker flags for the ICU libraries. e.g. on Ubuntu systems, try '-licui18n
+                                   -licuuc -licudata'.
+  --with-icu-cflags=CFLAGS         Apply extra CFLAGS/CPPFLAGS necessary for building with ICU. e.g. -I/usr/local/include
+  --with-icu-config?=auto?         Enable SQLITE_ENABLE_ICU. Value must be one of: auto, pkg-config, /path/to/icu-config
+  --icu-collations                 Enable SQLITE_ENABLE_ICU_COLLATIONS. Requires --with-icu-ldflags=... or --with-icu-config
+  --with-wasi-sdk?=/opt/wasi-sdk?  Top-most dir of the wasi-sdk for a WASI build
+  --static-cli-shell               Statically-link the sqlite3 CLI shell. This only works if the requisite libraries are all available in static form.
+  --static-shells                  Shorthand for --static-cli-shell --static-tclsqlite3
+  --with-emsdk?=auto?              Top-most dir of the Emscripten SDK installation. Needed only by ext/wasm. Default=EMSDK env var.
+  --amalgamation-extra-src=FILES   Space-separated list of soure files to append as-is to the resulting sqlite3.c amalgamation file. May be provided multiple
+                                   times.
+  --soname?=legacy?                SONAME for libsqlite3.so. "none", or not using this flag, sets no soname. "legacy" sets it to its historical value of
+                                   libsqlite3.so.0. A value matching the glob "libsqlite3.*" sets it to that literal value. Any other value is assumed to be a
+                                   suffix which gets applied to "libsqlite3.so.", e.g. --soname=9.10 equates to "libsqlite3.so.9.10".
+  --dll-basename?=auto?            Specifies the base name of the resulting DLL file. If not provided, "libsqlite3" is usually assumed but on some platforms a
+                                   platform-dependent default is used. On some platforms this flag gets automatically enabled if it is not provided. Use
+                                   "default" to explicitly disable platform-dependent activation on such systems.
+  --out-implib?=auto?              Enable use of --out-implib linker flag to generate an "import library" for the DLL. The output's base name is specified by
+                                   this flag's value, with "auto" meaning to figure out a name automatically. On some platforms this flag gets automatically
+                                   enabled if it is not provided. Use "none" to explicitly disable this feature on such platforms.
+  --debug                          Enable debug build flags. This option will impact performance by as much as 4x, as it includes large numbers of assert()s
+                                   in performance-critical loops. Never use --debug for production builds.
+  --scanstatus                     Enable the SQLITE_ENABLE_STMT_SCANSTATUS feature flag
+  --dev                            Enable dev-mode build: automatically enables certain other flags
+  --test-status                    Enable status of tests
+  --gcov                           Enable coverage testing using gcov
+  --linemacros                     Enable #line macros in the amalgamation
+  --dynlink-tools                  Dynamically link libsqlite3 to certain tools which normally statically embed it
+  --asan-fsanitize?=auto?          Comma- or space-separated list of -fsanitize flags for use with the fuzzcheck-asan tool. Only those which the compiler
+                                   claims to support will actually be used. May be provided multiple times.
+  --dump-defines                   Dump autosetup defines to ./config.defines.txt (for build debugging)
+[?2004hroot@c06727b15e26:/app/sqlite# ./configure --gcov
+[?2004lConfiguring SQLite version 3.50.4
+Host System...x86_64-pc-linux-gnu
+Build System...x86_64-pc-linux-gnu
+Source dir = /app/sqlite
+Build dir  = /app/sqlite
+C compiler... cc  
+C++ compiler...   
+Build C compiler...cc
+Checking for stdlib.h...ok
+Checking for sys/types.h...ok
+Checking if -D_FILE_OFFSET_BITS=64 is needed...no
+SQLITE_DEBUG build? no
+Looking for install ... /usr/bin/install
+Checking for int8_t...ok
+Checking for int16_t...ok
+Checking for int32_t...ok
+Checking for int64_t...ok
+Checking for intptr_t...ok
+Checking for uint8_t...ok
+Checking for uint16_t...ok
+Checking for uint32_t...ok
+Checking for uint64_t...ok
+Checking for uintptr_t...ok
+Checking for gmtime_r...ok
+Checking for isnan...ok
+Checking for localtime_r...ok
+Checking for localtime_s...not found
+Checking for strchrnul...ok
+Checking for usleep...ok
+Checking for utime...ok
+Checking for pread...ok
+Checking for pread64...ok
+Checking for pwrite...ok
+Checking for pwrite64...ok
+Checking libs for fdatasync...none needed
+Checking libs for nanosleep...none needed
+Checking for sys/types.h...(cached) ok
+Checking for sys/stat.h...ok
+Checking for dlfcn.h...ok
+Checking for unistd.h...ok
+Checking for stdlib.h...ok
+Checking for malloc.h...ok
+Checking for memory.h...ok
+Checking for string.h...ok
+Checking for strings.h...ok
+Checking for inttypes.h...ok
+Checking for zlib.h...not found
+Use amalgamation for builds? yes
+Use gcov? yes
+test-runner flags: no
+Use #line macros in the amalgamation: no
+Checking whether the C compiler accepts -fsanitize=address...yes
+Checking whether the C compiler accepts -fsanitize=bounds-strict...yes
+Checking for a suitable tcl... 
+Checking for tclsh9.1...no
+Checking for tclsh9.0...no
+Checking for tclsh8.6.../usr/bin/tclsh8.6
+WARNING: [sqlite-check-tcl]:  /usr/bin/tclsh8.6 is unable to recommend a tclConfig.sh
+Using tclsh: /usr/bin/tclsh8.6
+WARNING: [sqlite-check-tcl]:  Found tclsh but no tclConfig.sh.
+
+    WARNING: Cannot find a usable tclConfig.sh file.  Use
+    --with-tcl=DIR to specify a directory where tclConfig.sh can be
+    found.  SQLite does not use TCL internally, but some optional
+    components require TCL, including tests and sqlite3_analyzer.
+
+Checking for TCL to use for code generation... 
+Checking for dirent.h...ok
+Checking for sys/time.h...ok
+Checking for realpath...ok
+TCL for code generation: jimsh
+Emscripten SDK? not found
+Statically link tclsqlite3? no
+Statically link CLI shell? no
+Checking whether the C compiler accepts -rpath /usr/local/lib...no
+Checking whether the C compiler accepts -Wl,-rpath,/usr/local/lib...yes
+Support threadsafe operation? Checking for libs...
+Checking libs for pthread_create...none needed
+Checking libs for pthread_mutexattr_init...none needed
+Checking libs for dlopen...none needed
+Loadable extension support enabled.
+Checking libs for ceil...-lm
+Enabling math SQL functions
+ICU support is disabled.
+Checking for line-editing capability...
+Line-editing support for the sqlite3 shell: none
+Build shared library? yes
+Build static library? yes
+Feature flags...
+  - fts3
+  - fts4
+  - fts5
+  - geopoly
+  - rtree
+  - session
+  - update-limit
+  - memsys5
+  - memsys3
+  - scanstatus
+  + json
+Library feature flags: -DSQLITE_ENABLE_MATH_FUNCTIONS -DSQLITE_THREADSAFE=1
+Created Makefile from Makefile.in
+Created sqlite3.pc from sqlite3.pc.in
+Created sqlite_cfg.h
+[?2004hroot@c06727b15e26:/app/sqlite# grep -i gcov Makefile; grep '^CFLAGS' Makefile
+[?2004l# If [01;31m[Kgcov[m[K support was enabled by the configure script, add the appropriate
+CFLAGS.[01;31m[Kgcov[m[K1 = -DSQLITE_COVERAGE_TEST=1 -fprofile-arcs -ftest-coverage
+LDFLAGS.[01;31m[Kgcov[m[K1 = -l[01;31m[Kgcov[m[K
+USE_[01;31m[KGCOV[m[K = 1
+T.compile.[01;31m[Kgcov[m[K = $(CFLAGS.[01;31m[Kgcov[m[K$(USE_[01;31m[KGCOV[m[K))
+T.link.[01;31m[Kgcov[m[K = $(LDFLAGS.[01;31m[Kgcov[m[K$(USE_[01;31m[KGCOV[m[K))
+AS_AUTORECONFIG = cd "/app/sqlite" && ./configure --[01;31m[Kgcov[m[K
+[01;31m[KCFLAGS[m[K = -O2 -g 
+[01;31m[KCFLAGS[m[K.core = -fPIC
+[01;31m[KCFLAGS[m[K.readline = 
+[01;31m[KCFLAGS[m[K.icu = 
+[01;31m[KCFLAGS[m[K.fuzzcheck-asan.fsanitize = -fsanitize=address,bounds-strict
+[01;31m[KCFLAGS[m[K.jimsh = -O1 -DHAVE_REALPATH
+[01;31m[KCFLAGS[m[K.gcov1 = -DSQLITE_COVERAGE_TEST=1 -fprofile-arcs -ftest-coverage
+[?2004hroot@c06727b15e26:/app/sqlite# make -j$(nproc)
+[?2004lcc -g -o jimsh -O1 -DHAVE_REALPATH /app/sqlite/autosetup/jimsh0.c
+cc -g -o mkkeywordhash -DSQLITE_ENABLE_MATH_FUNCTIONS -DSQLITE_THREADSAFE=1   /app/sqlite/tool/mkkeywordhash.c
+cc -g -o src-verify /app/sqlite/tool/src-verify.c
+touch .main.mk.checks
+cc -g -o mksourceid /app/sqlite/tool/mksourceid.c
+cc -g -o lemon /app/sqlite/tool/lemon.c
+./mkkeywordhash > keywordhash.h
+cp /app/sqlite/tool/lempar.c .
+cp /app/sqlite/src/parse.y .
+cp /app/sqlite/ext/fts5/fts5parse.y .
+./lemon -DSQLITE_ENABLE_MATH_FUNCTIONS -DSQLITE_THREADSAFE=1   -S parse.y
+rm -f fts5parse.h
+./lemon  -S fts5parse.y
+./jimsh /app/sqlite/tool/mksqlite3h.tcl /app/sqlite -o sqlite3.h
+./jimsh /app/sqlite/tool/mkctimec.tcl
+./jimsh /app/sqlite/tool/mkpragmatab.tcl
+cat parse.h /app/sqlite/src/vdbe.c | ./jimsh /app/sqlite/tool/mkopcodeh.tcl >opcodes.h
+Overwriting pragma.h with new pragma table...
+Overwriting ctime.c...
+./jimsh /app/sqlite/tool/mkshellc.tcl shell.c
+./jimsh /app/sqlite/ext/fts5/tool/mkfts5c.tcl
+./jimsh /app/sqlite/tool/mkopcodec.tcl opcodes.h >opcodes.c
+cp /app/sqlite/ext/fts5/fts5.h .
+rm -rf tsrc
+mkdir tsrc
+cp -f /app/sqlite/src/alter.c /app/sqlite/src/analyze.c /app/sqlite/src/attach.c /app/sqlite/src/auth.c /app/sqlite/src/backup.c /app/sqlite/src/bitvec.c /app/sqlite/src/btmutex.c /app/sqlite/src/btree.c /app/sqlite/src/btree.h /app/sqlite/src/btreeInt.h /app/sqlite/src/build.c /app/sqlite/src/callback.c /app/sqlite/src/complete.c ctime.c /app/sqlite/src/date.c /app/sqlite/src/dbpage.c /app/sqlite/src/dbstat.c /app/sqlite/src/delete.c /app/sqlite/src/expr.c /app/sqlite/src/fault.c /app/sqlite/src/fkey.c /app/sqlite/src/func.c /app/sqlite/src/global.c /app/sqlite/src/hash.c /app/sqlite/src/hash.h /app/sqlite/src/hwtime.h /app/sqlite/src/insert.c /app/sqlite/src/json.c /app/sqlite/src/legacy.c /app/sqlite/src/loadext.c /app/sqlite/src/main.c /app/sqlite/src/malloc.c /app/sqlite/src/mem0.c /app/sqlite/src/mem1.c /app/sqlite/src/mem2.c /app/sqlite/src/mem3.c /app/sqlite/src/mem5.c /app/sqlite/src/memdb.c /app/sqlite/src/memjournal.c /app/sqlite/src/msvc.h /app/sqlite/src/mutex.c /app/sqlite/src/mutex.h /app/sqlite/src/mutex_noop.c /app/sqlite/src/mutex_unix.c /app/sqlite/src/mutex_w32.c /app/sqlite/src/notify.c /app/sqlite/src/os.c /app/sqlite/src/os.h /app/sqlite/src/os_common.h /app/sqlite/src/os_setup.h /app/sqlite/src/os_kv.c /app/sqlite/src/os_unix.c /app/sqlite/src/os_win.c /app/sqlite/src/os_win.h /app/sqlite/src/pager.c /app/sqlite/src/pager.h /app/sqlite/src/parse.y /app/sqlite/src/pcache.c /app/sqlite/src/pcache.h /app/sqlite/src/pcache1.c /app/sqlite/src/pragma.c pragma.h /app/sqlite/src/prepare.c /app/sqlite/src/printf.c /app/sqlite/src/random.c /app/sqlite/src/resolve.c /app/sqlite/src/rowset.c /app/sqlite/src/select.c /app/sqlite/src/status.c /app/sqlite/src/shell.c.in /app/sqlite/src/sqlite.h.in /app/sqlite/src/sqlite3ext.h /app/sqlite/src/sqliteInt.h /app/sqlite/src/sqliteLimit.h /app/sqlite/src/table.c /app/sqlite/src/tclsqlite.c /app/sqlite/src/threads.c /app/sqlite/src/tokenize.c /app/sqlite/src/treeview.c /app/sqlite/src/trigger.c /app/sqlite/src/utf.c /app/sqlite/src/update.c /app/sqlite/src/upsert.c /app/sqlite/src/util.c /app/sqlite/src/vacuum.c /app/sqlite/src/vdbe.c /app/sqlite/src/vdbe.h /app/sqlite/src/vdbeapi.c /app/sqlite/src/vdbeaux.c /app/sqlite/src/vdbeblob.c /app/sqlite/src/vdbemem.c /app/sqlite/src/vdbesort.c /app/sqlite/src/vdbetrace.c /app/sqlite/src/vdbevtab.c /app/sqlite/src/vdbeInt.h /app/sqlite/src/vtab.c /app/sqlite/src/vxworks.h /app/sqlite/src/wal.c /app/sqlite/src/wal.h /app/sqlite/src/walker.c /app/sqlite/src/where.c /app/sqlite/src/wherecode.c /app/sqlite/src/whereexpr.c /app/sqlite/src/whereInt.h /app/sqlite/src/window.c /app/sqlite/ext/fts3/fts3.c /app/sqlite/ext/fts3/fts3.h /app/sqlite/ext/fts3/fts3Int.h /app/sqlite/ext/fts3/fts3_aux.c /app/sqlite/ext/fts3/fts3_expr.c /app/sqlite/ext/fts3/fts3_hash.c /app/sqlite/ext/fts3/fts3_hash.h /app/sqlite/ext/fts3/fts3_icu.c /app/sqlite/ext/fts3/fts3_porter.c /app/sqlite/ext/fts3/fts3_snippet.c /app/sqlite/ext/fts3/fts3_tokenizer.h /app/sqlite/ext/fts3/fts3_tokenizer.c /app/sqlite/ext/fts3/fts3_tokenizer1.c /app/sqlite/ext/fts3/fts3_tokenize_vtab.c /app/sqlite/ext/fts3/fts3_unicode.c /app/sqlite/ext/fts3/fts3_unicode2.c /app/sqlite/ext/fts3/fts3_write.c /app/sqlite/ext/icu/sqliteicu.h /app/sqlite/ext/icu/icu.c /app/sqlite/ext/rtree/rtree.h /app/sqlite/ext/rtree/rtree.c /app/sqlite/ext/rtree/geopoly.c /app/sqlite/ext/session/sqlite3session.c /app/sqlite/ext/session/sqlite3session.h /app/sqlite/ext/rbu/sqlite3rbu.h /app/sqlite/ext/rbu/sqlite3rbu.c /app/sqlite/ext/misc/stmt.c keywordhash.h opcodes.c opcodes.h parse.c parse.h sqlite_cfg.h shell.c sqlite3.h tsrc
+rm -f tsrc/sqlite.h.in tsrc/parse.y
+./jimsh /app/sqlite/tool/vdbe-compress.tcl  <tsrc/vdbe.c >vdbe.new
+mv -f vdbe.new tsrc/vdbe.c
+cp fts5.c fts5.h tsrc
+touch .target_source
+./jimsh /app/sqlite/tool/mksqlite3c.tcl --linemacros=0 
+cp tsrc/sqlite3ext.h .
+cp /app/sqlite/ext/session/sqlite3session.h .
+cc -fPIC -O2 -g  -DSQLITE_ENABLE_MATH_FUNCTIONS -DSQLITE_THREADSAFE=1   -DSQLITE_COVERAGE_TEST=1 -fprofile-arcs -ftest-coverage -D_HAVE_SQLITE_CONFIG_H -DBUILD_sqlite -DNDEBUG -I. -I/app/sqlite/src -I/app/sqlite/ext/rtree -I/app/sqlite/ext/icu -I/app/sqlite/ext/fts3 -I/app/sqlite/ext/session -I/app/sqlite/ext/misc -c sqlite3.c
+cc -fPIC -O2 -g  -DSQLITE_ENABLE_MATH_FUNCTIONS -DSQLITE_THREADSAFE=1   -DSQLITE_COVERAGE_TEST=1 -fprofile-arcs -ftest-coverage -D_HAVE_SQLITE_CONFIG_H -DBUILD_sqlite -DNDEBUG -I. -I/app/sqlite/src -I/app/sqlite/ext/rtree -I/app/sqlite/ext/icu -I/app/sqlite/ext/fts3 -I/app/sqlite/ext/session -I/app/sqlite/ext/misc -lgcov -o sqlite3 \
+	shell.c sqlite3.c \
+	 \
+	 -DSQLITE_DQS=0 -DSQLITE_ENABLE_FTS4 -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_EXPLAIN_COMMENTS -DSQLITE_ENABLE_UNKNOWN_SQL_FUNCTION -DSQLITE_ENABLE_STMTVTAB -DSQLITE_ENABLE_DBPAGE_VTAB -DSQLITE_ENABLE_DBSTAT_VTAB -DSQLITE_ENABLE_BYTECODE_VTAB -DSQLITE_ENABLE_OFFSET_SQL_FUNC -DSQLITE_STRICT_SUBTYPE=1  \
+	-Wl,-rpath,/usr/local/lib  -lm      
+./sqlite3 --version; ./sqlite3 :memory: "CREATE TABLE t(a); INSERT INTO t VALUES(1); SELECT * FROM t;"; ls -la *.gcda
+./sqlite3 --version
+ls -la *.gcda | head -n 10
+^Cmake: *** [/app/sqlite/main.mk:1344: sqlite3.o] Interrupt
+make: *** [/app/sqlite/main.mk:2136: sqlite3] Interrupt
+
+[?2004hroot@c06727b15e26:/app/sqlite# ./sqlite3 --version
+[?2004lbash: ./sqlite3: No such file or directory
+[?2004hroot@c06727b15e26:/app/sqlite# make -j$(nproc)
+[?2004lcc -fPIC -O2 -g  -DSQLITE_ENABLE_MATH_FUNCTIONS -DSQLITE_THREADSAFE=1   -DSQLITE_COVERAGE_TEST=1 -fprofile-arcs -ftest-coverage -D_HAVE_SQLITE_CONFIG_H -DBUILD_sqlite -DNDEBUG -I. -I/app/sqlite/src -I/app/sqlite/ext/rtree -I/app/sqlite/ext/icu -I/app/sqlite/ext/fts3 -I/app/sqlite/ext/session -I/app/sqlite/ext/misc -c sqlite3.c
+cc -fPIC -O2 -g  -DSQLITE_ENABLE_MATH_FUNCTIONS -DSQLITE_THREADSAFE=1   -DSQLITE_COVERAGE_TEST=1 -fprofile-arcs -ftest-coverage -D_HAVE_SQLITE_CONFIG_H -DBUILD_sqlite -DNDEBUG -I. -I/app/sqlite/src -I/app/sqlite/ext/rtree -I/app/sqlite/ext/icu -I/app/sqlite/ext/fts3 -I/app/sqlite/ext/session -I/app/sqlite/ext/misc -lgcov -o sqlite3 \
+	shell.c sqlite3.c \
+	 \
+	 -DSQLITE_DQS=0 -DSQLITE_ENABLE_FTS4 -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_EXPLAIN_COMMENTS -DSQLITE_ENABLE_UNKNOWN_SQL_FUNCTION -DSQLITE_ENABLE_STMTVTAB -DSQLITE_ENABLE_DBPAGE_VTAB -DSQLITE_ENABLE_DBSTAT_VTAB -DSQLITE_ENABLE_BYTECODE_VTAB -DSQLITE_ENABLE_OFFSET_SQL_FUNC -DSQLITE_STRICT_SUBTYPE=1  \
+	-Wl,-rpath,/usr/local/lib  -lm      
+
+./sqlite3 --version
+
+ls -la sqlite3
+
+
+ps aux | grep -E 'cc|make|sqlite'
+^Cmake: *** [/app/sqlite/main.mk:1344: sqlite3.o] Interrupt
+make: *** [/app/sqlite/main.mk:2136: sqlite3] Interrupt
+
+[?2004hroot@c06727b15e26:/app/sqlite# ls -la sqlite3
+[?2004lls: cannot access 'sqlite3': No such file or directory
+[?2004hroot@c06727b15e26:/app/sqlite# 

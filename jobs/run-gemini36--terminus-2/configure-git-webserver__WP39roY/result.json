@@ -1,0 +1,169 @@
+{
+    "id": "ac4809dc-e2e1-495f-8443-bcb209482864",
+    "task_name": "configure-git-webserver",
+    "trial_name": "configure-git-webserver__WP39roY",
+    "trial_uri": "file:///home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2/configure-git-webserver__WP39roY",
+    "task_id": {
+        "path": "/home/user/builds/harbor-harness-spread/terminal-bench/configure-git-webserver"
+    },
+    "source": "terminal-bench",
+    "task_checksum": "3ebefab7ff093813f99af237de90b1ed73363a4eb42ea8a17096939922a16bcf",
+    "config": {
+        "task": {
+            "path": "/home/user/builds/harbor-harness-spread/terminal-bench/configure-git-webserver",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "terminal-bench"
+        },
+        "trial_name": "configure-git-webserver__WP39roY",
+        "trials_dir": "/home/user/builds/harbor-harness-spread/jobs/run-gemini36--terminus-2",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": 0.4,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "terminus-2",
+            "import_path": null,
+            "model_name": "openai/bench-model",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "env": {
+                "SSL_CERT_FILE": "/ccr-ca.crt",
+                "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                "NODE_EXTRA_CA_CERTS": "/ccr-ca.crt",
+                "GIT_SSL_CAINFO": "/ccr-ca.crt",
+                "PIP_CERT": "/ccr-ca.crt",
+                "CARGO_HTTP_CAINFO": "/ccr-ca.crt",
+                "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+                "OPENAI_BASE_URL": "http://172.17.0.1:4010/v1",
+                "OPENAI_API_BASE": "http://172.17.0.1:4010/v1",
+                "OPENAI_HOST": "http://172.17.0.1:4010",
+                "OPENAI_BASE_PATH": "v1/chat/completions"
+            },
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "/root/.ccr/ca-bundle.crt",
+                    "target": "/ccr-ca.crt",
+                    "read_only": true
+                },
+                {
+                    "type": "bind",
+                    "source": "/root/.local/bin/uv",
+                    "target": "/usr/local/bin/uv",
+                    "read_only": true
+                }
+            ],
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {
+                "SSL_CERT_FILE": "/ccr-ca.crt",
+                "REQUESTS_CA_BUNDLE": "/ccr-ca.crt",
+                "CURL_CA_BUNDLE": "/ccr-ca.crt",
+                "PIP_CERT": "/ccr-ca.crt",
+                "UV_NATIVE_TLS": "1"
+            },
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "job_id": "67b0cbc1-9165-4143-9447-4aa6543671fc"
+    },
+    "agent_info": {
+        "name": "terminus-2",
+        "version": "2.0.0",
+        "model_info": {
+            "name": "bench-model",
+            "provider": "openai"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 108335,
+        "n_cache_tokens": 16148,
+        "n_output_tokens": 4453,
+        "cost_usd": null,
+        "rollout_details": [],
+        "metadata": {
+            "n_episodes": 17,
+            "api_request_times_msec": [
+                3778.0845165252686,
+                8057.066202163696,
+                3922.7771759033203,
+                4687.995910644531,
+                3198.139190673828,
+                5589.240550994873,
+                4798.996448516846,
+                3649.26815032959,
+                3731.0397624969482,
+                3754.8677921295166,
+                3459.455966949463,
+                4122.449159622192,
+                4739.037036895752,
+                4235.613584518433,
+                5982.173204421997,
+                4226.628541946411,
+                1186.8815422058105
+            ],
+            "summarization_count": 0
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-08-12T15:25:02.285489Z",
+    "finished_at": "2026-08-12T15:27:53.599280Z",
+    "environment_setup": {
+        "started_at": "2026-08-12T15:25:02.286678Z",
+        "finished_at": "2026-08-12T15:25:03.935356Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-08-12T15:25:03.935392Z",
+        "finished_at": "2026-08-12T15:25:25.654888Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-08-12T15:25:25.654969Z",
+        "finished_at": "2026-08-12T15:27:21.856938Z"
+    },
+    "verifier": {
+        "started_at": "2026-08-12T15:27:22.866193Z",
+        "finished_at": "2026-08-12T15:27:41.380769Z"
+    },
+    "step_results": null
+}
