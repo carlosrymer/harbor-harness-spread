@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Harbor harness spread — same model, four harnesses</title>
+<meta name="description" content="Holding the model fixed and swapping only the agent harness across a Terminal-Bench 2.0 subset, run with Harbor.">
+<style>
+  :root {
+    color-scheme: light;
+    --page:#f9f9f7; --surface:#fcfcfb; --surface-2:#f3f2ee;
+    --ink:#0b0b0b; --ink-2:#52514e; --muted:#898781;
+    --grid:#e1e0d9; --axis:#c3c2b7;
+    --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#e87ba4;
+    --good:#0ca30c; --critical:#d03b3b; --warning:#fab219;
+    --radius:14px;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --page:#0d0d0d; --surface:#1a1a19; --surface-2:#222221;
+      --ink:#fff; --ink-2:#c3c2b7; --muted:#898781;
+      --grid:#2c2c2a; --axis:#383835;
+      --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --page:#0d0d0d; --surface:#1a1a19; --surface-2:#222221;
+    --ink:#fff; --ink-2:#c3c2b7; --muted:#898781;
+    --grid:#2c2c2a; --axis:#383835;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--page);color:var(--ink);font-family:var(--sans);
+       line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px 96px}
+  a{color:var(--s1)}
+  h1,h2,h3{line-height:1.2;margin:0}
+  .eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:650}
+
+  header{padding:56px 0 20px}
+  .titlerow{display:flex;gap:16px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+  h1{font-size:clamp(1.9rem,4.4vw,3rem);letter-spacing:-.025em;font-weight:700;margin:10px 0 0}
+  .sub{color:var(--ink-2);font-size:1.06rem;max-width:68ch;margin-top:14px}
+  .themebtn{background:var(--surface);border:1px solid var(--grid);color:var(--ink-2);
+    border-radius:999px;padding:7px 14px;font-size:.82rem;cursor:pointer;font-family:inherit;white-space:nowrap}
+  .themebtn:hover{border-color:var(--axis);color:var(--ink)}
+
+  .hero{background:var(--surface);border:1px solid var(--grid);border-radius:var(--radius);
+        padding:26px 28px;margin:26px 0 12px;display:grid;
+        grid-template-columns:minmax(190px,auto) 1fr;gap:26px;align-items:center}
+  .heronum{font-size:clamp(2.8rem,8vw,4.4rem);font-weight:750;letter-spacing:-.04em;line-height:.95;
+           color:var(--s1);font-variant-numeric:tabular-nums}
+  .heronum small{font-size:.34em;font-weight:600;letter-spacing:-.01em;margin-left:.12em;color:var(--ink-2)}
+  .herotext{color:var(--ink-2);font-size:.97rem}
+  .herotext b{color:var(--ink);font-weight:650}
+
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:12px;margin:12px 0 8px}
+  .stat{background:var(--surface);border:1px solid var(--grid);border-radius:12px;padding:14px 16px}
+  .stat .k{font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:640}
+  .stat .v{font-size:1.45rem;font-weight:700;margin-top:3px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .stat .n{font-size:.77rem;color:var(--muted);margin-top:1px}
+
+  section{margin-top:44px}
+  .shead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+  h2{font-size:1.34rem;letter-spacing:-.015em;font-weight:680}
+  h3{font-size:1.02rem;font-weight:660;margin:0 0 12px}
+  .note{color:var(--ink-2);font-size:.93rem;max-width:76ch;margin:8px 0 18px}
+  .card{background:var(--surface);border:1px solid var(--grid);border-radius:var(--radius);padding:22px 24px}
+  .cards2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+
+  .bars{display:flex;flex-direction:column;gap:13px}
+  .bar{display:grid;grid-template-columns:minmax(100px,124px) 1fr;gap:13px;align-items:center}
+  .bar .lbl{font-size:.88rem;font-weight:600;text-align:right;overflow-wrap:anywhere}
+  .track{position:relative;height:24px;background:var(--surface-2);border-radius:6px;overflow:hidden}
+  .fill{height:100%;border-radius:0 4px 4px 0;transition:width .5s cubic-bezier(.4,0,.2,1)}
+  .barval{position:absolute;top:50%;transform:translateY(-50%);font-size:.8rem;font-weight:650;
+          font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap}
+  .barsub{font-size:.75rem;color:var(--muted);font-variant-numeric:tabular-nums}
+
+  .gridscroll{overflow-x:auto}
+  table{border-collapse:separate;border-spacing:0;width:100%;font-size:.86rem}
+  th,td{padding:7px 9px;text-align:left;white-space:nowrap}
+  thead th{font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);
+           font-weight:640;border-bottom:1px solid var(--grid);vertical-align:bottom}
+  tbody tr:hover{background:var(--surface-2)}
+  td.taskcell{font-family:var(--mono);font-size:.79rem}
+  .cell{display:inline-flex;align-items:center;justify-content:center;width:30px;height:26px;
+        border-radius:6px;font-size:.8rem;font-weight:700;cursor:pointer;border:1px solid transparent;
+        font-family:inherit}
+  .cell:focus-visible{outline:2px solid var(--s1);outline-offset:2px}
+  .c-pass{background:color-mix(in srgb,var(--good) 20%,transparent);color:var(--good);border-color:color-mix(in srgb,var(--good) 42%,transparent)}
+  .c-fail{background:color-mix(in srgb,var(--critical) 15%,transparent);color:var(--critical);border-color:color-mix(in srgb,var(--critical) 34%,transparent)}
+  .c-time{background:color-mix(in srgb,var(--warning) 20%,transparent);color:#7d5800;border-color:color-mix(in srgb,var(--warning) 46%,transparent)}
+  @media (prefers-color-scheme:dark){
+    :root:where(:not([data-theme="light"])) .c-time{color:var(--warning)}
+  }
+  :root[data-theme="dark"] .c-time{color:var(--warning)}
+  .c-none{background:var(--surface-2);color:var(--muted);border-color:var(--grid)}
+  .pill{display:inline-block;padding:1px 8px;border-radius:999px;font-size:.71rem;font-weight:640;
+        background:var(--surface-2);color:var(--ink-2);border:1px solid var(--grid)}
+  .pill.dis{background:color-mix(in srgb,var(--s4) 18%,transparent);color:var(--ink);
+            border-color:color-mix(in srgb,var(--s4) 40%,transparent)}
+  .pill.mdl{background:color-mix(in srgb,var(--s1) 14%,transparent);
+            border-color:color-mix(in srgb,var(--s1) 36%,transparent);color:var(--ink)}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:16px;font-size:.81rem;color:var(--ink-2)}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .sw{width:14px;height:14px;border-radius:4px;border:1px solid transparent;display:inline-block}
+
+  .drill{margin-top:16px;border:1px solid var(--grid);border-radius:12px;background:var(--surface-2);overflow:hidden}
+  .drillhead{padding:14px 18px;border-bottom:1px solid var(--grid);display:flex;
+             justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+  .drillbody{padding:16px 18px;max-height:540px;overflow:auto}
+  pre{margin:0;font-family:var(--mono);font-size:.77rem;line-height:1.5;white-space:pre-wrap;
+      overflow-wrap:anywhere;color:var(--ink-2)}
+  .step{border-left:2px solid var(--grid);padding:2px 0 2px 12px;margin:0 0 14px}
+  .step .role{font-size:.67rem;text-transform:uppercase;letter-spacing:.07em;font-weight:680;color:var(--muted)}
+  .step.agent{border-left-color:var(--s1)} .step.note{border-left-color:var(--axis)}
+  .closebtn{background:none;border:1px solid var(--grid);color:var(--ink-2);border-radius:8px;
+            padding:4px 11px;cursor:pointer;font-size:.8rem;font-family:inherit}
+  code{font-family:var(--mono);font-size:.85em;background:var(--surface-2);padding:1px 5px;border-radius:5px}
+  ul{padding-left:20px} li{margin:5px 0;color:var(--ink-2)}
+  .warn{border-left:3px solid var(--warning);padding-left:14px;margin:16px 0;color:var(--ink-2);font-size:.93rem}
+  footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--grid);color:var(--muted);font-size:.86rem}
+  .loading{color:var(--muted);padding:26px 0}
+  @media (max-width:620px){
+    .hero{grid-template-columns:1fr;gap:14px}
+    .bar{grid-template-columns:1fr;gap:5px}
+    .bar .lbl{text-align:left}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="titlerow">
+    <div>
+      <div class="eyebrow">Harbor · Terminal-Bench 2.0</div>
+      <h1>The harness is a variable</h1>
+    </div>
+    <button class="themebtn" id="themebtn" type="button">Toggle theme</button>
+  </div>
+  <p class="sub">Same model. Same frozen task subset. Same time budget. Only the agent
+  harness changes — then measure how far apart the results land, and whether the ordering
+  survives swapping the model underneath.</p>
+</header>
+
+<div id="app"><p class="loading">Loading results…</p></div>
+
+<footer>
+  <p>Built with <a href="https://github.com/laude-institute/harbor">Harbor</a>, the eval
+  framework from the Laude Institute team behind Terminal-Bench. Every number on this page is
+  read from committed run artifacts in this repository — nothing is hand-entered.</p>
+  <p>Part of an ongoing series of small, real-world builds trialing frontier AI models,
+  frameworks, and tools as they ship.</p>
+</footer>
+</div>
+
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const esc = s => String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const pct = v => (v*100).toFixed(1)+"%";
+const num = v => (v??0).toLocaleString();
+const SERIES = ["--s1","--s2","--s3","--s4","--s5"];
+
+const btn = $("#themebtn");
+const saved = localStorage.getItem("theme");
+if (saved) document.documentElement.setAttribute("data-theme", saved);
+btn.addEventListener("click", ()=>{
+  const cur = document.documentElement.getAttribute("data-theme");
+  const sysDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const next = cur ? (cur==="dark"?"light":"dark") : (sysDark?"light":"dark");
+  document.documentElement.setAttribute("data-theme", next);
+  localStorage.setItem("theme", next);
+});
+
+let DATA=null; const TRAJ={};
+
+fetch("data/results.json").then(r=>{
+  if(!r.ok) throw new Error("results.json "+r.status);
+  return r.json();
+}).then(d=>{ DATA=d; render(d); })
+  .catch(e=>{ $("#app").innerHTML =
+    `<div class="card"><h2>Results not available</h2><p class="note">Could not load
+     <code>data/results.json</code> (${esc(e.message)}).</p></div>`; });
+
+function barBlock(list, valueFn, labelFn, subFn, colorOf){
+  const max = Math.max(...list.map(valueFn), 1e-9);
+  let h = `<div class="bars">`;
+  for (const it of list){
+    const v = valueFn(it)||0, w = Math.max(v/max*100, v>0?4:0);
+    h += `<div class="bar"><div class="lbl">${esc(it.harness)}</div>
+      <div><div class="track">
+        <div class="fill" style="width:${w}%;background:${colorOf(it)}"></div>
+        <span class="barval" style="left:calc(${w}% + 10px)">${labelFn(it)}</span>
+      </div><div class="barsub">${subFn(it)}</div></div></div>`;
+  }
+  return h + `</div>`;
+}
+
+function render(d){
+  const meta = d.meta, models = d.models||[], pm = d.per_model||{};
+  const colorOf = {};
+  (d.harnesses||[]).forEach(h=>{ if(!(h.harness in colorOf)){
+      colorOf[h.harness] = `var(${SERIES[Object.keys(colorOf).length % SERIES.length]})`; } });
+
+  const totalCost = (d.harnesses||[]).reduce((a,h)=>a+(h.cost_usd||0),0);
+  const totalTok  = (d.harnesses||[]).reduce((a,h)=>a+(h.tokens_total||0),0);
+  const disputed  = (d.tasks||[]).filter(t=>t.disputed).length;
+  const head = d.headline||{};
+  const nHarness = new Set((d.harnesses||[]).map(h=>h.harness)).size;
+
+  let html = "";
+
+  html += `<div class="hero">
+    <div class="heronum">${head.spread_pp ?? 0}<small>pp</small></div>
+    <div class="herotext">
+      On <b>${esc(head.model_label||"")}</b>, over the <b>${head.n_tasks} tasks every harness
+      attempted</b>, the best harness (<b>${esc(head.best||"—")}</b>) resolved
+      ${pct(head.max_rate||0)} and the worst (<b>${esc(head.worst||"—")}</b>) resolved
+      ${pct(head.min_rate||0)}. Same model, same tasks, same time budget — only the harness
+      changed. On this set one task is worth <b>${head.pp_per_task}pp</b>, so the spread is
+      about <b>${Math.round(head.spread_pp/head.pp_per_task)} task(s)</b> wide.
+    </div></div>`;
+
+  html += `<div class="stats">
+    <div class="stat"><div class="k">Models</div><div class="v">${models.length}</div>
+      <div class="n">each pinned within its sweep</div></div>
+    <div class="stat"><div class="k">Harnesses</div><div class="v">${nHarness}</div>
+      <div class="n">run to completion</div></div>
+    <div class="stat"><div class="k">Tasks scored</div><div class="v">${meta.n_tasks_scored ?? meta.n_tasks}</div>
+      <div class="n">of ${meta.total_tasks_in_dataset} in the benchmark</div></div>
+    <div class="stat"><div class="k">Split tasks</div><div class="v">${disputed}</div>
+      <div class="n">solved by some, missed by others</div></div>
+    <div class="stat"><div class="k">Metered spend</div><div class="v">$${totalCost.toFixed(2)}</div>
+      <div class="n">${(totalTok/1e6).toFixed(2)}M tokens</div></div>
+  </div>`;
+
+  const cs = (d.common_subset||{})[head.model];
+  if (cs && cs.harnesses && cs.harnesses.length){
+    html += `<section><div class="shead"><h2>Like-for-like: the ${cs.n_common_tasks} tasks every harness attempted</h2>
+      <span class="pill mdl">spread ${cs.spread_pp}pp</span></div>
+      <p class="note">Harnesses can end up with different denominators — a budget cut-off leaves
+      cells unattempted — and comparing 3/9 against 2/12 is not a fair spread. This table is the
+      defensible comparison: identical tasks, identical model, identical time budget. It is the
+      number quoted at the top of this page.</p>
+      <div class="card"><div class="gridscroll"><table><thead><tr>
+        <th>Harness</th><th>Solved</th><th>Rate</th></tr></thead><tbody>`;
+    for (const h of cs.harnesses){
+      html += `<tr><td><strong>${esc(h.harness)}</strong></td>
+        <td>${h.resolved}/${h.n}</td><td>${pct(h.rate)}</td></tr>`;
+    }
+    html += `</tbody></table></div>
+      <p class="note" style="margin-bottom:0">One task is worth <strong>${cs.pp_per_task}pp</strong>
+      here, so a spread of one task or less would be indistinguishable from a coin flip. The
+      measured ${cs.spread_pp}pp gap is about
+      ${Math.round(cs.spread_pp/cs.pp_per_task)} task(s) wide.</p></div></section>`;
+  }
+
+  if (meta.excluded_by_oracle && meta.excluded_by_oracle.length){
+    html += `<div class="warn"><strong>${meta.excluded_by_oracle.length} task(s) excluded from
+      every rate.</strong> Harbor's <code>oracle</code> agent runs each task's own reference
+      solution. Where that reference cannot pass in this environment the task is not measuring
+      agent ability, so it is excluded rather than scored as a zero:
+      ${meta.excluded_by_oracle.map(t=>`<code>${esc(t)}</code>`).join(", ")}.</div>`;
+  }
+
+  for (const m of models){
+    const p = pm[m];
+    const anyCost = p.harnesses.some(h=>(h.cost_usd||0) > 0);
+    html += `<section><div class="shead"><h2>Resolve rate — ${esc(p.model_label)}</h2>
+      <span class="pill mdl">spread ${p.spread_pp}pp</span></div>
+      <p class="note">Fraction of the scored subset each harness solved, one attempt per task.
+      Bars are labelled directly, so the ranking never depends on colour alone.</p>
+      <div class="cards2">
+        <div class="card"><h3>Resolve rate</h3>` +
+        barBlock(p.harnesses, h=>h.resolve_rate, h=>pct(h.resolve_rate),
+          h=>`${h.n_resolved}/${h.n_tasks} solved${h.n_timeouts?` · ${h.n_timeouts} timed out`:""}`,
+          h=>colorOf[h.harness]) +
+      `</div>
+        <div class="card"><h3>${anyCost?"Cost-adjusted — solved per $":"Cost-adjusted — solved per Mtok"}</h3>` +
+        barBlock([...p.harnesses].sort((a,b)=>
+            ((anyCost?b.resolved_per_usd:b.resolved_per_mtok)||0)-((anyCost?a.resolved_per_usd:a.resolved_per_mtok)||0)),
+          h=>(anyCost?h.resolved_per_usd:h.resolved_per_mtok)||0,
+          h=>`${((anyCost?h.resolved_per_usd:h.resolved_per_mtok)||0).toFixed(2)}${anyCost?" / $":" / Mtok"}`,
+          h=>`$${(h.cost_usd||0).toFixed(3)} · ${num(h.tokens_total)} tok · ${num(h.llm_calls)} calls`,
+          h=>colorOf[h.harness]) +
+      `</div></div></section>`;
+  }
+
+  if (d.cross_model){
+    const c = d.cross_model;
+    html += `<section><div class="shead"><h2>Does the ranking survive changing the model?</h2></div>
+      <p class="note">This is the stronger question. A spread that reorders when the model
+      changes is an interaction with that particular model, not a property of the harness.</p>
+      <div class="card">
+        <div class="gridscroll"><table><thead><tr><th>Model</th><th>Ranking (best → worst)</th><th>Spread</th></tr></thead>
+        <tbody>
+          <tr><td><span class="pill mdl">${esc(pm[c.model_a].model_label)}</span></td>
+              <td>${c.ranking_a.map(x=>`<code>${esc(x)}</code>`).join(" › ")}</td>
+              <td>${c.spread_a_pp}pp</td></tr>
+          <tr><td><span class="pill mdl">${esc(pm[c.model_b].model_label)}</span></td>
+              <td>${c.ranking_b.map(x=>`<code>${esc(x)}</code>`).join(" › ")}</td>
+              <td>${c.spread_b_pp}pp</td></tr>
+        </tbody></table></div>
+        <p class="note" style="margin-bottom:0">
+          ${c.identical_ranking
+            ? `The ordering is <strong>identical</strong> under both models.`
+            : `The ordering <strong>changes</strong> between models.`}
+          Pairwise agreement: <strong>${c.pairs_agree}/${c.pairs_total}</strong> harness pairs
+          keep their relative order${c.pairwise_agreement!=null?` (${pct(c.pairwise_agreement)})`:""}.
+          Best harness: <code>${esc(c.best_a)}</code> vs <code>${esc(c.best_b)}</code>.
+        </p>
+      </div></section>`;
+  }
+
+  html += `<section><div class="shead"><h2>Per-cell detail</h2></div>
+   <p class="note">Token counts come from the gateway every harness shared, not from each
+   harness's own reporting — several report nothing usable. <strong>Parse fails</strong> counts
+   the times a harness could not parse the model's own reply against the output contract it
+   imposes; every one is a step spent recovering from the scaffold rather than on the task,
+   and it is a harness-model interaction a resolve rate alone would hide.</p>
+   <div class="card gridscroll"><table><thead><tr>
+     <th>Model</th><th>Harness</th><th>Solved</th><th>Rate</th><th>Prompt</th><th>Cached</th>
+     <th>Output</th><th>Calls</th><th>Cost</th><th>Per $</th><th>Timeouts</th><th>Parse fails</th><th>Not run</th>
+   </tr></thead><tbody>`;
+  for (const m of models) for (const h of pm[m].harnesses){
+    html += `<tr><td><span class="pill mdl">${esc(m)}</span></td>
+      <td><strong>${esc(h.harness)}</strong></td>
+      <td>${h.n_resolved}/${h.n_tasks}</td><td>${pct(h.resolve_rate)}</td>
+      <td>${num(h.prompt_tokens)}</td><td>${num(h.cached_tokens)}</td>
+      <td>${num(h.completion_tokens)}</td><td>${num(h.llm_calls)}</td>
+      <td>$${(h.cost_usd||0).toFixed(3)}</td>
+      <td>${h.resolved_per_usd!=null?h.resolved_per_usd.toFixed(1):"—"}</td>
+      <td>${h.n_timeouts}</td><td>${num(h.parser_warnings)}</td>
+      <td>${h.n_infra_errors}</td></tr>`;
+  }
+  html += `</tbody></table></div></section>`;
+
+  const colKeys = [];
+  for (const m of models) for (const h of pm[m].harnesses) colKeys.push(`${m}__${h.harness}`);
+  html += `<section><div class="shead"><h2>Task × harness</h2></div>
+    <p class="note">The most informative artifact here. If the spread were only noise the
+    columns would agree. Select any cell to read that run's trajectory.</p>
+    <div class="card"><div class="gridscroll"><table><thead>
+      <tr><th></th><th></th><th></th>`;
+  for (const m of models) html += `<th colspan="${pm[m].harnesses.length}" style="text-align:center">${esc(pm[m].model_label)}</th>`;
+  html += `<th></th></tr><tr><th>Task</th><th>Difficulty</th><th>Category</th>`;
+  for (const k of colKeys) html += `<th>${esc(k.split("__")[1])}</th>`;
+  html += `<th>Agreement</th></tr></thead><tbody>`;
+  for (const t of d.tasks){
+    html += `<tr><td class="taskcell">${esc(t.task)}</td>
+      <td><span class="pill">${esc(t.difficulty)}</span></td>
+      <td style="color:var(--ink-2);font-size:.81rem">${esc(t.category)}</td>`;
+    for (const k of colKeys){
+      const c = t.cells[k];
+      let cls="c-none", sym="·", title="not run";
+      if (c){
+        if (c.resolved){ cls="c-pass"; sym="✓"; title="solved"; }
+        else if (c.infra_error){ cls="c-none"; sym="·"; title="not run: "+(c.exception||""); }
+        else if (c.timed_out){ cls="c-time"; sym="⏱"; title="ran out of its time budget"; }
+        else { cls="c-fail"; sym="✗"; title="attempted, not solved"; }
+      }
+      html += `<td><button class="cell ${cls}" data-key="${esc(k)}" data-task="${esc(t.task)}"
+        title="${esc(k)} · ${esc(t.task)} · ${esc(title)}">${sym}</button></td>`;
+    }
+    html += `<td>${t.disputed?`<span class="pill dis">split ${t.n_solved_by}/${t.n_attempted_by}</span>`
+                            :`<span class="pill">${t.n_solved_by}/${t.n_attempted_by}</span>`}</td></tr>`;
+  }
+  html += `</tbody></table></div>
+    <div class="legend">
+      <span><i class="sw c-pass"></i> solved</span>
+      <span><i class="sw c-fail"></i> attempted, not solved</span>
+      <span><i class="sw c-time"></i> ran out of its time budget (counted as a failure)</span>
+      <span><i class="sw c-none"></i> not run / excluded (never counted as a zero)</span>
+    </div>
+    <div id="drill"></div></div></section>`;
+
+  html += `<section><div class="shead"><h2>Run-to-run variance</h2></div>`;
+  if (d.variance && d.variance.length){
+    html += `<p class="note">Repeat runs of the same harness on the same tasks with everything
+      unchanged. Any task that flips between repeats is noise, not harness quality — the spread
+      above only means something to the extent it exceeds this.</p><div class="card">`;
+    for (const v of d.variance){
+      html += `<p style="margin:0 0 10px"><span class="pill mdl">${esc(v.model)}</span>
+        <strong>${esc(v.harness)}</strong>:
+        ${v.reps.map(r=>pct(r.rate)).join(" → ")} (range ${v.rate_range_pp}pp).
+        ${v.n_flips? `${v.n_flips} task${v.n_flips>1?"s":""} flipped outcome:
+          ${v.flips.map(f=>`<code>${esc(f.task)}</code>`).join(", ")}.`
+        : "No task changed outcome between repeats."}</p>`;
+    }
+    html += `</div>`;
+  } else {
+    html += `<p class="note">Not measured. Every harness was run once over the subset, so these
+      results cannot separate the harness spread from run-to-run variance. Treat the ranking as
+      indicative, not settled.</p>`;
+  }
+  html += `</section>`;
+
+  html += `<section><div class="shead"><h2>How this was run</h2></div>
+    <div class="card"><ul>
+      <li><strong>Benchmark:</strong> ${esc(meta.dataset)} — a
+        <strong>${meta.n_tasks}-task subset</strong> of ${meta.total_tasks_in_dataset},
+        picked by a committed seeded script (${meta.selection_seed}) from the
+        ${meta.candidate_pool_size} tasks with an agent budget ≤ ${meta.max_agent_timeout_sec}s,
+        stratified by difficulty and spread across categories, and frozen <em>before</em> any
+        harness ran.</li>
+      <li><strong>Models:</strong> ${(meta.models||[]).map(esc).join(" · ")}. Each sweep pins one
+        model at the gateway, so a harness cannot evaluate anything else.</li>
+      <li><strong>Held constant:</strong> tasks, model, per-task wall-clock budget
+        (${meta.agent_timeout_multiplier}× the task's own limit), container image, and network
+        setup. What varies is the harness — including its own default step limits and prompting,
+        which <em>are</em> the harness.</li>
+      <li><strong>Verification:</strong> each task's own test suite. A reference-solution
+        (<code>oracle</code>) baseline was run through the identical pipeline first, to prove the
+        graders can actually produce a pass in this environment.</li>
+      <li><strong>Metering:</strong> one local OpenAI-compatible gateway billed every call to the
+        harness that made it, by API key.</li>
+      <li><strong>Pricing:</strong> ${esc(meta.price_note)}.</li>
+    </ul></div></section>`;
+
+  $("#app").innerHTML = html;
+  document.querySelectorAll(".cell").forEach(b=>
+    b.addEventListener("click",()=>openDrill(b.dataset.key,b.dataset.task)));
+}
+
+async function openDrill(key, task){
+  const box = $("#drill");
+  box.innerHTML = `<div class="drill"><div class="drillbody"><p class="loading">Loading trajectory…</p></div></div>`;
+  const id = `${key}__${task}`;
+  if (!TRAJ[id]){
+    try{
+      const r = await fetch(`data/trajectories/${id}.json`);
+      TRAJ[id] = r.ok ? await r.json() : {error:`No trajectory committed for this cell (HTTP ${r.status}).`};
+    }catch(e){ TRAJ[id] = {error:e.message}; }
+  }
+  const t = TRAJ[id];
+  const row = DATA.tasks.find(x=>x.task===task);
+  const cell = row && row.cells[key];
+  const status = !cell ? "not run" : cell.resolved ? "solved"
+               : cell.infra_error ? "not run" : cell.timed_out ? "out of time" : "not solved";
+
+  let body="";
+  if (t.error){ body = `<p class="note" style="margin:0">${esc(t.error)}</p>`; }
+  else {
+    if (t.summary) body += `<p class="note" style="margin:0 0 14px">${esc(t.summary)}</p>`;
+    for (const s of (t.steps||[])){
+      body += `<div class="step ${s.source==='agent'?'agent':'note'}">
+        <div class="role">${esc(s.source||"step")}${s.n!=null?` · step ${s.n}`:""}</div>
+        <pre>${esc(s.text)}</pre></div>`;
+    }
+    if (!(t.steps||[]).length) body += `<p class="note" style="margin:0">No trajectory steps recorded.</p>`;
+  }
+
+  box.innerHTML = `<div class="drill">
+    <div class="drillhead">
+      <div><span class="pill mdl">${esc(key.split("__")[0])}</span>
+        <strong>${esc(key.split("__")[1])}</strong> · <code>${esc(task)}</code>
+        <span class="pill" style="margin-left:8px">${esc(status)}</span>
+        ${cell&&cell.n_steps!=null?`<span class="pill" style="margin-left:6px">${cell.n_steps} steps</span>`:""}
+        ${cell&&cell.wall_s!=null?`<span class="pill" style="margin-left:6px">${Math.round(cell.wall_s)}s</span>`:""}
+        ${cell&&cell.parser_warnings?`<span class="pill" style="margin-left:6px">${cell.parser_warnings} parse fails</span>`:""}
+      </div>
+      <button class="closebtn" id="closedrill" type="button">Close</button>
+    </div>
+    <div class="drillbody">${body}</div></div>`;
+  $("#closedrill").addEventListener("click",()=>box.innerHTML="");
+  box.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+</script>
+</body>
+</html>

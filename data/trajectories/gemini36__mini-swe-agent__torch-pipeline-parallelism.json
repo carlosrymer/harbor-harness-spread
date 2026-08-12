@@ -1,0 +1,83 @@
+{
+ "harness": "mini-swe-agent",
+ "task": "torch-pipeline-parallelism",
+ "summary": "44 agent steps \u00b7 535,149 prompt / 18,243 completion tokens as reported by the harness itself",
+ "n_agent_steps": 44,
+ "steps": [
+  {
+   "source": "agent",
+   "n": 3,
+   "text": "$ [tool] {\"command\": \"ls -la /app\"}"
+  },
+  {
+   "source": "agent",
+   "n": 4,
+   "text": "$ [tool] {\"command\": \"find / -name \\\"*test*\\\" 2>/dev/null | grep -E \\\"llama|pipeline\\\"\"}"
+  },
+  {
+   "source": "agent",
+   "n": 5,
+   "text": "$ [tool] {\"command\": \"python3 -c \\\"import torch, transformers; print(torch.__version__, transformers.__version__)\\\"\"}"
+  },
+  {
+   "source": "agent",
+   "n": 6,
+   "text": "$ [tool] {\"command\": \"which python; which python3; find / -name python 2>/dev/null\"}"
+  },
+  {
+   "source": "note",
+   "n": null,
+   "text": "\u2026 30 intermediate steps omitted \u2026"
+  },
+  {
+   "source": "agent",
+   "n": 37,
+   "text": "$ [tool] {\"command\": \"python3 -c \\\"\\nimport inspect\\nfrom transformers.models.llama.modeling_llama import LlamaModel\\nprint(inspect.getsource(LlamaModel.forward))\\n\\\"\"}"
+  },
+  {
+   "source": "agent",
+   "n": 38,
+   "text": "$ [tool] {\"command\": \"python3 -c \\\"\\nimport torch\\nfrom transformers import LlamaConfig, LlamaForCausalLM\\nfrom transformers.models.llama.modeling_llama import create_causal_mask\\n\\nconfig = LlamaConfig(\\n    vocab_size=1000,\\n    hidden_size=64,\\n    intermediate_size=128,\\n    num_hidden_layers=4,\\n    num_attention_heads=4,\\n    num_key_value_heads=4,\\n)\\nmodel = LlamaForCausalLM(config)\\n\\ninput_ids = torch.randint(0, 1000, (2, 8))\\ninputs_embeds = model.model.embed_tokens(input_ids)\\nseq_len = input\n\u2026 [941 more chars]"
+  },
+  {
+   "source": "agent",
+   "n": 39,
+   "text": "$ [tool] {\"command\": \"python3 -c \\\"\\nimport transformers\\nfrom transformers.models.llama import modeling_llama\\n\\nprint(hasattr(modeling_llama, 'create_causal_mask'))\\nprint(hasattr(modeling_llama, '_prepare_4d_causal_attention_mask'))\\n\\\"\"}"
+  },
+  {
+   "source": "agent",
+   "n": 40,
+   "text": "$ [tool] {\"command\": \"python3 -c \\\"\\nimport transformers\\nfrom transformers.models.llama import modeling_llama\\n\\nprint([x for x in dir(modeling_llama) if 'mask' in x.lower() or 'causal' in x.lower()])\\n\\\"\"}"
+  },
+  {
+   "source": "agent",
+   "n": 41,
+   "text": "$ [tool] {\"command\": \"python3 -c \\\"\\nimport torch\\nfrom transformers import LlamaConfig, LlamaForCausalLM\\nfrom transformers.models.llama.modeling_llama import create_causal_mask\\n\\nconfig = LlamaConfig(vocab_size=100, hidden_size=32, num_hidden_layers=2, num_attention_heads=2)\\nmodel = LlamaForCausalLM(config).to(dtype=torch.float32)\\n\\nx = torch.randn(2, 4, 32)\\npos_ids = torch.arange(4).unsqueeze(0)\\ncm = create_causal_mask(config=config, inputs_embeds=x, attention_mask=None, past_key_values=None, pos\n\u2026 [195 more chars]"
+  },
+  {
+   "source": "agent",
+   "n": 42,
+   "text": "$ [tool] {\"command\": \"python3 -c \\\"\\nimport torch\\nfrom transformers import LlamaConfig, LlamaForCausalLM\\nfrom transformers.models.llama.modeling_llama import create_causal_mask\\n\\nconfig = LlamaConfig(vocab_size=100, hidden_size=32, num_hidden_layers=2, num_attention_heads=2)\\nmodel = LlamaForCausalLM(config).to(dtype=torch.float32)\\n\\nx = torch.randn(2, 4, 32)\\npos_ids = torch.arange(4).unsqueeze(0)\\ncm = create_causal_mask(config=config, inputs_embeds=x, attention_mask=None, past_key_values=None, pos\n\u2026 [301 more chars]"
+  },
+  {
+   "source": "agent",
+   "n": 43,
+   "text": "$ [tool] {\"command\": \"python3 -c \\\"\\nimport torch\\nimport torch.distributed as dist\\nimport torch.multiprocessing as mp\\nimport os\\n\\ndef init_process(rank, size, fn):\\n    os.environ['MASTER_ADDR'] = '127.0.0.1'\\n    os.environ['MASTER_PORT'] = '29500'\\n    dist.init_process_group('gloo', rank=rank, world_size=size)\\n    fn(rank, size)\\n    dist.destroy_process_group()\\n\\ndef run(rank, size):\\n    print(f'Rank {rank} of {size}')\\n    if rank == 0:\\n        tensor = torch.tensor([1.0, 2.0, 3.0])\\n\n\u2026 [258 more chars]"
+  },
+  {
+   "source": "agent",
+   "n": 44,
+   "text": "$ [tool] {\"command\": \"cat << 'EOF' > test_mp.py\\nimport os\\nimport torch\\nimport torch.distributed as dist\\nimport torch.multiprocessing as mp\\n\\ndef init_process(rank, size, fn):\\n    os.environ['MASTER_ADDR'] = '127.0.0.1'\\n    os.environ['MASTER_PORT'] = '29500'\\n    dist.init_process_group('gloo', rank=rank, world_size=size)\\n    fn(rank, size)\\n    dist.destroy_process_group()\\n\\ndef run(rank, size):\\n    print(f'Rank {rank} of {size}')\\n    if rank == 0:\\n        tensor = torch.tensor([1.0, 2.0, 3.\n\u2026 [306 more chars]"
+  },
+  {
+   "source": "agent",
+   "n": 45,
+   "text": "$ [tool] {\"command\": \"cat << 'EOF' > test_p2p.py\\nimport os\\nimport torch\\nimport torch.distributed as dist\\nimport torch.multiprocessing as mp\\n\\ndef init_process(rank, size, fn):\\n    os.environ['MASTER_ADDR'] = '127.0.0.1'\\n    os.environ['MASTER_PORT'] = '29501'\\n    dist.init_process_group('gloo', rank=rank, world_size=size)\\n    fn(rank, size)\\n    dist.destroy_process_group()\\n\\ndef run(rank, size):\\n    if rank == 0:\\n        t1 = torch.tensor([1.0, 2.0])\\n        t2 = torch.tensor([3.0, 4.0])\\n\n\u2026 [689 more chars]"
+  },
+  {
+   "source": "agent",
+   "n": 46,
+   "text": "$ [tool] {\"command\": \"cat << 'EOF' > test_pipeline_concept.py\\nimport os\\nimport torch\\nimport torch.nn as nn\\nimport torch.distributed as dist\\nimport torch.multiprocessing as mp\\nfrom transformers import LlamaConfig, LlamaForCausalLM\\nfrom transformers.models.llama.modeling_llama import create_causal_mask\\n\\ndef run_ref(model_ref, inputs, targets, device, dtype):\\n    model_ref.zero_grad()\\n    num_mb = len(inputs)\\n    total_loss = 0.0\\n    for mb in range(num_mb):\\n        inp = inputs[mb].to(device)\n\u2026 [5,142 more chars]"
+  }
+ ]
+}

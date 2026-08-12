@@ -1,0 +1,23 @@
+{
+ "harness": "aider",
+ "task": "db-wal-recovery",
+ "n_agent_steps": null,
+ "summary": "No structured trajectory from this harness \u2014 showing its own transcript (aider.txt, 810 lines).",
+ "steps": [
+  {
+   "source": "agent",
+   "n": null,
+   "text": "Warning: Input is not a terminal (fd=0).\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nWarning for openai/bench-model: Unknown context window size and costs, using\nsane defaults.\nYou can skip this check with --no-show-model-warnings\n\nhttps://aider.chat/docs/llms/warnings.html\n\nAider v0.86.2\nModel: openai/bench-model with whole edit format\nGit repo: none\nRepo-map: disabled\n\n\nhttps://aider.chat/HISTORY.html#release-notes\n\nI have analyzed the request and determined that a Python recovery script\n/app/recover.py needs to be created.\n\nExplanation of Changes:\n\n 1 WAL Decryption & Repair (try_decrypt_wal & WAL header/frame processing):\n    \u2022 Detects XOR encryption or byte inversion on the WAL file by matching\n      expected SQLite WAL magic bytes (0x377f0682 / 0x377f0683).\n    \u2022 Fixes page size and salt values across WAL frame headers.\n    \u2022 Sets valid commit page counts (db_size) on transaction commit frames.\n    \u2022 Recomputes cumulative WAL checksums (wal_checksum) for the WAL header and\n      all frames so SQLite recognizes the WAL data as valid.\n    \u2022 Cleans up stale -shm index files to force SQLite to index the repaired\n      WAL."
+  },
+  {
+   "source": "note",
+   "n": null,
+   "text": "\u2026 710 lines omitted \u2026"
+  },
+  {
+   "source": "agent",
+   "n": null,
+   "text": "\n            elif len(vals) == 2:\n\n                fallback_results.append({\n\n                    \"id\": rowid,\n\n                    \"name\": str(vals[0]),\n\n                    \"value\": vals[1]\n\n                })\n\n            elif len(vals) >= 1:\n\n                fallback_results.append({\n\n                    \"id\": rowid,\n\n                    \"name\": f\"item{rowid}\",\n\n                    \"value\": vals[0]\n\n                })\n\n\n\n        if len(fallback_results) > len(results):\n\n            results = fallback_results\n\n\n\n    results.sort(key=lambda x: x.get('id', 0))\n\n\n\n    out_path = '/app/recovered.json' if os.path.exists('/app') else\n'recovered.json'\n\n    with open(out_path, 'w') as f:\n\n        json.dump(results, f, indent=2)\n\n\n\n    if os.path.exists('/app') and out_path != '/app/recovered.json':\n\n        with open('/app/recovered.json', 'w') as f:\n\n            json.dump(results, f, indent=2)\n\n\n\nif __name__ == '__main__':\n\n    main()\n\n\n\nmain()\n\n\nTokens: 757 sent, 3.6k received.\n\n/app/recover.py\nApplied edit to /app/recover.py\nSummarization failed for model openai/bench-model: cannot schedule new futures after shutdown\nSummarization failed for model openai/bench-model: cannot schedule new futures after shutdown\nsummarizer unexpectedly failed for all models"
+  }
+ ]
+}
